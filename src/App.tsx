@@ -161,7 +161,7 @@ export function App() {
 
         <div className="progress-block">
           <div className="progress-label">
-            <span>下个目标</span>
+            <span>购买进度</span>
             <span>{Math.floor(progressToUpgrade)}%</span>
           </div>
           <p className="goal-hint">{goalHint}</p>
