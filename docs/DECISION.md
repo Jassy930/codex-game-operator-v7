@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-The game is playable and publicly previewable, but the fixed `0 / 2` auto-collector milestone loses direction before the first minute ends.
+The game grants offline progress through save/load, but the player is not told how much was earned while away.
 
 ## Evidence
 
@@ -17,10 +17,12 @@ The game is playable and publicly previewable, but the fixed `0 / 2` auto-collec
 - The UI shows current auto collector count, but not progress toward an early milestone.
 - `docs/METRICS.md` lists desired session and first-upgrade metrics, but only feedback-click telemetry exists.
 - A 60-second simulation with one click per second reaches 2 auto collectors at 23 seconds and 3 auto collectors at 39 seconds.
+- `docs/NORTH_STAR.md` says the player should feel progress continues when they step away.
+- `hydrateGameState` applies elapsed passive production, but the UI does not report the offline gain.
 
 ## Current Decision
 
-Replace the fixed early milestone with a UI-only dynamic auto-collector milestone. Do not add rewards, resources, or new systems.
+Show a small local return message when offline progress adds star dust. Do not add a new resource or reward system.
 
 ## Implementation Record
 
@@ -128,6 +130,17 @@ Replace the fixed early milestone with a UI-only dynamic auto-collector mileston
 - Simulation: with one click per second, auto collectors are purchased at 10s, 23s, and 39s.
 - Gap: `0 / 2` milestone becomes stale before the 60-second mark.
 - Decision: make auto-collector milestone targets dynamic: 2, then 5, then rolling 5-step targets.
+
+2026-05-06 SELF_PLAYTEST cycle 5 selected:
+
+- Gap: offline progress exists mechanically but is invisible on return.
+- Decision: expose the offline star dust gain as a small return message.
+
+2026-05-06 SELF_PLAYTEST cycle 5 result:
+
+- Added `hydrateGameStateWithReport` to report offline star dust gain.
+- Added a small UI message when offline progress adds star dust.
+- No new resource or reward system was added.
 
 ## Input Source
 

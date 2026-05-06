@@ -8,6 +8,11 @@ export type GameState = {
   lastUpdatedAt: number;
 };
 
+export type HydratedGameState = {
+  state: GameState;
+  offlineDust: number;
+};
+
 const SAVE_VERSION = 1;
 const AUTO_COLLECTOR_BASE_COST = 10;
 const AUTO_COLLECTOR_GROWTH = 1.5;
@@ -67,20 +72,34 @@ export function serializeGameState(state: GameState): string {
 }
 
 export function hydrateGameState(saved: string | null, now = Date.now()): GameState {
+  return hydrateGameStateWithReport(saved, now).state;
+}
+
+export function hydrateGameStateWithReport(
+  saved: string | null,
+  now = Date.now(),
+): HydratedGameState {
   if (!saved) {
-    return createGameState(now);
+    return {
+      state: createGameState(now),
+      offlineDust: 0,
+    };
   }
 
   try {
     const parsed = JSON.parse(saved) as Partial<GameState>;
     if (parsed.version !== SAVE_VERSION) {
-      return createGameState(now);
+      return {
+        state: createGameState(now),
+        offlineDust: 0,
+      };
     }
 
-    return tickGame(
+    const dustBeforeOffline = numberOr(parsed.dust, 0);
+    const state = tickGame(
       {
         version: SAVE_VERSION,
-        dust: numberOr(parsed.dust, 0),
+        dust: dustBeforeOffline,
         dustPerClick: numberOr(parsed.dustPerClick, 1),
         dustPerSecond: numberOr(parsed.dustPerSecond, 0),
         autoCollectors: numberOr(parsed.autoCollectors, 0),
@@ -92,8 +111,16 @@ export function hydrateGameState(saved: string | null, now = Date.now()): GameSt
       },
       now,
     );
+
+    return {
+      state,
+      offlineDust: round(Math.max(0, state.dust - dustBeforeOffline)),
+    };
   } catch {
-    return createGameState(now);
+    return {
+      state: createGameState(now),
+      offlineDust: 0,
+    };
   }
 }
 

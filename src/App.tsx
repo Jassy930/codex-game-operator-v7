@@ -4,10 +4,11 @@ import {
   buyAutoCollector,
   clickForDust,
   createGameState,
-  hydrateGameState,
+  hydrateGameStateWithReport,
   serializeGameState,
   tickGame,
   type GameState,
+  type HydratedGameState,
 } from "./game";
 import {
   recordPlayerClick,
@@ -20,7 +21,9 @@ import { getAutoCollectorMilestone } from "./milestones";
 const SAVE_KEY = "stardust-workshop-save-v1";
 
 export function App() {
-  const [state, setState] = useState<GameState>(() => loadGame());
+  const [loadedGame] = useState<HydratedGameState>(() => loadGame());
+  const [state, setState] = useState<GameState>(loadedGame.state);
+  const [offlineDust] = useState(loadedGame.offlineDust);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -100,6 +103,12 @@ export function App() {
           <small>每秒 +{formatNumber(state.dustPerSecond)}</small>
         </div>
 
+        {offlineDust > 0 ? (
+          <p className="offline-gain" aria-live="polite">
+            离线获得 {formatNumber(offlineDust)} 星尘
+          </p>
+        ) : null}
+
         <div className="action-row">
           <button className="primary-action" onClick={handleCollectClick}>
             采集 +{formatNumber(state.dustPerClick)}
@@ -152,12 +161,15 @@ export function App() {
   );
 }
 
-function loadGame(): GameState {
+function loadGame(): HydratedGameState {
   if (typeof window === "undefined") {
-    return createGameState(0);
+    return {
+      state: createGameState(0),
+      offlineDust: 0,
+    };
   }
 
-  return hydrateGameState(window.localStorage.getItem(SAVE_KEY));
+  return hydrateGameStateWithReport(window.localStorage.getItem(SAVE_KEY));
 }
 
 function formatNumber(value: number): string {

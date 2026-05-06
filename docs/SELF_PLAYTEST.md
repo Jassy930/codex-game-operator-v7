@@ -37,6 +37,18 @@ Gap: show progress toward a small early auto-collector milestone without adding 
 
 Gap: a fixed `0 / 2` milestone is completed before the first minute ends and then stops giving direction.
 
+2026-05-06 North Star return check. This is not real player feedback.
+
+- Save/load applies passive production for elapsed time.
+- The UI says “自动保存”, but does not tell returning players what was earned while away.
+
+Gap: offline progress should be visible when it adds star dust.
+
+2026-05-06 offline progress follow-up. This is not real player feedback.
+
+- Save/load can now report how much star dust was earned while away.
+- Returning players see a small “离线获得 … 星尘” message only when offline gain is positive.
+
 ## Checklist
 
 ### First 10 seconds
@@ -58,4 +70,4 @@ Gap: a fixed `0 / 2` milestone is completed before the first minute ends and the
 
 ## Next Improvement Candidate
 
-Use dynamic early auto-collector milestones so the first minute keeps a visible next target without adding rewards.
+Continue self-playtest with local metrics and avoid adding new resource systems.

@@ -14,3 +14,4 @@
 - Corrected local metrics so session counters reset when a new app session starts.
 - Added local-only session end and session duration metrics.
 - Changed the auto-collector milestone from fixed `2` to dynamic targets so early progress continues after the second collector.
+- Added a return message that shows star dust earned from offline progress.

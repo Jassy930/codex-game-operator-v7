@@ -3,6 +3,7 @@ import {
   clickForDust,
   createGameState,
   hydrateGameState,
+  hydrateGameStateWithReport,
   serializeGameState,
   tickGame,
 } from "./game";
@@ -75,5 +76,20 @@ describe("core idle loop", () => {
     expect(loaded.dust).toBe(11);
     expect(loaded.autoCollectors).toBe(1);
     expect(loaded.lastUpdatedAt).toBe(31_000);
+  });
+
+  it("reports how much dust was earned offline", () => {
+    const saved = serializeGameState({
+      ...createGameState(1_000),
+      dust: 5,
+      autoCollectors: 1,
+      dustPerSecond: 0.2,
+      nextAutoCollectorCost: 15,
+    });
+
+    const loaded = hydrateGameStateWithReport(saved, 31_000);
+
+    expect(loaded.state.dust).toBe(11);
+    expect(loaded.offlineDust).toBe(6);
   });
 });
