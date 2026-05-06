@@ -20,6 +20,14 @@ Gap: first upgrade cost wording should state the unit and intent more clearly.
 
 Gap: the first objective should be stated directly in one short line.
 
+2026-05-06 research-backed follow-up. This is not real player feedback.
+
+- First 10 seconds: the first goal line gives the player a direct objective.
+- First 30 seconds: the upgrade cost and progress bar are readable.
+- First 60 seconds: early generator progress still benefits from a visible milestone before any new system is introduced.
+
+Gap: show progress toward a small early auto-collector milestone without adding rewards.
+
 ## Checklist
 
 ### First 10 seconds
@@ -41,4 +49,4 @@ Gap: the first objective should be stated directly in one short line.
 
 ## Next Improvement Candidate
 
-Add one short first-goal line near the progress area before adding systems.
+Keep improving early progress feedback before adding systems.

@@ -2,35 +2,36 @@
 
 ## Selected Mode
 
-RESEARCH
+SELF_PLAYTEST
 
 ## Reason
 
-The game is playable, publicly previewable, and has a feedback path. No real feedback exists, and the next product question is unclear: whether to improve early progress feedback or add mechanics.
+The game is playable, publicly previewable, and has a feedback path. Research selected early progress feedback as the next improvement before new mechanics.
 
 ## Allowed Actions
 
-- Research one product question.
-- Update `docs/RESEARCH.md`.
-- Produce one decision in `docs/DECISION.md`.
-- Do not implement directly from research.
+- Evaluate first 10/30/60 seconds.
+- Implement one small early progress feedback improvement.
+- Update `docs/SELF_PLAYTEST.md`.
+- Keep the change UI-only.
 
 ## Forbidden Actions
 
-- Do not copy content.
-- Do not implement features in RESEARCH mode.
-- Do not treat research as backlog.
+- Do not add new resources.
+- Do not add reward milestones.
+- Do not add new panels.
 - Do not reply to issues.
 
 ## Exit Criteria
 
-- A research-backed decision exists in `docs/DECISION.md`.
-- `docs/RESEARCH.md` records question, sources, principles, decision impact, and what not to copy.
+- One small progress feedback improvement is implemented.
+- Any implemented fix remains inside complexity budget.
+- Local checks pass.
 
 ## Drift Status
 
-No drift detected. The next action is research only.
+No drift detected. The next change is UI-only early progress feedback.
 
 ## Last Updated
 
-2026-05-06: RESEARCH exit criteria met. `docs/RESEARCH.md` records the question, sources, principles, decision impact, and what not to copy.
+2026-05-06: SELF_PLAYTEST cycle 3 exit criteria met locally; UI-only milestone progress is implemented and checks pass.

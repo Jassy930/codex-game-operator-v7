@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-The game is playable and publicly previewable, but early progress feedback is still thin after the first goal is stated.
+The game is playable and publicly previewable, but early generator progress lacks a visible milestone.
 
 ## Evidence
 
@@ -14,10 +14,11 @@ The game is playable and publicly previewable, but early progress feedback is st
 - The screen still relies on the upgrade button and progress bar to imply the first objective.
 - After cycle 2, the first objective is stated directly.
 - `docs/RESEARCH.md` recommends early progress feedback before new mechanics.
+- The UI shows current auto collector count, but not progress toward an early milestone.
 
 ## Current Decision
 
-Prioritize a minimal early progress feedback improvement before adding new mechanics. The next implementation cycle may add a small milestone/progress affordance for the first and second auto collector, provided it stays within complexity budget.
+Add a UI-only early milestone line for reaching 2 auto collectors. Do not add rewards, resources, or new panels.
 
 ## Implementation Record
 
@@ -87,9 +88,19 @@ Prioritize a minimal early progress feedback improvement before adding new mecha
 - Decision: improve early progress feedback before adding mechanics.
 - Rationale: sources emphasize simple first objectives, visible production/cost balance, steady progression, and frequent feedback as idle-game fundamentals.
 
+2026-05-06 SELF_PLAYTEST cycle 3 selected:
+
+- Implement a UI-only milestone progress line for 0/2, 1/2, and 2/2 auto collectors.
+- No milestone reward is allowed in this cycle.
+
+2026-05-06 SELF_PLAYTEST cycle 3 result:
+
+- Added a UI-only “里程碑：0 / 2 台自动采集器” line.
+- The milestone has no reward and does not add a new system.
+
 ## Input Source
 
-Research question.
+Self-playtest gap backed by research.
 
 ## Linked Signals
 

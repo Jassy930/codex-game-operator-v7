@@ -33,6 +33,7 @@ export function App() {
   const progressToUpgrade = useMemo(() => {
     return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
   }, [state.dust, state.nextAutoCollectorCost]);
+  const milestoneProgress = Math.min(state.autoCollectors, 2);
   const feedbackUrl = useMemo(() => createFeedbackIssueUrl(), []);
 
   function handleFeedbackClick() {
@@ -77,6 +78,9 @@ export function App() {
             <span>{Math.floor(progressToUpgrade)}%</span>
           </div>
           <p className="goal-hint">目标：攒够星尘，购买第一个自动采集器</p>
+          <p className="milestone-hint">
+            里程碑：{milestoneProgress} / 2 台自动采集器
+          </p>
           <div className="progress-track" aria-hidden="true">
             <div style={{ width: `${progressToUpgrade}%` }} />
           </div>

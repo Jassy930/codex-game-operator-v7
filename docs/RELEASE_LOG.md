@@ -9,3 +9,4 @@
 - Published the first GitHub Pages preview at `https://jassy930.github.io/codex-game-operator-v7/`.
 - Clarified the first upgrade button copy so the cost reads as required star dust.
 - Added a short first-goal line that tells players to save star dust for the first auto collector.
+- Added a UI-only early milestone line for reaching 2 auto collectors.
