@@ -6,33 +6,33 @@ SIMPLIFY
 
 ## Reason
 
-当前没有开放 GitHub Issues。`docs/METRICS.md` 仍有多处英文说明，不符合“文档使用中文”的仓库约束；本轮只做指标文档语言收口，保留 metric key 原文。
+当前没有开放 GitHub Issues。`docs/SELF_PLAYTEST.md` 仍有大量英文说明，不符合“文档使用中文”的仓库约束；本轮只做 self-playtest 文档语言收口。
 
 ## Allowed Actions
 
-- 中文化 `docs/METRICS.md` 的说明文字。
-- 保留 storage key 和 metric key 原文。
+- 中文化 `docs/SELF_PLAYTEST.md` 的说明文字。
+- 保留已有 self-playtest 事实和 gap。
 - 更新相关治理记录。
 - 不改变代码行为。
 
 ## Forbidden Actions
 
-- 不新增指标。
-- 不改 storage key。
-- 不上传 telemetry。
+- 不改写历史结论。
+- 不伪造真实玩家反馈。
+- 不新增产品决策。
 - 不改变代码行为。
 
 ## Exit Criteria
 
-- `docs/METRICS.md` 的说明文字已中文化。
-- metric key 和 storage key 保持不变。
+- `docs/SELF_PLAYTEST.md` 的说明文字已中文化。
+- 已有事实、gap 和下一候选保持语义不变。
 - 治理检查通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-发现轻微文档语言漂移。本轮只允许 metrics 文档语言收口。
+发现轻微文档语言漂移。本轮只允许 self-playtest 文档语言收口。
 
 ## Last Updated
 
-2026-05-06: SIMPLIFY `docs/METRICS.md` 说明已中文化，key 原文保留；`./ops/governor-check.sh` 和 `git diff --check` 通过。
+2026-05-06: SIMPLIFY `docs/SELF_PLAYTEST.md` 说明已中文化，历史事实和 gap 语义保持不变；`./ops/governor-check.sh` 和 `git diff --check` 通过。

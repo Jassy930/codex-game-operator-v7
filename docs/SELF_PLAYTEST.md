@@ -1,53 +1,53 @@
 # Self Playtest
 
-Self-playtest is the primary input source when no real feedback exists and the game is runnable.
+当没有真实玩家反馈且游戏可运行时，self-playtest 是主要输入来源。它不等同于真实玩家反馈。
 
-## Latest Result
+## 最新结果
 
-2026-05-06 self-playtest from local/public preview inspection. This is not real player feedback.
+2026-05-06 本地/公开预览检查。这不是真实玩家反馈。
 
-- First 10 seconds: player can see “星尘” and the primary “采集” action immediately.
-- First 30 seconds: first upgrade is visible, but its button text only shows `10`; the UI does not explicitly say this is a star dust cost.
-- First 60 seconds: after buying the first auto collector, passive growth is visible through “每秒 +0.2”.
+- 前 10 秒：玩家能立即看到“星尘”和主要“采集”动作。
+- 前 30 秒：第一个升级可见，但按钮文案只显示 `10`，没有明确说明这是星尘成本。
+- 前 60 秒：购买第一台自动采集器后，玩家能通过“每秒 +0.2”看到被动增长。
 
-Gap: first upgrade cost wording should state the unit and intent more clearly.
+Gap: 第一个升级成本文案应更清楚地说明单位和意图。
 
-2026-05-06 follow-up self-playtest. This is not real player feedback.
+2026-05-06 后续 self-playtest。这不是真实玩家反馈。
 
-- First 10 seconds: the main click action is still clear.
-- First 30 seconds: the cost wording is clearer after the previous fix.
-- First 60 seconds: the player can infer the first goal from the button and progress bar, but no single sentence states “save for the first auto collector.”
+- 前 10 秒：主要点击动作仍然清楚。
+- 前 30 秒：上一次修复后，成本文案更清楚。
+- 前 60 秒：玩家能从按钮和进度条推断第一个目标，但没有一句话直接说明“攒够星尘购买第一台自动采集器”。
 
-Gap: the first objective should be stated directly in one short line.
+Gap: 第一个目标应由一句短文案直接说明。
 
-2026-05-06 research-backed follow-up. This is not real player feedback.
+2026-05-06 研究支撑的后续检查。这不是真实玩家反馈。
 
-- First 10 seconds: the first goal line gives the player a direct objective.
-- First 30 seconds: the upgrade cost and progress bar are readable.
-- First 60 seconds: early generator progress still benefits from a visible milestone before any new system is introduced.
+- 前 10 秒：首目标文案给玩家直接目标。
+- 前 30 秒：升级成本和进度条可读。
+- 前 60 秒：在引入任何新系统前，早期 generator 进度仍需要可见里程碑支撑。
 
-Gap: show progress toward a small early auto-collector milestone without adding rewards.
+Gap: 在不增加奖励的前提下，展示早期自动采集器小里程碑进度。
 
-2026-05-06 metrics-assisted simulation. This is not real player feedback.
+2026-05-06 本地指标辅助模拟。这不是真实玩家反馈。
 
-- Simulated one click per second for 60 seconds.
-- First auto collector purchased at 10 seconds.
-- Second auto collector purchased at 23 seconds.
-- Third auto collector purchased at 39 seconds.
+- 模拟 60 秒内每秒点击一次。
+- 第 10 秒购买第一台自动采集器。
+- 第 23 秒购买第二台自动采集器。
+- 第 39 秒购买第三台自动采集器。
 
-Gap: a fixed `0 / 2` milestone is completed before the first minute ends and then stops giving direction.
+Gap: 固定 `0 / 2` 里程碑会在第一分钟结束前完成，之后不再提供方向。
 
-2026-05-06 North Star return check. This is not real player feedback.
+2026-05-06 North Star 回访检查。这不是真实玩家反馈。
 
-- Save/load applies passive production for elapsed time.
-- The UI says “自动保存”, but does not tell returning players what was earned while away.
+- Save/load 会按离开时间应用被动产出。
+- UI 写着“自动保存”，但没有告诉回访玩家离开期间获得了什么。
 
-Gap: offline progress should be visible when it adds star dust.
+Gap: 离线进度增加星尘时，应让玩家看见收益。
 
-2026-05-06 offline progress follow-up. This is not real player feedback.
+2026-05-06 离线进度后续检查。这不是真实玩家反馈。
 
-- Save/load can now report how much star dust was earned while away.
-- Returning players see a small “离线获得 … 星尘” message only when offline gain is positive.
+- Save/load 现在能报告离开期间获得了多少星尘。
+- 只有离线收益为正时，回访玩家会看到小型“离线获得 … 星尘”提示。
 
 2026-05-06 本地指标辅助目标文案检查。这不是真实玩家反馈。
 
@@ -66,25 +66,25 @@ Gap: 购买第一台自动采集器后，目标提示应该更新。
 
 Gap: 购买自动采集器后应显示短暂、非打断式确认反馈。
 
-## Checklist
+## 检查清单
 
-### First 10 seconds
+### 前 10 秒
 
-- Does the player know what to click?
-- Is resource growth visible?
-- Is there immediate feedback?
+- 玩家是否知道要点击什么？
+- 资源增长是否可见？
+- 是否有即时反馈？
 
-### First 30 seconds
+### 前 30 秒
 
-- Can the player reach or understand the first upgrade?
-- Is the next goal visible?
+- 玩家是否能到达或理解第一个升级？
+- 下一个目标是否可见？
 
-### First 60 seconds
+### 前 60 秒
 
-- Does the player understand the core loop?
-- Is there a reason to continue?
-- Is UI complexity within budget?
+- 玩家是否理解核心循环？
+- 是否有继续游玩的理由？
+- UI 复杂度是否仍在预算内？
 
-## Next Improvement Candidate
+## 下一候选改进
 
 在添加新资源系统之前，继续验证购买反馈是否足够清晰且不过度打扰。
