@@ -20,6 +20,22 @@ bun run dev
 
 游戏首屏提供“反馈”链接，打开 GitHub Issue 新建页。点击反馈时，游戏只在浏览器本地记录 `feedback_clicked` 事件队列，不上传隐私数据。
 
+## 外部 Playtest 邀请
+
+需要真实玩家反馈时，优先在站外复用这段邀请，不要在游戏首屏增加弹窗或新提示：
+
+```text
+请试玩“星尘工坊”公开预览：
+https://jassy930.github.io/codex-game-operator-v7/
+
+目标：自然游玩前 60 秒，记录哪里不清楚或卡住。测试的是游戏，不是玩家。
+
+反馈入口：
+https://github.com/Jassy930/codex-game-operator-v7/issues/new?template=feedback.yml
+
+边界：不需要联系方式；项目不会上传 telemetry，不使用外部 analytics SDK，不做跨设备追踪。
+```
+
 ## 公开预览
 
 GitHub Pages 工作流位于 `.github/workflows/deploy-pages.yml`。推送 `main` 后会安装 Bun 依赖、运行 `bun test`、运行 `bun run test`、构建 Vite 静态产物，并部署到：

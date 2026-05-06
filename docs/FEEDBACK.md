@@ -14,6 +14,10 @@
 
 不要伪造反馈。新的 GitHub Issues 必须先通过 `docs/SIGNAL_ROUTING.md` 和 `docs/ISSUE_LEDGER.md` 路由，之后才能影响产品决策。
 
+## External Playtest Invitation
+
+站外邀请可复用 README 中的“外部 Playtest 邀请”。邀请只应指向公开预览和单一 GitHub Issue Form，不新增问卷、邮件、Discord、录屏上传或 analytics。
+
 ## In-Game Path
 
 - Primary path: `https://github.com/Jassy930/codex-game-operator-v7/issues/new?template=feedback.yml`
@@ -29,3 +33,4 @@
 - App 只能本地记录玩家点击了反馈链接。
 - App 不能确认玩家是否最终提交 GitHub Issue。
 - 不通过外部追踪或猜测方式生成 `feedback_sent`。
+- 外部 playtest 邀请不是玩家反馈本身；只有真实提交的 GitHub Issue 或明确手动反馈才能进入 `docs/ISSUE_LEDGER.md`。

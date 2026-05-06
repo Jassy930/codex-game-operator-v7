@@ -2,36 +2,36 @@
 
 ## Selected Mode
 
-RESEARCH
+FEEDBACK_INFRA
 
 ## Reason
 
-当前没有开放 GitHub Issues。上一轮 SELF_PLAYTEST 未发现 issue form 入口破坏前 60 秒节奏，也不建议继续在首屏解释反馈表单。产品问题转为：如何在不打断游戏首屏、不新增追踪、不新增第二反馈渠道的前提下，邀请外部 playtest 并获得真实反馈。
+当前没有开放 GitHub Issues。上一轮 RESEARCH 决策明确：下一步候选是补站外 playtest 邀请素材，不改游戏首屏，不新增反馈渠道或追踪。该素材属于反馈基础设施文档维护。
 
 ## Allowed Actions
 
-- 围绕一个问题做 web research。
-- 更新 `docs/RESEARCH.md`。
-- 在 `docs/DECISION.md` 记录一个研究支撑的决策。
+- 更新 README 或反馈文档中的站外 playtest 邀请素材。
+- 保留公开预览 URL 和单一 GitHub Issue Form 链接。
+- 更新 `docs/FEEDBACK.md`、`docs/DECISION.md`、`docs/RELEASE_LOG.md`。
 - 只允许文档变更。
 
 ## Forbidden Actions
 
-- 不直接实现游戏代码或 UI 改动。
+- 不改游戏代码或首屏 UI。
 - 不新增反馈渠道、analytics SDK、上传路径、个人数据或跨设备追踪。
-- 不把研究结论伪装成真实玩家反馈。
+- 不把 playtest 邀请伪装成真实玩家反馈。
 - 不回复 issue。
 
 ## Exit Criteria
 
-- `docs/RESEARCH.md` 记录研究问题、来源/观察、原则、决策影响和不可复制内容。
-- `docs/DECISION.md` 记录一个研究支撑的决策。
+- README 或反馈文档包含可直接复用的 playtest 邀请素材。
+- 邀请素材只指向公开预览和单一 GitHub Issue Form。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮禁止新增玩法或反馈入口，只研究外部 playtest 邀请方式。
+未发现玩法漂移。本轮只允许补站外 playtest 邀请素材，不允许新增游戏 UI 或第二反馈入口。
 
 ## Last Updated
 
@@ -54,3 +54,7 @@ RESEARCH
 2026-05-06: 切换到 RESEARCH；研究如何在不打扰首屏、不加追踪和不新增渠道的前提下邀请外部 playtest。
 
 2026-05-06: RESEARCH 完成；决策为下一步候选补站外 playtest 邀请素材，反馈仍回到单一 GitHub Issue Form。
+
+2026-05-06: 切换到 FEEDBACK_INFRA；补 README/反馈文档中的站外 playtest 邀请素材。
+
+2026-05-06: FEEDBACK_INFRA 实施完成；README 已包含站外 playtest 邀请素材，只指向公开预览和单一 GitHub Issue Form。

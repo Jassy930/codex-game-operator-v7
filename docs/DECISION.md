@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览和单一 GitHub Issue Form 已存在，但仍没有真实玩家反馈。当前最大问题是缺少外部 playtest 邀请素材；后续不能把表单存在误判为已经获得反馈。
+公开预览、单一 GitHub Issue Form 和站外 playtest 邀请素材已存在，但仍没有真实玩家反馈。后续不能把邀请素材存在误判为已经获得反馈。
 
 ## Evidence
 
@@ -58,10 +58,11 @@
 - issue form 后续 self-playtest 显示：反馈入口仍是底部单一链接，未点击时不打断采集、购买、进度或里程碑。
 - Playtest 研究建议先定义目标玩家，用少量代表性玩家发现问题，并把邀请放在站外上下文，而不是打断游戏内核心循环。
 - 独立游戏预发布实验常受参与者获取、偏差和资源限制影响，早期更依赖 qualitative data。
+- README 已包含站外 playtest 邀请素材，指向公开预览和单一 GitHub Issue Form。
 
 ## Current Decision
 
-下一步候选是补一个站外 playtest 邀请素材，而不是改游戏首屏。邀请应只包含公开预览 URL、同一个 `feedback.yml` issue form 链接、前 60 秒研究问题和隐私边界；继续不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
+保持站外 playtest 邀请素材，不把它放进游戏首屏。真实反馈仍必须来自 GitHub Issue 或明确手动反馈，并先进入 `docs/ISSUE_LEDGER.md`；继续不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
 
 ## Implementation Record
 
@@ -334,6 +335,12 @@
 - 研究问题：如何在不打扰首屏、不新增追踪或渠道的前提下邀请外部 playtest。
 - 决策：下一步候选是站外 playtest 邀请素材，不是游戏内提示或新反馈渠道。
 - 约束：反馈仍回到单一 GitHub Issue Form；不收集个人数据，不要求联系方式，不做量化结论。
+
+2026-05-06 FEEDBACK_INFRA external playtest invitation:
+
+- README 新增可复用的站外 playtest 邀请素材。
+- 邀请只指向公开预览和单一 GitHub Issue Form。
+- 文档明确：邀请素材不是玩家反馈，真实反馈仍需进入 issue ledger。
 
 ## Input Source
 
