@@ -25,3 +25,4 @@
 - 收口反馈入口文档与 issue ledger 说明，使其匹配当前 GitHub Issue 反馈流。
 - 记录研究结论：无真实反馈时优先降低反馈成本，不新增玩法系统。
 - GitHub Issue 反馈正文改为聚焦“前 60 秒哪里不清楚”。
+- 中文化 metrics 文档说明，保留 storage key 和 metric key 原文。

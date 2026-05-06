@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览后仍没有真实反馈，现有反馈正文需要更聚焦前 60 秒清晰度。
+`docs/METRICS.md` 仍有英文说明文字，不符合仓库文档语言约束。
 
 ## Evidence
 
@@ -36,10 +36,11 @@
 - 2026-05-06 研究记录显示：self-playtest 只能抓明显问题，公开 playtest/外部玩家反馈更适合发现隐藏问题。
 - 外部研究建议早期反馈问题应保持窄范围，避免一次性征求过宽反馈。
 - 当前 GitHub Issue 反馈正文仍偏泛，不能直接引导玩家报告“前 60 秒哪里不清楚”。
+- `docs/METRICS.md` 的 storage key 和 metric key 需要保留英文标识，但说明文字可以中文化。
 
 ## Current Decision
 
-更新现有 GitHub Issue 预填正文，直接询问“前 60 秒哪里不清楚”。保持一个反馈渠道，不新增站内提交系统，不改变 telemetry。
+中文化 `docs/METRICS.md` 的说明文字，同时保留 storage key 和 metric key 原文。不改变代码、指标结构或隐私边界。
 
 ## Implementation Record
 
@@ -238,6 +239,12 @@
 - Gap: 反馈 Issue 正文仍偏泛，未直接询问前 60 秒哪里不清楚。
 - Decision: 将预填正文聚焦到前 60 秒清晰度，并保留“当时想做什么”和“其他补充”。
 - 约束：不新增反馈渠道，不上传 telemetry，不记录 `feedback_sent`。
+
+2026-05-06 SIMPLIFY metrics doc language:
+
+- Gap: `docs/METRICS.md` 说明文字仍混用英文。
+- Decision: 中文化说明文字，保留 storage key 和 metric key 原文。
+- 约束：不改变代码、指标结构、storage key 或隐私边界。
 
 ## Input Source
 
