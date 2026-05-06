@@ -227,6 +227,50 @@ Update this file when either is true:
 
 若仍没有真实反馈，下一轮优先 `SELF_PLAYTEST` 重新评估当前 playable experience，而不是继续只做文档语言收口。
 
+## 2026-05-06 Retrospective 6
+
+### Window
+
+从购买反馈布局/文案收口，到 Pages actions 升级、发布基础设施收尾、self-playtest no-change 决策和反馈表单研究。
+
+### What Changed
+
+- 为离线收益和购买确认保留稳定事件区域。
+- 将购买进度标签从“下个目标”改为“购买进度”。
+- 升级 GitHub Pages workflow actions，并确认后续文档提交的 Pages workflow 成功。
+- 记录 self-playtest no-change 决策，避免继续添加首屏提示。
+- 研究确认：下一步反馈改进候选是单一 GitHub Issue Form。
+
+### What Improved
+
+- 发布基础设施不再依赖 Node24 强制兼容开关。
+- 前 60 秒 UI 更稳定，购买反馈不再推动下方控件。
+- 运行文档明确记录了“不改代码”的合理场景。
+- 反馈改进方向从“更多入口”收敛为“同一入口更结构化”。
+
+### What Got Worse
+
+- 连续文档提交较多，仍会触发 Pages workflow。
+- 仍没有真实玩家反馈；研究只能降低获取信号的摩擦，不能替代真实反馈。
+
+### Drift Check
+
+- repeated issue replies: 无。
+- issue-driven thrashing: 无，没有开放 issue。
+- feature bloat: 无，没有新增玩法、资源、奖励或面板。
+- lack of tests: 无，代码变更已有测试；文档变更通过治理检查。
+- unclear North Star: 无，仍围绕前 60 秒清晰度、反馈入口和可发布性。
+- harness friction: 无，未削弱治理约束。
+
+### Harness Lessons
+
+- no-change 决策也要记录，否则长期运营容易把“继续工作”误解为“继续加 UI”。
+- 当反馈为空且 self-playtest 没有明确 gap 时，下一步应研究信号质量，而不是扩大玩法。
+
+### Next Operating Mode
+
+若仍没有真实反馈，下一轮可进入 `FEEDBACK_INFRA` 风格的受限反馈入口维护，实施单一 GitHub Issue Form；若出现 issue，进入 `OPERATE` 并先更新 `docs/ISSUE_LEDGER.md`。
+
 ## Template
 
 ```md

@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览已经可访问，且最新 self-playtest 没有发现足够具体的新增改动 gap。当前最大问题是缺少真实玩家反馈，而不是缺少更多首屏提示或玩法系统。
+公开预览已经可访问，且最新 self-playtest 没有发现足够具体的新增改动 gap。当前最大问题是现有 GitHub Issue 反馈入口仍偏自由文本，可能无法稳定产生可路由的前 60 秒信号。
 
 ## Evidence
 
@@ -50,10 +50,13 @@
 - `gh issue list --state open` returned no open issues on 2026-05-06 after the Pages workflow upgrade.
 - 发布基础设施收尾后的 self-playtest 显示：前 60 秒的现有提示都围绕星尘、采集、自动采集器、购买进度、目标和里程碑。
 - 同一首屏已经包含资源、事件区域、双动作、进度、目标、里程碑、统计和反馈入口，继续添加提示会增加 UI 噪音。
+- GitHub issue form 支持 YAML 表单、输入类型、校验、默认标题和默认 labels。
+- GitHub `issues/new` URL 支持 `template` 参数，并可预填 issue form 自定义字段。
+- 可用性测试资料建议避免引导性问题、yes/no 问题和泄露完成路径的任务 wording。
 
 ## Current Decision
 
-本轮 SELF_PLAYTEST 不实现代码改动。下一步如果没有真实反馈，应优先进入 RESEARCH 或 SIMPLIFY 判断如何获取/路由真实反馈，或如何收敛 UI 信息；不新增玩法系统、资源、奖励或新面板。
+下一步候选应保持单一 GitHub Issues 反馈渠道，但把当前自由文本 issue body 迁移到一个前 60 秒反馈用的 GitHub Issue Form。该候选只改善信号结构，不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
 
 ## Implementation Record
 
@@ -301,6 +304,12 @@
 - 前 60 秒核心循环提示已覆盖当前阶段的主要问题。
 - 继续添加首屏提示会增加复杂度，不一定提升真实玩家理解。
 - 决策：本轮不改代码；后续优先寻找真实反馈或研究反馈转化/信息收敛问题。
+
+2026-05-06 RESEARCH issue form signal quality:
+
+- 研究问题：如何提高现有 GitHub Issue 反馈路径的信号质量，而不是新增渠道或追踪。
+- 决策：下一步候选是单一 GitHub Issue Form，字段聚焦前 60 秒阻塞点和玩家意图。
+- 约束：保留 local-only telemetry 边界；不记录 `feedback_sent`，不要求个人联系方式，不新增 SDK。
 
 ## Input Source
 

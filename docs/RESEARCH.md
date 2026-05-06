@@ -2,7 +2,47 @@
 
 ## Current Research
 
-2026-05-06 - 无真实反馈后的下一步。
+2026-05-06 - 现有反馈入口的信号质量。
+
+## 2026-05-06 - 现有反馈入口的信号质量
+
+### Question
+
+公开预览存在但仍没有真实反馈时，如何在不新增 analytics SDK、上传路径、强制弹窗或第二反馈渠道的前提下，让现有 GitHub Issue 反馈更容易产生可路由的前 60 秒信号？
+
+### Sources / Observations
+
+- GitHub Docs 说明 issue form 可以在仓库的 `/.github/ISSUE_TEMPLATE` 中用 YAML 定义，并支持不同输入类型、校验、默认标题和默认 labels；提交后的回答会转换为普通 issue body。
+- GitHub Docs 还说明 `issues/new` URL 可以带 `template` 参数，并可预填 issue form 中定义的自定义文本字段。
+- UserTesting / UserZoom 的非引导问题指南强调：避免引导性问题、避免 yes/no 问题、一次只问一个问题，并用直接但不暗示答案的表述。
+- UserTesting 的反馈偏差指南强调：任务 wording 过于直接会让用户照着指令走，而不是暴露界面是否可理解；目标应明确，但不要泄露完成路径。
+- Department of Product 的 usability task 指南强调：任务应服务于研究问题、保持简单，并避免在任务文字里告诉用户应该点击哪里。
+
+Sources:
+
+- https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
+- https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/creating-an-issue
+- https://help.usertesting.com/hc/en-us/articles/4402111012369-Write-non-leading-questions
+- https://help.usertesting.com/hc/en-us/articles/11880401159709-Avoid-bias-when-collecting-feedback
+- https://www.departmentofproduct.com/blog/how-to-write-tasks-for-usability-testing/
+
+### General Principles
+
+- 不要新增第二反馈渠道；先提升现有 GitHub Issue 流程的结构化程度。
+- 反馈问题应聚焦一个研究目标：前 60 秒哪里阻塞或不清楚。
+- 表单字段应要求玩家描述“发生了什么”和“当时想做什么”，避免暗示某个 UI 元素一定有问题。
+- 可以用少量枚举字段帮助路由，例如卡在采集、购买、目标、离线收益、反馈入口或其他；但枚举不能替代开放描述。
+- 不应把表单做成问卷、满意度评分或强制弹窗。
+
+### Decision Impact
+
+下一步候选不是新增玩法或 analytics，而是把现有 GitHub Issue 反馈链接迁移到单一 GitHub Issue Form。该表单应保留 `feedback` label，围绕前 60 秒设置 2-3 个必填字段，并继续让 App 只记录 `feedback_clicked`，不记录提交完成、不上传 telemetry。
+
+### What Not To Copy
+
+- 不复制长问卷、满意度评分、NPS、录屏或外部用户研究平台。
+- 不把表单字段设计成“这个按钮是否难找”这类暗示答案的问题。
+- 不新增站内提交系统、登录要求、外部 SDK 或个人联系方式字段。
 
 ## 2026-05-06 - 无真实反馈后的下一步
 

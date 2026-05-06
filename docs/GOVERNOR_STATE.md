@@ -2,39 +2,44 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+RESEARCH
 
 ## Reason
 
-当前没有开放 GitHub Issues。上一轮 RELEASE_INFRA 已完成：GitHub Pages workflow run `25430225912` 成功，公开预览 `https://jassy930.github.io/codex-game-operator-v7/` 返回 HTTP 200。游戏可公开预览但仍缺少真实玩家反馈，因此下一轮回到 self-playtest，继续检查前 10/30/60 秒体验。
+当前没有开放 GitHub Issues。上一轮 SELF_PLAYTEST 未发现足够具体的新增改动 gap；继续添加首屏提示会增加 UI 噪音。产品问题转为：公开预览存在但没有真实反馈时，如何在不新增 analytics SDK、上传路径、强制弹窗或第二反馈渠道的前提下，获得更有用的前 60 秒反馈。
 
 ## Allowed Actions
 
-- 评估前 10/30/60 秒体验。
-- 更新 `docs/SELF_PLAYTEST.md`。
-- 记录一个具体 gap 到 `docs/DECISION.md`。
-- 只允许小范围 UI/文案清晰度改进。
+- 围绕一个问题做 web research。
+- 更新 `docs/RESEARCH.md`。
+- 在 `docs/DECISION.md` 记录一个研究支撑的决策。
+- 只允许文档变更。
 
 ## Forbidden Actions
 
-- 不新增资源、prestige、奖励系统或新面板。
-- 不把 self-playtest 伪装成真实玩家反馈。
+- 不直接实现功能或改游戏代码。
+- 不复制外部内容。
+- 不新增反馈渠道、analytics SDK、上传路径、个人数据或跨设备追踪。
+- 不把研究结论当成真实玩家反馈。
 - 不回复 issue。
-- 不新增外部 analytics、上传路径或个人数据收集。
 
 ## Exit Criteria
 
-- 一个 self-playtest gap 已记录，或明确记录本轮未发现足够具体的 gap。
-- 若改代码：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
-- 若只改文档：`./ops/governor-check.sh` 通过。
+- `docs/RESEARCH.md` 记录研究问题、来源/观察、原则、决策影响和不可复制内容。
+- `docs/DECISION.md` 记录一个研究支撑的决策。
+- `./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。下一轮只允许围绕现有点击、星尘、自动采集器、保存/离线收益和反馈入口做清晰度检查。
+未发现玩法漂移。本轮禁止新增玩法或反馈渠道，只允许研究如何提高现有反馈路径的信号质量。
 
 ## Last Updated
 
 2026-05-06: RELEASE_INFRA 收尾完成；workflow run `25430225912` 成功，公开预览 HTTP 200，工作区检查无未提交变更。切换到 SELF_PLAYTEST。
 
 2026-05-06: SELF_PLAYTEST 只读检查完成；未发现足够具体的新增改动 gap。记录 no-change 决策，避免为了迭代而增加首屏提示或玩法系统。
+
+2026-05-06: 切换到 RESEARCH；研究问题限定为提高现有 GitHub Issue 反馈路径的信号质量，不新增跟踪、上传、弹窗或渠道。
+
+2026-05-06: RESEARCH 完成；记录单一 GitHub Issue Form 作为下一步反馈入口候选，继续禁止新增 analytics、上传路径、个人数据、强制弹窗或第二渠道。
