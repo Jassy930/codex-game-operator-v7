@@ -138,17 +138,13 @@ export function App() {
           <small>每秒 +{formatNumber(state.dustPerSecond)}</small>
         </div>
 
-        {offlineDust > 0 ? (
-          <p className="offline-gain" aria-live="polite">
-            离线获得 {formatNumber(offlineDust)} 星尘
-          </p>
-        ) : null}
+        <div className="event-stack" aria-live="polite">
+          {offlineDust > 0 ? (
+            <p className="offline-gain">离线获得 {formatNumber(offlineDust)} 星尘</p>
+          ) : null}
 
-        {purchaseMessage ? (
-          <p className="purchase-feedback" aria-live="polite">
-            {purchaseMessage}
-          </p>
-        ) : null}
+          {purchaseMessage ? <p className="purchase-feedback">{purchaseMessage}</p> : null}
+        </div>
 
         <div className="action-row">
           <button className="primary-action" onClick={handleCollectClick}>

@@ -28,3 +28,4 @@
 - 中文化 metrics 文档说明，保留 storage key 和 metric key 原文。
 - 中文化 self-playtest 文档说明，保留已记录事实和 gap。
 - 中文化 roadmap 文档说明，保留 M0-M5 里程碑结构。
+- 为离线收益和购买确认保留稳定事件反馈区域，减少购买瞬间布局跳动。

@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-`docs/ROADMAP.md` 仍有英文说明和条目，不符合仓库文档语言约束。
+购买反馈消息会在出现时推动布局，影响前 60 秒操作稳定性。
 
 ## Evidence
 
@@ -39,10 +39,12 @@
 - `docs/METRICS.md` 的 storage key 和 metric key 需要保留英文标识，但说明文字可以中文化。
 - `docs/SELF_PLAYTEST.md` 记录的是关键运营输入，应优先保持中文可读。
 - `docs/ROADMAP.md` 是高层导航文档，应保持中文可读，同时保留 M0-M5 结构。
+- 购买自动采集器后会插入短暂确认反馈。
+- 当前首屏没有为离线收益或购买确认预留稳定消息区域。
 
 ## Current Decision
 
-中文化 `docs/ROADMAP.md` 的说明文字，保留 M0-M5 里程碑结构，不把 roadmap 改成任务清单。
+为离线收益和购买确认提供稳定的事件反馈区域，减少购买瞬间的布局跳动。不新增面板、奖励或玩法系统。
 
 ## Implementation Record
 
@@ -259,6 +261,12 @@
 - Gap: `docs/ROADMAP.md` 说明和条目仍以英文为主。
 - Decision: 中文化说明文字，保留 M0-M5 里程碑结构。
 - 约束：不新增里程碑，不把 roadmap 改成任务清单，不改变代码。
+
+2026-05-06 SELF_PLAYTEST event slot:
+
+- Gap: 购买确认反馈以条件渲染插入，会推动下方控件。
+- Decision: 为离线收益和购买确认提供稳定的 `event-stack` 区域。
+- 约束：UI-only，不新增面板、奖励、资源或反馈渠道。
 
 ## Input Source
 
