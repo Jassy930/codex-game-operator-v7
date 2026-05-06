@@ -98,6 +98,48 @@ Update this file when either is true:
 
 若没有真实反馈，继续 `SELF_PLAYTEST`，用本地指标辅助判断下一处前 60 秒缺口；若出现 issue，进入 `OPERATE`。
 
+## 2026-05-06 Retrospective 3
+
+### Window
+
+从本地指标基础设施成型，到离线收益提示、动态里程碑、动态目标文案和下一步购买反馈研究。
+
+### What Changed
+
+- 动态里程碑替代固定 `0 / 2`，避免前 60 秒中途变成过期目标。
+- 返回游戏时显示离线获得的星尘，并记录本地 offline reward 指标。
+- 购买第一台自动采集器后，目标提示会继续指向下一台自动采集器。
+- 新增研究结论：下一步优先增强购买自动采集器后的轻量确认反馈。
+
+### What Improved
+
+- 前 60 秒的目标指引更少过期信息。
+- 返回体验更符合 North Star 中“离开后进度仍在继续”的要求。
+- 下一步候选仍限定在 UI-only 反馈，不扩展资源、奖励或经济系统。
+
+### What Got Worse
+
+- release-log 和治理文档继续快速增长，需要后续保持精简。
+- GitHub Actions 仍出现 Node.js 20 deprecation annotation；当前通过 Node 24 强制运行成功。
+
+### Drift Check
+
+- repeated issue replies: 无。
+- issue-driven thrashing: 无，没有开放 issue。
+- feature bloat: 无，未新增资源、奖励系统、prestige 或新面板。
+- lack of tests: 无，动态目标文案已有渲染回归测试。
+- unclear North Star: 无，仍围绕前 60 秒清晰度和稳定增长反馈。
+- harness friction: 无，`METRICS_INFRA` 与 `RESEARCH` 边界清楚。
+
+### Harness Lessons
+
+- 每轮 self-playtest 修复后，如果下一步产品方向不清楚，应进入 `RESEARCH`，避免脑补功能。
+- release-log 达到 5 条时要及时 retrospective，否则治理状态会失真。
+
+### Next Operating Mode
+
+若没有真实反馈，下一轮可进入 `SELF_PLAYTEST` 验证购买动作反馈缺口；若出现 issue，进入 `OPERATE` 并先更新 `docs/ISSUE_LEDGER.md`。
+
 ## Template
 
 ```md
