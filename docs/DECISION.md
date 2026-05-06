@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览已经可访问，且反馈入口已改为单一 GitHub Issue Form。当前最大问题仍是没有真实玩家反馈；后续不能把表单存在误判为已经获得反馈。
+公开预览已经可访问，反馈入口已改为单一 GitHub Issue Form，后续 self-playtest 未发现该入口破坏前 60 秒节奏。当前最大问题仍是没有真实玩家反馈；后续不能把表单存在误判为已经获得反馈。
 
 ## Evidence
 
@@ -55,10 +55,11 @@
 - 可用性测试资料建议避免引导性问题、yes/no 问题和泄露完成路径的任务 wording。
 - `.github/ISSUE_TEMPLATE/feedback.yml` 已聚焦前 60 秒阻塞点、玩家意图和发生步骤。
 - `createFeedbackIssueUrl()` 已指向 `issues/new?template=feedback.yml`。
+- issue form 后续 self-playtest 显示：反馈入口仍是底部单一链接，未点击时不打断采集、购买、进度或里程碑。
 
 ## Current Decision
 
-保持单一 GitHub Issues 反馈渠道，并使用 `feedback.yml` issue form 提高前 60 秒反馈的可路由性。继续只记录 local-only `feedback_clicked`，不记录 `feedback_sent`，不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
+保持单一 GitHub Issues 反馈渠道和 `feedback.yml` issue form。本轮不继续在首屏解释反馈表单；继续只记录 local-only `feedback_clicked`，不记录 `feedback_sent`，不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
 
 ## Implementation Record
 
@@ -319,6 +320,12 @@
 - 游戏内反馈 URL 指向 `issues/new?template=feedback.yml`。
 - 保留单一 GitHub Issues 渠道和 local-only `feedback_clicked`。
 - 不新增个人信息字段、上传路径、analytics SDK 或 `feedback_sent`。
+
+2026-05-06 SELF_PLAYTEST issue form no-change result:
+
+- 反馈入口仍在底部，未新增首屏说明文字。
+- GitHub Issue Form 只在玩家主动点击后出现。
+- 决策：不继续修改游戏代码；等待真实反馈或新的研究问题。
 
 ## Input Source
 
