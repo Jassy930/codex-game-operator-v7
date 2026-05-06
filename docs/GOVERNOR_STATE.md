@@ -2,38 +2,38 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+RELEASE_INFRA
 
 ## Reason
 
-当前没有开放 GitHub Issues。前 60 秒中同时存在目标文案、购买进度和里程碑；进度条标签“下个目标”偏泛，容易和目标文案/里程碑混淆。
+当前没有开放 GitHub Issues。Pages workflow 每次部署仍出现 Node.js 20 deprecation annotation；GitHub Actions 已提供更新的 Pages action 版本，应维护发布基础设施。
 
 ## Allowed Actions
 
-- 评估前 10/30/60 秒体验。
-- 修复一个小型文案清晰度问题。
-- 更新 self-playtest 和决策文档。
-- 添加或更新测试。
+- 更新 GitHub Pages workflow。
+- 使用当前 action release 版本。
+- 运行本地测试和构建。
+- 推送后确认 Pages workflow。
 
 ## Forbidden Actions
 
-- 不添加大型功能。
-- 不添加新资源系统。
-- 不改变经济数值。
-- 不新增面板或反馈渠道。
+- 不改玩法代码。
+- 不新增部署平台。
+- 不降低测试或构建门槛。
+- 不回复 issue。
 
 ## Exit Criteria
 
-- 进度条标签明确表示购买进度。
-- 相关测试通过。
-- 文档和发布记录已更新。
+- Pages workflow 使用更新的 actions 版本。
+- 本地测试和构建通过。
+- 推送后 Pages workflow 成功。
 - 治理检查通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现复杂度超标。本轮只允许 UI 文案清晰度修复。
+未发现玩法漂移。本轮只允许发布基础设施维护。
 
 ## Last Updated
 
-2026-05-06: SELF_PLAYTEST 购买进度标签文案已更新；`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 均通过。
+2026-05-06: RELEASE_INFRA GitHub Pages actions 已升级；`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 均通过，等待推送后确认 workflow。

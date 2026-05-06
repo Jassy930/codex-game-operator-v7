@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-进度条标签“下个目标”偏泛，容易和目标文案/里程碑混淆。
+GitHub Pages workflow 仍使用会触发 Node.js 20 deprecation annotation 的 actions 版本。
 
 ## Evidence
 
@@ -43,10 +43,12 @@
 - 当前首屏没有为离线收益或购买确认预留稳定消息区域。
 - 进度条实际表达的是攒够下一次购买成本的百分比。
 - 同一块区域已经同时显示目标文案和自动采集器里程碑。
+- 最新 workflow run 仍显示 Node.js 20 deprecation annotation。
+- GitHub API 返回的最新 action release 包括 `actions/checkout@v6.0.2`、`actions/configure-pages@v6.0.0`、`actions/upload-pages-artifact@v5.0.0`、`actions/deploy-pages@v5.0.0`。
 
 ## Current Decision
 
-将进度条标签从“下个目标”改为“购买进度”。不改变数值、布局、经济或玩法。
+升级 GitHub Pages workflow 使用当前 actions release，并移除 `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24`。不改变游戏代码或测试门槛。
 
 ## Implementation Record
 
@@ -275,6 +277,12 @@
 - Gap: “下个目标”无法区分购买进度、目标文案和里程碑。
 - Decision: 将进度条标签改为“购买进度”。
 - 约束：只改文案，不改变数值、布局、经济或玩法。
+
+2026-05-06 RELEASE_INFRA action upgrade:
+
+- Gap: Pages workflow 仍出现 Node.js 20 deprecation annotation。
+- Decision: 升级 checkout/configure-pages/upload-pages-artifact/deploy-pages 到 GitHub API 返回的当前 release。
+- 约束：不降低测试、构建或部署门槛，不改变游戏代码。
 
 ## Input Source
 
