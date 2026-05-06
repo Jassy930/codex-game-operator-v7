@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览已经可访问，且最新 self-playtest 没有发现足够具体的新增改动 gap。当前最大问题是现有 GitHub Issue 反馈入口仍偏自由文本，可能无法稳定产生可路由的前 60 秒信号。
+公开预览已经可访问，且反馈入口已改为单一 GitHub Issue Form。当前最大问题仍是没有真实玩家反馈；后续不能把表单存在误判为已经获得反馈。
 
 ## Evidence
 
@@ -53,10 +53,12 @@
 - GitHub issue form 支持 YAML 表单、输入类型、校验、默认标题和默认 labels。
 - GitHub `issues/new` URL 支持 `template` 参数，并可预填 issue form 自定义字段。
 - 可用性测试资料建议避免引导性问题、yes/no 问题和泄露完成路径的任务 wording。
+- `.github/ISSUE_TEMPLATE/feedback.yml` 已聚焦前 60 秒阻塞点、玩家意图和发生步骤。
+- `createFeedbackIssueUrl()` 已指向 `issues/new?template=feedback.yml`。
 
 ## Current Decision
 
-下一步候选应保持单一 GitHub Issues 反馈渠道，但把当前自由文本 issue body 迁移到一个前 60 秒反馈用的 GitHub Issue Form。该候选只改善信号结构，不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
+保持单一 GitHub Issues 反馈渠道，并使用 `feedback.yml` issue form 提高前 60 秒反馈的可路由性。继续只记录 local-only `feedback_clicked`，不记录 `feedback_sent`，不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
 
 ## Implementation Record
 
@@ -310,6 +312,13 @@
 - 研究问题：如何提高现有 GitHub Issue 反馈路径的信号质量，而不是新增渠道或追踪。
 - 决策：下一步候选是单一 GitHub Issue Form，字段聚焦前 60 秒阻塞点和玩家意图。
 - 约束：保留 local-only telemetry 边界；不记录 `feedback_sent`，不要求个人联系方式，不新增 SDK。
+
+2026-05-06 FEEDBACK_INFRA issue form implementation:
+
+- 新增 `.github/ISSUE_TEMPLATE/feedback.yml`。
+- 游戏内反馈 URL 指向 `issues/new?template=feedback.yml`。
+- 保留单一 GitHub Issues 渠道和 local-only `feedback_clicked`。
+- 不新增个人信息字段、上传路径、analytics SDK 或 `feedback_sent`。
 
 ## Input Source
 

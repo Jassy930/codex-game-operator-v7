@@ -1,0 +1,44 @@
+name: 前 60 秒反馈
+description: 反馈星尘工坊第一分钟里不清楚或卡住的地方
+title: "玩家反馈：星尘工坊"
+labels: [feedback]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请记录一次真实游玩感受。重点是前 60 秒哪里不清楚，不需要写联系方式。
+  - type: textarea
+    id: unclear
+    attributes:
+      label: 前 60 秒哪里不清楚？
+      description: 描述你看到什么、哪里卡住，或哪里和预期不一致。
+      placeholder: 例如：我不知道什么时候该买自动采集器。
+    validations:
+      required: true
+  - type: textarea
+    id: intent
+    attributes:
+      label: 你当时想做什么？
+      description: 描述你下一步本来想完成的事。
+      placeholder: 例如：我想提高每秒星尘，但不确定按钮是否值得点。
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 主要发生在哪一步？
+      options:
+        - 采集星尘
+        - 购买自动采集器
+        - 目标提示
+        - 购买进度或里程碑
+        - 离线收益
+        - 反馈入口
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: other
+    attributes:
+      label: 其他补充
+      description: 可选。补充任何对理解问题有帮助的信息。

@@ -9,18 +9,7 @@ export type FeedbackEvent = {
 
 export function createFeedbackIssueUrl(): string {
   const params = new URLSearchParams({
-    labels: "feedback",
-    title: "玩家反馈：星尘工坊",
-    body: [
-      "## 前 60 秒哪里不清楚？",
-      "",
-      "例如：采集、购买自动采集器、目标提示、离线收益、反馈入口。",
-      "",
-      "## 你当时想做什么？",
-      "",
-      "## 其他补充",
-      "",
-    ].join("\n"),
+    template: "feedback.yml",
   });
 
   return `https://github.com/${FEEDBACK_REPOSITORY}/issues/new?${params.toString()}`;

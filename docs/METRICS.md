@@ -21,7 +21,7 @@
 
 ## 延后指标
 
-- feedback_sent: 延后到反馈在 App 内提交，或 GitHub 提供可靠且隐私安全的确认路径后再评估。当前反馈链接会在新标签页打开 GitHub Issues，App 只能记录 `feedback_clicked`。
+- feedback_sent: 延后到反馈在 App 内提交，或 GitHub 提供可靠且隐私安全的确认路径后再评估。当前反馈链接会在新标签页打开 GitHub Issue Form，App 只能记录 `feedback_clicked`。
 
 ## 指标缺口
 

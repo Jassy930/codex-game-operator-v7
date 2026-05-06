@@ -231,7 +231,7 @@ Update this file when either is true:
 
 ### Window
 
-从购买反馈布局/文案收口，到 Pages actions 升级、发布基础设施收尾、self-playtest no-change 决策和反馈表单研究。
+从购买反馈布局/文案收口，到 Pages actions 升级、发布基础设施收尾、self-playtest no-change 决策、反馈表单研究和 issue form 实施。
 
 ### What Changed
 
@@ -240,13 +240,14 @@ Update this file when either is true:
 - 升级 GitHub Pages workflow actions，并确认后续文档提交的 Pages workflow 成功。
 - 记录 self-playtest no-change 决策，避免继续添加首屏提示。
 - 研究确认：下一步反馈改进候选是单一 GitHub Issue Form。
+- 新增 `feedback.yml` issue form，并让游戏内反馈链接指向它。
 
 ### What Improved
 
 - 发布基础设施不再依赖 Node24 强制兼容开关。
 - 前 60 秒 UI 更稳定，购买反馈不再推动下方控件。
 - 运行文档明确记录了“不改代码”的合理场景。
-- 反馈改进方向从“更多入口”收敛为“同一入口更结构化”。
+- 反馈改进方向从“更多入口”收敛为“同一入口更结构化”，并已落到单一 GitHub Issue Form。
 
 ### What Got Worse
 
@@ -269,7 +270,7 @@ Update this file when either is true:
 
 ### Next Operating Mode
 
-若仍没有真实反馈，下一轮可进入 `FEEDBACK_INFRA` 风格的受限反馈入口维护，实施单一 GitHub Issue Form；若出现 issue，进入 `OPERATE` 并先更新 `docs/ISSUE_LEDGER.md`。
+若仍没有真实反馈，下一轮优先观察是否出现 GitHub Issue；若出现 issue，进入 `OPERATE` 并先更新 `docs/ISSUE_LEDGER.md`。若继续无反馈，回到 `SELF_PLAYTEST` 或 `RESEARCH`，不要新增第二反馈渠道。
 
 ## Template
 

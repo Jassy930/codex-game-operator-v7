@@ -2,37 +2,37 @@
 
 ## Selected Mode
 
-RESEARCH
+FEEDBACK_INFRA
 
 ## Reason
 
-当前没有开放 GitHub Issues。上一轮 SELF_PLAYTEST 未发现足够具体的新增改动 gap；继续添加首屏提示会增加 UI 噪音。产品问题转为：公开预览存在但没有真实反馈时，如何在不新增 analytics SDK、上传路径、强制弹窗或第二反馈渠道的前提下，获得更有用的前 60 秒反馈。
+当前没有开放 GitHub Issues。上一轮 RESEARCH 决策明确：下一步反馈改进候选是单一 GitHub Issue Form，用同一个 GitHub Issues 渠道提高前 60 秒反馈的结构化程度，而不是新增 analytics SDK、上传路径、强制弹窗或第二反馈渠道。
 
 ## Allowed Actions
 
-- 围绕一个问题做 web research。
-- 更新 `docs/RESEARCH.md`。
-- 在 `docs/DECISION.md` 记录一个研究支撑的决策。
-- 只允许文档变更。
+- 添加单一 GitHub Issue Form。
+- 更新游戏内反馈链接，使其指向该 form。
+- 更新反馈、指标、决策和发布文档。
+- 添加/更新测试，验证反馈链接仍为单一 GitHub issue 创建入口。
 
 ## Forbidden Actions
 
-- 不直接实现功能或改游戏代码。
-- 不复制外部内容。
 - 不新增反馈渠道、analytics SDK、上传路径、个人数据或跨设备追踪。
-- 不把研究结论当成真实玩家反馈。
+- 不记录 `feedback_sent` 或猜测 issue 是否提交。
+- 不要求玩家填写联系方式。
+- 不改玩法、资源、经济数值或 UI 主循环。
 - 不回复 issue。
 
 ## Exit Criteria
 
-- `docs/RESEARCH.md` 记录研究问题、来源/观察、原则、决策影响和不可复制内容。
-- `docs/DECISION.md` 记录一个研究支撑的决策。
-- `./ops/governor-check.sh` 通过。
+- GitHub issue form 存在，且字段聚焦前 60 秒阻塞点。
+- App 反馈链接指向该 issue form。
+- `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮禁止新增玩法或反馈渠道，只允许研究如何提高现有反馈路径的信号质量。
+未发现玩法漂移。本轮只允许改进现有反馈路径，不允许新增玩法或第二反馈渠道。
 
 ## Last Updated
 
@@ -43,3 +43,7 @@ RESEARCH
 2026-05-06: 切换到 RESEARCH；研究问题限定为提高现有 GitHub Issue 反馈路径的信号质量，不新增跟踪、上传、弹窗或渠道。
 
 2026-05-06: RESEARCH 完成；记录单一 GitHub Issue Form 作为下一步反馈入口候选，继续禁止新增 analytics、上传路径、个人数据、强制弹窗或第二渠道。
+
+2026-05-06: 切换到 FEEDBACK_INFRA；实施单一 GitHub Issue Form，保持反馈入口仍为同一 GitHub Issues 渠道。
+
+2026-05-06: FEEDBACK_INFRA 实施完成；反馈 URL 指向 `feedback.yml` issue form，继续只记录 local-only `feedback_clicked`。

@@ -32,3 +32,4 @@
 - 将进度条标签从“下个目标”改为“购买进度”，减少目标/里程碑语义混淆。
 - 升级 GitHub Pages workflow actions，移除 Node24 强制兼容开关。
 - 记录研究结论：下一步反馈改进候选是单一 GitHub Issue Form，而不是新增反馈渠道或 analytics。
+- 将游戏内反馈链接迁移到单一 GitHub Issue Form，字段聚焦前 60 秒阻塞点和玩家意图。

@@ -2,7 +2,7 @@
 
 ## Summary
 
-目前还没有真实玩家反馈。游戏内反馈链接会打开 GitHub Issues 新建页，并预填 label、title 和 body。
+目前还没有真实玩家反馈。游戏内反馈链接会打开 GitHub Issues 新建页，并使用仓库内的 `feedback.yml` issue form 收集前 60 秒清晰度反馈。
 
 ## Sources
 
@@ -16,10 +16,11 @@
 
 ## In-Game Path
 
-- Primary path: `https://github.com/Jassy930/codex-game-operator-v7/issues/new`
+- Primary path: `https://github.com/Jassy930/codex-game-operator-v7/issues/new?template=feedback.yml`
+- Template: `.github/ISSUE_TEMPLATE/feedback.yml`
 - Label: `feedback`
 - Title: `玩家反馈：星尘工坊`
-- Body: 询问玩家“前 60 秒哪里不清楚”、当时想做什么和其他补充。
+- Fields: 前 60 秒哪里不清楚、当时想做什么、主要发生在哪一步、其他补充。
 - Local event: `feedback_clicked`
 - Storage key: `stardust-workshop-feedback-events-v1`
 
