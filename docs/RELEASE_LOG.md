@@ -27,3 +27,4 @@
 - GitHub Issue 反馈正文改为聚焦“前 60 秒哪里不清楚”。
 - 中文化 metrics 文档说明，保留 storage key 和 metric key 原文。
 - 中文化 self-playtest 文档说明，保留已记录事实和 gap。
+- 中文化 roadmap 文档说明，保留 M0-M5 里程碑结构。

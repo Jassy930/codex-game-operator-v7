@@ -185,6 +185,48 @@ Update this file when either is true:
 
 若没有真实反馈，下一轮优先 `SELF_PLAYTEST` 检查购买反馈和整体 UI 是否开始接近复杂度上限；若出现 issue，进入 `OPERATE`。
 
+## 2026-05-06 Retrospective 5
+
+### Window
+
+从无真实反馈后的研究，到反馈正文聚焦和核心运行文档中文化。
+
+### What Changed
+
+- 研究确认：没有真实反馈时，优先降低反馈成本，而不是新增玩法系统。
+- GitHub Issue 反馈正文改为聚焦“前 60 秒哪里不清楚”。
+- 中文化 `docs/METRICS.md`、`docs/SELF_PLAYTEST.md` 和 `docs/ROADMAP.md` 的说明文字。
+- 保留 metric key、storage key 和 M0-M5 roadmap 结构。
+
+### What Improved
+
+- 反馈入口更容易产生可路由的前 60 秒清晰度信号。
+- 关键运行文档更符合中文文档约束。
+- 文档收口没有改变代码行为、玩法、指标结构或反馈渠道。
+
+### What Got Worse
+
+- 文档维护占用了多个小提交。
+- 仍没有真实玩家反馈，下一步不应继续无限中文化低优先级文档而忽视 playable experience。
+
+### Drift Check
+
+- repeated issue replies: 无。
+- issue-driven thrashing: 无，没有开放 issue。
+- feature bloat: 无，本窗口只有一次反馈正文改动和文档收口。
+- lack of tests: 无，反馈正文改动有测试，文档变更通过治理检查。
+- unclear North Star: 无，仍围绕前 60 秒清晰度和真实反馈获取。
+- harness friction: 无，文档语言收口未削弱治理约束。
+
+### Harness Lessons
+
+- 文档中文化应优先处理高频运行文档，避免把所有文档翻译变成无边界任务。
+- 反馈正文需要聚焦具体问题，才能把点击转化为有用 signal。
+
+### Next Operating Mode
+
+若仍没有真实反馈，下一轮优先 `SELF_PLAYTEST` 重新评估当前 playable experience，而不是继续只做文档语言收口。
+
 ## Template
 
 ```md

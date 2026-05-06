@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-`docs/SELF_PLAYTEST.md` 仍有英文说明文字，不符合仓库文档语言约束。
+`docs/ROADMAP.md` 仍有英文说明和条目，不符合仓库文档语言约束。
 
 ## Evidence
 
@@ -38,10 +38,11 @@
 - 当前 GitHub Issue 反馈正文仍偏泛，不能直接引导玩家报告“前 60 秒哪里不清楚”。
 - `docs/METRICS.md` 的 storage key 和 metric key 需要保留英文标识，但说明文字可以中文化。
 - `docs/SELF_PLAYTEST.md` 记录的是关键运营输入，应优先保持中文可读。
+- `docs/ROADMAP.md` 是高层导航文档，应保持中文可读，同时保留 M0-M5 结构。
 
 ## Current Decision
 
-中文化 `docs/SELF_PLAYTEST.md` 的说明文字，不改写历史事实、gap 或产品结论。
+中文化 `docs/ROADMAP.md` 的说明文字，保留 M0-M5 里程碑结构，不把 roadmap 改成任务清单。
 
 ## Implementation Record
 
@@ -252,6 +253,12 @@
 - Gap: `docs/SELF_PLAYTEST.md` 说明文字仍混用英文。
 - Decision: 中文化说明文字，保留已记录事实和 gap 的语义。
 - 约束：不改写历史结论，不伪造真实玩家反馈，不改变代码。
+
+2026-05-06 SIMPLIFY roadmap doc language:
+
+- Gap: `docs/ROADMAP.md` 说明和条目仍以英文为主。
+- Decision: 中文化说明文字，保留 M0-M5 里程碑结构。
+- 约束：不新增里程碑，不把 roadmap 改成任务清单，不改变代码。
 
 ## Input Source
 
