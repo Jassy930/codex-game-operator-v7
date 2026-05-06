@@ -2,7 +2,44 @@
 
 ## Current Research
 
-2026-05-06 - 购买升级后的低复杂度反馈。
+2026-05-06 - 无真实反馈后的下一步。
+
+## 2026-05-06 - 无真实反馈后的下一步
+
+### Question
+
+公开预览已存在但没有真实玩家反馈时，下一步应继续添加玩法，还是先降低获取真实反馈的成本？
+
+### Sources / Observations
+
+- Interaction Design Foundation 的 early-design testing 指南强调早期测试可验证假设、发现用户是否理解目标，并建议先定义清晰问题再测试。
+- UserTesting 的 startup feedback guide 强调不要等到产品完成再测试，并引用小样本测试可以发现大量可用性问题的观点。
+- Usability testing 资料强调多轮小规模测试比一次大测试更适合有限资源团队，也说明早期阶段可先找普通测试者发现阻塞问题。
+- 2024 pre-release indie game experimentation survey 指出，indie 预发布实验受时间、参与者获取和样本代表性限制，早期更偏重 qualitative data。
+
+Sources:
+
+- https://ixdf.org/literature/topics/early-design-testing
+- https://www.usertesting.com/resources/guides/startups-guide-user-feedback
+- https://en.wikipedia.org/wiki/Usability_testing
+- https://arxiv.org/abs/2411.17183
+
+### General Principles
+
+- 没有真实反馈时，不要用新增系统代替外部验证。
+- 继续 self-playtest 只能发现明显问题；下一步应降低真实玩家反馈成本。
+- 反馈请求应围绕一个窄问题，例如“前一分钟哪里不清楚”，而不是泛泛征求意见。
+- 反馈入口不应打断核心循环，不应新增上传、SDK 或个人数据。
+
+### Decision Impact
+
+下一步候选应是改进现有反馈入口的上下文，而不是添加玩法系统。优先考虑让 GitHub Issue 预填内容更聚焦“前 60 秒哪里不清楚”，或在文档中明确下一轮反馈问题；不要新增第二反馈渠道或站内提交系统。
+
+### What Not To Copy
+
+- 不把早期反馈做成复杂问卷或强制弹窗。
+- 不引入外部 analytics、录屏、用户识别或跨设备追踪。
+- 不根据没有真实玩家证据的假设添加第二资源、prestige 或更复杂升级。
 
 ## 2026-05-06 - 购买升级后的低复杂度反馈
 

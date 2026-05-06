@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-反馈入口文档与实际 App 行为存在轻微漂移。
+公开预览后仍没有真实反馈，下一步不应靠新增玩法替代外部验证。
 
 ## Evidence
 
@@ -33,10 +33,12 @@
 - `docs/METRICS.md` 旧表述把 local-only 绑定到“尚未公开部署”，已经与当前状态不一致。
 - `docs/FEEDBACK.md` 只记录了 GitHub Issues 裸链接，未说明 App 实际预填 label/title/body。
 - `docs/ISSUE_LEDGER.md` 的说明仍是英文模板，不符合当前文档语言约束。
+- 2026-05-06 研究记录显示：self-playtest 只能抓明显问题，公开 playtest/外部玩家反馈更适合发现隐藏问题。
+- 外部研究建议早期反馈问题应保持窄范围，避免一次性征求过宽反馈。
 
 ## Current Decision
 
-收口反馈文档，使 `docs/FEEDBACK.md` 与 App 实际反馈链接行为一致，并将 `docs/ISSUE_LEDGER.md` 的说明中文化。不改变游戏行为、不新增反馈渠道、不回复 issue。
+下一步候选应优先降低真实玩家反馈成本，而不是新增玩法系统。保持一个反馈渠道，但让反馈问题更聚焦“前 60 秒哪里不清楚”。
 
 ## Implementation Record
 
@@ -223,6 +225,12 @@
 - Gap: 反馈入口文档没有说明 App 预填的 label/title/body，issue ledger 说明仍是英文模板。
 - Decision: 更新反馈文档和 issue ledger 说明，保持反馈路由清晰。
 - 约束：不改变 App 行为，不新增反馈渠道，不回复或伪造 issue。
+
+2026-05-06 RESEARCH no-feedback next step:
+
+- 研究问题：公开预览已存在但没有真实反馈时，下一步应继续添加玩法，还是先降低获取真实反馈的成本。
+- 决策：不新增玩法系统；下一步候选是让现有 GitHub Issue 反馈问题更聚焦前 60 秒清晰度。
+- 约束：保持单一反馈渠道，不新增 SDK、上传、用户识别或强制弹窗。
 
 ## Input Source
 
