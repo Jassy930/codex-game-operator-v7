@@ -11,3 +11,4 @@
 - Added a short first-goal line that tells players to save star dust for the first auto collector.
 - Added a UI-only early milestone line for reaching 2 auto collectors.
 - Added local-only first-session metrics for clicks, upgrades, and first upgrade time.
+- Corrected local metrics so session counters reset when a new app session starts.
