@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览已经可访问，但当前没有开放 GitHub Issues 或真实玩家反馈。下一步只能通过 self-playtest 检查前 10/30/60 秒体验，不应新增玩法系统。
+公开预览已经可访问，且最新 self-playtest 没有发现足够具体的新增改动 gap。当前最大问题是缺少真实玩家反馈，而不是缺少更多首屏提示或玩法系统。
 
 ## Evidence
 
@@ -48,10 +48,12 @@
 - GitHub Pages workflow run `25430225912` completed successfully on 2026-05-06.
 - `https://jassy930.github.io/codex-game-operator-v7/` returned HTTP 200 on 2026-05-06.
 - `gh issue list --state open` returned no open issues on 2026-05-06 after the Pages workflow upgrade.
+- 发布基础设施收尾后的 self-playtest 显示：前 60 秒的现有提示都围绕星尘、采集、自动采集器、购买进度、目标和里程碑。
+- 同一首屏已经包含资源、事件区域、双动作、进度、目标、里程碑、统计和反馈入口，继续添加提示会增加 UI 噪音。
 
 ## Current Decision
 
-回到 SELF_PLAYTEST，继续检查前 10/30/60 秒体验。除非发现具体清晰度 gap，否则不新增玩法系统、资源、奖励或新面板。
+本轮 SELF_PLAYTEST 不实现代码改动。下一步如果没有真实反馈，应优先进入 RESEARCH 或 SIMPLIFY 判断如何获取/路由真实反馈，或如何收敛 UI 信息；不新增玩法系统、资源、奖励或新面板。
 
 ## Implementation Record
 
@@ -293,6 +295,12 @@
 - 公开预览返回 HTTP 200。
 - 当前无开放 GitHub Issues。
 - 下一步切换到 SELF_PLAYTEST，而不是继续改发布基础设施。
+
+2026-05-06 SELF_PLAYTEST no-change result:
+
+- 前 60 秒核心循环提示已覆盖当前阶段的主要问题。
+- 继续添加首屏提示会增加复杂度，不一定提升真实玩家理解。
+- 决策：本轮不改代码；后续优先寻找真实反馈或研究反馈转化/信息收敛问题。
 
 ## Input Source
 
