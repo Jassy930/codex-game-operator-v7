@@ -46,6 +46,7 @@ Add GitHub Pages release infrastructure so the game can be publicly previewed. D
 - Added `.github/workflows/deploy-pages.yml`.
 - Configured Vite to use `/codex-game-operator-v7/` when `GITHUB_ACTIONS` is set.
 - Documented the expected Pages URL in README.
+- After the first remote run stalled during dependency install, pinned Bun and package versions and added workflow timeouts.
 
 ## Input Source
 
