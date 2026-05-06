@@ -2,36 +2,36 @@
 
 ## Selected Mode
 
-RELEASE_INFRA
+SELF_PLAYTEST
 
 ## Reason
 
-The game is locally playable and has a feedback path, but it is not yet publicly deployable.
+The game is playable, publicly previewable, and has a feedback path, but no real feedback exists yet.
 
 ## Allowed Actions
 
-- Add GitHub Pages workflow.
-- Configure build base path for project Pages.
-- Update deploy docs.
-- Run local verification before any push.
+- Evaluate first 10/30/60 seconds.
+- Update `docs/SELF_PLAYTEST.md`.
+- Identify one concrete clarity improvement.
+- Implement only a small first-60-second clarity fix if justified.
 
 ## Forbidden Actions
 
-- Do not change gameplay.
+- Do not add large features.
+- Do not add new game systems.
 - Do not reply to issues.
-- Do not deploy broken builds.
-- Do not add unrelated release channels.
+- Do not change release infrastructure.
 
 ## Exit Criteria
 
-- GitHub Pages workflow exists.
-- Local tests and build pass.
-- Public preview path is documented.
+- One concrete first-60-second gap is documented in `docs/DECISION.md`.
+- Any implemented fix remains inside complexity budget.
+- Local checks pass.
 
 ## Drift Status
 
-No drift detected. The next change is release infrastructure only.
+No drift detected. The next change is self-playtest-driven clarity only.
 
 ## Last Updated
 
-2026-05-06: RELEASE_INFRA exit criteria met. GitHub Pages workflow run `25421667150` completed successfully and public preview returns HTTP 200.
+2026-05-06: SELF_PLAYTEST exit criteria met. One first-60-second clarity gap was documented and fixed locally.

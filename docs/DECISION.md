@@ -2,17 +2,19 @@
 
 ## Current Biggest Problem
 
-The game is playable locally and has a feedback path, but it is not yet publicly previewable.
+The game is playable and publicly previewable, but first-60-second clarity has not been self-playtested.
 
 ## Evidence
 
 - BOOTSTRAP commit `7b30c9d` added a playable local MVP.
 - FEEDBACK_INFRA commit `8cf6f39` added an in-game feedback path.
-- No GitHub Pages workflow exists yet.
+- GitHub Pages workflow run `25421769909` completed successfully.
+- No real feedback exists yet.
+- `docs/SELF_PLAYTEST.md` has not recorded a timed first-60-second result.
 
 ## Current Decision
 
-Add GitHub Pages release infrastructure so the game can be publicly previewed. Do not change gameplay in this cycle.
+Run a first 10/30/60 second self-playtest and make at most one small clarity improvement. Do not add systems in this cycle.
 
 ## Implementation Record
 
@@ -51,9 +53,20 @@ Add GitHub Pages release infrastructure so the game can be publicly previewed. D
 - Enabled GitHub Pages through the repository Pages API with `build_type=workflow`.
 - Rerun `25421667150` completed successfully; `https://jassy930.github.io/codex-game-operator-v7/` returned HTTP 200.
 
+2026-05-06 SELF_PLAYTEST selected:
+
+- Evaluate the first 10/30/60 seconds.
+- Focus on whether the first upgrade cost and next action are clear.
+- Implement only a small copy/UI clarity fix if the gap is concrete.
+
+2026-05-06 SELF_PLAYTEST result:
+
+- Gap: the first upgrade button shows `10` without explicitly saying it is a star dust cost.
+- Decision: update the button copy to include the purchase intent and cost unit.
+
 ## Input Source
 
-Roadmap gap.
+Self-playtest gap.
 
 ## Linked Signals
 
@@ -68,10 +81,11 @@ None.
 - No issue-driven work yet
 - No new gameplay mechanics during feedback infrastructure work
 - No gameplay changes during release infrastructure work
+- No new systems during self-playtest work
 
 ## Review Notes
 
-BOOTSTRAP and FEEDBACK_INFRA stayed inside `docs/COMPLEXITY_BUDGET.md` and did not use issue-driven input. RELEASE_INFRA is the correct next mode because the game now works and has feedback intake but cannot yet be publicly previewed.
+BOOTSTRAP, FEEDBACK_INFRA, and RELEASE_INFRA stayed inside `docs/COMPLEXITY_BUDGET.md` and did not use issue-driven input. SELF_PLAYTEST is the correct next mode because the game is live but has no real feedback yet.
 
 ## Maintenance Decision
 

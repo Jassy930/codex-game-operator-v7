@@ -7,3 +7,4 @@
 - Added an in-game GitHub Issues feedback link and local-only `feedback_clicked` event queue.
 - Added GitHub Pages workflow for public preview builds from `main`, with pinned Bun/package versions and workflow timeouts.
 - Published the first GitHub Pages preview at `https://jassy930.github.io/codex-game-operator-v7/`.
+- Clarified the first upgrade button copy so the cost reads as required star dust.

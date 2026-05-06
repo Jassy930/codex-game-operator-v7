@@ -67,7 +67,7 @@ export function App() {
             disabled={!canBuyAutoCollector}
             onClick={() => setState(buyAutoCollector)}
           >
-            自动采集器 {formatNumber(state.nextAutoCollectorCost)}
+            购买自动采集器 · 需要 {formatNumber(state.nextAutoCollectorCost)} 星尘
           </button>
         </div>
 
