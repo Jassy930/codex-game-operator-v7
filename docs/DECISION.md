@@ -2,19 +2,20 @@
 
 ## Current Biggest Problem
 
-The game is playable and publicly previewable, but first-60-second clarity has not been self-playtested.
+The game is playable and publicly previewable, but the first goal is still implicit rather than stated as a clear sentence.
 
 ## Evidence
 
 - BOOTSTRAP commit `7b30c9d` added a playable local MVP.
 - FEEDBACK_INFRA commit `8cf6f39` added an in-game feedback path.
 - GitHub Pages workflow run `25421769909` completed successfully.
-- No real feedback exists yet.
-- `docs/SELF_PLAYTEST.md` has not recorded a timed first-60-second result.
+- `gh issue list --state open` returned no open issues on 2026-05-06.
+- Prior self-playtest clarified upgrade cost wording.
+- The screen still relies on the upgrade button and progress bar to imply the first objective.
 
 ## Current Decision
 
-Run a first 10/30/60 second self-playtest and make at most one small clarity improvement. Do not add systems in this cycle.
+Add one short first-goal sentence near the progress area so the first objective is explicit. Do not add systems in this cycle.
 
 ## Implementation Record
 
@@ -63,6 +64,16 @@ Run a first 10/30/60 second self-playtest and make at most one small clarity imp
 
 - Gap: the first upgrade button shows `10` without explicitly saying it is a star dust cost.
 - Decision: update the button copy to include the purchase intent and cost unit.
+
+2026-05-06 SELF_PLAYTEST cycle 2 selected:
+
+- Gap: the first objective is still inferred from UI pieces instead of being stated directly.
+- Decision: add a short first-goal sentence that names the goal without adding a mechanic.
+
+2026-05-06 SELF_PLAYTEST cycle 2 result:
+
+- Added one first-goal line: “目标：攒够星尘，购买第一个自动采集器”.
+- No mechanics, resources, panels, or feedback replies were added.
 
 ## Input Source
 

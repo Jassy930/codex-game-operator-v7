@@ -121,6 +121,13 @@ h1 {
   gap: 8px;
 }
 
+.goal-hint {
+  margin: 0;
+  color: #17211b;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
 .progress-track {
   height: 12px;
   overflow: hidden;

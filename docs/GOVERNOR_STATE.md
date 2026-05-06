@@ -6,7 +6,7 @@ SELF_PLAYTEST
 
 ## Reason
 
-The game is playable, publicly previewable, and has a feedback path, but no real feedback exists yet.
+The game is playable, publicly previewable, and has a feedback path. GitHub Issues currently has no open real player feedback, so the next input source is self-playtest.
 
 ## Allowed Actions
 
@@ -34,4 +34,4 @@ No drift detected. The next change is self-playtest-driven clarity only.
 
 ## Last Updated
 
-2026-05-06: SELF_PLAYTEST exit criteria met. One first-60-second clarity gap was documented and fixed locally.
+2026-05-06: SELF_PLAYTEST cycle 2 exit criteria met locally; first-goal line is implemented and checks pass.

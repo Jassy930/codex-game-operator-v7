@@ -12,6 +12,14 @@ Self-playtest is the primary input source when no real feedback exists and the g
 
 Gap: first upgrade cost wording should state the unit and intent more clearly.
 
+2026-05-06 follow-up self-playtest. This is not real player feedback.
+
+- First 10 seconds: the main click action is still clear.
+- First 30 seconds: the cost wording is clearer after the previous fix.
+- First 60 seconds: the player can infer the first goal from the button and progress bar, but no single sentence states “save for the first auto collector.”
+
+Gap: the first objective should be stated directly in one short line.
+
 ## Checklist
 
 ### First 10 seconds
@@ -33,4 +41,4 @@ Gap: first upgrade cost wording should state the unit and intent more clearly.
 
 ## Next Improvement Candidate
 
-Clarify the first upgrade button copy so the player understands the required star dust cost before adding systems.
+Add one short first-goal line near the progress area before adding systems.

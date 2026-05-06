@@ -76,6 +76,7 @@ export function App() {
             <span>下个目标</span>
             <span>{Math.floor(progressToUpgrade)}%</span>
           </div>
+          <p className="goal-hint">目标：攒够星尘，购买第一个自动采集器</p>
           <div className="progress-track" aria-hidden="true">
             <div style={{ width: `${progressToUpgrade}%` }} />
           </div>
