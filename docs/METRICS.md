@@ -2,7 +2,7 @@
 
 ## Current Metrics
 
-None.
+Local-only feedback-click events are queued in browser storage under `stardust-workshop-feedback-events-v1`.
 
 ## Desired Metrics
 
@@ -19,8 +19,8 @@ None.
 
 ## Metrics Gap
 
-No telemetry exists yet.
+No session or progression telemetry exists yet. Feedback-click telemetry exists locally only and is not uploaded.
 
 ## Current Decision
 
-Implement local telemetry only after playable loop exists.
+Keep telemetry local while the project is not publicly deployed. Add only metrics that directly support feedback intake or first-60-second clarity.

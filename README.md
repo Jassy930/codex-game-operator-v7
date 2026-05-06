@@ -16,6 +16,10 @@ bun run dev
 
 `bun test` 使用 Bun 原生测试入口，`bun run test` 使用 Vitest。两者运行同一组核心行为测试。
 
+## 反馈入口
+
+游戏首屏提供“反馈”链接，打开 GitHub Issue 新建页。点击反馈时，游戏只在浏览器本地记录 `feedback_clicked` 事件队列，不上传隐私数据。
+
 ## 设计目标
 
 - Codex 自己跟随项目进展选择下一步。

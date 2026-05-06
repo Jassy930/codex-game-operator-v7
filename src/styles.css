@@ -147,6 +147,23 @@ h1 {
   background: #ffffff;
 }
 
+.feedback-link {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(41, 91, 82, 0.24);
+  border-radius: 8px;
+  color: #295b52;
+  font-weight: 700;
+  text-decoration: none;
+  background: #f8faf8;
+}
+
+.feedback-link:focus-visible,
+.feedback-link:hover {
+  border-color: #295b52;
+}
+
 dd {
   margin: 4px 0 0;
   font-size: 1.5rem;

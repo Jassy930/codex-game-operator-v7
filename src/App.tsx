@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { createFeedbackIssueUrl, recordFeedbackClick } from "./feedback";
 import {
   buyAutoCollector,
   clickForDust,
@@ -32,6 +33,13 @@ export function App() {
   const progressToUpgrade = useMemo(() => {
     return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
   }, [state.dust, state.nextAutoCollectorCost]);
+  const feedbackUrl = useMemo(() => createFeedbackIssueUrl(), []);
+
+  function handleFeedbackClick() {
+    if (typeof window !== "undefined") {
+      recordFeedbackClick(window.localStorage);
+    }
+  }
 
   return (
     <main className="app-shell">
@@ -83,6 +91,16 @@ export function App() {
             <dd>{formatNumber(state.dustPerClick)}</dd>
           </div>
         </dl>
+
+        <a
+          className="feedback-link"
+          href={feedbackUrl}
+          target="_blank"
+          rel="noreferrer"
+          onClick={handleFeedbackClick}
+        >
+          反馈
+        </a>
       </section>
     </main>
   );
