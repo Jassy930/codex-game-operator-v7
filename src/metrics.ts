@@ -15,13 +15,10 @@ const EMPTY_METRICS: LocalMetrics = {
 };
 
 export function startMetricsSession(storage: Storage, now = Date.now()): void {
-  const metrics = readMetrics(storage);
-  if (metrics.sessionStartedAt === null) {
-    writeMetrics(storage, {
-      ...metrics,
-      sessionStartedAt: now,
-    });
-  }
+  writeMetrics(storage, {
+    ...EMPTY_METRICS,
+    sessionStartedAt: now,
+  });
 }
 
 export function recordPlayerClick(storage: Storage): void {

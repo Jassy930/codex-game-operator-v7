@@ -5,7 +5,7 @@
 Local-only metrics are stored in browser storage.
 
 - `stardust-workshop-feedback-events-v1`: feedback-click event queue.
-- `stardust-workshop-metrics-v1`: session start time, click count, upgrade purchase count, and first upgrade time.
+- `stardust-workshop-metrics-v1`: current session start time, click count, upgrade purchase count, and first upgrade time. This resets when the app opens a new session.
 
 ## Desired Metrics
 
@@ -22,7 +22,7 @@ Local-only metrics are stored in browser storage.
 
 ## Metrics Gap
 
-Metrics remain local only and are not uploaded. There is still no session-end or duration metric.
+Metrics remain local only and are not uploaded. There is still no session-end or duration metric, and historical session summaries are not retained.
 
 ## Current Decision
 

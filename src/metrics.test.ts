@@ -30,6 +30,22 @@ describe("local metrics", () => {
     expect(readMetrics(storage).clickCount).toBe(2);
   });
 
+  it("starts a fresh session when the app is opened again", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+    recordPlayerClick(storage);
+    recordUpgradePurchase(storage, 6_000);
+
+    startMetricsSession(storage, 10_000);
+
+    expect(readMetrics(storage)).toEqual({
+      sessionStartedAt: 10_000,
+      clickCount: 0,
+      upgradePurchaseCount: 0,
+      firstUpgradeTimeMs: null,
+    });
+  });
+
   it("records first upgrade time once", () => {
     const storage = createMemoryStorage();
     startMetricsSession(storage, 1_000);

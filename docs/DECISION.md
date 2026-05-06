@@ -111,6 +111,11 @@ Add local-only metrics for session start, click count, upgrade purchase count, a
 - Recorded session start, click count, upgrade purchase count, and first upgrade time.
 - Added tests for metric recording and malformed storage recovery.
 
+2026-05-06 METRICS_INFRA correction:
+
+- Corrected session metrics to reset when a new app session starts.
+- Added a regression test so click and first-upgrade counters do not persist across sessions.
+
 ## Input Source
 
 Metrics gap.

@@ -35,4 +35,4 @@ No drift detected. The next change is local-only measurement infrastructure.
 
 ## Last Updated
 
-2026-05-06: METRICS_INFRA exit criteria met locally; local first-session metrics are implemented and checks pass.
+2026-05-06: METRICS_INFRA session reset correction completed locally; tests and build pass.
