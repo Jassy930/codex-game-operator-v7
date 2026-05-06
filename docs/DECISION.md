@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览已经可访问，反馈入口已改为单一 GitHub Issue Form，后续 self-playtest 未发现该入口破坏前 60 秒节奏。当前最大问题仍是没有真实玩家反馈；后续不能把表单存在误判为已经获得反馈。
+公开预览和单一 GitHub Issue Form 已存在，但仍没有真实玩家反馈。当前最大问题是缺少外部 playtest 邀请素材；后续不能把表单存在误判为已经获得反馈。
 
 ## Evidence
 
@@ -56,10 +56,12 @@
 - `.github/ISSUE_TEMPLATE/feedback.yml` 已聚焦前 60 秒阻塞点、玩家意图和发生步骤。
 - `createFeedbackIssueUrl()` 已指向 `issues/new?template=feedback.yml`。
 - issue form 后续 self-playtest 显示：反馈入口仍是底部单一链接，未点击时不打断采集、购买、进度或里程碑。
+- Playtest 研究建议先定义目标玩家，用少量代表性玩家发现问题，并把邀请放在站外上下文，而不是打断游戏内核心循环。
+- 独立游戏预发布实验常受参与者获取、偏差和资源限制影响，早期更依赖 qualitative data。
 
 ## Current Decision
 
-保持单一 GitHub Issues 反馈渠道和 `feedback.yml` issue form。本轮不继续在首屏解释反馈表单；继续只记录 local-only `feedback_clicked`，不记录 `feedback_sent`，不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
+下一步候选是补一个站外 playtest 邀请素材，而不是改游戏首屏。邀请应只包含公开预览 URL、同一个 `feedback.yml` issue form 链接、前 60 秒研究问题和隐私边界；继续不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
 
 ## Implementation Record
 
@@ -326,6 +328,12 @@
 - 反馈入口仍在底部，未新增首屏说明文字。
 - GitHub Issue Form 只在玩家主动点击后出现。
 - 决策：不继续修改游戏代码；等待真实反馈或新的研究问题。
+
+2026-05-06 RESEARCH external playtest invitation:
+
+- 研究问题：如何在不打扰首屏、不新增追踪或渠道的前提下邀请外部 playtest。
+- 决策：下一步候选是站外 playtest 邀请素材，不是游戏内提示或新反馈渠道。
+- 约束：反馈仍回到单一 GitHub Issue Form；不收集个人数据，不要求联系方式，不做量化结论。
 
 ## Input Source
 

@@ -33,3 +33,4 @@
 - 升级 GitHub Pages workflow actions，移除 Node24 强制兼容开关。
 - 记录研究结论：下一步反馈改进候选是单一 GitHub Issue Form，而不是新增反馈渠道或 analytics。
 - 将游戏内反馈链接迁移到单一 GitHub Issue Form，字段聚焦前 60 秒阻塞点和玩家意图。
+- 记录研究结论：下一步候选是站外 playtest 邀请素材，不在游戏首屏新增提示。

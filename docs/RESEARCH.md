@@ -2,7 +2,48 @@
 
 ## Current Research
 
-2026-05-06 - 现有反馈入口的信号质量。
+2026-05-06 - 不打扰首屏的外部 playtest 邀请。
+
+## 2026-05-06 - 不打扰首屏的外部 playtest 邀请
+
+### Question
+
+公开预览和 issue form 已存在但仍没有真实反馈时，如何在不打扰游戏首屏、不新增 analytics SDK、上传路径、个人数据或第二反馈渠道的前提下，邀请外部 playtest 并获得前 60 秒反馈？
+
+### Sources / Observations
+
+- Games User Research 建议：如果目标是发现游戏中的问题，少量玩家即可形成有用的第一轮输入；它给出的实践起点是 6 名 playtester，然后停下来反思发现的问题。
+- Games User Research 的招募指南强调先定义目标玩家，避免只找朋友或随机人群；代表性比人口统计信息更重要，类似游戏玩家是可用的招募线索。
+- The Level Design Book 的 playtesting 指南强调观察玩家行为、少打断，并在远程测试中可让玩家私下直播或录屏；同时提醒大多数基础记录可通过认真记笔记完成，不必先引入 telemetry。
+- Game Developer 的 playtesting 建议强调“测试的是游戏，不是玩家”，并建议提前准备聚焦问题、避免引导性问题，用 plain terms 询问玩家理解到了什么。
+- 2024 indie pre-release experimentation survey 指出，独立游戏预发布实验通常受参与者获取、偏差和资源限制影响，因此早期更依赖 qualitative data。
+
+Sources:
+
+- https://gamesuserresearch.com/how-many-players-do-i-need-for-a-playtest/
+- https://gamesuserresearch.com/a-simple-process-to-find-playtesters/
+- https://book.leveldesignbook.com/process/blockout/playtesting
+- https://www.gamedeveloper.com/design/best-practices-five-tips-for-better-playtesting
+- https://arxiv.org/abs/2411.17183
+
+### General Principles
+
+- 不在游戏首屏新增邀请文案；游戏内仍只保留一个“反馈”入口。
+- 外部邀请应发生在仓库/发布说明/社区帖子等站外上下文，不打断核心循环。
+- 第一轮只需要少量目标玩家，目标是发现前 60 秒阻塞点，不做量化结论。
+- 邀请文字应说明“测试的是游戏，不是玩家”，并要求玩家按自然方式游玩到想停为止。
+- 反馈仍回到同一个 GitHub Issue Form；不新增 Discord、表单服务、邮件列表、录屏上传要求或 analytics SDK。
+
+### Decision Impact
+
+下一步候选不是改游戏 UI，而是在项目文档或发布说明中补一个短 playtest 邀请，包含公开预览 URL、同一个 `feedback.yml` issue form 链接、目标问题“前 60 秒哪里不清楚”，以及不收集个人数据/不需要联系方式的边界。该邀请应作为站外招募素材，不在首屏展示。
+
+### What Not To Copy
+
+- 不创建新反馈渠道、邮件列表、Discord、外部问卷或录屏上传流程。
+- 不把 6 人 playtest 当成统计结论或真实留存指标。
+- 不要求玩家提供个人身份、联系方式或跨设备追踪信息。
+- 不在首屏弹窗、横幅或按钮文案中加入 playtest 招募说明。
 
 ## 2026-05-06 - 现有反馈入口的信号质量
 
