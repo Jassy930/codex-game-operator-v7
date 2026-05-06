@@ -15,6 +15,7 @@ import {
   recordUpgradePurchase,
   startMetricsSession,
 } from "./metrics";
+import { getAutoCollectorMilestone } from "./milestones";
 
 const SAVE_KEY = "stardust-workshop-save-v1";
 
@@ -39,7 +40,7 @@ export function App() {
   const progressToUpgrade = useMemo(() => {
     return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
   }, [state.dust, state.nextAutoCollectorCost]);
-  const milestoneProgress = Math.min(state.autoCollectors, 2);
+  const milestone = getAutoCollectorMilestone(state.autoCollectors);
   const feedbackUrl = useMemo(() => createFeedbackIssueUrl(), []);
 
   useEffect(() => {
@@ -119,7 +120,7 @@ export function App() {
           </div>
           <p className="goal-hint">目标：攒够星尘，购买第一个自动采集器</p>
           <p className="milestone-hint">
-            里程碑：{milestoneProgress} / 2 台自动采集器
+            里程碑：{milestone.current} / {milestone.target} 台自动采集器
           </p>
           <div className="progress-track" aria-hidden="true">
             <div style={{ width: `${progressToUpgrade}%` }} />

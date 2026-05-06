@@ -28,6 +28,15 @@ Gap: the first objective should be stated directly in one short line.
 
 Gap: show progress toward a small early auto-collector milestone without adding rewards.
 
+2026-05-06 metrics-assisted simulation. This is not real player feedback.
+
+- Simulated one click per second for 60 seconds.
+- First auto collector purchased at 10 seconds.
+- Second auto collector purchased at 23 seconds.
+- Third auto collector purchased at 39 seconds.
+
+Gap: a fixed `0 / 2` milestone is completed before the first minute ends and then stops giving direction.
+
 ## Checklist
 
 ### First 10 seconds
@@ -49,4 +58,4 @@ Gap: show progress toward a small early auto-collector milestone without adding 
 
 ## Next Improvement Candidate
 
-Keep improving early progress feedback before adding systems.
+Use dynamic early auto-collector milestones so the first minute keeps a visible next target without adding rewards.

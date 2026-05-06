@@ -13,3 +13,4 @@
 - Added local-only first-session metrics for clicks, upgrades, and first upgrade time.
 - Corrected local metrics so session counters reset when a new app session starts.
 - Added local-only session end and session duration metrics.
+- Changed the auto-collector milestone from fixed `2` to dynamic targets so early progress continues after the second collector.

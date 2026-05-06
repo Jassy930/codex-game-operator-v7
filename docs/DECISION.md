@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-The game is playable and publicly previewable, but future first-60-second decisions lack local measurement support.
+The game is playable and publicly previewable, but the fixed `0 / 2` auto-collector milestone loses direction before the first minute ends.
 
 ## Evidence
 
@@ -16,10 +16,11 @@ The game is playable and publicly previewable, but future first-60-second decisi
 - `docs/RESEARCH.md` recommends early progress feedback before new mechanics.
 - The UI shows current auto collector count, but not progress toward an early milestone.
 - `docs/METRICS.md` lists desired session and first-upgrade metrics, but only feedback-click telemetry exists.
+- A 60-second simulation with one click per second reaches 2 auto collectors at 23 seconds and 3 auto collectors at 39 seconds.
 
 ## Current Decision
 
-Add local-only metrics for session start, click count, upgrade purchase count, and first upgrade time. Do not upload telemetry or add external analytics.
+Replace the fixed early milestone with a UI-only dynamic auto-collector milestone. Do not add rewards, resources, or new systems.
 
 ## Implementation Record
 
@@ -122,9 +123,15 @@ Add local-only metrics for session start, click count, upgrade purchase count, a
 - Record session end on browser `pagehide`.
 - Kept metrics local-only with no upload path.
 
+2026-05-06 SELF_PLAYTEST cycle 4:
+
+- Simulation: with one click per second, auto collectors are purchased at 10s, 23s, and 39s.
+- Gap: `0 / 2` milestone becomes stale before the 60-second mark.
+- Decision: make auto-collector milestone targets dynamic: 2, then 5, then rolling 5-step targets.
+
 ## Input Source
 
-Metrics gap.
+Self-playtest gap.
 
 ## Linked Signals
 
