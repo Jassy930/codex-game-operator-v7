@@ -18,3 +18,4 @@
 - Added local-only metrics for offline reward messages shown on return.
 - 购买第一台自动采集器后，前 60 秒目标提示会继续指向下一台自动采集器。
 - 记录研究支撑的下一步方向：优先增强购买自动采集器后的轻量确认反馈。
+- 购买自动采集器成功后显示短暂确认反馈，不改变经济数值。

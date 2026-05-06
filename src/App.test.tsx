@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { App } from "./App";
+import { App, formatAutoCollectorPurchaseMessage } from "./App";
 import { createGameState, serializeGameState } from "./game";
 
 describe("App", () => {
@@ -45,6 +45,12 @@ describe("App", () => {
         value: originalWindow,
       });
     }
+  });
+
+  it("formats a lightweight auto collector purchase confirmation", () => {
+    expect(formatAutoCollectorPurchaseMessage(0.2)).toBe(
+      "自动采集器启动：每秒星尘 +0.2",
+    );
   });
 });
 

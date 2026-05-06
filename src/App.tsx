@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createFeedbackIssueUrl, recordFeedbackClick } from "./feedback";
 import {
   buyAutoCollector,
@@ -25,6 +25,8 @@ export function App() {
   const [loadedGame] = useState<HydratedGameState>(() => loadGame());
   const [state, setState] = useState<GameState>(loadedGame.state);
   const [offlineDust] = useState(loadedGame.offlineDust);
+  const [purchaseMessage, setPurchaseMessage] = useState("");
+  const purchaseMessageTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -69,6 +71,14 @@ export function App() {
     return () => window.removeEventListener("pagehide", handlePageHide);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (purchaseMessageTimer.current !== null) {
+        window.clearTimeout(purchaseMessageTimer.current);
+      }
+    };
+  }, []);
+
   function handleCollectClick() {
     if (typeof window !== "undefined") {
       recordPlayerClick(window.localStorage);
@@ -82,10 +92,23 @@ export function App() {
       const next = buyAutoCollector(current);
       if (next !== current && typeof window !== "undefined") {
         recordUpgradePurchase(window.localStorage);
+        showPurchaseMessage(formatAutoCollectorPurchaseMessage(next.dustPerSecond));
       }
 
       return next;
     });
+  }
+
+  function showPurchaseMessage(message: string) {
+    setPurchaseMessage(message);
+    if (purchaseMessageTimer.current !== null) {
+      window.clearTimeout(purchaseMessageTimer.current);
+    }
+
+    purchaseMessageTimer.current = window.setTimeout(() => {
+      setPurchaseMessage("");
+      purchaseMessageTimer.current = null;
+    }, 2400);
   }
 
   function handleFeedbackClick() {
@@ -114,6 +137,12 @@ export function App() {
         {offlineDust > 0 ? (
           <p className="offline-gain" aria-live="polite">
             离线获得 {formatNumber(offlineDust)} 星尘
+          </p>
+        ) : null}
+
+        {purchaseMessage ? (
+          <p className="purchase-feedback" aria-live="polite">
+            {purchaseMessage}
           </p>
         ) : null}
 
@@ -184,4 +213,8 @@ function formatNumber(value: number): string {
   return value.toLocaleString("zh-CN", {
     maximumFractionDigits: 1,
   });
+}
+
+export function formatAutoCollectorPurchaseMessage(dustPerSecond: number): string {
+  return `自动采集器启动：每秒星尘 +${formatNumber(dustPerSecond)}`;
 }
