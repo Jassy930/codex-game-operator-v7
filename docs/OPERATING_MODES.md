@@ -11,10 +11,11 @@ Codex must choose exactly one operating mode before acting. The chosen mode must
 5. If real feedback exists: `OPERATE`
 6. If product/design question is unclear: `RESEARCH`
 7. If no feedback exists but game works: `SELF_PLAYTEST`
-8. If complexity or drift is detected: `SIMPLIFY`
-9. If repeated drift occurs: `FEATURE_FREEZE`
-10. If tested changes are ready: `RELEASE`
-11. If harness rules repeatedly block valid progress: `META_IMPROVE`
+8. If self-playtest needs local measurement support: `METRICS_INFRA`
+9. If complexity or drift is detected: `SIMPLIFY`
+10. If repeated drift occurs: `FEATURE_FREEZE`
+11. If tested changes are ready: `RELEASE`
+12. If harness rules repeatedly block valid progress: `META_IMPROVE`
 
 ## BOOTSTRAP
 
@@ -137,6 +138,28 @@ Forbidden:
 
 Exit criteria:
 - One concrete gap is documented in `DECISION.md`.
+
+## METRICS_INFRA
+
+Use when game works, no real feedback exists, and self-playtest or roadmap decisions need local measurement support.
+
+Allowed:
+- Local-only telemetry events.
+- Session and first-minute counters.
+- Metrics docs.
+- Tests for metric recording.
+
+Forbidden:
+- Uploading telemetry.
+- Collecting personal data.
+- External analytics SDKs.
+- New gameplay mechanics.
+- Issue replies.
+
+Exit criteria:
+- At least one local metric supports first-60-second evaluation.
+- `docs/METRICS.md` explains what is recorded and where.
+- Tests and build pass.
 
 ## SIMPLIFY
 

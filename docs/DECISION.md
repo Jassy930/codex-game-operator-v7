@@ -136,3 +136,9 @@ Keep the v7.2 clean-room harness self-consistent before the first game bootstrap
 - Accept the anti-achievement clause in `prompts/goal.md` as a tightening clarification.
 - Record it in `docs/HARNESS_CHANGELOG.md`.
 - Do not weaken issue routing, response budget, complexity budget, review protocol, or North Star constraints.
+
+2026-05-06 META_IMPROVE maintenance decision:
+
+- Add a constrained `METRICS_INFRA` mode because metrics gap is a prompt input source but lacked an operating mode.
+- Permit only local-only metrics that support first-60-second evaluation.
+- Forbid uploads, personal data, external analytics SDKs, new mechanics, and issue replies in that mode.

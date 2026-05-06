@@ -6,14 +6,14 @@ META_IMPROVE
 
 ## Reason
 
-`prompts/goal.md` has an uncommitted constitutional clarification that prevents false completion of the perpetual operating goal.
+The goal prompt lists metrics gap as an input source, but `docs/OPERATING_MODES.md` has no mode that explicitly permits local metrics infrastructure work.
 
 ## Allowed Actions
 
-- Record the constitutional clarification.
+- Add a constrained `METRICS_INFRA` operating mode.
 - Update `docs/HARNESS_CHANGELOG.md`.
 - Verify the change does not weaken core constraints.
-- Commit the prompt and meta documentation together.
+- Commit the governance documentation together.
 
 ## Forbidden Actions
 
@@ -25,14 +25,15 @@ META_IMPROVE
 
 ## Exit Criteria
 
-- Anti-achievement prompt change is recorded in `docs/HARNESS_CHANGELOG.md`.
+- `METRICS_INFRA` mode is recorded in `docs/OPERATING_MODES.md`.
+- The change is recorded in `docs/HARNESS_CHANGELOG.md`.
 - `./ops/governor-check.sh` passes.
 - Git status is explicit after commit.
 
 ## Drift Status
 
-No drift detected. This is a tightening clarification, not a convenience relaxation.
+No drift detected. This is a constrained mode addition for an existing prompt input source.
 
 ## Last Updated
 
-2026-05-06: selected `META_IMPROVE` to route the anti-achievement prompt clarification through meta-governance.
+2026-05-06: selected `META_IMPROVE` to add a constrained metrics infrastructure mode.

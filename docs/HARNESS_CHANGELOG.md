@@ -75,6 +75,35 @@ This tightens the harness. It preserves North Star alignment, issue routing, res
 
 Continue treating completion as unavailable unless the user explicitly pauses/stops the perpetual operation goal, credentials block progress, or a real budget limit is reached.
 
+## 2026-05-06 - Metrics Infrastructure Operating Mode
+
+### Files Changed
+
+- `docs/OPERATING_MODES.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `docs/DECISION.md`
+
+### Failure Mode
+
+`prompts/goal.md` lists metrics gap as an input source, and `docs/METRICS.md` identifies desired local metrics, but no operating mode explicitly allowed metrics infrastructure work after the game became playable.
+
+### Evidence
+
+The project now has a public preview, feedback path, and multiple self-playtest cycles. Further first-60-second decisions need local measurement support, but using `SELF_PLAYTEST` for telemetry would blur mode boundaries.
+
+### Change
+
+Added a constrained `METRICS_INFRA` mode that permits local-only telemetry, first-minute counters, metrics docs, and tests.
+
+### Why This Does Not Weaken Constraints
+
+The mode forbids uploads, personal data, external analytics SDKs, new gameplay mechanics, and issue replies. It preserves North Star alignment, issue routing, response budget, complexity budget, and review protocol.
+
+### Follow-up
+
+Use `METRICS_INFRA` only when local measurement directly supports self-playtest or roadmap decisions.
+
 ## Template
 
 ```md
