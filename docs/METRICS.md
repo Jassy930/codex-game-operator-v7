@@ -2,7 +2,10 @@
 
 ## Current Metrics
 
-Local-only feedback-click events are queued in browser storage under `stardust-workshop-feedback-events-v1`.
+Local-only metrics are stored in browser storage.
+
+- `stardust-workshop-feedback-events-v1`: feedback-click event queue.
+- `stardust-workshop-metrics-v1`: session start time, click count, upgrade purchase count, and first upgrade time.
 
 ## Desired Metrics
 
@@ -19,8 +22,15 @@ Local-only feedback-click events are queued in browser storage under `stardust-w
 
 ## Metrics Gap
 
-No session or progression telemetry exists yet. Feedback-click telemetry exists locally only and is not uploaded.
+Metrics remain local only and are not uploaded. There is still no session-end or duration metric.
 
 ## Current Decision
 
 Keep telemetry local while the project is not publicly deployed. Add only metrics that directly support feedback intake or first-60-second clarity.
+
+## Privacy Boundary
+
+- No personal data.
+- No external analytics SDK.
+- No upload path.
+- No cross-device tracking.

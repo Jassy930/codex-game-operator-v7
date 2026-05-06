@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-The game is playable and publicly previewable, but early generator progress lacks a visible milestone.
+The game is playable and publicly previewable, but future first-60-second decisions lack local measurement support.
 
 ## Evidence
 
@@ -15,10 +15,11 @@ The game is playable and publicly previewable, but early generator progress lack
 - After cycle 2, the first objective is stated directly.
 - `docs/RESEARCH.md` recommends early progress feedback before new mechanics.
 - The UI shows current auto collector count, but not progress toward an early milestone.
+- `docs/METRICS.md` lists desired session and first-upgrade metrics, but only feedback-click telemetry exists.
 
 ## Current Decision
 
-Add a UI-only early milestone line for reaching 2 auto collectors. Do not add rewards, resources, or new panels.
+Add local-only metrics for session start, click count, upgrade purchase count, and first upgrade time. Do not upload telemetry or add external analytics.
 
 ## Implementation Record
 
@@ -98,9 +99,21 @@ Add a UI-only early milestone line for reaching 2 auto collectors. Do not add re
 - Added a UI-only “里程碑：0 / 2 台自动采集器” line.
 - The milestone has no reward and does not add a new system.
 
+2026-05-06 METRICS_INFRA selected:
+
+- Add local-only metrics under browser storage.
+- Record session start, click count, upgrade purchase count, and first upgrade time.
+- Forbid uploads, personal data, external SDKs, and gameplay changes.
+
+2026-05-06 METRICS_INFRA result:
+
+- Added `stardust-workshop-metrics-v1` local storage metrics.
+- Recorded session start, click count, upgrade purchase count, and first upgrade time.
+- Added tests for metric recording and malformed storage recovery.
+
 ## Input Source
 
-Self-playtest gap backed by research.
+Metrics gap.
 
 ## Linked Signals
 

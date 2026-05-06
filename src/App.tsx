@@ -9,6 +9,11 @@ import {
   tickGame,
   type GameState,
 } from "./game";
+import {
+  recordPlayerClick,
+  recordUpgradePurchase,
+  startMetricsSession,
+} from "./metrics";
 
 const SAVE_KEY = "stardust-workshop-save-v1";
 
@@ -36,6 +41,31 @@ export function App() {
   const milestoneProgress = Math.min(state.autoCollectors, 2);
   const feedbackUrl = useMemo(() => createFeedbackIssueUrl(), []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      startMetricsSession(window.localStorage);
+    }
+  }, []);
+
+  function handleCollectClick() {
+    if (typeof window !== "undefined") {
+      recordPlayerClick(window.localStorage);
+    }
+
+    setState(clickForDust);
+  }
+
+  function handleUpgradeClick() {
+    setState((current) => {
+      const next = buyAutoCollector(current);
+      if (next !== current && typeof window !== "undefined") {
+        recordUpgradePurchase(window.localStorage);
+      }
+
+      return next;
+    });
+  }
+
   function handleFeedbackClick() {
     if (typeof window !== "undefined") {
       recordFeedbackClick(window.localStorage);
@@ -60,13 +90,13 @@ export function App() {
         </div>
 
         <div className="action-row">
-          <button className="primary-action" onClick={() => setState(clickForDust)}>
+          <button className="primary-action" onClick={handleCollectClick}>
             采集 +{formatNumber(state.dustPerClick)}
           </button>
           <button
             className="upgrade-action"
             disabled={!canBuyAutoCollector}
-            onClick={() => setState(buyAutoCollector)}
+            onClick={handleUpgradeClick}
           >
             购买自动采集器 · 需要 {formatNumber(state.nextAutoCollectorCost)} 星尘
           </button>

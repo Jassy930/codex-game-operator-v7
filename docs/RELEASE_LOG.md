@@ -10,3 +10,4 @@
 - Clarified the first upgrade button copy so the cost reads as required star dust.
 - Added a short first-goal line that tells players to save star dust for the first auto collector.
 - Added a UI-only early milestone line for reaching 2 auto collectors.
+- Added local-only first-session metrics for clicks, upgrades, and first upgrade time.

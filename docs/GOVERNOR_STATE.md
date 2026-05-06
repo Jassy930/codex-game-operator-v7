@@ -2,38 +2,37 @@
 
 ## Selected Mode
 
-META_IMPROVE
+METRICS_INFRA
 
 ## Reason
 
-The goal prompt lists metrics gap as an input source, but `docs/OPERATING_MODES.md` has no mode that explicitly permits local metrics infrastructure work.
+The game is playable and self-playtest now needs local measurement support for first-60-second decisions.
 
 ## Allowed Actions
 
-- Add a constrained `METRICS_INFRA` operating mode.
-- Update `docs/HARNESS_CHANGELOG.md`.
-- Verify the change does not weaken core constraints.
-- Commit the governance documentation together.
+- Add local-only telemetry events.
+- Add session and first-minute counters.
+- Update `docs/METRICS.md`.
+- Add tests for metric recording.
 
 ## Forbidden Actions
 
-- Do not weaken issue routing.
-- Do not weaken response budget.
-- Do not weaken complexity budget.
-- Do not weaken review protocol.
-- Do not change gameplay.
+- Do not upload telemetry.
+- Do not collect personal data.
+- Do not add external analytics SDKs.
+- Do not add gameplay mechanics.
+- Do not reply to issues.
 
 ## Exit Criteria
 
-- `METRICS_INFRA` mode is recorded in `docs/OPERATING_MODES.md`.
-- The change is recorded in `docs/HARNESS_CHANGELOG.md`.
-- `./ops/governor-check.sh` passes.
-- Git status is explicit after commit.
+- At least one local metric supports first-60-second evaluation.
+- `docs/METRICS.md` explains what is recorded and where.
+- Tests and build pass.
 
 ## Drift Status
 
-No drift detected. This is a constrained mode addition for an existing prompt input source.
+No drift detected. The next change is local-only measurement infrastructure.
 
 ## Last Updated
 
-2026-05-06: selected `META_IMPROVE` to add a constrained metrics infrastructure mode.
+2026-05-06: METRICS_INFRA exit criteria met locally; local first-session metrics are implemented and checks pass.
