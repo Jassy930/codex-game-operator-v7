@@ -2,17 +2,17 @@
 
 ## Current Biggest Problem
 
-The game is playable locally, but players do not yet have a clear feedback path.
+The game is playable locally and has a feedback path, but it is not yet publicly previewable.
 
 ## Evidence
 
 - BOOTSTRAP commit `7b30c9d` added a playable local MVP.
-- `docs/FEEDBACK.md` still says in-game feedback is not implemented.
-- `docs/METRICS.md` lists `feedback_clicked` as desired but no telemetry exists yet.
+- FEEDBACK_INFRA commit `8cf6f39` added an in-game feedback path.
+- No GitHub Pages workflow exists yet.
 
 ## Current Decision
 
-Add one GitHub Issues feedback link to the game UI and record a local `feedback_clicked` event queue. Do not add gameplay systems in this cycle.
+Add GitHub Pages release infrastructure so the game can be publicly previewed. Do not change gameplay in this cycle.
 
 ## Implementation Record
 
@@ -35,9 +35,21 @@ Add one GitHub Issues feedback link to the game UI and record a local `feedback_
 - Added local-only `feedback_clicked` queue under `stardust-workshop-feedback-events-v1`.
 - Updated feedback and metrics docs without replying to or fabricating any feedback.
 
+2026-05-06 RELEASE_INFRA selected:
+
+- Add a GitHub Pages workflow that installs with Bun, runs tests, builds, uploads `dist`, and deploys Pages.
+- Configure Vite base path for the repository Pages URL.
+- Document the preview URL and push trigger.
+
+2026-05-06 RELEASE_INFRA executed locally:
+
+- Added `.github/workflows/deploy-pages.yml`.
+- Configured Vite to use `/codex-game-operator-v7/` when `GITHUB_ACTIONS` is set.
+- Documented the expected Pages URL in README.
+
 ## Input Source
 
-Roadmap gap and metrics gap.
+Roadmap gap.
 
 ## Linked Signals
 
@@ -51,10 +63,11 @@ None.
 - No heavy lore
 - No issue-driven work yet
 - No new gameplay mechanics during feedback infrastructure work
+- No gameplay changes during release infrastructure work
 
 ## Review Notes
 
-BOOTSTRAP implementation stayed inside `docs/COMPLEXITY_BUDGET.md` and did not use issue-driven input. FEEDBACK_INFRA is the correct next mode because the game now works but cannot yet collect player feedback.
+BOOTSTRAP and FEEDBACK_INFRA stayed inside `docs/COMPLEXITY_BUDGET.md` and did not use issue-driven input. RELEASE_INFRA is the correct next mode because the game now works and has feedback intake but cannot yet be publicly previewed.
 
 ## Maintenance Decision
 

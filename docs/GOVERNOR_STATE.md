@@ -2,36 +2,36 @@
 
 ## Selected Mode
 
-FEEDBACK_INFRA
+RELEASE_INFRA
 
 ## Reason
 
-The game is now locally playable, but it does not yet provide a clear player feedback path.
+The game is locally playable and has a feedback path, but it is not yet publicly deployable.
 
 ## Allowed Actions
 
-- Add one clear feedback button or link.
-- Add GitHub issue feedback path.
-- Add local telemetry queue for feedback-click events.
-- Update README and runtime docs.
+- Add GitHub Pages workflow.
+- Configure build base path for project Pages.
+- Update deploy docs.
+- Run local verification before any push.
 
 ## Forbidden Actions
 
-- Do not add new game systems.
-- Do not treat GitHub issues as tasks.
-- Do not reply to issues without ledger and response budget evidence.
-- Do not production deploy.
+- Do not change gameplay.
+- Do not reply to issues.
+- Do not deploy broken builds.
+- Do not add unrelated release channels.
 
 ## Exit Criteria
 
-- A player has at least one clear feedback path.
-- Feedback path is documented.
-- Feedback-click telemetry is stored locally only.
+- GitHub Pages workflow exists.
+- Local tests and build pass.
+- Public preview path is documented.
 
 ## Drift Status
 
-No drift detected. The next change is infrastructure-only and does not add mechanics, resources, or panels.
+No drift detected. The next change is release infrastructure only.
 
 ## Last Updated
 
-2026-05-06: FEEDBACK_INFRA implementation completed locally. Next cycle should select `RELEASE_INFRA` if no higher-priority blocker appears.
+2026-05-06: RELEASE_INFRA implementation completed locally. GitHub Pages workflow is ready to run on push.
