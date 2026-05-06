@@ -18,7 +18,10 @@ Local-only metrics are stored in browser storage.
 - save_loaded
 - offline_reward_claimed
 - feedback_clicked
-- feedback_sent
+
+## Deferred Metrics
+
+- feedback_sent: 延后到反馈在 App 内提交，或 GitHub 提供可靠且隐私安全的确认路径后再评估。当前反馈链接会在新标签页打开 GitHub Issues，App 只能记录 `feedback_clicked`。
 
 ## Metrics Gap
 

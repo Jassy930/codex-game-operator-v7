@@ -6,14 +6,14 @@ METRICS_INFRA
 
 ## Reason
 
-当前没有开放 GitHub Issues。`docs/METRICS.md` 仍列出 `save_loaded`，但本地指标尚未记录有效存档加载；这会限制后续判断回访和离线收益提示是否被触发。
+当前没有开放 GitHub Issues。`save_loaded` 已实现；剩余 `feedback_sent` 不能通过当前 GitHub Issue 外链在本地可靠记录，需要先在指标文档中明确延后边界，避免错误添加上传或外部追踪。
 
 ## Allowed Actions
 
-- 添加 local-only telemetry event。
-- 添加指标记录测试。
 - 更新 `docs/METRICS.md`。
+- 明确 deferred metrics 的条件。
 - 保持所有指标只在浏览器本地存储。
+- 记录决策边界。
 
 ## Forbidden Actions
 
@@ -21,19 +21,20 @@ METRICS_INFRA
 - 不收集个人数据。
 - 不添加外部 analytics SDK。
 - 不添加 gameplay mechanics。
+- 不为 GitHub 外链反馈伪造 `feedback_sent`。
 - 不回复 issue。
 
 ## Exit Criteria
 
-- `save_loaded` 本地指标已记录并测试。
-- `docs/METRICS.md` 说明记录内容和隐私边界。
-- 测试和构建通过。
+- `feedback_sent` 的 deferred 状态和前置条件已记录。
+- `docs/DECISION.md` 记录不实现原因。
+- 治理检查通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现漂移。本轮只允许 local-only save-loaded 指标，不允许改变玩法。
+未发现漂移。本轮只允许指标文档收口，不允许添加追踪或改变反馈流。
 
 ## Last Updated
 
-2026-05-06: METRICS_INFRA `save_loaded` 本地指标已实现；`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 均通过。
+2026-05-06: METRICS_INFRA `feedback_sent` deferred 边界已记录；`./ops/governor-check.sh` 和 `git diff --check` 通过。

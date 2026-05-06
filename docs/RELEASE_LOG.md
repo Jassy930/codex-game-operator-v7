@@ -20,3 +20,4 @@
 - 记录研究支撑的下一步方向：优先增强购买自动采集器后的轻量确认反馈。
 - 购买自动采集器成功后显示短暂确认反馈，不改变经济数值。
 - 有效本地存档加载时记录 local-only `saveLoadedCount` 指标。
+- 明确 `feedback_sent` 在当前 GitHub 外链反馈流下为 deferred metric，不做本地伪计数。

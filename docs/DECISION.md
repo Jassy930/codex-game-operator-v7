@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-本地指标仍未记录有效存档加载，后续难以判断回访和离线收益提示是否被触发。
+`feedback_sent` 不能在当前 GitHub 外链反馈流中被本地可靠记录。
 
 ## Evidence
 
@@ -27,10 +27,12 @@
 - 购买自动采集器是前 60 秒内最重要的状态变化，但当前反馈主要依赖数字变化和按钮状态变化。
 - `docs/METRICS.md` 将 `save_loaded` 列为 desired metric。
 - `hydrateGameStateWithReport` 能区分有效存档、缺失存档和无效存档后，`save_loaded` 可以保持 local-only 且不记录个人数据。
+- 当前反馈入口打开 GitHub Issues 新标签页，App 只能知道玩家点击了反馈链接，不能知道玩家是否最终提交 issue。
+- 为了保持 local-only 和隐私边界，不能用外部追踪或猜测方式伪造 `feedback_sent`。
 
 ## Current Decision
 
-记录 local-only `saveLoadedCount`，仅在有效本地存档加载时递增。不上传 telemetry，不记录个人数据，不改变玩法。
+将 `feedback_sent` 从 desired metrics 移到 deferred metrics。除非反馈提交发生在 App 内，或 GitHub 提供可靠且隐私安全的确认路径，否则不实现本地 `feedback_sent` 计数。
 
 ## Implementation Record
 
@@ -199,6 +201,12 @@
 - `hydrateGameStateWithReport` 现在返回 `saveLoaded`。
 - 新增 local-only `saveLoadedCount`。
 - App 打开有效本地存档时记录一次 `saveLoadedCount`。
+
+2026-05-06 METRICS_INFRA feedback boundary:
+
+- Gap: `feedback_sent` 曾列为 desired metric，但当前反馈流只能确认 `feedback_clicked`。
+- Decision: 将 `feedback_sent` 记录为 deferred metric，不用外部追踪或猜测方式实现。
+- 约束：继续保持 metrics local-only、无上传、无个人数据、无外部 SDK。
 
 ## Input Source
 
