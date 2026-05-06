@@ -2,38 +2,37 @@
 
 ## Selected Mode
 
-SIMPLIFY
+SELF_PLAYTEST
 
 ## Reason
 
-当前没有开放 GitHub Issues。M3 反馈处理核心文档已基本中文化，但 `docs/FEEDBACK.md` 仍有英文小节名和字段标签。本轮继续 SIMPLIFY，只做反馈入口文档语言收口，并按 release-log 阈值更新 retrospective。
+当前没有开放 GitHub Issues。上一轮 Retrospective 7 明确：下一轮不应继续低优先级文档语言收口。游戏已公开可玩且缺少真实反馈，因此回到 SELF_PLAYTEST，用当前经济函数重新检查前 60 秒节奏和 “one more upgrade is within reach” 是否成立。
 
 ## Allowed Actions
 
-- 中文化 `docs/FEEDBACK.md` 的小节名和字段标签。
-- 保留反馈入口、issue form、local-only telemetry 和隐私边界语义。
-- 更新 `docs/DECISION.md`、`docs/RELEASE_LOG.md`、`docs/RETROSPECTIVE.md`。
-- 只允许文档变更。
+- 评估前 10/30/60 秒体验。
+- 使用现有游戏逻辑做本地模拟。
+- 更新 `docs/SELF_PLAYTEST.md`。
+- 如发现具体 gap，在 `docs/DECISION.md` 记录小范围决策。
 
 ## Forbidden Actions
 
-- 不改游戏代码。
-- 不新增或删除反馈渠道。
-- 不伪造反馈、聚类或指标。
-- 不改变 issue routing、response budget 或 North Star 约束。
+- 不新增玩法、资源、奖励、面板或第二反馈渠道。
+- 不把 self-playtest 伪装成真实玩家反馈。
+- 不新增 analytics SDK、上传路径、个人数据或跨设备追踪。
+- 不继续做低优先级文档语言收口。
 - 不回复 issue。
 
 ## Exit Criteria
 
-- `docs/FEEDBACK.md` 使用中文小节名和字段标签。
-- 反馈入口与隐私边界语义不变。
-- `docs/RETROSPECTIVE.md` 记录本轮 M3 文档收敛窗口。
-- `./ops/governor-check.sh` 通过。
+- 一个具体 self-playtest gap 已记录，或明确记录本轮未发现足够具体的 gap。
+- 若改代码：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
+- 若只改文档：`./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只做反馈入口文档语言收口，不改变游戏、反馈入口、指标或回复预算。
+未发现玩法漂移。本轮只检查现有核心循环节奏，不扩展系统。
 
 ## Last Updated
 
@@ -72,3 +71,7 @@ SIMPLIFY
 2026-05-06: 继续 SIMPLIFY；中文化 `docs/FEEDBACK.md` 剩余小节名和字段标签，并补 retrospective。
 
 2026-05-06: SIMPLIFY 完成；`docs/FEEDBACK.md` 剩余小节名和字段标签已中文化，Retrospective 7 已记录。
+
+2026-05-06: 切换到 SELF_PLAYTEST；用当前经济函数重新检查前 60 秒节奏。
+
+2026-05-06: SELF_PLAYTEST 完成；当前经济模拟未发现数值改动 gap，第 60 秒下一台购买进度约 98%。

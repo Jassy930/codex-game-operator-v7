@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览、单一 GitHub Issue Form 和站外 playtest 邀请素材已存在，但仍没有真实玩家反馈。M3 反馈处理文档需要保持中文且可执行，避免真实反馈出现后执行不一致。
+公开预览、单一 GitHub Issue Form、站外 playtest 邀请素材和 M3 反馈处理文档已收口，但仍没有真实玩家反馈。当前经济节奏 self-playtest 未发现需要改数值的 gap。
 
 ## Evidence
 
@@ -62,10 +62,11 @@
 - `docs/FEEDBACK_CLUSTERS.md` 仍保留英文模板，而 M3 反馈处理依赖该文档。
 - `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md` 仍以英文为主，而 M3 反馈处理依赖这两份文档。
 - `docs/FEEDBACK.md` 仍有英文小节名和字段标签。
+- 当前经济模拟显示：每秒点击一次时，第 10、23、39 秒购买前三台自动采集器，第 60 秒下一台购买进度约 98%。
 
 ## Current Decision
 
-中文化 `docs/FEEDBACK.md` 剩余小节名和字段标签，保留反馈入口、issue form、local-only telemetry 和隐私边界语义。不新增反馈、渠道、指标或产品任务。
+本轮不调整经济数值或 UI。当前前 60 秒节奏仍支持 “one more upgrade is within reach”，后续应等待真实反馈或新的研究问题，而不是无信号调整数值。
 
 ## Implementation Record
 
@@ -362,6 +363,12 @@
 - Gap: `docs/FEEDBACK.md` 仍有英文小节名和字段标签。
 - Decision: 中文化反馈入口文档剩余 UI 文档语言，保留反馈路径和隐私边界。
 - 约束：不新增反馈渠道，不改变 metrics，不伪造真实反馈。
+
+2026-05-06 SELF_PLAYTEST economy no-change result:
+
+- 每秒点击一次并自动购买时，自动采集器在第 10、23、39 秒购入。
+- 第 60 秒下一台购买进度约 98%，符合“再买一台已接近”的 North Star 感受。
+- 决策：不调整经济数值，不新增系统，继续等待真实反馈或新的研究问题。
 
 ## Input Source
 
