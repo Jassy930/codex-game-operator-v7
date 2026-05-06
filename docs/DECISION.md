@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览已经存在，但 metrics policy 仍必须保持 local-only。
+反馈入口文档与实际 App 行为存在轻微漂移。
 
 ## Evidence
 
@@ -31,10 +31,12 @@
 - 为了保持 local-only 和隐私边界，不能用外部追踪或猜测方式伪造 `feedback_sent`。
 - 公开预览 URL 已发布，但当前没有真实同意流程、analytics governance 或外部 SDK 审核。
 - `docs/METRICS.md` 旧表述把 local-only 绑定到“尚未公开部署”，已经与当前状态不一致。
+- `docs/FEEDBACK.md` 只记录了 GitHub Issues 裸链接，未说明 App 实际预填 label/title/body。
+- `docs/ISSUE_LEDGER.md` 的说明仍是英文模板，不符合当前文档语言约束。
 
 ## Current Decision
 
-公开预览阶段继续保持 telemetry local-only。任何上传、外部 analytics SDK、个人数据或跨设备追踪都需要单独治理决策。
+收口反馈文档，使 `docs/FEEDBACK.md` 与 App 实际反馈链接行为一致，并将 `docs/ISSUE_LEDGER.md` 的说明中文化。不改变游戏行为、不新增反馈渠道、不回复 issue。
 
 ## Implementation Record
 
@@ -215,6 +217,12 @@
 - Gap: `docs/METRICS.md` 仍暗示 local-only 只适用于未公开部署阶段。
 - Decision: 公开预览阶段继续保持 telemetry local-only。
 - 约束：上传、外部 SDK、个人数据或跨设备追踪必须另走治理决策。
+
+2026-05-06 SIMPLIFY feedback docs:
+
+- Gap: 反馈入口文档没有说明 App 预填的 label/title/body，issue ledger 说明仍是英文模板。
+- Decision: 更新反馈文档和 issue ledger 说明，保持反馈路由清晰。
+- 约束：不改变 App 行为，不新增反馈渠道，不回复或伪造 issue。
 
 ## Input Source
 

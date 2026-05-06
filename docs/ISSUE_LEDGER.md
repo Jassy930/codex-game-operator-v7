@@ -1,6 +1,6 @@
 # Issue Ledger
 
-This file tracks issue routing and prevents repeated work.
+本文件记录 GitHub Issue 的路由结果，防止重复处理、重复回复或把单个 issue 直接当成任务。
 
 | Issue | Fingerprint | Cluster | Class | Status | Last Reply | Linked Decision | Linked Commit/Release | Next Action |
 |---|---|---|---|---|---|---|---|---|
@@ -8,16 +8,16 @@ This file tracks issue routing and prevents repeated work.
 
 ## Status Values
 
-- new
-- clustered
-- accepted
-- deferred
-- declined
-- fixed-awaiting-release
-- released
-- waiting-for-new-info
-- closed-no-action
+- `new`: 已发现但尚未路由。
+- `clustered`: 已归入反馈簇。
+- `accepted`: 已接受为符合 North Star 和当前阶段的输入。
+- `deferred`: 延后处理。
+- `declined`: 明确不采纳。
+- `fixed-awaiting-release`: 已修复，等待发布。
+- `released`: 已发布。
+- `waiting-for-new-info`: 等待更多信息。
+- `closed-no-action`: 关闭且不采取行动。
 
 ## Rule
 
-If an issue is not in this ledger, do not implement it and do not reply beyond at most one brief clarification.
+如果 issue 不在本 ledger 中，不要实现它；除最多一次简短澄清外，不要回复它。

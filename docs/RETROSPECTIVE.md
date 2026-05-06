@@ -140,6 +140,51 @@ Update this file when either is true:
 
 若没有真实反馈，下一轮可进入 `SELF_PLAYTEST` 验证购买动作反馈缺口；若出现 issue，进入 `OPERATE` 并先更新 `docs/ISSUE_LEDGER.md`。
 
+## 2026-05-06 Retrospective 4
+
+### Window
+
+从购买反馈实现，到本地 `save_loaded` 指标、反馈指标边界、公开预览 metrics policy 和反馈文档收口。
+
+### What Changed
+
+- 购买自动采集器后显示短暂确认反馈。
+- 有效本地存档加载时记录 local-only `saveLoadedCount`。
+- 将 `feedback_sent` 明确为 deferred metric，当前只记录 `feedback_clicked`。
+- 修正公开预览阶段的 metrics policy：仍保持 local-only。
+- 收口 `FEEDBACK.md` 和 `ISSUE_LEDGER.md`，让反馈文档更贴近实际 GitHub Issue 流程。
+
+### What Improved
+
+- 前 60 秒购买动作反馈更清楚。
+- 回访和离线收益相关的本地判断更有数据基础。
+- 指标边界更清楚，避免公开预览后误加上传或外部 SDK。
+- 反馈路由文档更符合中文文档约束。
+
+### What Got Worse
+
+- runtime 文档继续增长，后续需要保持 `AGENTS.md` 和高层文档只做导航。
+- 仍没有真实玩家反馈，产品判断主要来自 self-playtest、metrics gap 和 research。
+
+### Drift Check
+
+- repeated issue replies: 无。
+- issue-driven thrashing: 无，没有开放 issue。
+- feature bloat: 无，未新增资源、奖励系统或新面板。
+- lack of tests: 无，购买反馈和 save-loaded 指标均有测试。
+- unclear North Star: 无，仍围绕清晰目标、稳定增长和回访体验。
+- harness friction: 无；本轮是文档漂移收口，没有削弱治理约束。
+
+### Harness Lessons
+
+- 公开预览不等于可以自动上传 telemetry；metrics policy 必须明确 consent 和 governance 边界。
+- 外部 GitHub Issue 流程只能可靠记录点击，不能伪造提交完成。
+- 反馈文档需要描述实际链接行为，否则后续 agent 容易误判反馈入口能力。
+
+### Next Operating Mode
+
+若没有真实反馈，下一轮优先 `SELF_PLAYTEST` 检查购买反馈和整体 UI 是否开始接近复杂度上限；若出现 issue，进入 `OPERATE`。
+
 ## Template
 
 ```md

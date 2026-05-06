@@ -2,38 +2,38 @@
 
 ## Selected Mode
 
-METRICS_INFRA
+SIMPLIFY
 
 ## Reason
 
-当前没有开放 GitHub Issues。`docs/METRICS.md` 的 Current Decision 仍把 local-only telemetry 绑定到“尚未公开部署”，但项目已经有公开预览；需要修正文档边界，避免后续误解为公开后可以自动上传 telemetry。
+当前没有开放 GitHub Issues。反馈处理主路径文档存在轻微漂移：`docs/FEEDBACK.md` 未说明 App 实际生成的 label/title/body，`docs/ISSUE_LEDGER.md` 仍是英文模板；需要先收口文档，避免后续路由误解。
 
 ## Allowed Actions
 
-- 更新 `docs/METRICS.md`。
-- 明确公开预览阶段仍保持 local-only 的原因。
-- 保持所有指标只在浏览器本地存储。
-- 记录决策边界。
+- 澄清反馈入口文档。
+- 简化并中文化反馈 ledger 说明。
+- 更新相关治理记录。
+- 不改变游戏行为。
 
 ## Forbidden Actions
 
-- 不上传 telemetry。
-- 不收集个人数据。
-- 不添加外部 analytics SDK。
-- 不添加 gameplay mechanics。
+- 不添加新反馈渠道。
 - 不回复 issue。
+- 不伪造反馈。
+- 不改变 GitHub Issue 路由规则。
 
 ## Exit Criteria
 
-- `docs/METRICS.md` 的公开预览 telemetry 边界已修正。
-- `docs/DECISION.md` 记录 local-only policy 继续有效。
+- `docs/FEEDBACK.md` 与 App 实际反馈链接行为一致。
+- `docs/ISSUE_LEDGER.md` 的说明改为中文。
+- 如 release-log 达到 5 条，更新 `docs/RETROSPECTIVE.md`。
 - 治理检查通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现漂移。本轮只允许指标文档修正，不允许添加追踪或改变反馈流。
+发现轻微文档漂移。本轮只允许反馈文档收口，不允许改动玩法或新增渠道。
 
 ## Last Updated
 
-2026-05-06: METRICS_INFRA 公开预览后的 local-only metrics policy 已修正；`./ops/governor-check.sh` 和 `git diff --check` 通过。
+2026-05-06: SIMPLIFY 反馈文档漂移已收口；release-log 达 5 条后的 retrospective 已更新；`./ops/governor-check.sh` 和 `git diff --check` 通过。
