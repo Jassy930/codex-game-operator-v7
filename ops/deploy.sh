@@ -8,9 +8,9 @@ if [ ! -f package.json ]; then
   exit 0
 fi
 
-npm install
-npm test
-npm run build
+bun install
+bun test
+bun run build
 
 if command -v vercel >/dev/null 2>&1; then
   if [ "$MODE" = "prod" ] || [ "$MODE" = "production" ]; then

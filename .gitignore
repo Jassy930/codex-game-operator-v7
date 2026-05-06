@@ -5,5 +5,6 @@ dist/
 .operator-logs/
 .goal-harness-logs/
 .harness/
+snapshots/
 .DS_Store
 *.log

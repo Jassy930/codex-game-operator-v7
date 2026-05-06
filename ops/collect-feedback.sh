@@ -31,6 +31,9 @@ fi
   echo "## Bug Issues"
   gh issue list --label bug --state open --limit 50 || true
   echo
+  echo "## Balance Issues"
+  gh issue list --label balance --state open --limit 50 || true
+  echo
   echo "## Idea Issues"
   gh issue list --label idea --state open --limit 50 || true
 } >> "$OUT"

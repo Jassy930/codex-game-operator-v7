@@ -1,18 +1,41 @@
 # Retrospective
 
-Every 10 meaningful cycles, update this file.
+## Trigger
 
-## Cycle Window
+Update this file when either is true:
+
+- 10 commits have occurred since the last retrospective.
+- 5 release-log entries have been added since the last retrospective.
+- drift is detected.
+- a harness change is proposed.
+
+## Latest Retrospective
 
 Not started.
 
-## Drift Check
+## Template
 
-- repeated issue replies: no
-- issue-driven thrashing: no
-- feature bloat: no
-- lack of tests: unknown
+```md
+## YYYY-MM-DD Retrospective
 
-## Next Operating Mode
+### Window
 
-BOOTSTRAP
+### What Changed
+
+### What Improved
+
+### What Got Worse
+
+### Drift Check
+
+- repeated issue replies:
+- issue-driven thrashing:
+- feature bloat:
+- lack of tests:
+- unclear North Star:
+- harness friction:
+
+### Harness Lessons
+
+### Next Operating Mode
+```

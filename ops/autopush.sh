@@ -6,9 +6,9 @@ MESSAGE="${1:-operator: governed autonomous iteration}"
 ./ops/governor-check.sh
 
 if [ -f package.json ]; then
-  npm install
-  npm test
-  npm run build
+  bun install
+  bun test
+  bun run build
 fi
 
 if git diff --quiet && git diff --cached --quiet; then

@@ -1,18 +1,37 @@
 # Governor State
 
-## Current Mode
+## Selected Mode
 
 BOOTSTRAP
 
-## Modes
+## Reason
 
-- BOOTSTRAP: no playable project exists.
-- BUILD: core game is not yet playable.
-- FEEDBACK_INFRA: game is playable but cannot receive feedback.
-- OPERATE: game is public and receiving feedback.
-- SIMPLIFY: complexity exceeds budget or drift is detected.
-- FEATURE_FREEZE: repeated issue-driven changes or feature bloat occurs.
+Clean-room project has no runnable game yet.
 
-## Current Reason
+## Allowed Actions
 
-New project. No game yet.
+- Create project skeleton.
+- Add tests.
+- Add minimal game shell.
+- Update runtime docs.
+
+## Forbidden Actions
+
+- Do not add advanced mechanics.
+- Do not respond to non-critical issues.
+- Do not production deploy.
+
+## Exit Criteria
+
+- `package.json` exists.
+- `bun test` exists.
+- `bun run build` exists.
+- Minimal game shell exists.
+
+## Drift Status
+
+No drift detected yet.
+
+## Last Updated
+
+Initial bootstrap.

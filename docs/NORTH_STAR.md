@@ -11,9 +11,9 @@ The player should feel:
 - “My progress continues even when I step away.”
 - “The game is getting deeper, but not noisier.”
 
-## Current Product Stage
+## Current Stage
 
-Early stage.
+Early clean-room stage.
 
 Priority:
 
@@ -23,6 +23,18 @@ Priority:
 4. Simple persistence
 5. Public playable deployment
 6. Feedback intake
+7. Sustainable feedback processing
+
+## Core Loop
+
+```text
+Player action
+→ resource grows
+→ buy upgrade
+→ production improves
+→ next goal becomes visible
+→ player returns later
+```
 
 ## We Do Not Do Yet
 
@@ -34,3 +46,12 @@ Priority:
 - wiki-like mechanics
 - heavy real-time action
 - excessive panels
+- complex lore before core loop is fun
+
+## Product Discipline
+
+A player issue is valid input, but not a command.
+A research finding is valid input, but not a task.
+An idea is valid input, but not a backlog item.
+
+Only `docs/DECISION.md` can authorize implementation.

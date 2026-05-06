@@ -23,6 +23,14 @@ Hypothesis:
 North Star Fit:
 - high / medium / low
 
+Current Stage Fit:
+- high / medium / low
+
 Decision:
 - action / defer / decline
+
+Evidence:
+- issue links
+- metrics
+- manual feedback
 ```
