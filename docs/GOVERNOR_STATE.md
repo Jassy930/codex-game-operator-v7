@@ -2,36 +2,35 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+RESEARCH
 
 ## Reason
 
-The game is playable, publicly previewable, and has a feedback path. GitHub Issues currently has no open real player feedback, so the next input source is self-playtest.
+The game is playable, publicly previewable, and has a feedback path. No real feedback exists, and the next product question is unclear: whether to improve early progress feedback or add mechanics.
 
 ## Allowed Actions
 
-- Evaluate first 10/30/60 seconds.
-- Update `docs/SELF_PLAYTEST.md`.
-- Identify one concrete clarity improvement.
-- Implement only a small first-60-second clarity fix if justified.
+- Research one product question.
+- Update `docs/RESEARCH.md`.
+- Produce one decision in `docs/DECISION.md`.
+- Do not implement directly from research.
 
 ## Forbidden Actions
 
-- Do not add large features.
-- Do not add new game systems.
+- Do not copy content.
+- Do not implement features in RESEARCH mode.
+- Do not treat research as backlog.
 - Do not reply to issues.
-- Do not change release infrastructure.
 
 ## Exit Criteria
 
-- One concrete first-60-second gap is documented in `docs/DECISION.md`.
-- Any implemented fix remains inside complexity budget.
-- Local checks pass.
+- A research-backed decision exists in `docs/DECISION.md`.
+- `docs/RESEARCH.md` records question, sources, principles, decision impact, and what not to copy.
 
 ## Drift Status
 
-No drift detected. The next change is self-playtest-driven clarity only.
+No drift detected. The next action is research only.
 
 ## Last Updated
 
-2026-05-06: SELF_PLAYTEST cycle 2 exit criteria met locally; first-goal line is implemented and checks pass.
+2026-05-06: RESEARCH exit criteria met. `docs/RESEARCH.md` records the question, sources, principles, decision impact, and what not to copy.

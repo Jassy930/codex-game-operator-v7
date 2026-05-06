@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-The game is playable and publicly previewable, but the first goal is still implicit rather than stated as a clear sentence.
+The game is playable and publicly previewable, but early progress feedback is still thin after the first goal is stated.
 
 ## Evidence
 
@@ -12,10 +12,12 @@ The game is playable and publicly previewable, but the first goal is still impli
 - `gh issue list --state open` returned no open issues on 2026-05-06.
 - Prior self-playtest clarified upgrade cost wording.
 - The screen still relies on the upgrade button and progress bar to imply the first objective.
+- After cycle 2, the first objective is stated directly.
+- `docs/RESEARCH.md` recommends early progress feedback before new mechanics.
 
 ## Current Decision
 
-Add one short first-goal sentence near the progress area so the first objective is explicit. Do not add systems in this cycle.
+Prioritize a minimal early progress feedback improvement before adding new mechanics. The next implementation cycle may add a small milestone/progress affordance for the first and second auto collector, provided it stays within complexity budget.
 
 ## Implementation Record
 
@@ -75,9 +77,19 @@ Add one short first-goal sentence near the progress area so the first objective 
 - Added one first-goal line: “目标：攒够星尘，购买第一个自动采集器”.
 - No mechanics, resources, panels, or feedback replies were added.
 
+2026-05-06 RESEARCH selected:
+
+- Question: after a playable idle MVP with clear first goal, should the next iteration improve early progress feedback or add another mechanic?
+- Output required: update `docs/RESEARCH.md` and record one decision here.
+
+2026-05-06 RESEARCH result:
+
+- Decision: improve early progress feedback before adding mechanics.
+- Rationale: sources emphasize simple first objectives, visible production/cost balance, steady progression, and frequent feedback as idle-game fundamentals.
+
 ## Input Source
 
-Self-playtest gap.
+Research question.
 
 ## Linked Signals
 
@@ -93,10 +105,12 @@ None.
 - No new gameplay mechanics during feedback infrastructure work
 - No gameplay changes during release infrastructure work
 - No new systems during self-playtest work
+- No direct implementation during research work
+- No new mechanic before early progress feedback is stronger
 
 ## Review Notes
 
-BOOTSTRAP, FEEDBACK_INFRA, and RELEASE_INFRA stayed inside `docs/COMPLEXITY_BUDGET.md` and did not use issue-driven input. SELF_PLAYTEST is the correct next mode because the game is live but has no real feedback yet.
+BOOTSTRAP, FEEDBACK_INFRA, RELEASE_INFRA, SELF_PLAYTEST, and RESEARCH stayed inside `docs/COMPLEXITY_BUDGET.md` and did not use issue-driven input. The research decision keeps the next implementation focused on feedback and milestones instead of scope expansion.
 
 ## Maintenance Decision
 
