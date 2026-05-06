@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-GitHub Pages workflow 仍使用会触发 Node.js 20 deprecation annotation 的 actions 版本。
+公开预览已经可访问，但当前没有开放 GitHub Issues 或真实玩家反馈。下一步只能通过 self-playtest 检查前 10/30/60 秒体验，不应新增玩法系统。
 
 ## Evidence
 
@@ -45,10 +45,13 @@ GitHub Pages workflow 仍使用会触发 Node.js 20 deprecation annotation 的 a
 - 同一块区域已经同时显示目标文案和自动采集器里程碑。
 - 最新 workflow run 仍显示 Node.js 20 deprecation annotation。
 - GitHub API 返回的最新 action release 包括 `actions/checkout@v6.0.2`、`actions/configure-pages@v6.0.0`、`actions/upload-pages-artifact@v5.0.0`、`actions/deploy-pages@v5.0.0`。
+- GitHub Pages workflow run `25430225912` completed successfully on 2026-05-06.
+- `https://jassy930.github.io/codex-game-operator-v7/` returned HTTP 200 on 2026-05-06.
+- `gh issue list --state open` returned no open issues on 2026-05-06 after the Pages workflow upgrade.
 
 ## Current Decision
 
-升级 GitHub Pages workflow 使用当前 actions release，并移除 `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24`。不改变游戏代码或测试门槛。
+回到 SELF_PLAYTEST，继续检查前 10/30/60 秒体验。除非发现具体清晰度 gap，否则不新增玩法系统、资源、奖励或新面板。
 
 ## Implementation Record
 
@@ -283,6 +286,13 @@ GitHub Pages workflow 仍使用会触发 Node.js 20 deprecation annotation 的 a
 - Gap: Pages workflow 仍出现 Node.js 20 deprecation annotation。
 - Decision: 升级 checkout/configure-pages/upload-pages-artifact/deploy-pages 到 GitHub API 返回的当前 release。
 - 约束：不降低测试、构建或部署门槛，不改变游戏代码。
+
+2026-05-06 RELEASE_INFRA action upgrade result:
+
+- Pages workflow run `25430225912` 成功。
+- 公开预览返回 HTTP 200。
+- 当前无开放 GitHub Issues。
+- 下一步切换到 SELF_PLAYTEST，而不是继续改发布基础设施。
 
 ## Input Source
 
