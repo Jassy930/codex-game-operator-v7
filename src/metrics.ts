@@ -7,6 +7,7 @@ export type LocalMetrics = {
   clickCount: number;
   upgradePurchaseCount: number;
   firstUpgradeTimeMs: number | null;
+  saveLoadedCount: number;
   offlineRewardClaimedCount: number;
   lastOfflineRewardDust: number | null;
 };
@@ -18,6 +19,7 @@ const EMPTY_METRICS: LocalMetrics = {
   clickCount: 0,
   upgradePurchaseCount: 0,
   firstUpgradeTimeMs: null,
+  saveLoadedCount: 0,
   offlineRewardClaimedCount: 0,
   lastOfflineRewardDust: null,
 };
@@ -62,6 +64,14 @@ export function recordOfflineRewardClaimed(storage: Storage, dust: number): void
   });
 }
 
+export function recordSaveLoaded(storage: Storage): void {
+  const metrics = readMetrics(storage);
+  writeMetrics(storage, {
+    ...metrics,
+    saveLoadedCount: metrics.saveLoadedCount + 1,
+  });
+}
+
 export function recordUpgradePurchase(storage: Storage, now = Date.now()): void {
   const metrics = readMetrics(storage);
   const firstUpgradeTimeMs =
@@ -90,6 +100,7 @@ export function readMetrics(storage: Storage): LocalMetrics {
       clickCount: numberOr(parsed.clickCount, 0),
       upgradePurchaseCount: numberOr(parsed.upgradePurchaseCount, 0),
       firstUpgradeTimeMs: numberOrNull(parsed.firstUpgradeTimeMs),
+      saveLoadedCount: numberOr(parsed.saveLoadedCount, 0),
       offlineRewardClaimedCount: numberOr(parsed.offlineRewardClaimedCount, 0),
       lastOfflineRewardDust: numberOrNull(parsed.lastOfflineRewardDust),
     };

@@ -2,36 +2,38 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+METRICS_INFRA
 
 ## Reason
 
-当前没有开放 GitHub Issues。研究结论已经把下一步限定为购买自动采集器后的轻量确认反馈；本轮验证并实现一个 UI-only 改动。
+当前没有开放 GitHub Issues。`docs/METRICS.md` 仍列出 `save_loaded`，但本地指标尚未记录有效存档加载；这会限制后续判断回访和离线收益提示是否被触发。
 
 ## Allowed Actions
 
-- 评估前 10/30/60 秒体验。
-- 更新 `docs/SELF_PLAYTEST.md`。
-- 实现一个小型 UI 清晰度修复。
-- 添加回归测试。
+- 添加 local-only telemetry event。
+- 添加指标记录测试。
+- 更新 `docs/METRICS.md`。
+- 保持所有指标只在浏览器本地存储。
 
 ## Forbidden Actions
 
-- 不添加大型功能。
-- 不添加新资源系统。
-- 不添加奖励系统、弹窗教程或经济数值变化。
+- 不上传 telemetry。
+- 不收集个人数据。
+- 不添加外部 analytics SDK。
+- 不添加 gameplay mechanics。
 - 不回复 issue。
 
 ## Exit Criteria
 
-- 购买自动采集器后的轻量确认反馈已实现并测试。
-- 相关文档与发布记录已更新。
+- `save_loaded` 本地指标已记录并测试。
+- `docs/METRICS.md` 说明记录内容和隐私边界。
+- 测试和构建通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现漂移。本轮只允许 UI-only 购买反馈，不允许扩展系统。
+未发现漂移。本轮只允许 local-only save-loaded 指标，不允许改变玩法。
 
 ## Last Updated
 
-2026-05-06: SELF_PLAYTEST 购买自动采集器轻量确认反馈已本地实现；`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 均通过。
+2026-05-06: METRICS_INFRA `save_loaded` 本地指标已实现；`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 均通过。

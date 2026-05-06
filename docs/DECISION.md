@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-前 60 秒的目标和里程碑已经更清晰，但购买自动采集器这一关键动作缺少轻量确认反馈。
+本地指标仍未记录有效存档加载，后续难以判断回访和离线收益提示是否被触发。
 
 ## Evidence
 
@@ -25,10 +25,12 @@
 - 第 10 秒后，UI 仍然显示“目标：攒够星尘，购买第一个自动采集器”。
 - 2026-05-06 研究记录显示，下一步应继续强化已有的货币、generator、production rate、cost 循环，而不是新增资源系统。
 - 购买自动采集器是前 60 秒内最重要的状态变化，但当前反馈主要依赖数字变化和按钮状态变化。
+- `docs/METRICS.md` 将 `save_loaded` 列为 desired metric。
+- `hydrateGameStateWithReport` 能区分有效存档、缺失存档和无效存档后，`save_loaded` 可以保持 local-only 且不记录个人数据。
 
 ## Current Decision
 
-下一步候选改动是购买自动采集器后的短暂确认反馈。改动必须保持 UI-only：不增加新资源、奖励、面板、弹窗或经济数值变化。
+记录 local-only `saveLoadedCount`，仅在有效本地存档加载时递增。不上传 telemetry，不记录个人数据，不改变玩法。
 
 ## Implementation Record
 
@@ -186,6 +188,17 @@
 - 购买自动采集器成功后显示“自动采集器启动：每秒星尘 +X”。
 - 确认反馈会自动清除，不使用弹窗，也不改变经济数值。
 - 为购买确认文案增加回归测试。
+
+2026-05-06 METRICS_INFRA selected:
+
+- Gap: `save_loaded` 是 desired metric，但本地 metrics 尚未记录有效存档加载。
+- Decision: 只在有效版本化存档成功加载时记录 local-only `saveLoadedCount`。
+
+2026-05-06 METRICS_INFRA result:
+
+- `hydrateGameStateWithReport` 现在返回 `saveLoaded`。
+- 新增 local-only `saveLoadedCount`。
+- App 打开有效本地存档时记录一次 `saveLoadedCount`。
 
 ## Input Source
 

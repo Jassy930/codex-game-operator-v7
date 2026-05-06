@@ -11,6 +11,7 @@ export type GameState = {
 export type HydratedGameState = {
   state: GameState;
   offlineDust: number;
+  saveLoaded: boolean;
 };
 
 const SAVE_VERSION = 1;
@@ -83,6 +84,7 @@ export function hydrateGameStateWithReport(
     return {
       state: createGameState(now),
       offlineDust: 0,
+      saveLoaded: false,
     };
   }
 
@@ -92,6 +94,7 @@ export function hydrateGameStateWithReport(
       return {
         state: createGameState(now),
         offlineDust: 0,
+        saveLoaded: false,
       };
     }
 
@@ -115,11 +118,13 @@ export function hydrateGameStateWithReport(
     return {
       state,
       offlineDust: round(Math.max(0, state.dust - dustBeforeOffline)),
+      saveLoaded: true,
     };
   } catch {
     return {
       state: createGameState(now),
       offlineDust: 0,
+      saveLoaded: false,
     };
   }
 }

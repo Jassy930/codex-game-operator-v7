@@ -3,6 +3,7 @@ import {
   readMetrics,
   recordOfflineRewardClaimed,
   recordPlayerClick,
+  recordSaveLoaded,
   recordSessionEnd,
   recordUpgradePurchase,
   startMetricsSession,
@@ -21,6 +22,7 @@ describe("local metrics", () => {
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,
+      saveLoadedCount: 0,
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
     });
@@ -48,6 +50,17 @@ describe("local metrics", () => {
       lastOfflineRewardDust: 4,
     });
   });
+
+  it("records local save load visibility", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+
+    recordSaveLoaded(storage);
+    recordSaveLoaded(storage);
+
+    expect(readMetrics(storage).saveLoadedCount).toBe(2);
+  });
+
 
   it("records local session end and duration", () => {
     const storage = createMemoryStorage();
@@ -77,6 +90,7 @@ describe("local metrics", () => {
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,
+      saveLoadedCount: 0,
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
     });
@@ -96,6 +110,7 @@ describe("local metrics", () => {
       clickCount: 0,
       upgradePurchaseCount: 2,
       firstUpgradeTimeMs: 5_000,
+      saveLoadedCount: 0,
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
     });
@@ -112,6 +127,7 @@ describe("local metrics", () => {
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,
+      saveLoadedCount: 0,
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
     });

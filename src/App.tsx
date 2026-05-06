@@ -13,6 +13,7 @@ import {
 import {
   recordOfflineRewardClaimed,
   recordPlayerClick,
+  recordSaveLoaded,
   recordSessionEnd,
   recordUpgradePurchase,
   startMetricsSession,
@@ -56,6 +57,9 @@ export function App() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       startMetricsSession(window.localStorage);
+      if (loadedGame.saveLoaded) {
+        recordSaveLoaded(window.localStorage);
+      }
       if (offlineDust > 0) {
         recordOfflineRewardClaimed(window.localStorage, offlineDust);
       }
@@ -203,6 +207,7 @@ function loadGame(): HydratedGameState {
     return {
       state: createGameState(0),
       offlineDust: 0,
+      saveLoaded: false,
     };
   }
 

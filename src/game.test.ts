@@ -91,5 +91,11 @@ describe("core idle loop", () => {
 
     expect(loaded.state.dust).toBe(11);
     expect(loaded.offlineDust).toBe(6);
+    expect(loaded.saveLoaded).toBe(true);
+  });
+
+  it("does not report save_loaded when no valid save exists", () => {
+    expect(hydrateGameStateWithReport(null, 31_000).saveLoaded).toBe(false);
+    expect(hydrateGameStateWithReport("not json", 31_000).saveLoaded).toBe(false);
   });
 });
