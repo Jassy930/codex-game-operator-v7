@@ -1,6 +1,7 @@
 import {
   METRICS_KEY,
   readMetrics,
+  recordOfflineRewardClaimed,
   recordPlayerClick,
   recordSessionEnd,
   recordUpgradePurchase,
@@ -20,6 +21,8 @@ describe("local metrics", () => {
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,
+      offlineRewardClaimedCount: 0,
+      lastOfflineRewardDust: null,
     });
   });
 
@@ -31,6 +34,19 @@ describe("local metrics", () => {
     recordPlayerClick(storage);
 
     expect(readMetrics(storage).clickCount).toBe(2);
+  });
+
+  it("records local offline reward visibility", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+
+    recordOfflineRewardClaimed(storage, 6);
+    recordOfflineRewardClaimed(storage, 4);
+
+    expect(readMetrics(storage)).toMatchObject({
+      offlineRewardClaimedCount: 2,
+      lastOfflineRewardDust: 4,
+    });
   });
 
   it("records local session end and duration", () => {
@@ -61,6 +77,8 @@ describe("local metrics", () => {
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,
+      offlineRewardClaimedCount: 0,
+      lastOfflineRewardDust: null,
     });
   });
 
@@ -78,6 +96,8 @@ describe("local metrics", () => {
       clickCount: 0,
       upgradePurchaseCount: 2,
       firstUpgradeTimeMs: 5_000,
+      offlineRewardClaimedCount: 0,
+      lastOfflineRewardDust: null,
     });
   });
 
@@ -92,6 +112,8 @@ describe("local metrics", () => {
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,
+      offlineRewardClaimedCount: 0,
+      lastOfflineRewardDust: null,
     });
   });
 });

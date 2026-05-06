@@ -11,6 +11,7 @@ import {
   type HydratedGameState,
 } from "./game";
 import {
+  recordOfflineRewardClaimed,
   recordPlayerClick,
   recordSessionEnd,
   recordUpgradePurchase,
@@ -49,8 +50,11 @@ export function App() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       startMetricsSession(window.localStorage);
+      if (offlineDust > 0) {
+        recordOfflineRewardClaimed(window.localStorage, offlineDust);
+      }
     }
-  }, []);
+  }, [offlineDust]);
 
   useEffect(() => {
     function handlePageHide() {

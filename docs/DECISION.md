@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-The game grants offline progress through save/load, but the player is not told how much was earned while away.
+The game shows offline progress on return, but local metrics do not record that the offline reward was surfaced.
 
 ## Evidence
 
@@ -19,10 +19,12 @@ The game grants offline progress through save/load, but the player is not told h
 - A 60-second simulation with one click per second reaches 2 auto collectors at 23 seconds and 3 auto collectors at 39 seconds.
 - `docs/NORTH_STAR.md` says the player should feel progress continues when they step away.
 - `hydrateGameState` applies elapsed passive production, but the UI does not report the offline gain.
+- `docs/METRICS.md` lists `offline_reward_claimed` as desired.
+- The UI now shows offline gain, but `stardust-workshop-metrics-v1` does not record it.
 
 ## Current Decision
 
-Show a small local return message when offline progress adds star dust. Do not add a new resource or reward system.
+Record a local-only offline reward metric when offline gain is shown. Do not upload telemetry or add external analytics.
 
 ## Implementation Record
 
@@ -141,6 +143,17 @@ Show a small local return message when offline progress adds star dust. Do not a
 - Added `hydrateGameStateWithReport` to report offline star dust gain.
 - Added a small UI message when offline progress adds star dust.
 - No new resource or reward system was added.
+
+2026-05-06 METRICS_INFRA selected:
+
+- Gap: `offline_reward_claimed` is desired but not recorded.
+- Decision: when offline gain is positive, record local count and last offline dust amount.
+
+2026-05-06 METRICS_INFRA result:
+
+- Added local-only `offlineRewardClaimedCount`.
+- Added local-only `lastOfflineRewardDust`.
+- Recorded the metric only when the offline gain return message is shown.
 
 ## Input Source
 

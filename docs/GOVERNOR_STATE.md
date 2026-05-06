@@ -2,36 +2,37 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+METRICS_INFRA
 
 ## Reason
 
-The game is playable, no open GitHub Issues exist, and the North Star says players should feel progress continues when they step away.
+The game now shows offline progress on return, but `offline_reward_claimed` remains a desired local metric gap.
 
 ## Allowed Actions
 
-- Evaluate first 10/30/60 seconds.
-- Use local metrics or deterministic simulation as supporting evidence.
-- Update `docs/SELF_PLAYTEST.md`.
-- Identify one concrete improvement.
+- Add local-only telemetry events.
+- Add session and first-minute counters.
+- Update `docs/METRICS.md`.
+- Add tests for metric recording.
 
 ## Forbidden Actions
 
-- Do not add large features.
-- Do not add new systems.
+- Do not collect personal data.
+- Do not add external analytics SDKs.
 - Do not upload telemetry.
+- Do not add gameplay mechanics.
 - Do not reply to issues.
 
 ## Exit Criteria
 
-- One concrete gap is documented in `docs/DECISION.md`.
-- Any implemented fix remains inside complexity budget.
-- Local checks pass.
+- At least one local metric supports first-60-second evaluation.
+- `docs/METRICS.md` explains what is recorded and where.
+- Tests and build pass.
 
 ## Drift Status
 
-No drift detected. The next change must remain first-60-second focused.
+No drift detected. The next change is local-only measurement infrastructure.
 
 ## Last Updated
 
-2026-05-06: SELF_PLAYTEST cycle 5 exit criteria met locally; offline gain message is implemented and checks pass.
+2026-05-06: METRICS_INFRA offline reward metric exit criteria met locally; tests and build pass.
