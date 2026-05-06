@@ -46,6 +46,35 @@ This tightens tooling consistency and does not relax issue routing, response bud
 
 When the playable app is bootstrapped, verify the generated `package.json` scripts match these commands.
 
+## 2026-05-06 - Anti-Achievement Goal Clarification
+
+### Files Changed
+
+- `prompts/goal.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `docs/DECISION.md`
+
+### Failure Mode
+
+The operator previously marked a phase-completion milestone as goal completion after MVP, feedback, deployment, and self-playtest work were done.
+
+### Evidence
+
+The active goal is perpetual product operation. Recent release and self-playtest cycles completed phase transitions, but the system still has no real feedback and must keep selecting the next operating mode.
+
+### Change
+
+Added an anti-achievement clause to `prompts/goal.md` stating that MVP completion, deployment, tests, or no open issues are not completion conditions. The clause directs the operator to select the next mode after each phase.
+
+### Why This Does Not Weaken Constraints
+
+This tightens the harness. It preserves North Star alignment, issue routing, response budget, complexity budget, review protocol, and deployment checks.
+
+### Follow-up
+
+Continue treating completion as unavailable unless the user explicitly pauses/stops the perpetual operation goal, credentials block progress, or a real budget limit is reached.
+
 ## Template
 
 ```md

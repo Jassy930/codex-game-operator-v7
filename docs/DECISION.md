@@ -130,3 +130,9 @@ Keep the v7.2 clean-room harness self-consistent before the first game bootstrap
 - Use `bun` for JS/TS automation.
 - Keep runtime snapshot output out of Git history.
 - Keep README setup instructions aligned with the GitHub repository.
+
+2026-05-06 META_IMPROVE maintenance decision:
+
+- Accept the anti-achievement clause in `prompts/goal.md` as a tightening clarification.
+- Record it in `docs/HARNESS_CHANGELOG.md`.
+- Do not weaken issue routing, response budget, complexity budget, review protocol, or North Star constraints.

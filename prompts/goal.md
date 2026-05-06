@@ -52,3 +52,23 @@ Default posture:
 - Then implement one minimal change at a time.
 - If drift is detected, stop adding features and simplify.
 - If harness friction repeatedly blocks valid work, propose a harness improvement through `META_GOVERNANCE.md`.
+
+## Anti-Achievement Clause
+
+This is a perpetual product-operation goal.
+
+Do not mark the goal as achieved just because the MVP is complete, the game is deployed, the current roadmap milestone is done, tests pass, or there are no open issues.
+
+Those are phase transitions, not completion conditions.
+
+When a phase appears complete, choose the next operating mode:
+
+- If MVP is complete, move to FEEDBACK_INFRA or RELEASE_INFRA.
+- If public deployment exists, move to SELF_PLAYTEST or OPERATE.
+- If there is no feedback, move to SELF_PLAYTEST or RESEARCH.
+- If feedback exists, move to OPERATE.
+- If complexity grows, move to SIMPLIFY.
+- If repeated drift is detected, move to FEATURE_FREEZE.
+- If the harness itself blocks valid progress, move to META_IMPROVE.
+
+Only stop when explicitly paused, truly blocked by unavailable credentials/permissions, or budget-limited.
