@@ -55,6 +55,49 @@ Update this file when either is true:
 
 若没有真实反馈，继续 `SELF_PLAYTEST`；若出现真实 GitHub Issues，进入 `OPERATE` 并先更新 `docs/ISSUE_LEDGER.md`。
 
+## 2026-05-06 Retrospective 2
+
+### Window
+
+从首个公开预览后的 self-playtest 文案改进，到本地 metrics infrastructure 成型。
+
+### What Changed
+
+- 增加首目标文案，直接说明攒星尘购买第一个自动采集器。
+- 增加 UI-only 早期里程碑：`0 / 2` 自动采集器。
+- 增加本地指标模式 `METRICS_INFRA`。
+- 增加本地 session、点击、升级、首升时间、session end 和 session duration 指标。
+- 修正指标 session 语义，确保每次 app session 重置。
+
+### What Improved
+
+- 第一目标更明确，早期进度反馈更强。
+- 后续 self-playtest 可以查看本地指标，而不是只靠主观观察。
+- metrics 模式边界更清楚：本地、无上传、无个人数据、无 SDK。
+
+### What Got Worse
+
+- 文档和 release-log 更新频率较高，产生多个小提交。
+- GitHub Actions 仍提示部分 action 目标 Node.js 20；当前通过 Node 24 强制运行成功。
+
+### Drift Check
+
+- repeated issue replies: 无。
+- issue-driven thrashing: 无。
+- feature bloat: 无，未新增资源、奖励里程碑或系统。
+- lack of tests: 无，metrics 已有本地测试。
+- unclear North Star: 无，仍围绕前 60 秒清晰度。
+- harness friction: metrics gap 已通过新增 `METRICS_INFRA` 模式解决。
+
+### Harness Lessons
+
+- 如果 prompt 提到某类输入源，operating modes 也需要对应的合法执行路径。
+- 本地指标必须明确 session 边界，否则会污染后续 self-playtest 判断。
+
+### Next Operating Mode
+
+若没有真实反馈，继续 `SELF_PLAYTEST`，用本地指标辅助判断下一处前 60 秒缺口；若出现 issue，进入 `OPERATE`。
+
 ## Template
 
 ```md

@@ -11,6 +11,7 @@ import {
 } from "./game";
 import {
   recordPlayerClick,
+  recordSessionEnd,
   recordUpgradePurchase,
   startMetricsSession,
 } from "./metrics";
@@ -45,6 +46,15 @@ export function App() {
     if (typeof window !== "undefined") {
       startMetricsSession(window.localStorage);
     }
+  }, []);
+
+  useEffect(() => {
+    function handlePageHide() {
+      recordSessionEnd(window.localStorage);
+    }
+
+    window.addEventListener("pagehide", handlePageHide);
+    return () => window.removeEventListener("pagehide", handlePageHide);
   }, []);
 
   function handleCollectClick() {

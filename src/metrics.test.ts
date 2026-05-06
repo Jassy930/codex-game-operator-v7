@@ -2,6 +2,7 @@ import {
   METRICS_KEY,
   readMetrics,
   recordPlayerClick,
+  recordSessionEnd,
   recordUpgradePurchase,
   startMetricsSession,
 } from "./metrics";
@@ -14,6 +15,8 @@ describe("local metrics", () => {
 
     expect(readMetrics(storage)).toEqual({
       sessionStartedAt: 1_000,
+      sessionEndedAt: null,
+      sessionDurationMs: null,
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,
@@ -30,6 +33,19 @@ describe("local metrics", () => {
     expect(readMetrics(storage).clickCount).toBe(2);
   });
 
+  it("records local session end and duration", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+
+    recordSessionEnd(storage, 16_000);
+
+    expect(readMetrics(storage)).toMatchObject({
+      sessionStartedAt: 1_000,
+      sessionEndedAt: 16_000,
+      sessionDurationMs: 15_000,
+    });
+  });
+
   it("starts a fresh session when the app is opened again", () => {
     const storage = createMemoryStorage();
     startMetricsSession(storage, 1_000);
@@ -40,6 +56,8 @@ describe("local metrics", () => {
 
     expect(readMetrics(storage)).toEqual({
       sessionStartedAt: 10_000,
+      sessionEndedAt: null,
+      sessionDurationMs: null,
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,
@@ -55,6 +73,8 @@ describe("local metrics", () => {
 
     expect(readMetrics(storage)).toEqual({
       sessionStartedAt: 1_000,
+      sessionEndedAt: null,
+      sessionDurationMs: null,
       clickCount: 0,
       upgradePurchaseCount: 2,
       firstUpgradeTimeMs: 5_000,
@@ -67,6 +87,8 @@ describe("local metrics", () => {
 
     expect(readMetrics(storage)).toEqual({
       sessionStartedAt: null,
+      sessionEndedAt: null,
+      sessionDurationMs: null,
       clickCount: 0,
       upgradePurchaseCount: 0,
       firstUpgradeTimeMs: null,

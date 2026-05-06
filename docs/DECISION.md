@@ -116,6 +116,12 @@ Add local-only metrics for session start, click count, upgrade purchase count, a
 - Corrected session metrics to reset when a new app session starts.
 - Added a regression test so click and first-upgrade counters do not persist across sessions.
 
+2026-05-06 METRICS_INFRA session duration:
+
+- Added local `sessionEndedAt` and `sessionDurationMs` fields.
+- Record session end on browser `pagehide`.
+- Kept metrics local-only with no upload path.
+
 ## Input Source
 
 Metrics gap.

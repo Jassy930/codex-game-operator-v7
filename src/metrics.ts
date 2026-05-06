@@ -2,6 +2,8 @@ export const METRICS_KEY = "stardust-workshop-metrics-v1";
 
 export type LocalMetrics = {
   sessionStartedAt: number | null;
+  sessionEndedAt: number | null;
+  sessionDurationMs: number | null;
   clickCount: number;
   upgradePurchaseCount: number;
   firstUpgradeTimeMs: number | null;
@@ -9,6 +11,8 @@ export type LocalMetrics = {
 
 const EMPTY_METRICS: LocalMetrics = {
   sessionStartedAt: null,
+  sessionEndedAt: null,
+  sessionDurationMs: null,
   clickCount: 0,
   upgradePurchaseCount: 0,
   firstUpgradeTimeMs: null,
@@ -26,6 +30,18 @@ export function recordPlayerClick(storage: Storage): void {
   writeMetrics(storage, {
     ...metrics,
     clickCount: metrics.clickCount + 1,
+  });
+}
+
+export function recordSessionEnd(storage: Storage, now = Date.now()): void {
+  const metrics = readMetrics(storage);
+  const sessionDurationMs =
+    metrics.sessionStartedAt === null ? null : Math.max(0, now - metrics.sessionStartedAt);
+
+  writeMetrics(storage, {
+    ...metrics,
+    sessionEndedAt: now,
+    sessionDurationMs,
   });
 }
 
@@ -52,6 +68,8 @@ export function readMetrics(storage: Storage): LocalMetrics {
 
     return {
       sessionStartedAt: numberOrNull(parsed.sessionStartedAt),
+      sessionEndedAt: numberOrNull(parsed.sessionEndedAt),
+      sessionDurationMs: numberOrNull(parsed.sessionDurationMs),
       clickCount: numberOr(parsed.clickCount, 0),
       upgradePurchaseCount: numberOr(parsed.upgradePurchaseCount, 0),
       firstUpgradeTimeMs: numberOrNull(parsed.firstUpgradeTimeMs),
