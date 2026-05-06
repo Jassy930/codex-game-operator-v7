@@ -19,7 +19,7 @@
 - Primary path: `https://github.com/Jassy930/codex-game-operator-v7/issues/new`
 - Label: `feedback`
 - Title: `玩家反馈：星尘工坊`
-- Body: 询问玩家遇到的问题、希望下一步更清楚的地方和其他补充。
+- Body: 询问玩家“前 60 秒哪里不清楚”、当时想做什么和其他补充。
 - Local event: `feedback_clicked`
 - Storage key: `stardust-workshop-feedback-events-v1`
 

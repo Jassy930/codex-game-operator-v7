@@ -24,3 +24,4 @@
 - 修正 metrics policy：公开预览阶段仍保持 telemetry local-only。
 - 收口反馈入口文档与 issue ledger 说明，使其匹配当前 GitHub Issue 反馈流。
 - 记录研究结论：无真实反馈时优先降低反馈成本，不新增玩法系统。
+- GitHub Issue 反馈正文改为聚焦“前 60 秒哪里不清楚”。

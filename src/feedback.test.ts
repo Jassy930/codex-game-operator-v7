@@ -12,6 +12,7 @@ describe("feedback intake", () => {
     expect(url.pathname).toBe("/Jassy930/codex-game-operator-v7/issues/new");
     expect(url.searchParams.get("labels")).toBe("feedback");
     expect(url.searchParams.get("title")).toContain("玩家反馈");
+    expect(url.searchParams.get("body")).toContain("前 60 秒哪里不清楚");
   });
 
   it("appends a local feedback_clicked event", () => {
