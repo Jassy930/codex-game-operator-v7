@@ -16,3 +16,4 @@
 - Changed the auto-collector milestone from fixed `2` to dynamic targets so early progress continues after the second collector.
 - Added a return message that shows star dust earned from offline progress.
 - Added local-only metrics for offline reward messages shown on return.
+- 购买第一台自动采集器后，前 60 秒目标提示会继续指向下一台自动采集器。

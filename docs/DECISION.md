@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-The game shows offline progress on return, but local metrics do not record that the offline reward was surfaced.
+玩家购买第一台自动采集器后，首目标提示会过期。
 
 ## Evidence
 
@@ -21,10 +21,12 @@ The game shows offline progress on return, but local metrics do not record that 
 - `hydrateGameState` applies elapsed passive production, but the UI does not report the offline gain.
 - `docs/METRICS.md` lists `offline_reward_claimed` as desired.
 - The UI now shows offline gain, but `stardust-workshop-metrics-v1` does not record it.
+- 每秒点击一次的 60 秒模拟会在第 10、23、39 秒买到自动采集器。
+- 第 10 秒后，UI 仍然显示“目标：攒够星尘，购买第一个自动采集器”。
 
 ## Current Decision
 
-Record a local-only offline reward metric when offline gain is shown. Do not upload telemetry or add external analytics.
+购买第一台自动采集器后，让目标提示动态切换到下一台自动采集器。改动保持 UI-only：不增加新资源、奖励、面板或经济数值变化。
 
 ## Implementation Record
 
@@ -154,6 +156,17 @@ Record a local-only offline reward metric when offline gain is shown. Do not upl
 - Added local-only `offlineRewardClaimedCount`.
 - Added local-only `lastOfflineRewardDust`.
 - Recorded the metric only when the offline gain return message is shown.
+
+2026-05-06 SELF_PLAYTEST cycle 6 selected:
+
+- Gap: 购买第一台自动采集器后，目标提示仍然要求购买第一台自动采集器。
+- Decision: 首次购买后，把目标提示切换为购买下一台自动采集器。
+
+2026-05-06 SELF_PLAYTEST cycle 6 result:
+
+- 基于自动采集器数量增加动态目标提示。
+- 为新玩家保留初始首目标文案。
+- 为已有 1 台自动采集器的存档增加渲染回归测试。
 
 ## Input Source
 

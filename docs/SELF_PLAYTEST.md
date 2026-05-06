@@ -49,6 +49,15 @@ Gap: offline progress should be visible when it adds star dust.
 - Save/load can now report how much star dust was earned while away.
 - Returning players see a small “离线获得 … 星尘” message only when offline gain is positive.
 
+2026-05-06 本地指标辅助目标文案检查。这不是真实玩家反馈。
+
+- 模拟：每秒点击一次时，自动采集器会在第 10、23、39 秒购入。
+- 前 10 秒：首次购买前，初始目标文案有用。
+- 前 30 秒：第一次购买后，目标文案仍然写“购买第一个自动采集器”。
+- 前 60 秒：里程碑在 3 / 5 时仍然有用，但主目标文案已经过期。
+
+Gap: 购买第一台自动采集器后，目标提示应该更新。
+
 ## Checklist
 
 ### First 10 seconds
@@ -70,4 +79,4 @@ Gap: offline progress should be visible when it adds star dust.
 
 ## Next Improvement Candidate
 
-Continue self-playtest with local metrics and avoid adding new resource systems.
+在添加新资源系统之前，先让前 60 秒目标提示动态更新。

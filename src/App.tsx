@@ -45,6 +45,10 @@ export function App() {
     return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
   }, [state.dust, state.nextAutoCollectorCost]);
   const milestone = getAutoCollectorMilestone(state.autoCollectors);
+  const goalHint =
+    state.autoCollectors === 0
+      ? "目标：攒够星尘，购买第一个自动采集器"
+      : "目标：继续攒星尘，购买下一台自动采集器";
   const feedbackUrl = useMemo(() => createFeedbackIssueUrl(), []);
 
   useEffect(() => {
@@ -131,7 +135,7 @@ export function App() {
             <span>下个目标</span>
             <span>{Math.floor(progressToUpgrade)}%</span>
           </div>
-          <p className="goal-hint">目标：攒够星尘，购买第一个自动采集器</p>
+          <p className="goal-hint">{goalHint}</p>
           <p className="milestone-hint">
             里程碑：{milestone.current} / {milestone.target} 台自动采集器
           </p>

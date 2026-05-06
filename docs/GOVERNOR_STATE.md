@@ -2,37 +2,36 @@
 
 ## Selected Mode
 
-METRICS_INFRA
+SELF_PLAYTEST
 
 ## Reason
 
-The game now shows offline progress on return, but `offline_reward_claimed` remains a desired local metric gap.
+当前没有开放 GitHub Issues。游戏已公开部署，最新本地指标改动已发布，因此下一轮应评估前 60 秒体验，而不是新增系统。
 
 ## Allowed Actions
 
-- Add local-only telemetry events.
-- Add session and first-minute counters.
-- Update `docs/METRICS.md`.
-- Add tests for metric recording.
+- 评估前 10/30/60 秒体验。
+- 使用本地指标或确定性模拟支撑判断。
+- 更新 `docs/SELF_PLAYTEST.md`。
+- 在 `docs/DECISION.md` 记录一个具体改进候选。
 
 ## Forbidden Actions
 
-- Do not collect personal data.
-- Do not add external analytics SDKs.
-- Do not upload telemetry.
-- Do not add gameplay mechanics.
-- Do not reply to issues.
+- 不添加大型功能。
+- 不添加新资源系统。
+- 不把 self-playtest 当作真实玩家反馈。
+- 不回复 issue。
 
 ## Exit Criteria
 
-- At least one local metric supports first-60-second evaluation.
-- `docs/METRICS.md` explains what is recorded and where.
-- Tests and build pass.
+- 已记录一个具体的前 60 秒缺口。
+- 所有拟议改动都能追溯到 `docs/DECISION.md`。
+- 周期结束后记录工作区状态。
 
 ## Drift Status
 
-No drift detected. The next change is local-only measurement infrastructure.
+未发现漂移。本次改动是来自 self-playtest 的 UI-only 清晰度修复。
 
 ## Last Updated
 
-2026-05-06: METRICS_INFRA offline reward metric exit criteria met locally; tests and build pass.
+2026-05-06: SELF_PLAYTEST 动态目标提示已本地实现；`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 均通过。
