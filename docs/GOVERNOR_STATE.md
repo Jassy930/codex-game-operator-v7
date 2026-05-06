@@ -34,4 +34,4 @@ No drift detected. The next change is release infrastructure only.
 
 ## Last Updated
 
-2026-05-06: RELEASE_INFRA implementation completed locally. GitHub Pages workflow is ready to run on push.
+2026-05-06: RELEASE_INFRA exit criteria met. GitHub Pages workflow run `25421667150` completed successfully and public preview returns HTTP 200.

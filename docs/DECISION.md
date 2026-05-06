@@ -48,6 +48,8 @@ Add GitHub Pages release infrastructure so the game can be publicly previewed. D
 - Documented the expected Pages URL in README.
 - After remote dependency install stalled on the local mirror lockfile, pinned Bun/package versions, added workflow timeouts, and regenerated `bun.lock` against the public npm registry.
 - After Pages configuration reported the site was not enabled, configured `actions/configure-pages` with `enablement: true`.
+- Enabled GitHub Pages through the repository Pages API with `build_type=workflow`.
+- Rerun `25421667150` completed successfully; `https://jassy930.github.io/codex-game-operator-v7/` returned HTTP 200.
 
 ## Input Source
 
