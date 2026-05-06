@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览、单一 GitHub Issue Form 和站外 playtest 邀请素材已存在，但仍没有真实玩家反馈。反馈处理文档需要保持中文且可执行，避免真实反馈出现后聚类流程不一致。
+公开预览、单一 GitHub Issue Form 和站外 playtest 邀请素材已存在，但仍没有真实玩家反馈。反馈处理规则文档需要保持中文且可执行，避免真实反馈出现后路由和回复预算执行不一致。
 
 ## Evidence
 
@@ -60,10 +60,11 @@
 - 独立游戏预发布实验常受参与者获取、偏差和资源限制影响，早期更依赖 qualitative data。
 - README 已包含站外 playtest 邀请素材，指向公开预览和单一 GitHub Issue Form。
 - `docs/FEEDBACK_CLUSTERS.md` 仍保留英文模板，而 M3 反馈处理依赖该文档。
+- `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md` 仍以英文为主，而 M3 反馈处理依赖这两份文档。
 
 ## Current Decision
 
-中文化 `docs/FEEDBACK_CLUSTERS.md`，保留聚类字段语义和当前无真实反馈状态。不新增聚类、不伪造反馈、不改变 issue routing 或 response budget。
+中文化 `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md`，保留路由顺序、分类、回复预算和禁止项语义。不新增聚类、不伪造反馈、不改变 issue routing 或 response budget。
 
 ## Implementation Record
 
@@ -348,6 +349,12 @@
 - Gap: `docs/FEEDBACK_CLUSTERS.md` 仍保留英文说明和模板。
 - Decision: 中文化反馈聚类说明和模板，保留字段语义。
 - 约束：不新增真实反馈、聚类、渠道或产品任务。
+
+2026-05-06 SIMPLIFY signal routing and response budget:
+
+- Gap: `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md` 仍以英文为主。
+- Decision: 中文化两份反馈处理规则文档，保留路由和回复预算语义。
+- 约束：不改变 issue routing、response budget、North Star 或反馈渠道。
 
 ## Input Source
 

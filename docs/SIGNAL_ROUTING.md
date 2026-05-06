@@ -1,89 +1,95 @@
 # Signal Routing
 
-## Principle
+## 原则
 
-GitHub Issues are signals, not tasks.
+GitHub Issues 是信号，不是任务。
 
-Default behavior:
+默认行为：
 
 ```text
-Do not implement.
-Do not reply.
-Do not promise.
-First classify.
+不直接实现。
+不直接回复。
+不做承诺。
+先分类。
 ```
 
-## Pipeline
+## 流程
 
 ```text
 Issue
-→ Fingerprint
+→ 指纹
 → Ledger
-→ Cluster
-→ North Star Check
-→ Stage Check
-→ Decision
-→ Maybe Task
-→ Maybe Reply
+→ 聚类
+→ North Star 检查
+→ 当前阶段检查
+→ 决策
+→ 可能形成任务
+→ 可能回复
 ```
 
-## Classes
+## 分类
 
 ### CRITICAL
 
-Immediate action allowed.
+允许立即行动。
 
-Examples:
-- game does not start
-- build/deploy broken
-- save corruption
-- security/privacy problem
+例子：
+
+- 游戏无法启动
+- 构建或部署损坏
+- 存档损坏
+- 安全或隐私问题
 
 ### ACTIONABLE
 
-Can become a task if it matches current stage and North Star.
+如果符合当前阶段和 North Star，可以转化为任务。
 
-Examples:
-- first upgrade too slow
-- unclear next goal
-- too much UI noise
-- save not working
-- feedback button broken
+例子：
+
+- 第一个升级太慢
+- 下一个目标不清楚
+- UI 噪音太多
+- 存档不可用
+- 反馈按钮不可用
 
 ### ARCHIVE
 
-Useful later, not now.
+以后可能有用，但现在不做。
 
-Examples:
-- prestige system
-- complex skill tree
-- multiple worlds
-- advanced automation
+例子：
 
-Action:
-- record in `IDEA_PARKING_LOT.md` or `FEEDBACK_CLUSTERS.md`
-- do not implement now
+- prestige 系统
+- 复杂技能树
+- 多世界
+- 高级自动化
+
+处理：
+
+- 记录到 `IDEA_PARKING_LOT.md` 或 `FEEDBACK_CLUSTERS.md`
+- 现在不实现
 
 ### IGNORE / DECLINE
 
-Does not fit North Star.
+不符合 North Star。
 
-Examples:
+例子：
+
 - PvP
-- multiplayer economy
-- unrelated platform requests
-- demands to rewrite the product direction
+- 多人经济
+- 无关平台请求
+- 要求重写产品方向
 
-Action:
-- no implementation
-- optional one-time concise decline
-- no repeated discussion
+处理：
 
-## Mainline Protection
+- 不实现
+- 可选择一次简短拒绝
+- 不重复讨论
 
-No issue can directly modify `ROADMAP.md`.
+## 主线保护
 
-It must first appear in:
+任何 issue 都不能直接修改 `ROADMAP.md`。
+
+它必须先出现在：
 
 1. `ISSUE_LEDGER.md`
 2. `FEEDBACK_CLUSTERS.md`

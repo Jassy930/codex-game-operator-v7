@@ -6,12 +6,13 @@ SIMPLIFY
 
 ## Reason
 
-当前没有开放 GitHub Issues。Roadmap M3 依赖 `docs/FEEDBACK_CLUSTERS.md`，但该文档仍保留英文说明和模板，不符合当前中文文档约束，也会降低未来反馈聚类的一致性。本轮进入 SIMPLIFY，只做反馈处理文档清晰化。
+当前没有开放 GitHub Issues。Roadmap M3 依赖 `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md`，但这两份核心反馈处理文档仍以英文为主，不符合当前中文文档约束。本轮继续 SIMPLIFY，只做反馈处理规则文档清晰化。
 
 ## Allowed Actions
 
-- 中文化 `docs/FEEDBACK_CLUSTERS.md`。
-- 保留现有聚类结构和字段语义。
+- 中文化 `docs/SIGNAL_ROUTING.md`。
+- 中文化 `docs/RESPONSE_BUDGET.md`。
+- 保留现有路由、预算和禁止项语义。
 - 更新 `docs/DECISION.md`、`docs/RELEASE_LOG.md`。
 - 只允许文档变更。
 
@@ -25,14 +26,14 @@ SIMPLIFY
 
 ## Exit Criteria
 
-- `docs/FEEDBACK_CLUSTERS.md` 使用中文说明和模板。
-- 当前无真实反馈的状态保持明确。
+- `docs/SIGNAL_ROUTING.md` 使用中文说明，且路由顺序不变。
+- `docs/RESPONSE_BUDGET.md` 使用中文说明，且回复预算不变。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只做反馈聚类文档收敛，不改变游戏或反馈入口。
+未发现玩法漂移。本轮只做反馈处理规则文档收敛，不改变游戏、反馈入口或回复预算。
 
 ## Last Updated
 
@@ -63,3 +64,7 @@ SIMPLIFY
 2026-05-06: 切换到 SIMPLIFY；中文化反馈聚类文档，提升 M3 反馈处理准备度。
 
 2026-05-06: SIMPLIFY 完成；`docs/FEEDBACK_CLUSTERS.md` 已中文化，仍明确当前没有真实反馈聚类。
+
+2026-05-06: 继续 SIMPLIFY；中文化 signal routing 和 response budget，保持规则语义不变。
+
+2026-05-06: SIMPLIFY 完成；`docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md` 已中文化，路由和回复预算语义保持不变。

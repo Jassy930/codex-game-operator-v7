@@ -1,58 +1,58 @@
 # Response Budget
 
-## Purpose
+## 目的
 
-Prevent issue threads from becoming the product driver.
+防止 issue 讨论串变成产品方向的驱动器。
 
-## Global Budget
+## 全局预算
 
-Per autonomous cycle:
+每个自治周期：
 
-- Max issue replies: 1
-- Max new issues: 1
-- Default: 0 replies
+- 最多回复 issue：1 次
+- 最多新建 issue：1 个
+- 默认：0 次回复
 
-## Per Issue Budget
+## 单个 Issue 预算
 
-Each issue normally gets at most:
+每个 issue 通常最多获得：
 
-1. One acknowledgement, if useful.
-2. One release/update reply, if a real change shipped.
+1. 一次确认收到，如果确实有帮助。
+2. 一次发布或更新回复，如果确实有变更发布。
 
-No further replies unless:
+除非满足以下情况，否则不继续回复：
 
-- the player adds materially new information;
-- the issue is critical;
-- a regression happened;
-- maintainer explicitly changes policy.
+- 玩家补充了实质性新信息；
+- issue 是 critical；
+- 发生了回归；
+- 维护者明确改变政策。
 
-## Reply Requirements
+## 回复要求
 
-Before replying with “fixed”, “improved”, or similar, all must be true:
+在回复“已修复”“已改进”或类似内容之前，必须全部满足：
 
-- issue is recorded in `ISSUE_LEDGER.md`;
-- issue belongs to a cluster or is marked critical;
-- `DECISION.md` references the issue/cluster;
-- code/docs changed;
-- commit exists or is about to be created;
-- `RELEASE_LOG.md` updated;
-- deployment status is clear.
+- issue 已记录在 `ISSUE_LEDGER.md`；
+- issue 已归入聚类，或被标记为 critical；
+- `DECISION.md` 引用了该 issue 或聚类；
+- 代码或文档已变更；
+- commit 已存在，或即将创建；
+- `RELEASE_LOG.md` 已更新；
+- 部署状态明确。
 
-## Silence Is Valid
+## 沉默是有效策略
 
-The operator is allowed to stay silent.
+operator 可以保持沉默。
 
-Silence is preferred when:
+以下情况优先保持沉默：
 
-- issue is vague;
-- issue is off-strategy;
-- issue duplicates an existing cluster;
-- no real change has shipped;
-- replying would prolong an unproductive thread.
+- issue 含糊；
+- issue 偏离策略；
+- issue 重复已有聚类；
+- 没有真实变更发布；
+- 回复会延长低价值讨论。
 
-## Prohibited
+## 禁止
 
-- repeating the same acknowledgement;
-- replying just to show activity;
-- promising future work without roadmap support;
-- modifying game repeatedly just to satisfy one issue author.
+- 重复同一确认回复；
+- 只是为了显示活跃而回复；
+- 在没有 roadmap 支撑时承诺未来工作；
+- 为了满足单个 issue 作者而反复修改游戏。
