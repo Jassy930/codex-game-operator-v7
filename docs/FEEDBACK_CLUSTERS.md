@@ -1,36 +1,36 @@
 # Feedback Clusters
 
-Feedback should be grouped into clusters before decisions.
+反馈必须先归入聚类，再进入产品决策。聚类不是任务列表，也不是承诺。
 
-## Current Clusters
+## 当前聚类
 
-None yet.
+目前还没有真实玩家反馈，因此没有反馈聚类。
 
-## Cluster Template
+## 聚类模板
 
 ```md
 ## cluster/name
 
-Issues:
+关联 Issue:
 - #...
 
-Symptoms:
+现象:
 - ...
 
-Hypothesis:
+假设:
 - ...
 
-North Star Fit:
+North Star 匹配度:
 - high / medium / low
 
-Current Stage Fit:
+当前阶段匹配度:
 - high / medium / low
 
-Decision:
+决策:
 - action / defer / decline
 
-Evidence:
-- issue links
-- metrics
-- manual feedback
+证据:
+- issue 链接
+- 本地指标
+- 明确的手动反馈
 ```

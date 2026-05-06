@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览、单一 GitHub Issue Form 和站外 playtest 邀请素材已存在，但仍没有真实玩家反馈。后续不能把邀请素材存在误判为已经获得反馈。
+公开预览、单一 GitHub Issue Form 和站外 playtest 邀请素材已存在，但仍没有真实玩家反馈。反馈处理文档需要保持中文且可执行，避免真实反馈出现后聚类流程不一致。
 
 ## Evidence
 
@@ -59,10 +59,11 @@
 - Playtest 研究建议先定义目标玩家，用少量代表性玩家发现问题，并把邀请放在站外上下文，而不是打断游戏内核心循环。
 - 独立游戏预发布实验常受参与者获取、偏差和资源限制影响，早期更依赖 qualitative data。
 - README 已包含站外 playtest 邀请素材，指向公开预览和单一 GitHub Issue Form。
+- `docs/FEEDBACK_CLUSTERS.md` 仍保留英文模板，而 M3 反馈处理依赖该文档。
 
 ## Current Decision
 
-保持站外 playtest 邀请素材，不把它放进游戏首屏。真实反馈仍必须来自 GitHub Issue 或明确手动反馈，并先进入 `docs/ISSUE_LEDGER.md`；继续不新增 analytics、上传路径、个人数据、强制弹窗、站内提交或第二反馈渠道。
+中文化 `docs/FEEDBACK_CLUSTERS.md`，保留聚类字段语义和当前无真实反馈状态。不新增聚类、不伪造反馈、不改变 issue routing 或 response budget。
 
 ## Implementation Record
 
@@ -341,6 +342,12 @@
 - README 新增可复用的站外 playtest 邀请素材。
 - 邀请只指向公开预览和单一 GitHub Issue Form。
 - 文档明确：邀请素材不是玩家反馈，真实反馈仍需进入 issue ledger。
+
+2026-05-06 SIMPLIFY feedback clusters doc:
+
+- Gap: `docs/FEEDBACK_CLUSTERS.md` 仍保留英文说明和模板。
+- Decision: 中文化反馈聚类说明和模板，保留字段语义。
+- 约束：不新增真实反馈、聚类、渠道或产品任务。
 
 ## Input Source
 
