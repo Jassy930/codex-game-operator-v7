@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览、单一 GitHub Issue Form 和站外 playtest 邀请素材已存在，但仍没有真实玩家反馈。反馈处理规则文档需要保持中文且可执行，避免真实反馈出现后路由和回复预算执行不一致。
+公开预览、单一 GitHub Issue Form 和站外 playtest 邀请素材已存在，但仍没有真实玩家反馈。M3 反馈处理文档需要保持中文且可执行，避免真实反馈出现后执行不一致。
 
 ## Evidence
 
@@ -61,10 +61,11 @@
 - README 已包含站外 playtest 邀请素材，指向公开预览和单一 GitHub Issue Form。
 - `docs/FEEDBACK_CLUSTERS.md` 仍保留英文模板，而 M3 反馈处理依赖该文档。
 - `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md` 仍以英文为主，而 M3 反馈处理依赖这两份文档。
+- `docs/FEEDBACK.md` 仍有英文小节名和字段标签。
 
 ## Current Decision
 
-中文化 `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md`，保留路由顺序、分类、回复预算和禁止项语义。不新增聚类、不伪造反馈、不改变 issue routing 或 response budget。
+中文化 `docs/FEEDBACK.md` 剩余小节名和字段标签，保留反馈入口、issue form、local-only telemetry 和隐私边界语义。不新增反馈、渠道、指标或产品任务。
 
 ## Implementation Record
 
@@ -355,6 +356,12 @@
 - Gap: `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md` 仍以英文为主。
 - Decision: 中文化两份反馈处理规则文档，保留路由和回复预算语义。
 - 约束：不改变 issue routing、response budget、North Star 或反馈渠道。
+
+2026-05-06 SIMPLIFY feedback doc language:
+
+- Gap: `docs/FEEDBACK.md` 仍有英文小节名和字段标签。
+- Decision: 中文化反馈入口文档剩余 UI 文档语言，保留反馈路径和隐私边界。
+- 约束：不新增反馈渠道，不改变 metrics，不伪造真实反馈。
 
 ## Input Source
 

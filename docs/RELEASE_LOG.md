@@ -37,3 +37,4 @@
 - README 增加站外 playtest 邀请素材，继续复用公开预览和单一 GitHub Issue Form。
 - 中文化反馈聚类文档模板，保持 M3 反馈处理文档一致。
 - 中文化 signal routing 和 response budget 文档，保持 M3 反馈处理规则一致。
+- 中文化反馈入口文档剩余小节名和字段标签。

@@ -6,14 +6,13 @@ SIMPLIFY
 
 ## Reason
 
-当前没有开放 GitHub Issues。Roadmap M3 依赖 `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md`，但这两份核心反馈处理文档仍以英文为主，不符合当前中文文档约束。本轮继续 SIMPLIFY，只做反馈处理规则文档清晰化。
+当前没有开放 GitHub Issues。M3 反馈处理核心文档已基本中文化，但 `docs/FEEDBACK.md` 仍有英文小节名和字段标签。本轮继续 SIMPLIFY，只做反馈入口文档语言收口，并按 release-log 阈值更新 retrospective。
 
 ## Allowed Actions
 
-- 中文化 `docs/SIGNAL_ROUTING.md`。
-- 中文化 `docs/RESPONSE_BUDGET.md`。
-- 保留现有路由、预算和禁止项语义。
-- 更新 `docs/DECISION.md`、`docs/RELEASE_LOG.md`。
+- 中文化 `docs/FEEDBACK.md` 的小节名和字段标签。
+- 保留反馈入口、issue form、local-only telemetry 和隐私边界语义。
+- 更新 `docs/DECISION.md`、`docs/RELEASE_LOG.md`、`docs/RETROSPECTIVE.md`。
 - 只允许文档变更。
 
 ## Forbidden Actions
@@ -26,14 +25,15 @@ SIMPLIFY
 
 ## Exit Criteria
 
-- `docs/SIGNAL_ROUTING.md` 使用中文说明，且路由顺序不变。
-- `docs/RESPONSE_BUDGET.md` 使用中文说明，且回复预算不变。
+- `docs/FEEDBACK.md` 使用中文小节名和字段标签。
+- 反馈入口与隐私边界语义不变。
+- `docs/RETROSPECTIVE.md` 记录本轮 M3 文档收敛窗口。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只做反馈处理规则文档收敛，不改变游戏、反馈入口或回复预算。
+未发现玩法漂移。本轮只做反馈入口文档语言收口，不改变游戏、反馈入口、指标或回复预算。
 
 ## Last Updated
 
@@ -68,3 +68,7 @@ SIMPLIFY
 2026-05-06: 继续 SIMPLIFY；中文化 signal routing 和 response budget，保持规则语义不变。
 
 2026-05-06: SIMPLIFY 完成；`docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md` 已中文化，路由和回复预算语义保持不变。
+
+2026-05-06: 继续 SIMPLIFY；中文化 `docs/FEEDBACK.md` 剩余小节名和字段标签，并补 retrospective。
+
+2026-05-06: SIMPLIFY 完成；`docs/FEEDBACK.md` 剩余小节名和字段标签已中文化，Retrospective 7 已记录。

@@ -272,6 +272,48 @@ Update this file when either is true:
 
 若仍没有真实反馈，下一轮优先观察是否出现 GitHub Issue；若出现 issue，进入 `OPERATE` 并先更新 `docs/ISSUE_LEDGER.md`。若继续无反馈，回到 `SELF_PLAYTEST` 或 `RESEARCH`，不要新增第二反馈渠道。
 
+## 2026-05-06 Retrospective 7
+
+### Window
+
+从外部 playtest 邀请研究，到 README 邀请素材、反馈聚类模板、signal routing、response budget 和反馈入口文档语言收口。
+
+### What Changed
+
+- 研究确认：外部 playtest 邀请应放在站外，不打断游戏首屏。
+- README 增加可复用 playtest 邀请素材。
+- 中文化 `FEEDBACK_CLUSTERS.md`、`SIGNAL_ROUTING.md`、`RESPONSE_BUDGET.md` 和 `FEEDBACK.md` 的关键说明。
+- 保持单一 GitHub Issue Form 和 local-only telemetry 边界。
+
+### What Improved
+
+- M3 反馈处理链路的核心文档更一致。
+- 后续真实 issue 出现时，路由、聚类、回复预算和反馈边界更容易执行。
+- no-feedback 状态被明确保留，没有伪造聚类或指标。
+
+### What Got Worse
+
+- 连续文档提交仍偏多。
+- 仍没有真实玩家反馈，文档准备不能替代 playtest 输入。
+
+### Drift Check
+
+- repeated issue replies: 无。
+- issue-driven thrashing: 无，没有开放 issue。
+- feature bloat: 无，没有新增玩法、资源、奖励或面板。
+- lack of tests: 无，文档变更通过治理检查；代码未变。
+- unclear North Star: 无，仍围绕反馈获取和可持续处理。
+- harness friction: 无，未削弱路由、回复预算、复杂度预算或 North Star 约束。
+
+### Harness Lessons
+
+- 反馈处理文档的语言一致性是执行质量问题，但不应无限扩展为全仓库翻译任务。
+- 站外 playtest 素材可以降低真实反馈摩擦，但真实反馈仍必须来自明确提交或手动记录。
+
+### Next Operating Mode
+
+若仍没有真实反馈，下一轮优先 `SELF_PLAYTEST` 或 `RESEARCH`，避免继续只做低优先级文档语言收口；若出现 issue，进入 `OPERATE` 并先更新 `ISSUE_LEDGER.md`。
+
 ## Template
 
 ```md
