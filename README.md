@@ -1,8 +1,20 @@
-# Codex Game Operator v7.2 Clean Room
+# 星尘工坊 / Codex Game Operator v7.2
 
-这是一个重新开项目用的 Codex `/goal` + Harness 项目骨架。
+这是一个由治理文档约束的 Web idle / incremental game 项目。当前可玩版本是“星尘工坊”最小 MVP：玩家点击采集星尘，购买自动采集器，并通过本地存档保留进度。
 
 v7.2 的目标不是让 Codex 无限写代码，而是让 Codex 成为一个能持续自我约束、自我审查、自我改进的“游戏主理人”。
+
+## 本地运行
+
+```bash
+bun install
+bun test
+bun run test
+bun run build
+bun run dev
+```
+
+`bun test` 使用 Bun 原生测试入口，`bun run test` 使用 Vitest。两者运行同一组核心行为测试。
 
 ## 设计目标
 
@@ -56,9 +68,8 @@ Layer 4 Learning / Meta
 git clone git@github.com:Jassy930/codex-game-operator-v7.git
 cd codex-game-operator-v7
 chmod +x ops/*.sh
-
-git add .
-git commit -m "bootstrap v7.2 clean-room goal harness"
+bun install
+bun run dev
 ```
 
 ## 第一次启动 Codex

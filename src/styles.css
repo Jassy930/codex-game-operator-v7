@@ -1,0 +1,173 @@
+:root {
+  color: #17211b;
+  background: #e9edf2;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(41, 91, 82, 0.16), transparent 35%),
+    linear-gradient(315deg, rgba(176, 108, 58, 0.16), transparent 30%),
+    #e9edf2;
+}
+
+.game-panel {
+  width: min(100%, 560px);
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+  border: 1px solid rgba(23, 33, 27, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 70px rgba(23, 33, 27, 0.12);
+}
+
+.title-row,
+.action-row,
+.progress-label,
+.stats-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.eyebrow,
+.save-state,
+.resource-readout small,
+.progress-label,
+dt {
+  margin: 0;
+  color: #5f6f68;
+  font-size: 0.85rem;
+}
+
+h1 {
+  margin: 4px 0 0;
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.resource-readout {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  border: 1px solid rgba(41, 91, 82, 0.18);
+  border-radius: 8px;
+  background: #f8faf8;
+}
+
+.resource-readout strong {
+  font-size: clamp(2.4rem, 12vw, 4.5rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.action-row {
+  align-items: stretch;
+}
+
+.primary-action,
+.upgrade-action {
+  min-height: 52px;
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.primary-action {
+  color: #ffffff;
+  background: #295b52;
+}
+
+.upgrade-action {
+  color: #17211b;
+  background: #e3b35f;
+}
+
+.upgrade-action:disabled {
+  cursor: not-allowed;
+  color: #6b746f;
+  background: #d8ded9;
+}
+
+.progress-block {
+  display: grid;
+  gap: 8px;
+}
+
+.progress-track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #d8ded9;
+}
+
+.progress-track div {
+  height: 100%;
+  border-radius: inherit;
+  background: #b06c3a;
+  transition: width 160ms ease;
+}
+
+.stats-grid {
+  align-items: stretch;
+}
+
+.stats-grid div {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid rgba(23, 33, 27, 0.12);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+dd {
+  margin: 4px 0 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+@media (max-width: 560px) {
+  .app-shell {
+    padding: 14px;
+    place-items: stretch;
+  }
+
+  .game-panel {
+    align-self: center;
+    padding: 18px;
+  }
+
+  .title-row,
+  .action-row,
+  .stats-grid {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

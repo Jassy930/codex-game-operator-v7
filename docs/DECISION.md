@@ -16,6 +16,15 @@ There is no playable game yet.
 
 Bootstrap a minimal React + TypeScript + Vite + Vitest project, then implement a tiny playable idle game loop.
 
+## Implementation Record
+
+2026-05-06 BOOTSTRAP executed:
+
+- Added Bun-managed React + TypeScript + Vite project files.
+- Added tests runnable through both `bun test` and `bun run test`.
+- Implemented one-resource star dust loop: click to earn, buy auto collector, passive production, versioned save/load.
+- Added a minimal Chinese UI with visible first upgrade goal and local auto-save.
+
 ## Input Source
 
 Roadmap gap.
@@ -34,7 +43,7 @@ None.
 
 ## Review Notes
 
-Initial decision is consistent with BOOTSTRAP mode.
+Initial decision is consistent with BOOTSTRAP mode. The implemented scope stays inside `docs/COMPLEXITY_BUDGET.md` and does not use issue-driven input.
 
 ## Maintenance Decision
 

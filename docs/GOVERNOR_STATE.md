@@ -6,7 +6,7 @@ BOOTSTRAP
 
 ## Reason
 
-Clean-room project has no runnable game yet.
+Clean-room project had no runnable game at cycle start. BOOTSTRAP remains the selected mode for this cycle while its exit criteria are verified.
 
 ## Allowed Actions
 
@@ -24,14 +24,14 @@ Clean-room project has no runnable game yet.
 ## Exit Criteria
 
 - `package.json` exists.
-- `bun test` exists.
-- `bun run build` exists.
+- `bun test` exists and passes.
+- `bun run build` exists and passes.
 - Minimal game shell exists.
 
 ## Drift Status
 
-No drift detected yet.
+No drift detected. The implementation stays within the first public version complexity budget: one resource, one primary action, one upgrade type, and fewer than four visible panels.
 
 ## Last Updated
 
-Initial bootstrap.
+2026-05-06: BOOTSTRAP implementation completed locally. Next cycle should select `FEEDBACK_INFRA` if no higher-priority blocker appears.

@@ -8,3 +8,4 @@ dist/
 snapshots/
 .DS_Store
 *.log
+*.tsbuildinfo
