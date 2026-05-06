@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+.env.*
+.operator-logs/
+.goal-harness-logs/
+.harness/
+.DS_Store
+*.log
