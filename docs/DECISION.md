@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-`feedback_sent` 不能在当前 GitHub 外链反馈流中被本地可靠记录。
+公开预览已经存在，但 metrics policy 仍必须保持 local-only。
 
 ## Evidence
 
@@ -29,10 +29,12 @@
 - `hydrateGameStateWithReport` 能区分有效存档、缺失存档和无效存档后，`save_loaded` 可以保持 local-only 且不记录个人数据。
 - 当前反馈入口打开 GitHub Issues 新标签页，App 只能知道玩家点击了反馈链接，不能知道玩家是否最终提交 issue。
 - 为了保持 local-only 和隐私边界，不能用外部追踪或猜测方式伪造 `feedback_sent`。
+- 公开预览 URL 已发布，但当前没有真实同意流程、analytics governance 或外部 SDK 审核。
+- `docs/METRICS.md` 旧表述把 local-only 绑定到“尚未公开部署”，已经与当前状态不一致。
 
 ## Current Decision
 
-将 `feedback_sent` 从 desired metrics 移到 deferred metrics。除非反馈提交发生在 App 内，或 GitHub 提供可靠且隐私安全的确认路径，否则不实现本地 `feedback_sent` 计数。
+公开预览阶段继续保持 telemetry local-only。任何上传、外部 analytics SDK、个人数据或跨设备追踪都需要单独治理决策。
 
 ## Implementation Record
 
@@ -207,6 +209,12 @@
 - Gap: `feedback_sent` 曾列为 desired metric，但当前反馈流只能确认 `feedback_clicked`。
 - Decision: 将 `feedback_sent` 记录为 deferred metric，不用外部追踪或猜测方式实现。
 - 约束：继续保持 metrics local-only、无上传、无个人数据、无外部 SDK。
+
+2026-05-06 METRICS_INFRA public preview policy:
+
+- Gap: `docs/METRICS.md` 仍暗示 local-only 只适用于未公开部署阶段。
+- Decision: 公开预览阶段继续保持 telemetry local-only。
+- 约束：上传、外部 SDK、个人数据或跨设备追踪必须另走治理决策。
 
 ## Input Source
 

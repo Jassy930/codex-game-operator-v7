@@ -21,3 +21,4 @@
 - 购买自动采集器成功后显示短暂确认反馈，不改变经济数值。
 - 有效本地存档加载时记录 local-only `saveLoadedCount` 指标。
 - 明确 `feedback_sent` 在当前 GitHub 外链反馈流下为 deferred metric，不做本地伪计数。
+- 修正 metrics policy：公开预览阶段仍保持 telemetry local-only。

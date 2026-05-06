@@ -29,7 +29,7 @@ Metrics remain local only and are not uploaded. Historical session summaries are
 
 ## Current Decision
 
-Keep telemetry local while the project is not publicly deployed. Add only metrics that directly support feedback intake or first-60-second clarity.
+公开预览阶段仍保持 telemetry local-only。只添加直接支持反馈入口、前 60 秒清晰度或回访评估的指标。除非另有治理决策，不添加上传、外部 analytics SDK、个人数据或跨设备追踪。
 
 ## Privacy Boundary
 
