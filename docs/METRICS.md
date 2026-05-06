@@ -6,6 +6,7 @@
 
 - `stardust-workshop-feedback-events-v1`: 反馈链接点击事件队列。
 - `stardust-workshop-metrics-v1`: 当前 session 开始/结束时间、session 时长、点击次数、升级购买次数、首次升级时间、有效存档加载次数、离线收益提示次数和最后一次离线收益数值。每次打开 App 都会重置为新的 session。
+- `stardust-workshop-metrics-history-v1`: 最近 10 个 session 的本地汇总，只在 session 结束时写入，用于本机回看前 60 秒相关指标趋势。
 
 ## 目标指标
 
@@ -18,6 +19,7 @@
 - save_loaded
 - offline_reward_claimed
 - feedback_clicked
+- session_history
 
 ## 延后指标
 
@@ -25,7 +27,7 @@
 
 ## 指标缺口
 
-指标仍只保存在本地，不上传。当前不保留历史 session 汇总。存档加载指标只记录有效本地存档被加载，离线收益指标只记录本地返回提示被展示。
+指标仍只保存在本地，不上传。历史 session 汇总只保留最近 10 条，且只包含 session 时间、时长、点击数、升级购买数、首次升级时间、有效存档加载次数和离线收益提示次数。存档加载指标只记录有效本地存档被加载，离线收益指标只记录本地返回提示被展示。
 
 ## 当前决策
 

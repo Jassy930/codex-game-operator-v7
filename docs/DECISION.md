@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览、单一 GitHub Issue Form、站外 playtest 邀请素材和 M3 反馈处理文档已收口，但仍没有真实玩家反馈。当前经济节奏 self-playtest 未发现需要改数值的 gap。
+公开预览、单一 GitHub Issue Form、站外 playtest 邀请素材和 M3 反馈处理文档已收口，但仍没有真实玩家反馈。当前本地指标缺少跨 session 的轻量汇总，不利于本机回看前 60 秒趋势。
 
 ## Evidence
 
@@ -63,10 +63,12 @@
 - `docs/SIGNAL_ROUTING.md` 和 `docs/RESPONSE_BUDGET.md` 仍以英文为主，而 M3 反馈处理依赖这两份文档。
 - `docs/FEEDBACK.md` 仍有英文小节名和字段标签。
 - 当前经济模拟显示：每秒点击一次时，第 10、23、39 秒购买前三台自动采集器，第 60 秒下一台购买进度约 98%。
+- `docs/METRICS.md` 记录过当前不保留历史 session 汇总。
+- `recordSessionEnd` 已在浏览器 `pagehide` 时调用，可以在同一 localStorage 边界内保存最近 session 汇总。
 
 ## Current Decision
 
-本轮不调整经济数值或 UI。当前前 60 秒节奏仍支持 “one more upgrade is within reach”，后续应等待真实反馈或新的研究问题，而不是无信号调整数值。
+添加 local-only 最近 10 个 session 汇总，写入 `stardust-workshop-metrics-history-v1`。该指标只在本机 localStorage 保存，不上传、不新增 SDK、不收集个人数据、不改变游戏 UI 或玩法。
 
 ## Implementation Record
 
@@ -369,6 +371,12 @@
 - 每秒点击一次并自动购买时，自动采集器在第 10、23、39 秒购入。
 - 第 60 秒下一台购买进度约 98%，符合“再买一台已接近”的 North Star 感受。
 - 决策：不调整经济数值，不新增系统，继续等待真实反馈或新的研究问题。
+
+2026-05-06 METRICS_INFRA session history:
+
+- Gap: 本地 metrics 不保留历史 session 汇总。
+- Decision: 在 `stardust-workshop-metrics-history-v1` 中保留最近 10 个 session 汇总。
+- 约束：local-only、无上传、无个人数据、无外部 SDK、无 UI 改动。
 
 ## Input Source
 

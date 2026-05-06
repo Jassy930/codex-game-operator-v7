@@ -2,37 +2,37 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+METRICS_INFRA
 
 ## Reason
 
-当前没有开放 GitHub Issues。上一轮 Retrospective 7 明确：下一轮不应继续低优先级文档语言收口。游戏已公开可玩且缺少真实反馈，因此回到 SELF_PLAYTEST，用当前经济函数重新检查前 60 秒节奏和 “one more upgrade is within reach” 是否成立。
+当前没有开放 GitHub Issues。最新 self-playtest 没有经济或 UI gap。`docs/METRICS.md` 明确当前不保留历史 session 汇总；这会限制后续用本地指标辅助 first-60-second 评估。本轮进入 METRICS_INFRA，仅添加 local-only 最近 session 汇总，不上传、不加 SDK、不收集个人数据。
 
 ## Allowed Actions
 
-- 评估前 10/30/60 秒体验。
-- 使用现有游戏逻辑做本地模拟。
-- 更新 `docs/SELF_PLAYTEST.md`。
-- 如发现具体 gap，在 `docs/DECISION.md` 记录小范围决策。
+- 添加 local-only 最近 session 汇总。
+- 保持所有指标只写入浏览器 localStorage。
+- 添加/更新 metrics 测试。
+- 更新 `docs/METRICS.md`、`docs/DECISION.md`、`docs/RELEASE_LOG.md`。
 
 ## Forbidden Actions
 
-- 不新增玩法、资源、奖励、面板或第二反馈渠道。
-- 不把 self-playtest 伪装成真实玩家反馈。
+- 不上传 telemetry。
+- 不收集个人数据。
 - 不新增 analytics SDK、上传路径、个人数据或跨设备追踪。
-- 不继续做低优先级文档语言收口。
+- 不新增玩法、资源、奖励、面板或反馈渠道。
 - 不回复 issue。
 
 ## Exit Criteria
 
-- 一个具体 self-playtest gap 已记录，或明确记录本轮未发现足够具体的 gap。
-- 若改代码：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
-- 若只改文档：`./ops/governor-check.sh` 通过。
+- 最近 session 汇总只保存在 localStorage。
+- `docs/METRICS.md` 说明新 storage key 和边界。
+- `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只检查现有核心循环节奏，不扩展系统。
+未发现玩法漂移。本轮只补 local-only metrics 支撑，不改变游戏机制或 UI。
 
 ## Last Updated
 
@@ -75,3 +75,7 @@ SELF_PLAYTEST
 2026-05-06: 切换到 SELF_PLAYTEST；用当前经济函数重新检查前 60 秒节奏。
 
 2026-05-06: SELF_PLAYTEST 完成；当前经济模拟未发现数值改动 gap，第 60 秒下一台购买进度约 98%。
+
+2026-05-06: 切换到 METRICS_INFRA；补最近 session 汇总，仍保持 local-only 和无个人数据。
+
+2026-05-06: METRICS_INFRA 实施完成；新增 `stardust-workshop-metrics-history-v1`，只保留最近 10 个本地 session 汇总。

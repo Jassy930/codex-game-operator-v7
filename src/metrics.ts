@@ -1,4 +1,7 @@
 export const METRICS_KEY = "stardust-workshop-metrics-v1";
+export const METRICS_HISTORY_KEY = "stardust-workshop-metrics-history-v1";
+
+const METRICS_HISTORY_LIMIT = 10;
 
 export type LocalMetrics = {
   sessionStartedAt: number | null;
@@ -10,6 +13,17 @@ export type LocalMetrics = {
   saveLoadedCount: number;
   offlineRewardClaimedCount: number;
   lastOfflineRewardDust: number | null;
+};
+
+export type LocalMetricsSessionSummary = {
+  sessionStartedAt: number;
+  sessionEndedAt: number;
+  sessionDurationMs: number;
+  clickCount: number;
+  upgradePurchaseCount: number;
+  firstUpgradeTimeMs: number | null;
+  saveLoadedCount: number;
+  offlineRewardClaimedCount: number;
 };
 
 const EMPTY_METRICS: LocalMetrics = {
@@ -43,12 +57,14 @@ export function recordSessionEnd(storage: Storage, now = Date.now()): void {
   const metrics = readMetrics(storage);
   const sessionDurationMs =
     metrics.sessionStartedAt === null ? null : Math.max(0, now - metrics.sessionStartedAt);
-
-  writeMetrics(storage, {
+  const endedMetrics = {
     ...metrics,
     sessionEndedAt: now,
     sessionDurationMs,
-  });
+  };
+
+  writeMetrics(storage, endedMetrics);
+  recordMetricsHistory(storage, endedMetrics);
 }
 
 export function recordOfflineRewardClaimed(storage: Storage, dust: number): void {
@@ -109,8 +125,64 @@ export function readMetrics(storage: Storage): LocalMetrics {
   }
 }
 
+export function readMetricsHistory(storage: Storage): LocalMetricsSessionSummary[] {
+  try {
+    const raw = storage.getItem(METRICS_HISTORY_KEY);
+    if (!raw) {
+      return [];
+    }
+
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return parsed.filter(isSessionSummary);
+  } catch {
+    return [];
+  }
+}
+
 function writeMetrics(storage: Storage, metrics: LocalMetrics): void {
   storage.setItem(METRICS_KEY, JSON.stringify(metrics));
+}
+
+function recordMetricsHistory(storage: Storage, metrics: LocalMetrics): void {
+  const summary = toSessionSummary(metrics);
+  if (summary === null) {
+    return;
+  }
+
+  const history = readMetricsHistory(storage);
+  const withoutCurrentSession = history.filter(
+    (item) => item.sessionStartedAt !== summary.sessionStartedAt,
+  );
+
+  storage.setItem(
+    METRICS_HISTORY_KEY,
+    JSON.stringify([...withoutCurrentSession, summary].slice(-METRICS_HISTORY_LIMIT)),
+  );
+}
+
+function toSessionSummary(metrics: LocalMetrics): LocalMetricsSessionSummary | null {
+  if (
+    metrics.sessionStartedAt === null ||
+    metrics.sessionEndedAt === null ||
+    metrics.sessionDurationMs === null
+  ) {
+    return null;
+  }
+
+  return {
+    sessionStartedAt: metrics.sessionStartedAt,
+    sessionEndedAt: metrics.sessionEndedAt,
+    sessionDurationMs: metrics.sessionDurationMs,
+    clickCount: metrics.clickCount,
+    upgradePurchaseCount: metrics.upgradePurchaseCount,
+    firstUpgradeTimeMs: metrics.firstUpgradeTimeMs,
+    saveLoadedCount: metrics.saveLoadedCount,
+    offlineRewardClaimedCount: metrics.offlineRewardClaimedCount,
+  };
 }
 
 function calculateFirstUpgradeTime(metrics: LocalMetrics, now: number): number | null {
@@ -127,4 +199,31 @@ function numberOr(value: unknown, fallback: number): number {
 
 function numberOrNull(value: unknown): number | null {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function isSessionSummary(value: unknown): value is LocalMetricsSessionSummary {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as Partial<LocalMetricsSessionSummary>;
+  return (
+    typeof candidate.sessionStartedAt === "number" &&
+    Number.isFinite(candidate.sessionStartedAt) &&
+    typeof candidate.sessionEndedAt === "number" &&
+    Number.isFinite(candidate.sessionEndedAt) &&
+    typeof candidate.sessionDurationMs === "number" &&
+    Number.isFinite(candidate.sessionDurationMs) &&
+    typeof candidate.clickCount === "number" &&
+    Number.isFinite(candidate.clickCount) &&
+    typeof candidate.upgradePurchaseCount === "number" &&
+    Number.isFinite(candidate.upgradePurchaseCount) &&
+    (candidate.firstUpgradeTimeMs === null ||
+      (typeof candidate.firstUpgradeTimeMs === "number" &&
+        Number.isFinite(candidate.firstUpgradeTimeMs))) &&
+    typeof candidate.saveLoadedCount === "number" &&
+    Number.isFinite(candidate.saveLoadedCount) &&
+    typeof candidate.offlineRewardClaimedCount === "number" &&
+    Number.isFinite(candidate.offlineRewardClaimedCount)
+  );
 }

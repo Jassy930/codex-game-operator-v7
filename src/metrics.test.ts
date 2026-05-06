@@ -1,5 +1,7 @@
 import {
+  METRICS_HISTORY_KEY,
   METRICS_KEY,
+  readMetricsHistory,
   readMetrics,
   recordOfflineRewardClaimed,
   recordPlayerClick,
@@ -75,6 +77,58 @@ describe("local metrics", () => {
     });
   });
 
+  it("keeps a local-only history of recent session summaries", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+    recordPlayerClick(storage);
+    recordUpgradePurchase(storage, 6_000);
+
+    recordSessionEnd(storage, 16_000);
+
+    expect(readMetricsHistory(storage)).toEqual([
+      {
+        sessionStartedAt: 1_000,
+        sessionEndedAt: 16_000,
+        sessionDurationMs: 15_000,
+        clickCount: 1,
+        upgradePurchaseCount: 1,
+        firstUpgradeTimeMs: 5_000,
+        saveLoadedCount: 0,
+        offlineRewardClaimedCount: 0,
+      },
+    ]);
+  });
+
+  it("updates the current session summary instead of duplicating pagehide events", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+
+    recordSessionEnd(storage, 16_000);
+    recordSessionEnd(storage, 17_000);
+
+    expect(readMetricsHistory(storage)).toHaveLength(1);
+    expect(readMetricsHistory(storage)[0]).toMatchObject({
+      sessionStartedAt: 1_000,
+      sessionEndedAt: 17_000,
+      sessionDurationMs: 16_000,
+    });
+  });
+
+  it("keeps only the 10 most recent local session summaries", () => {
+    const storage = createMemoryStorage();
+
+    for (let index = 0; index < 12; index += 1) {
+      const startedAt = index * 10_000;
+      startMetricsSession(storage, startedAt);
+      recordSessionEnd(storage, startedAt + 1_000);
+    }
+
+    const history = readMetricsHistory(storage);
+    expect(history).toHaveLength(10);
+    expect(history[0].sessionStartedAt).toBe(20_000);
+    expect(history[9].sessionStartedAt).toBe(110_000);
+  });
+
   it("starts a fresh session when the app is opened again", () => {
     const storage = createMemoryStorage();
     startMetricsSession(storage, 1_000);
@@ -119,6 +173,7 @@ describe("local metrics", () => {
   it("recovers from malformed local metrics", () => {
     const storage = createMemoryStorage();
     storage.setItem(METRICS_KEY, "not json");
+    storage.setItem(METRICS_HISTORY_KEY, "not json");
 
     expect(readMetrics(storage)).toEqual({
       sessionStartedAt: null,
@@ -131,6 +186,7 @@ describe("local metrics", () => {
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
     });
+    expect(readMetricsHistory(storage)).toEqual([]);
   });
 });
 
