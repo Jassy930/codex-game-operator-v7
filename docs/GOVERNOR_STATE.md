@@ -2,41 +2,40 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+META_IMPROVE
 
 ## Reason
 
-用户要求继续执行 goal。Issue #1 和 Issue #2 没有玩家新补充，不能重复回复或重复处理；当前 roadmap 阶段是 3-5 分钟参与度。本轮用 SELF_PLAYTEST 复核第 3-5 分钟目标清晰度、升级节奏和回访理解，先找具体 gap，再决定 no-change 或小切片。
+用户明确要求进入 3-15 分钟版本，并指出下一版本的复杂度预算也应提升。当前 `docs/COMPLEXITY_BUDGET.md` 只有 First Public Version Budget，不足以约束下一版本的内容扩展。本轮进入 META_IMPROVE，将复杂度预算版本化为 v0.1 与 v0.2，同时保持 North Star、issue routing、response budget 和 review protocol 不被削弱。
 
 ## Allowed Actions
 
-- 读取 issue、ledger、roadmap 和 self-playtest 证据。
-- 用现有游戏逻辑模拟 180-300 秒窗口。
-- 检查当前 UI 是否在 3-5 分钟阶段仍表达下一步目标。
-- 更新 `docs/SELF_PLAYTEST.md`、`docs/DECISION.md`，必要时更新 `docs/RELEASE_LOG.md`。
-- 若发现具体 gap，只允许一个小切片，且必须使用现有资源、现有面板和现有升级类型。
+- 更新 `docs/COMPLEXITY_BUDGET.md`，增加 v0.2 / 3-15 分钟版本预算。
+- 更新 `docs/NORTH_STAR.md` 和 `docs/ROADMAP.md`，将当前阶段切换到 3-15 分钟版本。
+- 更新 `docs/HARNESS_CHANGELOG.md` 和 `docs/DECISION.md`，记录规则变更理由和约束。
+- 更新 `ops/governor-check.sh` 和脚本测试，使 v0.2 预算可验证。
 - 运行 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 不新增第三种升级、第二资源、任务系统、prestige、复杂 lore 或新面板。
-- 不新增反馈渠道、analytics SDK、上传 telemetry 或个人数据收集。
-- 不新增图片资产、远程热链、不明授权素材或真实人物/品牌。
-- 不把阶段切换直接当成新增系统授权。
-- 不重复回复 Issue #1 或 Issue #2，除非玩家提供新的实质信息。
+- 不在本轮直接实现新玩法系统。
+- 不允许第二资源、prestige、任务系统、复杂地图或多面板扩张进入 v0.2 预算。
+- 不放宽 issue routing、response budget、review protocol、测试或部署要求。
+- 不删除 v0.1 预算；前 60 秒仍作为回归护栏。
+- 不回复 Issue #1 或 Issue #2，除非玩家提供新的实质信息。
 
 ## Exit Criteria
 
-- 3-5 分钟窗口复核记录到 `docs/SELF_PLAYTEST.md`。
-- `docs/DECISION.md` 记录本轮 no-change 或一个具体小切片。
-- 若有代码改动，`docs/RELEASE_LOG.md` 记录变化。
+- `docs/COMPLEXITY_BUDGET.md` 同时包含 v0.1 和 v0.2 预算。
+- `docs/NORTH_STAR.md` 和 `docs/ROADMAP.md` 明确当前进入 3-15 分钟版本。
+- `docs/HARNESS_CHANGELOG.md` 记录复杂度预算版本化的 failure mode、evidence、change 和不削弱约束说明。
+- `ops/governor-check.sh` 能检查 v0.2 预算关键词。
 - `bun test`、`bun run test`、`bun run build`、governor check 和 diff check 通过。
-- `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只复用现有统计格展示调校倍率，不新增系统、第二资源、新面板或 issue 回复。
+未发现玩法漂移。本轮只提升下一版本预算边界，不实现新玩法；v0.2 仍保留单资源、无 prestige、无任务系统和无多面板扩张。
 
 ## Last Updated
 
@@ -161,3 +160,5 @@ SELF_PLAYTEST
 2026-05-07: 继续 goal；Issue #1/#2 无玩家新补充，切换到 SELF_PLAYTEST 复核 3-5 分钟参与度，不重复回复 issue，不直接新增系统。
 
 2026-05-07: 3-5 分钟 self-playtest 发现调校工具已多次购买但主屏仍显示恒定点击收益；本轮只将同一统计格替换为调校倍率，保持玩法和 UI 面板数不变。
+
+2026-05-07: 用户明确要求进入 3-15 分钟版本；切换到 META_IMPROVE，先版本化复杂度预算，再基于 v0.2 设计内容扩展。

@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-当前阶段是 3-5 分钟参与度。Issue #1 和 Issue #2 没有玩家新补充，不能重复处理或回复；当前最大问题是让 3-5 分钟内已经存在的“扩建或调校”选择更可读，同时避免新增第三种升级、第二资源或新面板。
+用户明确要求进入 3-15 分钟版本。当前最大问题是将复杂度预算从单一 v0.1 上限升级为版本化预算，让下一步内容扩展有清晰边界，同时避免把版本切换误解为第二资源、prestige、任务系统或新面板授权。
 
 ## Evidence
 
@@ -120,12 +120,15 @@
 - 2026-05-07 3-5 分钟模拟显示，第 180 秒已有调校等级 2，第 240 秒已有调校等级 3，第 300 秒已有调校等级 4。
 - 现有目标提示会说“扩建或调校”，但主屏统计仍显示恒定的“点击收益 1”，没有展示调校倍率。
 - 同一统计格可替换为调校倍率，不新增面板、按钮、资源、升级类型或指标字段。
+- 用户指出现在玩法仍然干枯太少，随后确认“现在进入3-15分钟版本吧”。
+- `docs/COMPLEXITY_BUDGET.md` 原本只有 First Public Version Budget，无法表达 v0.2 内容扩展边界。
+- `docs/META_GOVERNANCE.md` 允许在强摩擦或重复失败模式出现时修改 governance docs，但必须证明不削弱 North Star、issue routing、response budget、complexity budget 和 review protocol。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-self-playtest-tuning-visibility`
+Decision Anchor: `DECISION:2026-05-07-meta-v0-2-complexity-budget`
 
-将主屏第二个统计项从“点击收益”替换为“调校倍率”，让玩家在 3-5 分钟阶段能看到调校工具带来的效率成长。该切片只复用现有统计格和现有调校字段，不新增玩法、资源、面板、按钮、指标字段或反馈渠道。
+将复杂度预算版本化：保留 v0.1 First Public Version Budget 作为前 60 秒回归护栏，新增 v0.2 / 3-15 Minute Version Budget。v0.2 允许 3-15 分钟内容弧线、阶段里程碑/工坊阶段和延后解锁文案，升级类型上限提升到 4，存档格式版本上限提升到 2；仍禁止第二资源、prestige、任务系统、复杂地图、多面板扩张和外部 analytics。
 
 ## Implementation Record
 
@@ -593,9 +596,16 @@ Decision Anchor: `DECISION:2026-05-07-self-playtest-tuning-visibility`
 - Decision: 将同一统计格替换为“调校倍率”，显示当前 `autoCollectorEfficiencyMultiplier`。
 - 约束：不新增升级类型、资源、面板、按钮、经济公式、指标字段、反馈渠道或 issue 回复。
 
+2026-05-07 META_IMPROVE v0.2 complexity budget:
+
+- Decision Anchor: `DECISION:2026-05-07-meta-v0-2-complexity-budget`
+- Failure mode: First Public Version Budget 只适合 v0.1，无法约束用户确认的 3-15 分钟版本内容扩展。
+- Decision: 保留 v0.1 预算，新增 v0.2 / 3-15 Minute Version Budget；v0.2 允许内容弧线、阶段里程碑/工坊阶段、延后解锁文案和第 4 种升级类型。
+- 约束：进入 v0.2 不自动授权具体玩法；仍禁止第二资源、prestige、任务系统、复杂地图、多面板扩张、外部 analytics 或 issue 重复回复。
+
 ## Input Source
 
-Self-playtest: 3-5 分钟调校可见性复核。
+User request: 进入 3-15 分钟版本。
 
 ## Linked Signals
 

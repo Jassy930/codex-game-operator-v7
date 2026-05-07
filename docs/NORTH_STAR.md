@@ -13,16 +13,16 @@ The player should feel:
 
 ## Current Stage
 
-Early live-operation stage: 3-5 minute engagement.
+v0.2 planning stage: 3-15 minute engagement.
 
-The first 60 seconds are now a regression guardrail, not the only product target. Do not break first-minute clarity while improving what happens after the first few upgrades.
+The first 60 seconds remain a regression guardrail. The next version should make minutes 3-15 feel like a coherent content arc, not a pile of unrelated systems.
 
 Do not stay in one stage indefinitely. A stage is a working focus, not a holding pen. After repeated no-change cycles, the operator must either broaden the time horizon, define the next content arc, or explicitly wait for new player signal without continuing to polish the same window.
 
 Priority:
 
-1. 3-5 minute next-goal clarity
-2. Sustained upgrade pacing after the first minute
+1. 3-15 minute content arc clarity
+2. Sustained upgrade pacing after the first few upgrades
 3. Return and offline progress comprehension
 4. Visible growth feedback
 5. First 60 seconds regression safety
@@ -51,7 +51,7 @@ Player action
 - heavy real-time action
 - excessive panels
 - complex lore before core loop is fun
-- second resources before 3-5 minute pacing is proven
+- second resources before 3-15 minute pacing is proven
 - prestige before return behavior is understood
 
 ## Product Discipline

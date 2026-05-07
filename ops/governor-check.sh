@@ -41,6 +41,37 @@ else
   echo "No package.json yet. Governor mode should remain BOOTSTRAP."
 fi
 
+check_complexity_budget() {
+  if [ ! -f docs/COMPLEXITY_BUDGET.md ]; then
+    return
+  fi
+
+  if ! grep -F "v0.1 First Public Version Budget" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget missing v0.1 first public budget."
+    fail=1
+  fi
+
+  if ! grep -F "v0.2 3-15 Minute Version Budget" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget missing v0.2 3-15 minute budget."
+    fail=1
+  fi
+
+  if ! grep -F "Upgrade types: max 4" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.2 must keep upgrade types max 4."
+    fail=1
+  fi
+
+  if ! grep -F "Secondary resources: 0" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget must keep secondary resources at 0."
+    fail=1
+  fi
+
+  if ! grep -F "prestige" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.2 must explicitly forbid prestige."
+    fail=1
+  fi
+}
+
 trim() {
   printf "%s" "$1" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'
 }
@@ -148,6 +179,7 @@ check_issue_ledger() {
   done < docs/ISSUE_LEDGER.md
 }
 
+check_complexity_budget
 check_issue_ledger
 
 exit "$fail"

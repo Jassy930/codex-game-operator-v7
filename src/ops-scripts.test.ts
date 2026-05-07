@@ -36,6 +36,25 @@ describe("ops scripts", () => {
     expect(result.output).toContain("Issue #1 is fixed-awaiting-release without concrete commit/release evidence");
   });
 
+  it("fails governor check when v0.2 complexity budget is missing", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(
+      join(workspace, "docs/COMPLEXITY_BUDGET.md"),
+      "# Complexity Budget\n\n## v0.1 First Public Version Budget\n\n- Upgrade types: max 3\n",
+    );
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Complexity budget missing v0.2 3-15 minute budget");
+  });
+
   it("collects issue body and comments for routing evidence", () => {
     const workspace = createCollectorWorkspace();
     const binDir = join(workspace, "bin");

@@ -203,6 +203,39 @@ Use `METRICS_INFRA` only when local measurement directly supports self-playtest 
 
 未来涉及视觉素材的 `DECISION.md` 记录必须说明使用 `imagegen`，或说明为什么 CSS、现有图标、文字反馈或不做更合适。
 
+## 2026-05-07 - Versioned Complexity Budget
+
+### Files Changed
+
+- `docs/COMPLEXITY_BUDGET.md`
+- `docs/NORTH_STAR.md`
+- `docs/ROADMAP.md`
+- `docs/DECISION.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `ops/governor-check.sh`
+- `src/ops-scripts.test.ts`
+
+### Failure Mode
+
+原复杂度预算只有 First Public Version Budget。用户明确要求进入 3-15 分钟版本后，旧预算无法表达下一版本允许的内容弧线，也容易让 operator 在“继续丰富内容”和“避免膨胀”之间摇摆。
+
+### Evidence
+
+用户反馈玩法仍然干枯太少，并确认“现在进入3-15分钟版本吧”。最近 `docs/ROADMAP.md` 也已把 3-5 分钟阶段推到需要扩大时间窗或定义内容弧线的状态。
+
+### Change
+
+`docs/COMPLEXITY_BUDGET.md` 改为版本化预算：保留 v0.1 First Public Version Budget，新增 v0.2 / 3-15 Minute Version Budget。v0.2 允许 3-15 分钟内容弧线、阶段里程碑/工坊阶段、延后解锁文案，并把 upgrade types 上限提升到 4、save format versions 上限提升到 2。
+
+### Why This Does Not Weaken Constraints
+
+该变更没有移除复杂度预算，而是让预算更精确。v0.2 仍禁止第二资源、prestige、任务系统、复杂地图、多面板扩张、外部 analytics 或 telemetry 上传。Issue routing、response budget、review protocol、测试和部署要求不变，v0.1 前 60 秒预算保留为回归护栏。
+
+### Follow-up
+
+进入 v0.2 后，下一步应先设计 3-15 分钟内容弧线，再实现一个小切片。任何具体玩法仍必须经过 `docs/DECISION.md`，并说明使用 v0.2 预算且没有破坏 v0.1 回归护栏。
+
 ## Template
 
 ```md
