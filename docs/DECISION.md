@@ -2,15 +2,15 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动和三个节点的基础价值反馈已经收敛。当前最大问题不是继续扩展更多系统，而是把已存在的共鸣闭环状态表达清楚：首个共鸣已经领取并消耗后，矩阵进度仍显示满门槛但不说明该门槛已领取，容易让玩家误以为还有一次可领取动作。
+v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动、三个节点的基础价值反馈和已领取状态都已经收敛。当前最大问题不是继续扩展更多系统，而是缺少新的玩家反馈、可读 local-only 指标样本或可复现 self-playtest gap 来支撑下一次内容扩张。继续添加第二个共鸣面板、更多节点、prestige、任务系统或多生产线会违反当前 stage review 证据。
 
 ## Evidence
 
-- 2026-05-08 本轮 `gh issue list` CLI 仍无法连接 `api.github.com`；GitHub connector 成功读取 Issue #1/#2 和评论，确认两条 issue 都没有新的玩家补充，且此前都已回复一次。
-- `data/metrics/events.jsonl` 当前为 0 行；共鸣指标仍只存在于浏览器 `localStorage`，当前没有可用本机样本可解释新问题。
-- `回访线圈`、`调校刻印` 和 `稳定回路` 的节点生效反馈都已通过同一阶段目标行或同一事件反馈区收敛。
-- self-playtest 构造已领取并已消耗首个共鸣的状态时，`共鸣矩阵` 仍显示“共鸣门槛：自动采集器 20/20，调校 12/12”，但没有说明首个共鸣已经领取。
-- 本轮只允许补现有共鸣进度行的领取状态，不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或新资源。
+- 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20` 仍无法连接 `api.github.com`，不能刷新远端 issue 状态。
+- `data/feedback/github-feedback.md` 最近一次生成于 2026-05-07，仍只包含 Issue #1/#2 的旧信号和已回复记录，没有仓库内新反馈证据。
+- `data/metrics/events.jsonl` 当前为 0 行；本轮没有可读取的浏览器 `localStorage` 共鸣指标样本。
+- v0.3 第一版的已知闭环状态已经覆盖：共鸣可领取目标、选择前约束、选择后节点状态、已选节点后续目标、`回访线圈` 回访目标、`调校刻印` 调校反馈、`稳定回路` 自动采集反馈、首个共鸣已领取进度。
+- Decision: 本轮记录 `DECISION:2026-05-08-v03-resonance-closed-loop-no-change`。没有新证据前不新增玩法系统；下一步应优先恢复远端反馈读取、获取可读 local-only 指标样本、或通过更长时间窗 self-playtest 找到具体 gap。
 - BOOTSTRAP commit `7b30c9d` added a playable local MVP.
 - FEEDBACK_INFRA commit `8cf6f39` added an in-game feedback path.
 - GitHub Pages workflow run `25421769909` completed successfully.

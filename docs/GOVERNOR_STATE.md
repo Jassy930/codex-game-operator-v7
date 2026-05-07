@@ -6,7 +6,7 @@ SELF_PLAYTEST
 
 ## Reason
 
-v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束、选择后节点状态、节点启动后的目标文案、`回访线圈` 回访归因、`调校刻印` 调校反馈和 `稳定回路` 自动采集器反馈已收敛。本轮继续按 roadmap 闸门进入 SELF_PLAYTEST，复核首个共鸣已领取并已消耗节点选择后的矩阵状态，处理满门槛进度缺少“已领取”状态说明的具体 gap。
+v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束、选择后节点状态、节点启动后的目标文案、`回访线圈` 回访归因、`调校刻印` 调校反馈、`稳定回路` 自动采集器反馈和首个共鸣已领取进度都已收敛。本轮继续 SELF_PLAYTEST 做共鸣闭环 stage review；当前没有新反馈、可读 local-only 指标样本或新的可复现 self-playtest gap 支撑继续扩展。
 
 ## Allowed Actions
 
@@ -238,3 +238,5 @@ v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束
 2026-05-08: 继续 SELF_PLAYTEST；GitHub connector 确认 Issue #1/#2 没有新补充，CLI 仍无法连接 `api.github.com`，localStorage 指标样本当前不可读。发现首个共鸣已领取并消耗节点选择后，矩阵门槛行仍只显示满进度而不说明已领取；本轮只在同一进度行补“首个共鸣已领取”。
 
 2026-05-08: 首个共鸣已领取状态切片已由 commit `14f70ca` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test src/App.test.tsx` 23 pass，完整 `bun test` 69 pass，`bun run test` 69 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --limit 3` 仍无法连接 `api.github.com`，GitHub connector 对该 commit 未返回 workflow run/status，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
+
+2026-05-08: 继续 SELF_PLAYTEST 做 v0.3 共鸣闭环 no-change/stage review。`gh issue list` 仍无法连接 `api.github.com`；`data/feedback/github-feedback.md` 只有 2026-05-07 的 Issue #1/#2 旧快照；`data/metrics/events.jsonl` 为 0 行，且没有可读浏览器 localStorage 共鸣指标样本。本轮不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或新资源。
