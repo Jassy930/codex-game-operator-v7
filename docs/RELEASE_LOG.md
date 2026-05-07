@@ -47,3 +47,4 @@
 - 发布 Soft Automation 周期收口：commit `7a15e5d`，Pages workflow `25474199644` 成功，公开预览 HTTP 200。
 - 新增 Asset Workflow 文档，要求未来图片素材需求显式评估 `imagegen` 并记录决策理由。
 - 记录 Asset Workflow 应用结论：当前没有明确视觉素材缺口，本轮不生成图片或新增 `src/assets/`。
+- 更新 Roadmap 当前状态：M0-M3 已基本完成，M4/M5 持续运营中，下一步必须来自新反馈、明确 gap、research-backed decision 或可验证 harness 缺口。
