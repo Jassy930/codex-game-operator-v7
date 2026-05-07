@@ -626,6 +626,47 @@ Asset Workflow 收口后，若无新玩家反馈，回到 `SELF_PLAYTEST` 或 `R
 
 下一轮优先 `SELF_PLAYTEST` 或 local-only metrics readback，检查达成共鸣后的选择清晰度和节点价值感。不得直接进入 prestige、任务系统、多生产线或多个新面板。
 
+## 2026-05-08 Retrospective 15
+
+### Window
+
+从 v0.3 共鸣系统第一版发布后，到首个共鸣领取、选择前、选择后、节点启动后和 `回访线圈` 生效状态的连续文案收敛。
+
+### What Changed
+
+- 首个共鸣可领取时，阶段目标会指向领取共鸣和选择 1 个永久节点。
+- 首次共鸣已领取但未消费时，矩阵提示本轮只能启动 1 个节点。
+- 首个节点启动后，阶段目标会按已选节点解释下一步价值。
+- `回访线圈` 已启动并产生可见离线收益时，阶段目标会把收益归因到该节点。
+
+### What Improved
+
+- 三选一永久节点不再只像一次性按钮，已选结果和下一步价值更连续。
+- 所有改动都复用同一阶段目标行或节点描述，没有新增资源、节点、面板、指标或存档字段。
+
+### What Got Worse
+
+- v0.3 后续小文案切片已经足够多，继续打磨同一状态会带来边际收益下降。
+- 文档仍在增长，后续应优先用 metrics readback 或真实反馈决定是否继续推进。
+
+### Drift Check
+
+- repeated issue replies: 无。Issue #1/#2 没有新补充，本轮不回复。
+- issue-driven thrashing: 无。本轮来自 self-playtest gap，不把 issue 当任务。
+- feature bloat: 受控。没有新增节点、面板、资源、存档字段或指标字段。
+- lack of tests: 无。每个 UI 文案切片都有渲染测试。
+- unclear North Star: 无。目标仍是回访后策略层可理解。
+- harness friction: 可控。复杂度预算未放宽。
+
+### Harness Lessons
+
+- 节点价值要在“选择后”和“真正生效时”都能被读到，否则玩家仍可能把永久选择读成普通按钮状态。
+- 同一状态连续文案收敛后，下一轮应转向 local-only metrics readback、`调校刻印` 聚焦复核或等待真实反馈。
+
+### Next Operating Mode
+
+下一轮优先 `SELF_PLAYTEST` 或 `METRICS_INFRA` readback。不得直接进入 prestige、任务系统、多生产线、第二个共鸣面板或更多节点。
+
 ## Template
 
 ```md

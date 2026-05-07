@@ -298,6 +298,28 @@ describe("App", () => {
     expect(html).not.toContain("长期目标：离开一会儿再回来");
   });
 
+  it("credits return coil when offline resonance rewards are visible", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 3812.34,
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 8.8,
+      nextAutoCollectorCost: 4379,
+      nextEfficiencyUpgradeCost: 4959,
+      lastUpdatedAt: Date.now() - 1000 * 60 * 30,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["return-coil"],
+    });
+
+    expect(html).toContain("离线获得");
+    expect(html).toContain(
+      "共鸣目标：回访线圈带回更多离线星尘，花掉收益继续扩建或调校",
+    );
+    expect(html).not.toContain("回访目标：花掉离线星尘");
+  });
+
   it("formats the next goal from the current upgrade depth", () => {
     expect(formatGoalHint(0, 0)).toBe("目标：攒够星尘，购买第一个自动采集器");
     expect(formatGoalHint(2, 0)).toBe(

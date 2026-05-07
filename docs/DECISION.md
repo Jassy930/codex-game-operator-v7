@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更多系统，而是验证首个共鸣门槛达成、领取、节点选择和节点启动后的连续目标是否清楚，避免永久节点被玩家读成一次性按钮状态。
+v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更多系统，而是验证首个共鸣门槛达成、领取、节点选择、节点启动和节点生效后的连续目标是否清楚，避免永久节点被玩家读成一次性按钮状态。
 
 ## Evidence
 
@@ -166,12 +166,13 @@ v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更
 - 2026-05-07 共鸣门槛模拟显示：每秒点击一次并优先购买当前更便宜升级时，约第 13513 秒达到 20 台自动采集器和 12 次调校。
 - 首个共鸣门槛达成时 UI 已显示 `领取共鸣 +1`，但阶段目标仍可能显示“长期目标：离开一会儿再回来，查看引擎室积累的离线星尘”。
 - 首个共鸣节点启动后，`共鸣矩阵` 已能说明“已启动”和“本轮已选择其他节点”，但阶段目标仍回到普通回访目标，没有解释已选永久节点接下来如何影响玩家行动。
+- 当玩家选择 `回访线圈` 并真正回访看到离线收益时，旧目标行优先显示通用“花掉离线星尘”，没有把本次离线收益与已启动节点的 +10% 价值连接起来。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-resonance-node-followup-goal`
+Decision Anchor: `DECISION:2026-05-08-return-coil-offline-goal`
 
-首个共鸣节点已启动后，同一阶段目标行必须解释已选节点的下一步价值：稳定回路指向继续扩建自动采集器，回访线圈指向再次回访查看离线收益，调校刻印指向继续调校放大引擎效率。本切片只补已选节点后的目标文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
+如果玩家已启动 `回访线圈`，并在回访时看到可见离线收益，`星尘引擎室` 的同一阶段目标行必须承认这是回访线圈带回的更多离线星尘，再指向花掉收益继续扩建或调校。本切片只补节点生效后的目标文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
 
 ## Implementation Record
 
@@ -217,6 +218,13 @@ Decision Anchor: `DECISION:2026-05-08-resonance-node-followup-goal`
 - Added selected-node follow-up goals in the existing `星尘引擎室` stage target line.
 - `稳定回路` now points players toward expanding auto collectors, `回访线圈` toward return/offline value, and `调校刻印` toward more tuning.
 - Added a rendering test for the selected `稳定回路` state after first resonance is spent.
+- Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
+
+2026-05-08 RETURN_COIL_OFFLINE_GOAL executed:
+
+- Added a `回访线圈`-specific offline return goal in the existing `星尘引擎室` stage target line.
+- When visible offline rewards are present after selecting `回访线圈`, the goal now credits the node before pointing players back to spending the return gains.
+- Added a rendering test for a return-coil save state with visible offline rewards.
 - Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
 
 2026-05-06 FEEDBACK_INFRA selected:

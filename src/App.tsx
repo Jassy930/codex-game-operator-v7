@@ -522,6 +522,14 @@ export function formatWorkshopStageNextRequirement(
   }
 
   if (hasVisibleOfflineReward && workshopStage.name === "星尘引擎室") {
+    if (unlockedResonanceNodes.includes("return-coil")) {
+      if (!canSpendVisibleOfflineReward) {
+        return "共鸣目标：回访线圈收益已投入工坊，继续攒下一次升级";
+      }
+
+      return "共鸣目标：回访线圈带回更多离线星尘，花掉收益继续扩建或调校";
+    }
+
     if (!canSpendVisibleOfflineReward) {
       return "回访目标：离线收益已投入工坊，继续攒下一次升级";
     }
