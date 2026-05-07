@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-首次回访目标已经能把离线收益接回扩建或调校，但下一阶段内容还没有明确边界。当前最大风险不是某个具体按钮缺失，而是为了“继续丰富”直接引入第二资源、prestige、主动 boost 或多面板，导致 v0.2 的低复杂度内容弧线失控。
+用户已经明确指出：只增加里程碑不够，下一阶段需要更丰富的玩法。当前最大问题不是是否要扩展，而是如何把扩展收敛成一个可验证的 v0.3 系统，避免同时加入第二资源、prestige、任务系统、多面板和复杂指标。
 
 ## Evidence
 
@@ -157,12 +157,15 @@
 - 类型资料显示 achievements / milestone systems 常用于提供结构和方向；prestige 通常适合进度变慢后的长期 reset loop。
 - 当前 `docs/COMPLEXITY_BUDGET.md` v0.2 允许阶段里程碑和延后解锁文案，但仍禁止第二资源、prestige、任务系统和新增多面板管理界面。
 - 现有状态变量 `autoCollectors`、`autoCollectorEfficiencyLevel`、`dustPerSecond` 和工坊阶段足以派生下一阶段目标，不需要先引入新存档字段。
+- 用户明确反馈不希望只增加里程碑，而是希望更丰富的玩法。
+- v0.2 预算已经不能承载真实第二资源和选择面板，需要版本化为 v0.3，而不是临时绕过复杂度预算。
+- `docs/plans/2026-05-07-resonance-system-design.md` 设计了第二资源 `共鸣`、一个 `共鸣矩阵` 面板、v2 存档迁移和 local-only 共鸣指标。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-research-milestone-resonance`
+Decision Anchor: `DECISION:2026-05-07-v03-resonance-system`
 
-下一阶段内容优先研究并候选 `Milestone Resonance / 星尘共鸣节点`：用现有自动采集器数量和调校等级派生回访后的下一组里程碑，例如 `20 台自动采集器 + 12 次调校`。第一版应优先是预告或派生状态，不新增资源、面板、存档字段、指标字段、prestige、任务系统或外部 analytics。该决策只授权设计候选，不授权立即实现；实现前必须再进入明确的设计/实施计划，并通过复杂度预算与 TDD。
+进入 v0.3 共鸣系统。下一阶段允许新增 1 个第二资源 `共鸣`、1 个紧凑 `共鸣矩阵` 面板、v2 存档字段和最多 3 个 local-only 共鸣指标字段。第一版实现范围限定为首个共鸣里程碑、三选一永久节点和本地指标；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
 
 ## Implementation Record
 

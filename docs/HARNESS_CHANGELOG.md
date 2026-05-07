@@ -270,6 +270,40 @@ Use `METRICS_INFRA` only when local measurement directly supports self-playtest 
 
 后续如果 issue form 新增必需 label，要同步扩展 `collect-feedback` 的 required label 检查和脚本测试。
 
+## 2026-05-07 - v0.3 Resonance Budget
+
+### Files Changed
+
+- `docs/COMPLEXITY_BUDGET.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/DECISION.md`
+- `docs/CONTENT_ARC.md`
+- `docs/ROADMAP.md`
+- `docs/RELEASE_LOG.md`
+- `docs/plans/2026-05-07-resonance-system-design.md`
+- `docs/plans/2026-05-07-resonance-system.md`
+
+### Failure Mode
+
+v0.2 预算把第二资源、新面板、存档字段和本地指标字段全部禁止。用户明确指出只增加里程碑不够，希望下一阶段有更丰富的玩法。
+
+### Evidence
+
+用户反馈：“为什么不新增第二资源、prestige、任务系统、新面板、存档字段或指标字段 我希望有更丰富的玩法，而不是只增加里程碑”，随后确认“好的，进入下一阶段吧”。`docs/RESEARCH.md` 已把 `星尘共鸣节点` 识别为下一阶段候选，但旧 v0.2 预算不足以承载真实第二资源和矩阵选择。
+
+### Change
+
+新增 v0.3 Resonance Version Budget：允许 1 个第二资源、1 个共鸣矩阵面板、v2 存档和最多 3 个 local-only 共鸣指标字段。v0.3 仍禁止 prestige、任务系统、复杂地图、多生产线、多个新面板、外部 analytics SDK 和 telemetry 上传。
+
+### Why This Does Not Weaken Constraints
+
+该变更没有移除复杂度预算，而是把下一阶段玩法扩展限定在一个版本预算内。North Star、issue routing、response budget、review protocol、测试要求和部署要求保持不变；v0.1 前 60 秒预算继续作为回归护栏。
+
+### Follow-up
+
+v0.3 实现应按 `docs/plans/2026-05-07-resonance-system.md` 分切片执行。第一版只实现共鸣资源、首个共鸣里程碑、一个紧凑共鸣矩阵、v2 存档迁移和 local-only 指标，不同时引入 prestige 或任务系统。
+
 ## Template
 
 ```md

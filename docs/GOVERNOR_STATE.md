@@ -2,22 +2,22 @@
 
 ## Selected Mode
 
-RESEARCH
+META_IMPROVE
 
 ## Reason
 
-用户要求研究继续丰富游戏下一阶段内容。当前 Issue #1/#2 没有新的玩家补充，上一轮 self-playtest 已把首次回访后的目标文案收口；本轮进入 RESEARCH，只收敛下一阶段内容方向，不直接实现新玩法。
+用户明确要求进入下一阶段，并指出只增加里程碑不足以形成更丰富的玩法。v0.2 复杂度预算禁止第二资源、新面板、存档字段和指标字段，已经成为 v0.3 共鸣系统设计的约束摩擦；本轮进入 META_IMPROVE，版本化放开 v0.3 预算并写清共鸣系统设计和实施计划。
 
 ## Allowed Actions
 
-- 研究 idle / incremental game 在首次回访后的下一阶段内容模式。
-- 比较 milestone multiplier、主动短时加速、prestige/第二资源等候选方向。
-- 更新 `docs/RESEARCH.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/IDEA_PARKING_LOT.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
+- 新增 v0.3 Resonance Version Budget。
+- 写入 v0.3 共鸣系统设计文档和实施计划。
+- 更新 `docs/HARNESS_CHANGELOG.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
 - 运行 `./ops/governor-check.sh` 和 `git diff --check`；如未改代码，可不跑完整构建。
 
 ## Forbidden Actions
 
-- 不新增第二资源、prestige、任务系统、复杂地图或新面板。
+- 本轮不实现第二资源、prestige、任务系统、复杂地图或新面板；只允许更新预算、设计和计划。
 - 不新增反馈渠道、analytics SDK、上传 telemetry、存档字段、指标字段或个人数据收集。
 - 不实现第三或第四种升级类型；本轮只做研究和方向决策。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
@@ -25,15 +25,15 @@ RESEARCH
 
 ## Exit Criteria
 
-- `docs/RESEARCH.md` 记录下一阶段内容研究、来源和候选方向。
-- `docs/DECISION.md` 产生一个 research-backed decision anchor。
-- 决策明确下一步只是候选实现方向，不授权第二资源、prestige、新面板或多系统扩张。
+- `docs/COMPLEXITY_BUDGET.md` 有 v0.3 预算，并仍保留 v0.1/v0.2 护栏。
+- `docs/plans/2026-05-07-resonance-system-design.md` 和实施计划存在。
+- `docs/HARNESS_CHANGELOG.md` 记录 meta-governance 证据，证明没有削弱核心约束。
 - governor check 和 diff check 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只做下一阶段内容研究，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
+未发现玩法漂移。本轮只版本化 v0.3 边界并写设计计划，不实现第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
 
 ## Last Updated
 
@@ -198,3 +198,5 @@ RESEARCH
 2026-05-07: 切换到 RESEARCH；研究首次回访后的下一阶段内容。当前只允许收敛候选方向和决策锚点，不实现第三/第四种升级、第二资源、prestige、新面板、存档字段或指标字段。
 
 2026-05-07: 下一阶段内容研究已由 commit `aeee220` 推送到 `origin/main`。Pages workflow `25495106412` 成功，公开预览 HTTP 200，工作区最终 clean。
+
+2026-05-07: 切换到 META_IMPROVE；用户明确要求不要只增加里程碑，而是进入更丰富玩法阶段。本轮新增 v0.3 Resonance Version Budget，并将共鸣系统设计为第二资源 + 一个紧凑共鸣矩阵 + v2 存档 + local-only 指标的受限扩展。
