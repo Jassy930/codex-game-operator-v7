@@ -4,6 +4,19 @@
 
 ## 最新结果
 
+2026-05-08 v0.3 首个共鸣后 8 小时时间窗 stage review。这不是真实玩家反馈；触发信号来自上一轮共鸣闭环 no-change 后的更长时间窗复核要求。
+
+- 反馈读取：`gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels` 仍无法连接 `api.github.com`，本轮不能刷新远端 issue 状态。
+- 指标读取：`data/metrics/events.jsonl` 当前为 0 行；没有可读取的浏览器 `localStorage` 共鸣指标样本，不能把指标当作扩展依据。
+- 模拟方式：每秒点击一次，并在可购买时优先购买当前更便宜的自动采集器或调校工具；首个共鸣可领取后立即选择 `稳定回路`，继续主动节奏到 8 小时。
+- 关键结果：约第 13513 秒达到 20 台自动采集器和 12 次调校并触发首个共鸣；选择 `稳定回路` 后，每秒星尘从 8.8 提升到 9.68。
+- 后续升级：首个共鸣后仍在第 16221 秒、第 19211 秒、第 23500 秒、第 27792 秒出现调校或自动采集器升级。
+- 8 小时状态：22 台自动采集器、14 次调校、每秒 +11.62 星尘、约 12732 星尘；下一台自动采集器需要 74819 星尘，下一次调校需要 93704 星尘。
+- 决策：本轮 no-change。更长时间窗显示首个共鸣后仍有升级推进，但没有新的可复现 UI/玩法 gap；不新增第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
+- 下一步：优先等待真实玩家反馈、恢复远端 issue 读取、获取可读 local-only 指标样本，或通过 research-backed 决策定义下一版本预算；不要继续重复同一 v0.3 闭环 no-change。
+
+Gap: 当前是证据缺口，不是实现缺口。更长时间窗不足以单独授权新系统。
+
 2026-05-08 v0.3 共鸣闭环 no-change/stage review。这不是真实玩家反馈；触发信号来自首个共鸣已领取状态切片后的下一轮自动化复核。
 
 - 反馈读取：`gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20` 仍无法连接 `api.github.com`；仓库内 `data/feedback/github-feedback.md` 仍是 2026-05-07 的 Issue #1/#2 快照，没有新玩家补充证据。

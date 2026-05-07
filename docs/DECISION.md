@@ -2,15 +2,16 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动、三个节点的基础价值反馈和已领取状态都已经收敛。当前最大问题不是继续扩展更多系统，而是缺少新的玩家反馈、可读 local-only 指标样本或可复现 self-playtest gap 来支撑下一次内容扩张。继续添加第二个共鸣面板、更多节点、prestige、任务系统或多生产线会违反当前 stage review 证据。
+v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动、三个节点的基础价值反馈和已领取状态都已经收敛。本轮把 self-playtest 推进到首个共鸣后 8 小时主动节奏，结果显示仍有升级推进，但没有新的可复现 UI/玩法 gap。当前最大问题仍是缺少新的玩家反馈、可读 local-only 指标样本或 research-backed 决策来支撑下一次内容扩张。
 
 ## Evidence
 
 - 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20` 仍无法连接 `api.github.com`，不能刷新远端 issue 状态。
 - `data/feedback/github-feedback.md` 最近一次生成于 2026-05-07，仍只包含 Issue #1/#2 的旧信号和已回复记录，没有仓库内新反馈证据。
 - `data/metrics/events.jsonl` 当前为 0 行；本轮没有可读取的浏览器 `localStorage` 共鸣指标样本。
+- 8 小时主动模拟显示：首个共鸣约第 13513 秒触发，选择 `稳定回路` 后仍在第 16221、19211、23500、27792 秒出现升级；8 小时状态为 22 台自动采集器、14 次调校、每秒 +11.62 星尘。
 - v0.3 第一版的已知闭环状态已经覆盖：共鸣可领取目标、选择前约束、选择后节点状态、已选节点后续目标、`回访线圈` 回访目标、`调校刻印` 调校反馈、`稳定回路` 自动采集反馈、首个共鸣已领取进度。
-- Decision: 本轮记录 `DECISION:2026-05-08-v03-resonance-closed-loop-no-change`。没有新证据前不新增玩法系统；下一步应优先恢复远端反馈读取、获取可读 local-only 指标样本、或通过更长时间窗 self-playtest 找到具体 gap。
+- Decision: 本轮记录 `DECISION:2026-05-08-v03-post-node-long-horizon-no-change`。没有新证据前不新增玩法系统；下一步应优先等待真实玩家反馈、恢复远端反馈读取、获取可读 local-only 指标样本，或通过 research-backed 决策定义下一版本预算。
 - BOOTSTRAP commit `7b30c9d` added a playable local MVP.
 - FEEDBACK_INFRA commit `8cf6f39` added an in-game feedback path.
 - GitHub Pages workflow run `25421769909` completed successfully.
@@ -177,9 +178,9 @@ v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-claimed-resonance-progress`
+Decision Anchor: `DECISION:2026-05-08-v03-post-node-long-horizon-no-change`
 
-如果玩家已经领取首个共鸣，现有 `共鸣矩阵` 的门槛进度行必须显示“首个共鸣已领取”，避免满进度看起来像还有一次可领取动作。本切片只补同一进度行文案，不改共鸣门槛、奖励、节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
+首个共鸣后 8 小时主动节奏仍有升级推进，但没有新的可复现 UI/玩法 gap。当前不新增第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。下一步必须来自新玩家反馈、可读 local-only 指标样本、明确 self-playtest gap，或 research-backed 的下一版本预算决策。
 
 ## Implementation Record
 
