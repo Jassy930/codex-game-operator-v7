@@ -404,6 +404,47 @@ Update this file when either is true:
 
 若 Issue #1 或新 issue 出现玩家补充，进入 `OPERATE` 并先更新 feedback snapshot、issue ledger 和 cluster。若继续无新反馈，优先 `SELF_PLAYTEST` 或 `RESEARCH` 做 no-change/等待判断；不要继续增加第三种升级。
 
+## 2026-05-07 Retrospective 10
+
+### Window
+
+从用户指出图片生成机制缺口，到新增 Asset Workflow 并挂入 harness/review/governor 检查。
+
+### What Changed
+
+- 新增 `docs/ASSET_WORKFLOW.md`。
+- `docs/HARNESS.md` 将 Asset Workflow 纳入治理层文档。
+- `docs/REVIEW_PROTOCOL.md` 增加视觉素材和 `imagegen` 决策检查。
+- `ops/governor-check.sh` 将 Asset Workflow 纳入必需文档。
+
+### What Improved
+
+- 未来需要图片、sprite、背景或视觉素材时，operator 必须显式评估 `imagegen`。
+- 不使用 `imagegen` 的情况也需要记录理由，避免默认忽略。
+- 资产生成被限制在 North Star、复杂度预算和发布检查内，不会自动变成装饰扩张。
+
+### What Got Worse
+
+- 治理文档又增加一份，后续需要保持它简洁，避免变成素材百科。
+
+### Drift Check
+
+- repeated issue replies: 无。
+- issue-driven thrashing: 无，本轮来自用户对 harness 的直接反馈。
+- feature bloat: 无，没有新增图片、玩法、资源、UI 或面板。
+- lack of tests: 无，governor check 覆盖必需文档存在性。
+- unclear North Star: 无，素材必须服务前 60 秒清晰度、成长反馈或 roadmap。
+- harness friction: 发现并收紧，未削弱治理约束。
+
+### Harness Lessons
+
+- 对于可用工具，harness 不能只依赖代理记忆；需要在 workflow 和 review checklist 中显式出现。
+- `imagegen` 应是“需要图片时必须评估”，而不是“每轮必须生成图片”。
+
+### Next Operating Mode
+
+Asset Workflow 收口后，若无新玩家反馈，回到 `SELF_PLAYTEST` 或 `RESEARCH`，优先判断是否停手等待反馈。
+
 ## Template
 
 ```md
