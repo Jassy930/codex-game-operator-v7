@@ -236,3 +236,5 @@ v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束
 2026-05-08: 继续 SELF_PLAYTEST 做 v0.3 共鸣闭环后的指标/stage review。`gh issue list` 和 `gh issue view` 仍无法连接 `api.github.com`；`data/metrics/events.jsonl` 为空，且 local-only 共鸣指标只存在于浏览器 `localStorage`，当前没有可用本机样本可解释新问题。本轮记录 no-change，不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或外部 analytics。
 
 2026-05-08: 继续 SELF_PLAYTEST；GitHub connector 确认 Issue #1/#2 没有新补充，CLI 仍无法连接 `api.github.com`，localStorage 指标样本当前不可读。发现首个共鸣已领取并消耗节点选择后，矩阵门槛行仍只显示满进度而不说明已领取；本轮只在同一进度行补“首个共鸣已领取”。
+
+2026-05-08: 首个共鸣已领取状态切片已由 commit `14f70ca` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test src/App.test.tsx` 23 pass，完整 `bun test` 69 pass，`bun run test` 69 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --limit 3` 仍无法连接 `api.github.com`，GitHub connector 对该 commit 未返回 workflow run/status，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
