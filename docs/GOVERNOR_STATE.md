@@ -2,36 +2,36 @@
 
 ## Selected Mode
 
-RESEARCH
+SELF_PLAYTEST
 
 ## Reason
 
-Asset Workflow 和视觉素材 no-change 决策已收口。当前 roadmap 仍只列里程碑方向，没有标明 M0-M3 已基本完成、M4 正在进行，也没有写清下一道运营闸门。
+Roadmap 状态已收敛。当前最具体的复杂度风险是首屏已有采集、自动采集器、调校工具三个按钮和多段提示；本轮复核 first-60-second text budget，判断是否需要进入 SIMPLIFY。
 
 ## Allowed Actions
 
-- 复核 `docs/ROADMAP.md` 与当前发布、反馈、运营状态是否一致。
-- 更新 `docs/ROADMAP.md` 的当前状态和下一道闸门。
-- 更新 `docs/DECISION.md`，记录 roadmap position 决策。
+- 统计前 60 秒首屏可见文案是否低于 `docs/COMPLEXITY_BUDGET.md`。
+- 复核 primary resource、upgrade types、visible panels 和 feedback channels。
+- 更新 `docs/SELF_PLAYTEST.md` 和 `docs/DECISION.md`，记录 no-change 或 SIMPLIFY gap。
 - 运行治理检查和低成本验证。
 
 ## Forbidden Actions
 
 - 不改变游戏玩法、经济、UI 或反馈渠道。
 - 不新增上传 telemetry、analytics SDK 或个人数据收集。
-- 不把 roadmap 更新扩展成新 feature backlog。
+- 不因为做预算审计而新增提示、按钮、图片或面板。
 - 不削弱 issue routing、response budget、复杂度预算或 review protocol。
 
 ## Exit Criteria
 
-- `docs/ROADMAP.md` 标明当前里程碑状态和下一道闸门。
-- `docs/DECISION.md` 记录本轮不新增玩法、先收敛 roadmap 状态的理由。
+- `docs/SELF_PLAYTEST.md` 记录 first-60-second text budget 结果。
+- 若预算内，`docs/DECISION.md` 记录 no-change；若超预算，切换后续 SIMPLIFY。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只做 roadmap 状态收敛，不改变游戏、不新增玩法、不新增 backlog。
+未发现玩法漂移。本轮只做复杂度预算审计，不改变游戏、不新增玩法、不新增文案。
 
 ## Last Updated
 
@@ -118,3 +118,7 @@ Asset Workflow 和视觉素材 no-change 决策已收口。当前 roadmap 仍只
 2026-05-07: RESEARCH 完成；当前没有真实反馈、self-playtest gap 或 roadmap requirement 要求图片素材。本轮明确不生成图片、不新增 `src/assets/`，未来出现具体素材需求时再按 Asset Workflow 评估 `imagegen`。
 
 2026-05-07: 继续 RESEARCH；收敛 roadmap 当前状态，明确 M0-M3 已基本完成、M4 正在进行，下一道闸门是新真实反馈或新的 self-playtest/metrics gap。
+
+2026-05-07: 切换到 SELF_PLAYTEST；审计调校工具上线后的首屏文案和复杂度预算，判断是否需要 SIMPLIFY。
+
+2026-05-07: SELF_PLAYTEST 复杂度审计完成；首屏初始状态约 101 个中文字符，短暂反馈出现时最高约 118 个，低于 300 字预算。本轮不进入 SIMPLIFY，不改 UI。

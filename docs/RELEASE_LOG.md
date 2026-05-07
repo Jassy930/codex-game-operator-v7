@@ -48,3 +48,4 @@
 - 新增 Asset Workflow 文档，要求未来图片素材需求显式评估 `imagegen` 并记录决策理由。
 - 记录 Asset Workflow 应用结论：当前没有明确视觉素材缺口，本轮不生成图片或新增 `src/assets/`。
 - 更新 Roadmap 当前状态：M0-M3 已基本完成，M4/M5 持续运营中，下一步必须来自新反馈、明确 gap、research-backed decision 或可验证 harness 缺口。
+- 记录首屏文案预算审计：调校工具上线后首屏仍低于 300 中文字符预算，本轮不触发 SIMPLIFY。
