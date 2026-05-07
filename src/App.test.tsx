@@ -3,12 +3,14 @@ import {
   App,
   formatAutoCollectorPurchaseMessage,
   formatCollectFeedbackMessage,
+  formatWorkshopStageNextRequirement,
   formatPurchaseFeedbackMessage,
   formatGoalHint,
   getNextUpgradeTarget,
   shouldShowOfflineDust,
 } from "./App";
 import { createGameState, serializeGameState } from "./game";
+import { getWorkshopStage } from "./milestones";
 
 describe("App", () => {
   it("renders the first playable screen with action and upgrade controls", () => {
@@ -182,6 +184,12 @@ describe("App", () => {
         value: originalWindow,
       });
     }
+  });
+
+  it("moves the return stage goal forward after offline dust is spent below the next upgrade", () => {
+    expect(
+      formatWorkshopStageNextRequirement(getWorkshopStage(16, 10), true, false),
+    ).toBe("回访目标：离线收益已投入工坊，继续攒下一次升级");
   });
 
   it("formats the next goal from the current upgrade depth", () => {

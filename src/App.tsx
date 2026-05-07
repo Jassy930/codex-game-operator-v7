@@ -79,6 +79,7 @@ export function App() {
   const stageNextRequirement = formatWorkshopStageNextRequirement(
     workshopStage,
     showOfflineDust,
+    canBuyAutoCollector || canBuyEfficiencyUpgrade,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -368,8 +369,13 @@ export function shouldShowOfflineDust(offlineDust: number): boolean {
 export function formatWorkshopStageNextRequirement(
   workshopStage: WorkshopStage,
   hasVisibleOfflineReward: boolean,
+  canSpendVisibleOfflineReward: boolean,
 ): string {
   if (hasVisibleOfflineReward && workshopStage.name === "星尘引擎室") {
+    if (!canSpendVisibleOfflineReward) {
+      return "回访目标：离线收益已投入工坊，继续攒下一次升级";
+    }
+
     return "回访目标：花掉离线星尘，继续扩建或调校引擎室";
   }
 
