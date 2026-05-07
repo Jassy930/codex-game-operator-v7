@@ -6,12 +6,13 @@ SELF_PLAYTEST
 
 ## Reason
 
-v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束、选择后节点状态、节点启动后的目标文案、`回访线圈` 回访归因和 `调校刻印` 调校反馈已收敛。本轮继续按 roadmap 闸门进入 SELF_PLAYTEST，复核 `稳定回路` 在玩家继续购买自动采集器时，购买反馈是否还能解释这个永久节点的实际价值。
+v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束、选择后节点状态、节点启动后的目标文案、`回访线圈` 回访归因、`调校刻印` 调校反馈和 `稳定回路` 自动采集器反馈已收敛。本轮继续按 roadmap 闸门进入 SELF_PLAYTEST，读取可用反馈和 local-only 指标证据，判断是否存在足够具体的新 gap 支撑继续扩展共鸣系统。
 
 ## Allowed Actions
 
-- 只读复核前 60 秒、首个共鸣门槛、共鸣领取、节点选择前、节点选择后和节点生效后的状态。
+- 只读复核前 60 秒、首个共鸣门槛、共鸣领取、节点选择前、节点选择后、节点生效后的状态和可用 local-only 指标证据。
 - 若发现具体 gap，仅实施一个可测试的小切片，优先改善已选共鸣节点后的目标提示、节点生效后的购买/回访反馈或本地指标可读性。
+- 若没有新反馈或可解释指标样本，记录 no-change / stage-review 结论，不新增玩法。
 - 更新相关测试和文档，保持 `docs/DECISION.md` 可追溯。
 - 运行完整本地验证：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
@@ -27,7 +28,8 @@ v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束
 
 - 前 60 秒仍不显示 `共鸣矩阵`。
 - 共鸣门槛、可领取共鸣状态、首次共鸣后的节点选择状态、选择前约束、已选节点后的目标提示、`回访线圈` 回访生效状态、`调校刻印` 调校购买反馈和 `稳定回路` 自动采集器购买反馈已复核。
-- 若存在具体 gap，已用最小切片和测试覆盖；若没有，记录 no-change。
+- 已尝试读取 GitHub issue 和 local-only 指标证据。
+- 若存在具体 gap，已用最小切片和测试覆盖；若没有，记录 no-change / stage-review。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
@@ -230,3 +232,5 @@ v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束
 2026-05-08: 继续 SELF_PLAYTEST；复核已启动 `稳定回路` 后继续购买自动采集器的反馈。本轮只允许在现有事件反馈区把自动采集器购买反馈归因到 `稳定回路`，不改共鸣数值、节点效果、存档字段、指标字段、面板数量或资源数量。
 
 2026-05-08: 稳定回路购买反馈切片已由 commit `a7a30a8` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test src/App.test.tsx` 22 pass，完整 `bun test` 68 pass，`bun run test` 68 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。下一轮应优先读取 local-only 共鸣指标、等待真实反馈或做 no-change/stage review；不得直接扩展第二个共鸣面板、更多节点、prestige 或任务系统。
+
+2026-05-08: 继续 SELF_PLAYTEST 做 v0.3 共鸣闭环后的指标/stage review。`gh issue list` 和 `gh issue view` 仍无法连接 `api.github.com`；`data/metrics/events.jsonl` 为空，且 local-only 共鸣指标只存在于浏览器 `localStorage`，当前没有可用本机样本可解释新问题。本轮记录 no-change，不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或外部 analytics。

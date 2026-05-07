@@ -2,10 +2,14 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更多系统，而是验证首个共鸣门槛达成、领取、节点选择、节点启动和节点生效后的连续目标是否清楚，避免永久节点被玩家读成一次性按钮状态。
+v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动和三个节点的基础价值反馈已经收敛。当前最大问题不是继续扩展更多系统，而是缺少新的真实反馈或可读取的本机指标样本来证明下一个玩法 gap；在证据不足时继续增加共鸣节点、prestige 或任务系统会破坏复杂度预算。
 
 ## Evidence
 
+- 2026-05-08 v0.3 共鸣闭环 stage review：`gh issue list` 和 `gh issue view 1/2` 仍无法连接 `api.github.com`，本轮无法确认远端是否有新玩家补充。
+- `data/metrics/events.jsonl` 当前为 0 行；共鸣指标仍只存在于浏览器 `localStorage`，当前没有可用本机样本可解释新问题。
+- `回访线圈`、`调校刻印` 和 `稳定回路` 的节点生效反馈都已通过同一阶段目标行或同一事件反馈区收敛。
+- 本轮决策是 no-change：在没有新 issue、真实 localStorage 样本或新 self-playtest gap 前，不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或新资源。
 - BOOTSTRAP commit `7b30c9d` added a playable local MVP.
 - FEEDBACK_INFRA commit `8cf6f39` added an in-game feedback path.
 - GitHub Pages workflow run `25421769909` completed successfully.
