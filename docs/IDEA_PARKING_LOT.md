@@ -40,6 +40,20 @@ Constraints:
 - no task system
 - requires fresh feedback, local metrics, or self-playtest evidence before implementation
 
+### Milestone Resonance / 星尘共鸣节点
+
+Goal: after `星尘引擎室` and first return, use existing auto collector count and tuning level to expose the next structured milestone, such as `20 台自动采集器 + 12 次调校`.
+
+Constraints:
+- 当前只是研究支撑的候选方向，不是当前实现任务。
+- 第一版应优先是预告或派生状态。
+- 不新增资源。
+- 不新增面板。
+- 不引入 prestige。
+- 不引入任务系统。
+- 除非后续设计证明必要，否则不升级存档版本。
+- 实现前必须先完成设计确认、TDD 和复杂度预算检查。
+
 ## Parked for Later
 
 - prestige

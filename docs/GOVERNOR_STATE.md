@@ -2,39 +2,38 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+RESEARCH
 
 ## Reason
 
-上一轮首次回访首屏已经把可见离线收益接回“花掉离线星尘”的目标。当前 Issue #1/#2 没有新的玩家补充，本轮继续 SELF_PLAYTEST，但把范围推进到玩家连续购买可负担升级后：如果离线收益提示仍可见，而当前星尘已低于下一次升级成本，阶段目标是否还应停留在“花掉离线星尘”。
+用户要求研究继续丰富游戏下一阶段内容。当前 Issue #1/#2 没有新的玩家补充，上一轮 self-playtest 已把首次回访后的目标文案收口；本轮进入 RESEARCH，只收敛下一阶段内容方向，不直接实现新玩法。
 
 ## Allowed Actions
 
-- 用当前 `src/game.ts` 经济函数模拟 60 分钟游玩、30 分钟离线和首次回访后消费。
-- 复核回访后连续消费离线收益时，`星尘引擎室` 的回访目标是否仍能解释下一步。
-- 如发现具体 gap，只允许改现有阶段目标行或同一 UI 区块中的轻量表达。
-- 更新 `docs/DECISION.md`、`docs/SELF_PLAYTEST.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
-- 运行 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
+- 研究 idle / incremental game 在首次回访后的下一阶段内容模式。
+- 比较 milestone multiplier、主动短时加速、prestige/第二资源等候选方向。
+- 更新 `docs/RESEARCH.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/IDEA_PARKING_LOT.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
+- 运行 `./ops/governor-check.sh` 和 `git diff --check`；如未改代码，可不跑完整构建。
 
 ## Forbidden Actions
 
 - 不新增第二资源、prestige、任务系统、复杂地图或新面板。
 - 不新增反馈渠道、analytics SDK、上传 telemetry、存档字段、指标字段或个人数据收集。
-- 不新增第三或第四种升级类型；本轮只处理 15-60 分钟和首次回访可理解性。
+- 不实现第三或第四种升级类型；本轮只做研究和方向决策。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- 首次回访后消费模拟结果记录到 self-playtest。
-- 如果实现改动，离线收益可见但当前没有可买升级时，阶段目标文案能解释继续攒下一次升级，并有测试覆盖。
-- 复杂度仍保持 1 个主资源、0 个第二资源、2 种升级类型、无新面板、无新存档字段。
-- `bun test`、`bun run test`、`bun run build`、governor check 和 diff check 通过。
+- `docs/RESEARCH.md` 记录下一阶段内容研究、来源和候选方向。
+- `docs/DECISION.md` 产生一个 research-backed decision anchor。
+- 决策明确下一步只是候选实现方向，不授权第二资源、prestige、新面板或多系统扩张。
+- governor check 和 diff check 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只复核首次回访后同一阶段目标行的状态切换，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
+未发现玩法漂移。本轮只做下一阶段内容研究，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
 
 ## Last Updated
 
@@ -195,3 +194,5 @@ SELF_PLAYTEST
 2026-05-07: 继续 SELF_PLAYTEST；首次回访后连续购买第 16 台自动采集器和第 10 次调校后，离线收益提示仍可见但当前星尘低于下一次升级成本。本轮只让同一阶段目标行在无法继续消费时切换为“离线收益已投入工坊，继续攒下一次升级”。
 
 2026-05-07: 回访后消费目标切片已由 commit `a8bfe73` 推送到 `origin/main`。本地验证通过；`gh run list` 连接 `api.github.com` 失败，`curl` 无法解析 `jassy930.github.io`，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
+
+2026-05-07: 切换到 RESEARCH；研究首次回访后的下一阶段内容。当前只允许收敛候选方向和决策锚点，不实现第三/第四种升级、第二资源、prestige、新面板、存档字段或指标字段。

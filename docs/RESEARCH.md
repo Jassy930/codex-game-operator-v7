@@ -2,7 +2,62 @@
 
 ## Current Research
 
-2026-05-07 - 300 秒后下一步内容方向。
+2026-05-07 - 首次回访后的下一阶段内容方向。
+
+## 2026-05-07 - 首次回访后的下一阶段内容方向
+
+### Question
+
+`星尘引擎室` 和首次回访目标已经能解释 15-60 分钟与第一次离线收益。下一阶段应如何丰富内容，才能让回访后的 15-60 分钟继续有局部目标和策略变化，同时不新增第二资源、prestige、任务系统、复杂地图或新面板？
+
+### Sources / Observations
+
+- 当前本地模拟显示，首次回访后玩家可以把 30 分钟离线收益连续投入第 16 台自动采集器和第 10 次调校；之后进入“继续攒下一次升级”的状态。
+- Machinations 的 idle game 设计资料强调：idle game 需要同时支持 active play 和 inactive progress；核心循环之外需要逐步引入 meta loop，但 active loop 不能退化成“登录、花钱、离开”。
+- GDC Vault 的 Anthony Pecorella talk 概览强调 idle game 研究重点包含 self-playing core、演化趋势、新机制分析，以及让玩家对“数字上涨”持续兴奋。
+- Incremental game 类型资料把成就/里程碑系统描述为给玩家结构和方向的常见机制；prestige 可以形成后续策略深度，但通常用于进度明显变慢后的 reset loop。
+- 现有 `docs/COMPLEXITY_BUDGET.md` v0.2 允许阶段里程碑和延后解锁文案，但仍禁止第二资源、prestige、任务系统和新增多面板管理界面。
+
+Sources:
+
+- https://machinations.io/articles/idle-games-and-how-to-design-them
+- https://www.gdcvault.com/play/1023876/Quest-for-Progress-The-Math
+- https://www.gdcvault.com/play/1022066/Idle-Games-The-Mechanics-and
+- https://en.wikipedia.org/wiki/Incremental_game
+
+### Candidate Directions
+
+1. 推荐：`Milestone Resonance / 星尘共鸣节点`
+   - 用现有自动采集器数量和调校等级派生下一组里程碑，例如 `20 台自动采集器 + 12 次调校`。
+   - 第一阶段只做预告或派生状态，不新增资源、不新增面板、不新增存档字段。
+   - 如果后续 self-playtest 或真实反馈证明需要更强动力，再考虑把共鸣节点变成自动产出倍率或一次性阶段反馈。
+
+2. 候选：短时主动加速
+   - 让玩家回访后有一个可点击的短时 boost。
+   - 风险是增加主动作或 cooldown 规则，容易扩大首屏控件和指标需求；当前不推荐。
+
+3. 延后：prestige 或第二资源
+   - 可以在更长时间窗提供策略重置和新目标。
+   - 当前 15-60 分钟仍有升级推进，过早引入 reset 或第二资源会破坏 v0.2 轻量约束；本轮明确不采用。
+
+### General Principles
+
+- 继续保持单一主资源和现有主屏。
+- 下一阶段内容应先提供“我接下来在等哪个里程碑”的结构，再考虑新增可购买升级。
+- 优先使用现有状态派生内容：自动采集器数量、调校等级、每秒星尘和阶段名。
+- 不把 meta loop 一次性做成多系统；每轮最多验证一个局部目标。
+- 如果实现 `星尘共鸣节点`，第一版应是 existing state derived，不能要求 save version 2。
+
+### Decision Impact
+
+下一阶段研究决策是：把 `Milestone Resonance / 星尘共鸣节点` 作为下一步候选内容，优先设计为现有状态派生的里程碑预告。它可以在 `星尘引擎室` 后告诉玩家下一组长期目标，例如自动采集器和调校等级的组合门槛。它不自动授权实现；实现前需要新的 design/implementation plan，并在 `DECISION.md` 中确认是否只做预告、是否影响产出倍率、是否需要测试和存档兼容检查。
+
+### What Not To Copy
+
+- 不复制商业 idle game 的广告、付费 boost、抽卡、限时活动或多货币经济。
+- 不把“meta loop”直接解释成第二资源、prestige、多角色、多地图或任务系统。
+- 不在没有新反馈或 self-playtest gap 的情况下同时加入主动 boost、成就、共鸣倍率和 prestige。
+- 不新增 player identity、外部 analytics 或上传路径来证明下一阶段内容。
 
 ## 2026-05-07 - 300 秒后下一步内容方向
 
