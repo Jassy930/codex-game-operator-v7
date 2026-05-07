@@ -13,11 +13,14 @@ describe("App", () => {
     const html = renderToStaticMarkup(<App />);
 
     expect(html).toContain("星尘");
+    expect(html).toContain('alt="星尘晶体"');
     expect(html).toContain("星尘会变成自动采集器，让工坊持续产出");
     expect(html).toContain("采集");
     expect(html).toContain("自动采集器");
+    expect(html).toContain('alt="自动采集器"');
     expect(html).toContain("需要 10 星尘");
     expect(html).toContain("调校工具");
+    expect(html).toContain('alt="调校工具"');
     expect(html).toContain("需要先购买自动采集器");
     expect(html).toContain("购买进度");
     expect(html).toContain("目标：攒够星尘，购买第一个自动采集器");

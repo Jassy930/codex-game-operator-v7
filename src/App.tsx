@@ -20,6 +20,9 @@ import {
   startMetricsSession,
 } from "./metrics";
 import { getAutoCollectorMilestone, getWorkshopStage } from "./milestones";
+import autoCollectorArt from "./assets/auto-collector.webp";
+import stardustCrystalArt from "./assets/stardust-crystal.webp";
+import tuningToolArt from "./assets/tuning-tool.webp";
 
 const SAVE_KEY = "stardust-workshop-save-v1";
 
@@ -187,10 +190,13 @@ export function App() {
         </div>
 
         <div className="resource-readout" aria-live="polite">
-          <span>星尘</span>
-          <strong>{formatNumber(state.dust)}</strong>
-          <small>每秒 +{formatNumber(state.dustPerSecond)}</small>
-          <p className="motivation-copy">星尘会变成自动采集器，让工坊持续产出</p>
+          <img className="resource-art" src={stardustCrystalArt} alt="星尘晶体" />
+          <div className="resource-copy">
+            <span>星尘</span>
+            <strong>{formatNumber(state.dust)}</strong>
+            <small>每秒 +{formatNumber(state.dustPerSecond)}</small>
+            <p className="motivation-copy">星尘会变成自动采集器，让工坊持续产出</p>
+          </div>
         </div>
 
         <div className="event-stack" aria-live="polite">
@@ -212,14 +218,16 @@ export function App() {
             disabled={!canBuyAutoCollector}
             onClick={handleUpgradeClick}
           >
-            购买自动采集器 · 需要 {formatNumber(state.nextAutoCollectorCost)} 星尘
+            <img className="button-art" src={autoCollectorArt} alt="自动采集器" />
+            <span>购买自动采集器 · 需要 {formatNumber(state.nextAutoCollectorCost)} 星尘</span>
           </button>
           <button
             className="upgrade-action"
             disabled={!canBuyEfficiencyUpgrade}
             onClick={handleEfficiencyUpgradeClick}
           >
-            {efficiencyUpgradeLabel}
+            <img className="button-art" src={tuningToolArt} alt="调校工具" />
+            <span>{efficiencyUpgradeLabel}</span>
           </button>
         </div>
 

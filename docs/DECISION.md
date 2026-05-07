@@ -614,9 +614,18 @@ Decision Anchor: `DECISION:2026-05-07-operate-workshop-stage`
 - v0.2 budget use: 使用 `Stage milestone / workshop phase` 和 `Delayed unlock copy`，不使用第 4 种升级类型。
 - v0.1 guardrail: 前 60 秒仍只有星尘、采集、自动采集器、调校工具和现有主屏；不新增第二资源、按钮、面板或反馈渠道。
 
+2026-05-07 SELF_PLAYTEST item art imagegen:
+
+- Decision Anchor: `DECISION:2026-05-07-asset-item-art-imagegen`
+- User request: 用户选择方案 3，使用资源/升级插图优化当前画面表现。
+- Asset: `src/assets/stardust-crystal.webp`、`src/assets/auto-collector.webp`、`src/assets/tuning-tool.webp`
+- Decision: 使用 imagegen 生成 3 张一致风格的小型物件插图，分别锚定星尘、自动采集器和调校工具，并接入现有资源读数和升级按钮。
+- v0.2 budget use: 只增强现有核心链路的可读性，不使用第 4 种升级类型，不增加 visible panel。
+- 约束：不新增玩法、资源、按钮、面板、复杂 lore、远程热链、analytics、指标字段或反馈渠道。
+
 ## Input Source
 
-User request: 玩法仍然干枯太少，需要丰富游戏内容。
+User request: 玩法仍然干枯太少，需要丰富游戏内容；用户确认使用资源/升级插图优化画面表现。
 
 ## Linked Signals
 
