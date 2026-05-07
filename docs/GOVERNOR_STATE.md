@@ -228,3 +228,5 @@ v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束
 2026-05-08: 调校刻印购买反馈切片已由 commit `7c11fe6` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test src/App.test.tsx` 21 pass，完整 `bun test` 67 pass，`bun run test` 67 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --limit 3` 无法连接 `api.github.com`，`curl -I https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
 
 2026-05-08: 继续 SELF_PLAYTEST；复核已启动 `稳定回路` 后继续购买自动采集器的反馈。本轮只允许在现有事件反馈区把自动采集器购买反馈归因到 `稳定回路`，不改共鸣数值、节点效果、存档字段、指标字段、面板数量或资源数量。
+
+2026-05-08: 稳定回路购买反馈切片已由 commit `a7a30a8` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test src/App.test.tsx` 22 pass，完整 `bun test` 68 pass，`bun run test` 68 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。下一轮应优先读取 local-only 共鸣指标、等待真实反馈或做 no-change/stage review；不得直接扩展第二个共鸣面板、更多节点、prestige 或任务系统。
