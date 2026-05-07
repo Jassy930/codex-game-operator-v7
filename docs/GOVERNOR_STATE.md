@@ -6,12 +6,12 @@ SELF_PLAYTEST
 
 ## Reason
 
-Roadmap 状态已收敛。当前最具体的复杂度风险是首屏已有采集、自动采集器、调校工具三个按钮和多段提示；本轮复核 first-60-second text budget，判断是否需要进入 SIMPLIFY。
+首屏文案预算审计已通过。剩余具体风险是动作区长按钮在窄屏上的换行和布局稳定性；本轮复核现有 CSS 是否已经覆盖该风险。
 
 ## Allowed Actions
 
-- 统计前 60 秒首屏可见文案是否低于 `docs/COMPLEXITY_BUDGET.md`。
-- 复核 primary resource、upgrade types、visible panels 和 feedback channels。
+- 复核 `src/styles.css` 中 `.action-row` 和按钮的响应式约束。
+- 确认窄屏是否已有纵向布局和自然换行。
 - 更新 `docs/SELF_PLAYTEST.md` 和 `docs/DECISION.md`，记录 no-change 或 SIMPLIFY gap。
 - 运行治理检查和低成本验证。
 
@@ -24,14 +24,14 @@ Roadmap 状态已收敛。当前最具体的复杂度风险是首屏已有采集
 
 ## Exit Criteria
 
-- `docs/SELF_PLAYTEST.md` 记录 first-60-second text budget 结果。
-- 若预算内，`docs/DECISION.md` 记录 no-change；若超预算，切换后续 SIMPLIFY。
+- `docs/SELF_PLAYTEST.md` 记录窄屏按钮布局复核。
+- 若现有 CSS 足够，`docs/DECISION.md` 记录 no-change；若不足，切换后续 SIMPLIFY。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只做复杂度预算审计，不改变游戏、不新增玩法、不新增文案。
+未发现玩法漂移。本轮只做响应式布局审计，不改变游戏、不新增玩法、不新增文案。
 
 ## Last Updated
 
@@ -122,3 +122,5 @@ Roadmap 状态已收敛。当前最具体的复杂度风险是首屏已有采集
 2026-05-07: 切换到 SELF_PLAYTEST；审计调校工具上线后的首屏文案和复杂度预算，判断是否需要 SIMPLIFY。
 
 2026-05-07: SELF_PLAYTEST 复杂度审计完成；首屏初始状态约 101 个中文字符，短暂反馈出现时最高约 118 个，低于 300 字预算。本轮不进入 SIMPLIFY，不改 UI。
+
+2026-05-07: 继续 SELF_PLAYTEST；复核动作区长按钮的窄屏布局风险，检查现有 CSS 是否需要收敛。
