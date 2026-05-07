@@ -88,6 +88,8 @@ export function App() {
   );
   const resonanceProgress = getResonanceMilestoneProgress(state);
   const showResonanceMatrix = workshopStage.name === "星尘引擎室";
+  const showResonanceChoiceHint =
+    state.resonance > 0 && state.unlockedResonanceNodes.length === 0;
   const stageNextRequirement = formatWorkshopStageNextRequirement(
     workshopStage,
     showOfflineDust,
@@ -352,6 +354,11 @@ export function App() {
               {resonanceProgress.autoCollectors.target}，调校{" "}
               {resonanceProgress.tuning.current}/{resonanceProgress.tuning.target}
             </p>
+            {showResonanceChoiceHint ? (
+              <p className="resonance-choice-hint">
+                选择 1 个永久节点，本轮只能启动一个
+              </p>
+            ) : null}
             <div className="resonance-nodes">
               {RESONANCE_NODES.map((node) => {
                 const isUnlocked = state.unlockedResonanceNodes.includes(node.id);

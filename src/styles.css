@@ -260,6 +260,7 @@ h1 {
 
 .resonance-header h2,
 .resonance-header p,
+.resonance-choice-hint,
 .resonance-progress {
   margin: 0;
 }
@@ -270,6 +271,7 @@ h1 {
 }
 
 .resonance-header p,
+.resonance-choice-hint,
 .resonance-progress,
 .resonance-node small {
   color: #5f6f68;

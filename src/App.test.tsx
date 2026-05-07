@@ -228,6 +228,22 @@ describe("App", () => {
     expect(html).toContain("调校刻印");
   });
 
+  it("explains the one-node resonance choice before spending resonance", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 8.8,
+      nextAutoCollectorCost: 33253,
+      nextEfficiencyUpgradeCost: 28922,
+      resonance: 1,
+      earnedResonanceMilestones: ["first-resonance"],
+    });
+
+    expect(html).toContain("选择 1 个永久节点，本轮只能启动一个");
+  });
+
   it("makes the spent resonance node choice explicit", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),

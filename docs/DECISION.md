@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更多系统，而是验证首个共鸣选择是否清楚，避免玩家消耗共鸣后看不出哪个节点已永久启动、其他节点为何不能再选。
+v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更多系统，而是验证首个共鸣选择是否清楚，避免玩家在消耗第一点共鸣前误以为三个节点都可以逐步启动。
 
 ## Evidence
 
@@ -162,12 +162,13 @@ v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更
 - `docs/plans/2026-05-07-resonance-system-design.md` 设计了第二资源 `共鸣`、一个 `共鸣矩阵` 面板、v2 存档迁移和 local-only 共鸣指标。
 - 2026-05-07 v0.3 self-playtest 显示：60 秒状态仍在 `星尘小间`，`共鸣矩阵` 不会干扰前 60 秒。
 - 构造首次共鸣已消耗的存档后，旧 UI 中已选节点和未选节点都只是 disabled 按钮与普通描述，不能明确表达三选一已经完成。
+- 构造首次共鸣已领取但未消费的存档后，旧 UI 只显示 `可用共鸣：1` 和三个节点按钮，没有说明 v0.3 本轮只能启动 1 个永久节点。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-resonance-choice-state-copy`
+Decision Anchor: `DECISION:2026-05-07-resonance-choice-before-spend`
 
-首次共鸣节点选择后，同一 `共鸣矩阵` 节点描述必须明确区分已启动节点和本轮不可再选节点。已选节点显示“已启动”，未选节点在本轮选择已用掉后显示“本轮已选择其他节点”。本切片不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
+首次共鸣已领取、尚未消费时，同一 `共鸣矩阵` 面板必须在节点按钮前说明“选择 1 个永久节点，本轮只能启动一个”。本切片只补选择前约束文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
 
 ## Implementation Record
 
@@ -193,6 +194,13 @@ Decision Anchor: `DECISION:2026-05-07-resonance-choice-state-copy`
 - The selected node now reads as already active; the other two nodes explain that the single v0.3 choice has already been used.
 - Added a rendering test for a spent first-resonance save state.
 - Did not change resonance math, node effects, save shape, metrics or panel count.
+
+2026-05-07 RESONANCE_CHOICE_BEFORE_SPEND executed:
+
+- Added a pre-choice hint in the existing `共鸣矩阵` panel when the player has unspent resonance and no unlocked node.
+- The hint explains that v0.3 allows one permanent node choice this round before the player clicks a node.
+- Added a rendering test for a claimed-but-unspent first-resonance save state.
+- Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
 
 2026-05-06 FEEDBACK_INFRA selected:
 
