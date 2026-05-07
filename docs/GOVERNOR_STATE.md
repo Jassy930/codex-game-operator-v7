@@ -204,3 +204,5 @@ v0.3 共鸣系统第一版已经发布。本轮按 roadmap 闸门进入 SELF_PLA
 2026-05-07: 切换到 OPERATE；触发信号来自用户明确要求进入更丰富玩法阶段，而不是 GitHub Issue。v0.3 共鸣系统第一版已实现为受控扩展：第二资源 `共鸣`、一个 `共鸣矩阵` 面板、v2 存档、首个共鸣里程碑、三选一永久节点和 local-only 共鸣指标。仍禁止 prestige、任务系统、多生产线、多个新面板、外部 analytics 和 telemetry 上传。无需回复 Issue #1/#2。
 
 2026-05-07: 切换到 SELF_PLAYTEST；复核 v0.3 共鸣系统第一版。发现首次节点选择后已选/未选节点状态不够明确，本轮只改同一节点描述文案为“已启动”或“本轮已选择其他节点”，不改数值、资源、存档、指标或面板数量。
+
+2026-05-07: 共鸣节点选择状态切片已由 commit `3ce0051` 推送到 `origin/main`。本地验证通过；`gh run list` 无法连接 `api.github.com`，`curl` 无法解析 `jassy930.github.io`，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
