@@ -2,38 +2,34 @@
 
 ## Selected Mode
 
-META_IMPROVE
+OPERATE
 
 ## Reason
 
-代码评审指出反馈闭环的自动化执行力不足：governor check 不能验证 ledger、cluster、decision 和 release evidence；反馈采集脚本缺少 issue body/comments；ledger 允许模糊证据。本轮进入 META_IMPROVE，只加强 harness 检查和证据采集，不改变产品方向。
+Issue #1 已路由、实现、提交并部署。`docs/ISSUE_LEDGER.md` 已关联 `DECISION:2026-05-07-operate-collect-motivation` 和 commit `861ba0b`，Pages workflow `25472615361` 已成功。本轮回到 OPERATE，只执行一次有证据的发布回复。
 
 ## Allowed Actions
 
-- 为 ops 脚本添加回归测试。
-- 收紧 `ops/governor-check.sh` 的 ledger、cluster、decision、release evidence 检查。
-- 更新 `ops/collect-feedback.sh`，采集 issue body/comments 并生成 ledger draft。
-- 更新 `docs/ISSUE_LEDGER.md` 的 evidence format 规则。
-- 更新 `docs/DECISION.md`、`docs/HARNESS_CHANGELOG.md`、`docs/RELEASE_LOG.md` 和 retrospective。
+- 按 `docs/RESPONSE_BUDGET.md` 对 Issue #1 回复一次。
+- 回复只引用已发布的最小改动、公开预览和 commit 证据。
+- 回复后更新 `docs/ISSUE_LEDGER.md` 和 `docs/GOVERNOR_STATE.md`。
 
 ## Forbidden Actions
 
-- 不削弱 issue routing。
-- 不削弱 response budget。
-- 不降低测试、构建或发布门槛。
-- 不新增反馈渠道、上传 telemetry、analytics SDK 或个人数据收集。
-- 不改变游戏玩法、经济或 UI。
-- 不回复 issue。
+- 不再次修改玩法、经济、UI 或反馈渠道。
+- 不承诺复杂新系统、奖励系统、技能树或后续路线。
+- 不重复回复 Issue #1。
+- 不绕过 response budget。
 
 ## Exit Criteria
 
-- 脚本测试覆盖缺失聚类、缺失 release evidence 和缺少 issue 正文/评论证据。
-- `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
+- Issue #1 已收到一次有证据的发布回复。
+- `docs/ISSUE_LEDGER.md` 的 Last Reply 已更新。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只加强反馈闭环 harness 自动化，不改变游戏机制、UI、指标上传边界或 issue 回复策略。
+未发现玩法漂移。本轮只完成 Issue #1 的一次性发布回复，不新增产品改动。
 
 ## Last Updated
 
@@ -90,3 +86,5 @@ META_IMPROVE
 2026-05-07: commit `861ba0b` 已推送；Pages workflow `25472615361` 成功，公开预览 HTTP 200。Issue #1 ledger 标记为 released，下一步只做一次有证据回复。
 
 2026-05-07: 顺带收紧 issue 证据自动化检查；governor check 现在验证 issue ledger 的聚类、决策锚点和 commit/release 证据。
+
+2026-05-07: 切换回 OPERATE；release evidence 已齐备，准备按 response budget 对 Issue #1 回复一次。
