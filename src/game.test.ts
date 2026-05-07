@@ -1,5 +1,6 @@
 import {
   buyAutoCollector,
+  buyEfficiencyUpgrade,
   clickForDust,
   createGameState,
   hydrateGameState,
@@ -17,6 +18,9 @@ describe("core idle loop", () => {
     expect(state.dustPerSecond).toBe(0);
     expect(state.autoCollectors).toBe(0);
     expect(state.nextAutoCollectorCost).toBe(10);
+    expect(state.autoCollectorEfficiencyLevel).toBe(0);
+    expect(state.autoCollectorEfficiencyMultiplier).toBe(1);
+    expect(state.nextEfficiencyUpgradeCost).toBe(25);
     expect(state.lastUpdatedAt).toBe(1_000);
   });
 
@@ -49,6 +53,41 @@ describe("core idle loop", () => {
     expect(buyAutoCollector(state)).toEqual(state);
   });
 
+  it("buys an efficiency upgrade and increases auto collector production", () => {
+    const state = {
+      ...createGameState(1_000),
+      dust: 25,
+      autoCollectors: 2,
+      dustPerSecond: 0.4,
+    };
+
+    const next = buyEfficiencyUpgrade(state);
+
+    expect(next.dust).toBe(0);
+    expect(next.autoCollectorEfficiencyLevel).toBe(1);
+    expect(next.autoCollectorEfficiencyMultiplier).toBe(1.1);
+    expect(next.dustPerSecond).toBe(0.44);
+    expect(next.nextEfficiencyUpgradeCost).toBe(45);
+  });
+
+  it("does not buy an efficiency upgrade when dust is insufficient", () => {
+    const state = {
+      ...createGameState(1_000),
+      dust: 24,
+    };
+
+    expect(buyEfficiencyUpgrade(state)).toEqual(state);
+  });
+
+  it("does not buy an efficiency upgrade before any auto collector exists", () => {
+    const state = {
+      ...createGameState(1_000),
+      dust: 25,
+    };
+
+    expect(buyEfficiencyUpgrade(state)).toEqual(state);
+  });
+
   it("adds passive dust using elapsed time", () => {
     const state = {
       ...createGameState(1_000),
@@ -76,6 +115,26 @@ describe("core idle loop", () => {
     expect(loaded.dust).toBe(11);
     expect(loaded.autoCollectors).toBe(1);
     expect(loaded.lastUpdatedAt).toBe(31_000);
+  });
+
+  it("hydrates old saves with default efficiency upgrade fields", () => {
+    const now = 31_000;
+    const saved = JSON.stringify({
+      version: 1,
+      dust: 10,
+      dustPerClick: 1,
+      dustPerSecond: 0.2,
+      autoCollectors: 1,
+      nextAutoCollectorCost: 15,
+      lastUpdatedAt: now,
+    });
+
+    const loaded = hydrateGameState(saved, now);
+
+    expect(loaded.autoCollectorEfficiencyLevel).toBe(0);
+    expect(loaded.autoCollectorEfficiencyMultiplier).toBe(1);
+    expect(loaded.nextEfficiencyUpgradeCost).toBe(25);
+    expect(loaded.dustPerSecond).toBe(0.2);
   });
 
   it("reports how much dust was earned offline", () => {

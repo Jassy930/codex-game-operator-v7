@@ -15,6 +15,9 @@ describe("App", () => {
     expect(html).toContain("采集");
     expect(html).toContain("自动采集器");
     expect(html).toContain("需要 10 星尘");
+    expect(html).toContain("调校工具");
+    expect(html).toContain("自动采集效率 +10%");
+    expect(html).toContain("需要 25 星尘");
     expect(html).toContain("购买进度");
     expect(html).toContain("目标：攒够星尘，购买第一个自动采集器");
     expect(html).toContain("里程碑：0 / 2 台自动采集器");

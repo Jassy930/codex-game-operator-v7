@@ -5,6 +5,9 @@ export type GameState = {
   dustPerSecond: number;
   autoCollectors: number;
   nextAutoCollectorCost: number;
+  autoCollectorEfficiencyLevel: number;
+  autoCollectorEfficiencyMultiplier: number;
+  nextEfficiencyUpgradeCost: number;
   lastUpdatedAt: number;
 };
 
@@ -18,6 +21,9 @@ const SAVE_VERSION = 1;
 const AUTO_COLLECTOR_BASE_COST = 10;
 const AUTO_COLLECTOR_GROWTH = 1.5;
 const DUST_PER_AUTO_COLLECTOR = 0.2;
+const EFFICIENCY_BASE_COST = 25;
+const EFFICIENCY_GROWTH = 1.8;
+const EFFICIENCY_BONUS_PER_LEVEL = 0.1;
 const MAX_OFFLINE_MS = 1000 * 60 * 60 * 8;
 
 export function createGameState(now = Date.now()): GameState {
@@ -28,6 +34,9 @@ export function createGameState(now = Date.now()): GameState {
     dustPerSecond: 0,
     autoCollectors: 0,
     nextAutoCollectorCost: AUTO_COLLECTOR_BASE_COST,
+    autoCollectorEfficiencyLevel: 0,
+    autoCollectorEfficiencyMultiplier: 1,
+    nextEfficiencyUpgradeCost: EFFICIENCY_BASE_COST,
     lastUpdatedAt: now,
   };
 }
@@ -50,9 +59,37 @@ export function buyAutoCollector(state: GameState): GameState {
     ...state,
     dust: state.dust - state.nextAutoCollectorCost,
     autoCollectors,
-    dustPerSecond: round(autoCollectors * DUST_PER_AUTO_COLLECTOR),
+    dustPerSecond: calculateDustPerSecond(
+      autoCollectors,
+      state.autoCollectorEfficiencyMultiplier,
+    ),
     nextAutoCollectorCost: Math.ceil(
       AUTO_COLLECTOR_BASE_COST * AUTO_COLLECTOR_GROWTH ** autoCollectors,
+    ),
+  };
+}
+
+export function buyEfficiencyUpgrade(state: GameState): GameState {
+  if (state.autoCollectors === 0 || state.dust < state.nextEfficiencyUpgradeCost) {
+    return state;
+  }
+
+  const autoCollectorEfficiencyLevel = state.autoCollectorEfficiencyLevel + 1;
+  const autoCollectorEfficiencyMultiplier = calculateEfficiencyMultiplier(
+    autoCollectorEfficiencyLevel,
+  );
+
+  return {
+    ...state,
+    dust: state.dust - state.nextEfficiencyUpgradeCost,
+    autoCollectorEfficiencyLevel,
+    autoCollectorEfficiencyMultiplier,
+    dustPerSecond: calculateDustPerSecond(
+      state.autoCollectors,
+      autoCollectorEfficiencyMultiplier,
+    ),
+    nextEfficiencyUpgradeCost: Math.ceil(
+      EFFICIENCY_BASE_COST * EFFICIENCY_GROWTH ** autoCollectorEfficiencyLevel,
     ),
   };
 }
@@ -99,16 +136,33 @@ export function hydrateGameStateWithReport(
     }
 
     const dustBeforeOffline = numberOr(parsed.dust, 0);
+    const autoCollectors = numberOr(parsed.autoCollectors, 0);
+    const autoCollectorEfficiencyLevel = numberOr(
+      parsed.autoCollectorEfficiencyLevel,
+      0,
+    );
+    const autoCollectorEfficiencyMultiplier = calculateEfficiencyMultiplier(
+      autoCollectorEfficiencyLevel,
+    );
     const state = tickGame(
       {
         version: SAVE_VERSION,
         dust: dustBeforeOffline,
         dustPerClick: numberOr(parsed.dustPerClick, 1),
-        dustPerSecond: numberOr(parsed.dustPerSecond, 0),
-        autoCollectors: numberOr(parsed.autoCollectors, 0),
+        dustPerSecond: calculateDustPerSecond(
+          autoCollectors,
+          autoCollectorEfficiencyMultiplier,
+        ),
+        autoCollectors,
         nextAutoCollectorCost: numberOr(
           parsed.nextAutoCollectorCost,
           AUTO_COLLECTOR_BASE_COST,
+        ),
+        autoCollectorEfficiencyLevel,
+        autoCollectorEfficiencyMultiplier,
+        nextEfficiencyUpgradeCost: numberOr(
+          parsed.nextEfficiencyUpgradeCost,
+          calculateEfficiencyUpgradeCost(autoCollectorEfficiencyLevel),
         ),
         lastUpdatedAt: numberOr(parsed.lastUpdatedAt, now),
       },
@@ -135,4 +189,16 @@ function numberOr(value: unknown, fallback: number): number {
 
 function round(value: number): number {
   return Math.round(value * 100) / 100;
+}
+
+function calculateEfficiencyMultiplier(level: number): number {
+  return round(1 + level * EFFICIENCY_BONUS_PER_LEVEL);
+}
+
+function calculateEfficiencyUpgradeCost(level: number): number {
+  return Math.ceil(EFFICIENCY_BASE_COST * EFFICIENCY_GROWTH ** level);
+}
+
+function calculateDustPerSecond(autoCollectors: number, multiplier: number): number {
+  return round(autoCollectors * DUST_PER_AUTO_COLLECTOR * multiplier);
 }

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { createFeedbackIssueUrl, recordFeedbackClick } from "./feedback";
 import {
   buyAutoCollector,
+  buyEfficiencyUpgrade,
   clickForDust,
   createGameState,
   hydrateGameStateWithReport,
@@ -46,6 +47,8 @@ export function App() {
   }, [state]);
 
   const canBuyAutoCollector = state.dust >= state.nextAutoCollectorCost;
+  const canBuyEfficiencyUpgrade =
+    state.autoCollectors > 0 && state.dust >= state.nextEfficiencyUpgradeCost;
   const progressToUpgrade = useMemo(() => {
     return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
   }, [state.dust, state.nextAutoCollectorCost]);
@@ -122,6 +125,19 @@ export function App() {
     });
   }
 
+  function handleEfficiencyUpgradeClick() {
+    setState((current) => {
+      const next = buyEfficiencyUpgrade(current);
+      if (next !== current && typeof window !== "undefined") {
+        recordUpgradePurchase(window.localStorage);
+        clearCollectMessage();
+        showPurchaseMessage(formatEfficiencyUpgradeMessage(next.autoCollectorEfficiencyMultiplier));
+      }
+
+      return next;
+    });
+  }
+
   function showPurchaseMessage(message: string) {
     setPurchaseMessage(message);
     if (purchaseMessageTimer.current !== null) {
@@ -186,6 +202,14 @@ export function App() {
             onClick={handleUpgradeClick}
           >
             购买自动采集器 · 需要 {formatNumber(state.nextAutoCollectorCost)} 星尘
+          </button>
+          <button
+            className="upgrade-action"
+            disabled={!canBuyEfficiencyUpgrade}
+            onClick={handleEfficiencyUpgradeClick}
+          >
+            调校工具 · 自动采集效率 +10% · 需要{" "}
+            {formatNumber(state.nextEfficiencyUpgradeCost)} 星尘
           </button>
         </div>
 
@@ -252,4 +276,8 @@ export function formatAutoCollectorPurchaseMessage(dustPerSecond: number): strin
 
 export function formatCollectFeedbackMessage(dustPerClick: number): string {
   return `采集到 ${formatNumber(dustPerClick)} 星尘：正在推进下一台自动采集器`;
+}
+
+export function formatEfficiencyUpgradeMessage(multiplier: number): string {
+  return `调校完成：自动采集效率 x${formatNumber(multiplier)}`;
 }

@@ -128,12 +128,13 @@ h1 {
 
 .action-row {
   align-items: stretch;
+  flex-wrap: wrap;
 }
 
 .primary-action,
 .upgrade-action {
   min-height: 52px;
-  flex: 1;
+  flex: 1 1 180px;
   border: 0;
   border-radius: 8px;
   cursor: pointer;

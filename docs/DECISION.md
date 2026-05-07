@@ -428,6 +428,13 @@ Decision Anchor: `DECISION:2026-05-07-research-soft-automation`
 - Decision: 设计一个 `调校工具` 升级候选，使用星尘提升自动采集器效率，让玩家在数量和效率之间选择。
 - 约束：本轮只做研究/设计；不实现代码、不新增面板、不新增资源、不改变 feedback flow。
 
+2026-05-07 SELF_PLAYTEST soft automation implementation:
+
+- Decision Anchor: `DECISION:2026-05-07-research-soft-automation`
+- Implementation: 增加一个 `调校工具` upgrade type，使用星尘提升自动采集器效率。
+- Complexity check: primary resource 仍为 1；upgrade types 从 1 增至 2；visible panels 不增加；feedback channels 不变。
+- 约束：不新增第二资源、prestige、多 generator 分类、任务系统、成就或新面板。
+
 ## Input Source
 
 Roadmap gap + research question.
