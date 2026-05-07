@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-当前 harness 没有资产工作流，游戏生成机制在需要图片素材时不会显式提示 operator 评估 `imagegen`，容易继续用纯 UI/CSS 绕过应有的素材决策。
+Asset Workflow 已建立，但当前游戏没有已验证的视觉素材缺口。下一步风险是把“需要评估 `imagegen`”误解为“必须立刻生成装饰图”，从而增加首屏噪音。
 
 ## Evidence
 
@@ -83,12 +83,16 @@
 - 用户指出当前游戏生成机制似乎不会使用 `imagegen` 来生成需要的图片。
 - 现有 `docs/HARNESS.md`、`docs/REVIEW_PROTOCOL.md` 和 `ops/governor-check.sh` 都没有资产工作流入口。
 - 资产生成必须受 North Star、复杂度预算和 review protocol 约束，不能变成无边界装饰生产。
+- `docs/ASSET_WORKFLOW.md` 已建立素材决策闸门，要求在需要图片时显式评估 `imagegen`。
+- 当前没有新 issue 或玩家补充指向视觉素材缺口。
+- 当前 `src/` 没有 `src/assets/`；新增首个 asset 会改变纯 UI 原型的复杂度边界。
+- 最新 self-playtest 记录显示动作区已有三个按钮，后续应优先避免扩张首屏控件。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-asset-workflow`
+Decision Anchor: `DECISION:2026-05-07-research-asset-no-change`
 
-新增 `docs/ASSET_WORKFLOW.md`，要求未来游戏视觉素材需求显式评估 `imagegen`，并把使用或不使用的理由记录到 `docs/DECISION.md`。本轮只更新 harness 文档和检查入口，不生成实际图片、不改变游戏 UI 或玩法。
+当前不生成图片资产，不新增 `src/assets/`，不改游戏 UI。`imagegen` 在未来出现明确视觉素材需求时默认进入评估；本轮明确记录暂不使用的理由：没有具体玩家问题、没有 self-playtest gap、且装饰性图片会增加首屏噪音。
 
 ## Implementation Record
 
@@ -460,13 +464,22 @@ Decision Anchor: `DECISION:2026-05-07-asset-workflow`
 - Decision: 新增 `docs/ASSET_WORKFLOW.md`，并挂入 `docs/HARNESS.md`、`docs/REVIEW_PROTOCOL.md` 和 `ops/governor-check.sh`。
 - 约束：本轮不生成图片、不改游戏、不新增视觉复杂度；只要求未来素材需求记录 `imagegen` 使用或不使用理由。
 
+2026-05-07 RESEARCH asset no-change:
+
+- Decision Anchor: `DECISION:2026-05-07-research-asset-no-change`
+- Gap check: 当前没有真实反馈、self-playtest gap 或 roadmap requirement 要求图片素材。
+- Decision: 本轮不生成图片、不新增 `src/assets/`、不改 UI；未来若出现视觉素材需求，按 `docs/ASSET_WORKFLOW.md` 先记录用途、尺寸、风格和 `imagegen` 决策。
+- 约束：不新增装饰图、背景、复杂世界观、sprite set、远程图片或不明授权素材。
+
 ## Input Source
 
-User-requested harness improvement.
+Research question + Asset Workflow gate.
 
 ## Linked Signals
 
-- 用户反馈：游戏生成机制没有提示使用 `imagegen` 生成需要的图片。
+- Asset Workflow 已建立。
+- 当前无新 issue 或视觉素材缺口。
+- 2026-05-07 Research: 当前是否需要首个视觉素材。
 
 ## Not Doing
 

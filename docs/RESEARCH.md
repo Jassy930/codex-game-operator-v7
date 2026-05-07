@@ -247,6 +247,38 @@ The next product decision should prioritize early progress feedback over new mec
 ### What Not To Copy
 ```
 
+## 2026-05-07 - 当前是否需要首个视觉素材
+
+### Question
+
+Asset Workflow 已建立后，当前星尘工坊是否应立即用 `imagegen` 生成首个 raster 视觉素材？
+
+### Sources / Observations
+
+- `docs/ASSET_WORKFLOW.md` 要求：只有当素材能改善前 60 秒清晰度、成长反馈、回访体验或当前 roadmap 目标时，才允许进入实现。
+- 当前 `src/` 下没有 `src/assets/`，游戏仍是纯 UI 原型。
+- Issue #1 已处理且没有玩家新补充；当前没有新 issue 指向“看不懂自动采集器长什么样”或“缺少视觉目标”。
+- 最新 self-playtest 记录显示：动作区已有采集、自动采集器和调校工具三个按钮，后续要优先避免继续扩张首屏控件。
+- `docs/NORTH_STAR.md` 当前优先级仍是 first 60 seconds clarity、first upgrade、visible growth feedback 和 simple persistence。
+
+### General Principles
+
+- `imagegen` 是需要图片时必须评估的工具，不是每轮必须生成图片的义务。
+- 视觉素材应解决一个已观察到的玩家理解问题；没有问题来源时，不应添加装饰图。
+- 当前更高价值的素材候选不是背景或复杂世界观，而是未来若出现信号时的单一功能素材，例如自动采集器图标、升级状态 cutout 或 playtest 邀请主视觉。
+- 如果素材会让首屏更拥挤，应该先考虑 CSS、文案收敛或不做。
+
+### Decision Impact
+
+当前不生成图片资产，不新增 `src/assets/`，也不改 UI。下一步继续等待真实反馈或新的 self-playtest gap；未来若出现“自动采集器概念不清楚”“调校工具难理解”或站外 playtest 需要主视觉，再按 Asset Workflow 记录用途、尺寸、风格和 `imagegen` 决策。
+
+### What Not To Copy
+
+- 不为了填空白生成背景图、插图或复杂工坊世界观。
+- 不用图片替代应该清楚的按钮文案、进度反馈和数值反馈。
+- 不生成大量升级图标、sprite set、角色、地图或 lore 资产。
+- 不在没有决策来源时添加远程图片、热链素材或不明授权素材。
+
 ## Current Position
 
 The game is playable and publicly previewable. Research now supports small first-60-second clarity decisions, not broad feature generation.

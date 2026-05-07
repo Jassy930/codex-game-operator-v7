@@ -2,37 +2,37 @@
 
 ## Selected Mode
 
-META_IMPROVE
+RESEARCH
 
 ## Reason
 
-用户指出当前游戏生成机制没有提示 operator 在需要图片时使用 `imagegen`。本轮进入 META_IMPROVE，新增资产工作流文档并挂入 review/governor 检查，确保未来视觉素材需求会显式评估 `imagegen`。
+Asset Workflow 已收口。当前产品问题是：是否应立即为星尘工坊生成首个 `imagegen` 视觉素材，还是等待更明确的玩家问题、self-playtest gap 或 playtest 邀请场景。
 
 ## Allowed Actions
 
-- 新增 `docs/ASSET_WORKFLOW.md`。
-- 将资产工作流挂入 `docs/HARNESS.md` 和 `docs/REVIEW_PROTOCOL.md`。
-- 将 `docs/ASSET_WORKFLOW.md` 纳入 `ops/governor-check.sh` 必需文档检查。
-- 更新 `docs/DECISION.md`、`docs/HARNESS_CHANGELOG.md` 和 `docs/RELEASE_LOG.md`。
+- 应用 `docs/ASSET_WORKFLOW.md` 的决策闸门复核当前游戏。
+- 更新 `docs/RESEARCH.md`，记录是否需要立即生成视觉素材。
+- 更新 `docs/DECISION.md`，记录使用或暂不使用 `imagegen` 的理由。
+- 运行治理检查和低成本验证。
 
 ## Forbidden Actions
 
 - 不生成实际图片资产。
 - 不改变游戏玩法、经济、UI 或反馈渠道。
 - 不新增上传 telemetry、analytics SDK 或个人数据收集。
-- 不强制每轮使用 imagegen；只要求在需要图片时显式评估。
+- 不把“可用 imagegen”误解为“必须立刻添加装饰图”。
 - 不削弱 issue routing、response budget、复杂度预算或 review protocol。
 
 ## Exit Criteria
 
-- `docs/ASSET_WORKFLOW.md` 清楚说明何时使用 imagegen、何时不使用、如何记录理由。
-- Review protocol 能检查资产需求和 imagegen 决策。
+- `docs/RESEARCH.md` 回答当前是否需要首个视觉素材。
+- `docs/DECISION.md` 记录 `imagegen` 使用或暂不使用的理由。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只补资产工作流文档和检查入口，不生成图片、不改变游戏、不新增视觉复杂度。
+未发现玩法漂移。本轮只评估当前是否需要视觉素材，不生成图片、不改变游戏、不新增视觉复杂度。
 
 ## Last Updated
 
@@ -113,3 +113,7 @@ META_IMPROVE
 2026-05-07: SELF_PLAYTEST 复核完成；无新 issue 或玩家补充，60 秒模拟显示自动采集器仍在第 10、23、39 秒购入，调校工具第 55 秒购入。本轮记录 no-change，不新增第三种升级或调整经济。
 
 2026-05-07: 切换到 META_IMPROVE；新增 Asset Workflow，要求未来图片素材需求显式评估 `imagegen`。
+
+2026-05-07: 切换到 RESEARCH；应用 Asset Workflow 到当前游戏，判断是否应立即生成首个 `imagegen` 视觉素材。
+
+2026-05-07: RESEARCH 完成；当前没有真实反馈、self-playtest gap 或 roadmap requirement 要求图片素材。本轮明确不生成图片、不新增 `src/assets/`，未来出现具体素材需求时再按 Asset Workflow 评估 `imagegen`。
