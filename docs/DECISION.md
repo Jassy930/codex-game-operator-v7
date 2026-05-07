@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-反馈闭环已经有 ledger、cluster、decision 和 response budget 文档，但评审发现自动化检查仍过浅，无法阻止漏聚类、漏决策锚点、漏 release evidence 或缺少 issue 正文证据的迭代。
+Issue #1 已处理且没有新补充。核心采集/自动采集器循环已达到当前阶段的基本清晰度；下一步需要一个低复杂度玩法候选，让玩家在同一资源循环里获得更明确的选择感。
 
 ## Evidence
 
@@ -75,12 +75,16 @@
 - 新增脚本测试先证明以上缺口存在：缺聚类、缺 release evidence 和缺正文评论证据时，旧脚本不会失败。
 - 2026-05-07 follow-up: 真实运行 `ops/collect-feedback.sh` 后发现默认 `gh issue view --comments` 输出仍缺少 issue 原始正文，只包含评论渲染。
 - 显式 `gh issue view --json ... --template ...` 后，`data/feedback/github-feedback.md` 同时包含 Issue #1 的原始正文和回复评论。
+- 2026-05-07 self-playtest 显示 Issue #1 采集动机缺口已由动机文案和短暂采集反馈覆盖，本轮不应继续叠加提示。
+- `docs/IDEA_PARKING_LOT.md` 记录了 “Soft Automation” 候选。
+- `docs/COMPLEXITY_BUDGET.md` 允许最多 3 种 upgrade types，但仍要求 primary resource 维持 1、visible panels 最多 4。
+- 研究资料支持在 idle game 早期逐步加入升级和自动化选择，而不是过早增加第二资源或 prestige。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-meta-feedback-loop-automation`
+Decision Anchor: `DECISION:2026-05-07-research-soft-automation`
 
-收紧反馈闭环自动化：`governor-check` 必须验证 ledger 中已接受/已修复 issue 的聚类、decision 锚点和 release evidence；`collect-feedback` 必须抓取 issue body/comments 并生成 ledger draft；`ISSUE_LEDGER.md` 必须记录可验证证据格式。不削弱 issue routing、response budget、复杂度预算或发布检查。
+下一步玩法候选采用 “Soft Automation / 调校工具”：一个使用星尘购买的第二升级类型，用于提升自动采集器效率。该方向保留单一资源、现有主屏和当前反馈渠道；本轮只写研究和设计，不实现代码。实现前必须通过 TDD、存档兼容性检查和复杂度预算复核。
 
 ## Implementation Record
 
@@ -417,15 +421,22 @@ Decision Anchor: `DECISION:2026-05-07-meta-feedback-loop-automation`
 - Decision: 本轮不继续修改 UI、经济或玩法，避免重复处理同一 issue 和增加首屏噪音。
 - 约束：等待新玩家信息或新的研究问题；不新增资源、奖励系统、面板或反馈渠道。
 
+2026-05-07 RESEARCH soft automation:
+
+- Decision Anchor: `DECISION:2026-05-07-research-soft-automation`
+- Gap: 当前已有 “购买更多自动采集器” 一条升级路径，下一步需要一个低复杂度选择，不应引入第二资源或 prestige。
+- Decision: 设计一个 `调校工具` 升级候选，使用星尘提升自动采集器效率，让玩家在数量和效率之间选择。
+- 约束：本轮只做研究/设计；不实现代码、不新增面板、不新增资源、不改变 feedback flow。
+
 ## Input Source
 
-Code review findings.
+Roadmap gap + research question.
 
 ## Linked Signals
 
-- Review Finding 1: governor check 缺少反馈闭环验证。
-- Review Finding 2: feedback collector 缺少可路由证据。
-- Review Finding 3: issue ledger 允许模糊链接。
+- Issue #1 已处理且无新补充。
+- `docs/IDEA_PARKING_LOT.md`: Soft Automation。
+- Research 2026-05-07: 核心循环清晰后的低复杂度下一步玩法。
 
 ## Not Doing
 

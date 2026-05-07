@@ -2,7 +2,46 @@
 
 ## Current Research
 
-2026-05-06 - 不打扰首屏的外部 playtest 邀请。
+2026-05-07 - 核心循环清晰后的低复杂度下一步玩法。
+
+## 2026-05-07 - 核心循环清晰后的低复杂度下一步玩法
+
+### Question
+
+在星尘、采集、自动采集器、购买进度和反馈入口已经清晰后，下一步玩法内容应如何扩展，才能提升“再玩一分钟”的选择感，同时不新增第二资源、面板、prestige、复杂 lore 或外部 tracking？
+
+### Sources / Observations
+
+- GameAnalytics 的 idle game 指南强调从简单目标开始，再逐步加入货币管理、解锁内容和升级；它支持先扩展现有升级选择，而不是立刻引入新系统。
+- Kongregate 的 idle game math 文章把早期循环拆成 primary currency、generator、production rate 和 cost；当前游戏已有这些元素，下一步应继续围绕同一货币和 generator 做成本/收益选择。
+- Incremental game 类型资料强调持续增长、升级和自动化是核心；当前 `IDEA_PARKING_LOT.md` 里 “Soft Automation” 与此匹配，且比第二资源或 prestige 更低复杂度。
+
+Sources:
+
+- https://www.gameanalytics.com/blog/how-to-make-an-idle-game-adjust
+- https://www.kongregate.com/pages/the-math-of-idle-games-part-i
+- https://en.wikipedia.org/wiki/Incremental_game
+
+### General Principles
+
+- 保持单一资源：星尘仍是唯一货币。
+- 保持现有主屏，不新增面板。
+- 新内容应是第二种 upgrade type，而不是第二资源或新系统。
+- 新选择应帮助玩家减少纯点击压力，或让自动采集器更有成长感。
+- 不把研究直接当实现；必须先进入 `DECISION.md` 和设计文档。
+
+### Decision Impact
+
+下一步候选是 “Soft Automation / 调校工具”：一个使用星尘购买的第二升级类型，逐步提升自动采集器效率。它保留单一资源和同一主屏，让玩家在“买更多自动采集器”和“强化已有自动采集器”之间形成早期选择。
+
+该方向应先作为设计候选记录，不在本轮实现。实现前需要确认复杂度预算仍允许第二 upgrade type，并用 TDD 覆盖成本、倍率、渲染和存档兼容性。
+
+### What Not To Copy
+
+- 不引入 prestige、第二货币、多世界或复杂自动化链。
+- 不添加新面板、任务系统、成就系统或弹窗教程。
+- 不复制广告、付费、软启动或商业化模式。
+- 不把多个升级一次性加入；最多设计一个新 upgrade type。
 
 ## 2026-05-06 - 不打扰首屏的外部 playtest 邀请
 
