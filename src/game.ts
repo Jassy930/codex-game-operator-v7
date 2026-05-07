@@ -143,7 +143,7 @@ export function hydrateGameStateWithReport(
     const autoCollectorEfficiencyMultiplier = calculateEfficiencyMultiplier(
       autoCollectorEfficiencyLevel,
     );
-    const state = tickGame(
+    const state = applyOfflineProgress(
       recalculateProduction({
         version: SAVE_VERSION,
         dust: dustBeforeOffline,
@@ -197,10 +197,40 @@ export function recalculateProduction(state: GameState): GameState {
     dustPerSecond: round(
       calculateDustPerSecond(
         state.autoCollectors,
-        state.autoCollectorEfficiencyMultiplier,
+        getEffectiveAutoCollectorEfficiencyMultiplier(state),
       ) * stableCircuitMultiplier,
     ),
   };
+}
+
+export function getEffectiveAutoCollectorEfficiencyMultiplier(
+  state: GameState,
+): number {
+  const tuningEngravingBonus = state.unlockedResonanceNodes.includes(
+    "tuning-engraving",
+  )
+    ? 0.05
+    : 0;
+
+  return round(state.autoCollectorEfficiencyMultiplier + tuningEngravingBonus);
+}
+
+function applyOfflineProgress(state: GameState, now: number): GameState {
+  const elapsedMs = Math.max(0, Math.min(now - state.lastUpdatedAt, MAX_OFFLINE_MS));
+  const gainedDust =
+    (elapsedMs / 1000) *
+    state.dustPerSecond *
+    calculateOfflineRewardMultiplier(state);
+
+  return {
+    ...state,
+    dust: round(state.dust + gainedDust),
+    lastUpdatedAt: now,
+  };
+}
+
+function calculateOfflineRewardMultiplier(state: GameState): number {
+  return state.unlockedResonanceNodes.includes("return-coil") ? 1.1 : 1;
 }
 
 function numberOr(value: unknown, fallback: number): number {

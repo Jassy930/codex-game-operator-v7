@@ -5,6 +5,7 @@ import {
   buyEfficiencyUpgrade,
   clickForDust,
   createGameState,
+  getEffectiveAutoCollectorEfficiencyMultiplier,
   hydrateGameStateWithReport,
   recalculateProduction,
   serializeGameState,
@@ -329,7 +330,7 @@ export function App() {
           </div>
           <div>
             <dt>调校倍率</dt>
-            <dd>{formatNumber(state.autoCollectorEfficiencyMultiplier)}x</dd>
+            <dd>{formatNumber(getEffectiveAutoCollectorEfficiencyMultiplier(state))}x</dd>
           </div>
         </dl>
 
@@ -406,7 +407,7 @@ const RESONANCE_NODES: Array<{
   {
     id: "tuning-engraving",
     name: "调校刻印",
-    description: "保留为后续调校强化",
+    description: "调校倍率 +0.05",
   },
 ];
 

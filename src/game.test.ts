@@ -86,6 +86,18 @@ describe("core idle loop", () => {
     expect(recalculateProduction(state).dustPerSecond).toBe(4.4);
   });
 
+  it("applies tuning engraving resonance to passive production", () => {
+    const state = {
+      ...createGameState(1_000),
+      autoCollectors: 10,
+      autoCollectorEfficiencyLevel: 10,
+      autoCollectorEfficiencyMultiplier: 2,
+      unlockedResonanceNodes: ["tuning-engraving"],
+    };
+
+    expect(recalculateProduction(state).dustPerSecond).toBe(4.1);
+  });
+
   it("does not buy an efficiency upgrade when dust is insufficient", () => {
     const state = {
       ...createGameState(1_000),
@@ -171,6 +183,23 @@ describe("core idle loop", () => {
     expect(loaded.state.dust).toBe(11);
     expect(loaded.offlineDust).toBe(6);
     expect(loaded.saveLoaded).toBe(true);
+  });
+
+  it("applies return coil resonance to offline rewards only", () => {
+    const saved = serializeGameState({
+      ...createGameState(1_000),
+      dust: 5,
+      autoCollectors: 10,
+      autoCollectorEfficiencyLevel: 10,
+      autoCollectorEfficiencyMultiplier: 2,
+      unlockedResonanceNodes: ["return-coil"],
+    });
+
+    const loaded = hydrateGameStateWithReport(saved, 11_000);
+
+    expect(loaded.state.dustPerSecond).toBe(4);
+    expect(loaded.state.dust).toBe(49);
+    expect(loaded.offlineDust).toBe(44);
   });
 
   it("does not report save_loaded when no valid save exists", () => {
