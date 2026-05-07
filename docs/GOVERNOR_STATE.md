@@ -208,3 +208,5 @@ v0.3 共鸣系统第一版已经发布，上一轮已收敛首次节点选择后
 2026-05-07: 共鸣节点选择状态切片已由 commit `3ce0051` 推送到 `origin/main`。本地验证通过；`gh run list` 无法连接 `api.github.com`，`curl` 无法解析 `jassy930.github.io`，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
 
 2026-05-07: 继续 SELF_PLAYTEST；复核首次共鸣已领取但尚未消费的选择前状态。发现 `共鸣矩阵` 没有说明本轮只能启动 1 个永久节点，本轮只在同一面板节点按钮前补选择前说明，不改数值、资源、存档、指标或面板数量。
+
+2026-05-07: 共鸣选择前说明切片已由 commit `1d097df` 推送到 `origin/main`。本地验证通过；`gh run list` 无法连接 `api.github.com`，`curl` 无法解析 `jassy930.github.io`，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
