@@ -4,7 +4,7 @@
 
 | Issue | Fingerprint | Cluster | Class | Status | Last Reply | Linked Decision | Linked Commit/Release | Next Action |
 |---|---|---|---|---|---|---|---|---|
-| #2 | issue-2-2302457174 | post-60s-engagement | ACTIONABLE | fixed-awaiting-release | none | DECISION:2026-05-07-operate-post-60s-engagement | RELEASE_LOG:Unreleased | 推送并确认 Pages 后，按 response budget 回复一次 |
+| #2 | issue-2-2865075891 | post-60s-engagement | ACTIONABLE | released | 2026-05-07 | DECISION:2026-05-07-operate-post-60s-engagement | d2d2f94 | 等待新信息，不重复回复 |
 | #1 | collect-motivation-first-60s | first-60s-motivation | ACTIONABLE | released | 2026-05-07 | DECISION:2026-05-07-operate-collect-motivation | 861ba0b | 等待新信息，不重复回复 |
 
 ## Status Values

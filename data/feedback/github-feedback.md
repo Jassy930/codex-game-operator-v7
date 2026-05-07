@@ -1,9 +1,9 @@
 # GitHub Feedback
 
-Generated at: Thu May  7 12:12:37 CST 2026
+Generated at: Thu May  7 12:22:47 CST 2026
 
 ## Open Issues
-2	OPEN	玩家反馈：星尘工坊		2026-05-07T04:05:30Z
+2	OPEN	玩家反馈：星尘工坊		2026-05-07T04:22:28Z
 1	OPEN	玩家反馈：星尘工坊		2026-05-07T02:37:02Z
 
 ## Feedback Issues
@@ -23,7 +23,7 @@ url: https://github.com/Jassy930/codex-game-operator-v7/issues/2
 state: OPEN
 author: Jassy930
 createdAt: 2026-05-07T04:05:30Z
-updatedAt: 2026-05-07T04:05:30Z
+updatedAt: 2026-05-07T04:22:28Z
 
 body:
 ### 前 60 秒哪里不清楚？
@@ -43,12 +43,18 @@ body:
 _No response_
 
 comments:
-none
+- Jassy930 at 2026-05-07T04:22:28Z:
+已根据这个反馈先做了一步小改进：没有直接加第二资源、任务系统或新面板，而是把 60 秒后已经存在的成长选择表达清楚。
+
+现在购买自动采集器后，目标提示会提到“下一台自动采集器或第一次调校”；已有调校后，会提示“扩建或调校，让每秒星尘继续提高”。这次改动对应 commit d2d2f94，并已部署到公开预览：
+https://jassy930.github.io/codex-game-operator-v7/
+
+这不代表“内容丰富度”已经彻底解决。它先处理一个低复杂度缺口：60 秒后其实还有升级事件，但原目标提示没有把已有选择说清楚。后续如果还有具体觉得无聊的位置，可以继续补充，我会继续按反馈聚类处理。
 
 #### Ledger Draft
 | Issue | Fingerprint | Cluster | Class | Status | Last Reply | Linked Decision | Linked Commit/Release | Next Action |
 |---|---|---|---|---|---|---|---|---|
-| #2 | issue-2-2302457174 | TODO | TODO | new | none | none | none | route through SIGNAL_ROUTING |
+| #2 | issue-2-2865075891 | TODO | TODO | new | none | none | none | route through SIGNAL_ROUTING |
 
 ### Issue #1
 number: #1
