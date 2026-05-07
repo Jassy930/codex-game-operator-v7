@@ -29,7 +29,7 @@ describe("workshop stages", () => {
     expect(getWorkshopStage(0, 0)).toEqual({
       name: "火花工作台",
       description: "先让自动采集器稳定运转。",
-      nextRequirement: "下一阶段：拥有 3 台自动采集器",
+      nextRequirement: "下一阶段：拥有 3 台自动采集器，开启星尘小间",
     });
   });
 
@@ -37,12 +37,13 @@ describe("workshop stages", () => {
     expect(getWorkshopStage(3, 0)).toEqual({
       name: "星尘小间",
       description: "自动采集器已经成组工作，下一步是调校效率。",
-      nextRequirement: "下一阶段：完成 2 次调校",
+      nextRequirement: "下一阶段：完成 2 次调校，进入稳定工坊",
     });
     expect(getWorkshopStage(6, 2)).toEqual({
       name: "稳定工坊",
       description: "数量和效率开始叠加，工坊进入持续产出。",
-      nextRequirement: "下一阶段：拥有 10 台自动采集器并完成 4 次调校",
+      nextRequirement:
+        "下一阶段：拥有 10 台自动采集器并完成 4 次调校，点亮星尘引擎室",
     });
     expect(getWorkshopStage(10, 4)).toEqual({
       name: "星尘引擎室",

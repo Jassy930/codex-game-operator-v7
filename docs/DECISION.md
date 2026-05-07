@@ -645,6 +645,14 @@ Decision Anchor: `DECISION:2026-05-07-operate-stage-completion-feedback`
 - v0.2 budget use: 使用 `Stage milestone / workshop phase`，不使用第 4 种升级类型。
 - v0.1 guardrail: 前 60 秒仍只围绕星尘、采集、自动采集器、调校工具和现有事件反馈区；不新增资源、按钮、面板、存档字段、指标字段或反馈渠道。
 
+2026-05-07 OPERATE stage unlock preview:
+
+- Decision Anchor: `DECISION:2026-05-07-operate-stage-unlock-preview`
+- Gap: 工坊阶段和阶段完成反馈已经可见，但“下一阶段”只说明达成条件，缺少下一层内容名称，3-15 分钟目标感仍偏机械。
+- Decision: 将现有 `nextRequirement` 文案扩展为条件 + 下一阶段名称，例如“拥有 3 台自动采集器，开启星尘小间”。
+- v0.2 budget use: 使用 `Delayed unlock copy`，复用现有阶段行，不使用第 4 种升级类型。
+- v0.1 guardrail: 不新增资源、按钮、面板、存档字段、指标字段、反馈渠道或 issue 回复；前 60 秒只是多一个短阶段名预告。
+
 ## Input Source
 
 User request: 玩法仍然干枯太少，需要丰富游戏内容；用户确认使用资源/升级插图优化画面表现；自动化继续要求作为独立开发人员持续丰富优化游戏内容。
