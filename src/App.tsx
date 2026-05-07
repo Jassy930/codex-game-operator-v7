@@ -15,6 +15,8 @@ import {
 import {
   recordOfflineRewardClaimed,
   recordPlayerClick,
+  recordResonanceEarned,
+  recordResonanceNodeUnlocked,
   recordSaveLoaded,
   recordSessionEnd,
   recordUpgradePurchase,
@@ -217,6 +219,9 @@ export function App() {
     setState((current) => {
       const next = claimResonanceMilestones(current);
       if (next !== current) {
+        if (typeof window !== "undefined") {
+          recordResonanceEarned(window.localStorage);
+        }
         showPurchaseMessage("共鸣已聚合：获得 1 共鸣");
       }
 
@@ -229,6 +234,9 @@ export function App() {
       const unlocked = unlockResonanceNode(current, nodeId);
       if (unlocked !== current) {
         const next = recalculateProduction(unlocked);
+        if (typeof window !== "undefined") {
+          recordResonanceNodeUnlocked(window.localStorage);
+        }
         showPurchaseMessage(
           `共鸣节点启动：${formatResonanceNodeName(nodeId)}`,
         );

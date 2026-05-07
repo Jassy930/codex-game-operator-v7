@@ -13,6 +13,9 @@ export type LocalMetrics = {
   saveLoadedCount: number;
   offlineRewardClaimedCount: number;
   lastOfflineRewardDust: number | null;
+  resonanceEarnedCount: number;
+  resonanceNodeUnlockedCount: number;
+  firstResonanceTimeMs: number | null;
 };
 
 export type LocalMetricsSessionSummary = {
@@ -24,6 +27,9 @@ export type LocalMetricsSessionSummary = {
   firstUpgradeTimeMs: number | null;
   saveLoadedCount: number;
   offlineRewardClaimedCount: number;
+  resonanceEarnedCount: number;
+  resonanceNodeUnlockedCount: number;
+  firstResonanceTimeMs: number | null;
 };
 
 const EMPTY_METRICS: LocalMetrics = {
@@ -36,6 +42,9 @@ const EMPTY_METRICS: LocalMetrics = {
   saveLoadedCount: 0,
   offlineRewardClaimedCount: 0,
   lastOfflineRewardDust: null,
+  resonanceEarnedCount: 0,
+  resonanceNodeUnlockedCount: 0,
+  firstResonanceTimeMs: null,
 };
 
 export function startMetricsSession(storage: Storage, now = Date.now()): void {
@@ -100,6 +109,26 @@ export function recordUpgradePurchase(storage: Storage, now = Date.now()): void 
   });
 }
 
+export function recordResonanceEarned(storage: Storage, now = Date.now()): void {
+  const metrics = readMetrics(storage);
+  const firstResonanceTimeMs =
+    metrics.firstResonanceTimeMs ?? calculateElapsedTime(metrics, now);
+
+  writeMetrics(storage, {
+    ...metrics,
+    resonanceEarnedCount: metrics.resonanceEarnedCount + 1,
+    firstResonanceTimeMs,
+  });
+}
+
+export function recordResonanceNodeUnlocked(storage: Storage): void {
+  const metrics = readMetrics(storage);
+  writeMetrics(storage, {
+    ...metrics,
+    resonanceNodeUnlockedCount: metrics.resonanceNodeUnlockedCount + 1,
+  });
+}
+
 export function readMetrics(storage: Storage): LocalMetrics {
   try {
     const raw = storage.getItem(METRICS_KEY);
@@ -119,6 +148,12 @@ export function readMetrics(storage: Storage): LocalMetrics {
       saveLoadedCount: numberOr(parsed.saveLoadedCount, 0),
       offlineRewardClaimedCount: numberOr(parsed.offlineRewardClaimedCount, 0),
       lastOfflineRewardDust: numberOrNull(parsed.lastOfflineRewardDust),
+      resonanceEarnedCount: numberOr(parsed.resonanceEarnedCount, 0),
+      resonanceNodeUnlockedCount: numberOr(
+        parsed.resonanceNodeUnlockedCount,
+        0,
+      ),
+      firstResonanceTimeMs: numberOrNull(parsed.firstResonanceTimeMs),
     };
   } catch {
     return EMPTY_METRICS;
@@ -182,10 +217,17 @@ function toSessionSummary(metrics: LocalMetrics): LocalMetricsSessionSummary | n
     firstUpgradeTimeMs: metrics.firstUpgradeTimeMs,
     saveLoadedCount: metrics.saveLoadedCount,
     offlineRewardClaimedCount: metrics.offlineRewardClaimedCount,
+    resonanceEarnedCount: metrics.resonanceEarnedCount,
+    resonanceNodeUnlockedCount: metrics.resonanceNodeUnlockedCount,
+    firstResonanceTimeMs: metrics.firstResonanceTimeMs,
   };
 }
 
 function calculateFirstUpgradeTime(metrics: LocalMetrics, now: number): number | null {
+  return calculateElapsedTime(metrics, now);
+}
+
+function calculateElapsedTime(metrics: LocalMetrics, now: number): number | null {
   if (metrics.sessionStartedAt === null) {
     return null;
   }
@@ -224,6 +266,13 @@ function isSessionSummary(value: unknown): value is LocalMetricsSessionSummary {
     typeof candidate.saveLoadedCount === "number" &&
     Number.isFinite(candidate.saveLoadedCount) &&
     typeof candidate.offlineRewardClaimedCount === "number" &&
-    Number.isFinite(candidate.offlineRewardClaimedCount)
+    Number.isFinite(candidate.offlineRewardClaimedCount) &&
+    typeof candidate.resonanceEarnedCount === "number" &&
+    Number.isFinite(candidate.resonanceEarnedCount) &&
+    typeof candidate.resonanceNodeUnlockedCount === "number" &&
+    Number.isFinite(candidate.resonanceNodeUnlockedCount) &&
+    (candidate.firstResonanceTimeMs === null ||
+      (typeof candidate.firstResonanceTimeMs === "number" &&
+        Number.isFinite(candidate.firstResonanceTimeMs)))
   );
 }

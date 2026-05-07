@@ -3,6 +3,8 @@ import {
   METRICS_KEY,
   readMetricsHistory,
   readMetrics,
+  recordResonanceEarned,
+  recordResonanceNodeUnlocked,
   recordOfflineRewardClaimed,
   recordPlayerClick,
   recordSaveLoaded,
@@ -27,6 +29,9 @@ describe("local metrics", () => {
       saveLoadedCount: 0,
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
+      resonanceEarnedCount: 0,
+      resonanceNodeUnlockedCount: 0,
+      firstResonanceTimeMs: null,
     });
   });
 
@@ -95,6 +100,9 @@ describe("local metrics", () => {
         firstUpgradeTimeMs: 5_000,
         saveLoadedCount: 0,
         offlineRewardClaimedCount: 0,
+        resonanceEarnedCount: 0,
+        resonanceNodeUnlockedCount: 0,
+        firstResonanceTimeMs: null,
       },
     ]);
   });
@@ -147,6 +155,9 @@ describe("local metrics", () => {
       saveLoadedCount: 0,
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
+      resonanceEarnedCount: 0,
+      resonanceNodeUnlockedCount: 0,
+      firstResonanceTimeMs: null,
     });
   });
 
@@ -167,7 +178,33 @@ describe("local metrics", () => {
       saveLoadedCount: 0,
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
+      resonanceEarnedCount: 0,
+      resonanceNodeUnlockedCount: 0,
+      firstResonanceTimeMs: null,
     });
+  });
+
+  it("records local resonance earned count and first resonance time once", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+
+    recordResonanceEarned(storage, 6_000);
+    recordResonanceEarned(storage, 9_000);
+
+    expect(readMetrics(storage)).toMatchObject({
+      resonanceEarnedCount: 2,
+      firstResonanceTimeMs: 5_000,
+    });
+  });
+
+  it("records local resonance node unlocks", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+
+    recordResonanceNodeUnlocked(storage);
+    recordResonanceNodeUnlocked(storage);
+
+    expect(readMetrics(storage).resonanceNodeUnlockedCount).toBe(2);
   });
 
   it("recovers from malformed local metrics", () => {
@@ -185,6 +222,9 @@ describe("local metrics", () => {
       saveLoadedCount: 0,
       offlineRewardClaimedCount: 0,
       lastOfflineRewardDust: null,
+      resonanceEarnedCount: 0,
+      resonanceNodeUnlockedCount: 0,
+      firstResonanceTimeMs: null,
     });
     expect(readMetricsHistory(storage)).toEqual([]);
   });

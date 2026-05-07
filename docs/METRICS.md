@@ -5,7 +5,7 @@
 指标只保存在浏览器本地存储中。
 
 - `stardust-workshop-feedback-events-v1`: 反馈链接点击事件队列。
-- `stardust-workshop-metrics-v1`: 当前 session 开始/结束时间、session 时长、点击次数、升级购买次数、首次升级时间、有效存档加载次数、离线收益提示次数和最后一次离线收益数值。每次打开 App 都会重置为新的 session。
+- `stardust-workshop-metrics-v1`: 当前 session 开始/结束时间、session 时长、点击次数、升级购买次数、首次升级时间、有效存档加载次数、离线收益提示次数、最后一次离线收益数值、共鸣获得次数、共鸣节点解锁次数和首次共鸣时间。每次打开 App 都会重置为新的 session。
 - `stardust-workshop-metrics-history-v1`: 最近 10 个 session 的本地汇总，只在 session 结束时写入，用于本机回看前 60 秒相关指标趋势。
 
 ## 本地查看方式
@@ -20,8 +20,9 @@ JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
 
 解释方式：
 
-- 当前 session 用于查看本轮点击数、升级购买数、首次升级时间和是否看到离线收益提示。
+- 当前 session 用于查看本轮点击数、升级购买数、首次升级时间、是否看到离线收益提示、是否获得共鸣和是否解锁共鸣节点。
 - `offline_reward_claimed` 只表示玩家看到了本地离线收益提示；低于 `0.1` 星尘的离线收益不会展示，也不会计入该指标，避免出现或记录“离线获得 0 星尘”。
+- `resonance_earned` 和 `resonance_node_unlocked` 只记录本机 session 中共鸣系统是否被触达，不上传、不跨设备，也不记录玩家身份。
 - 最近 session history 用于本机回看趋势，只保留最近 10 次 session summary。
 - 这些数据不能代表真实玩家整体行为；没有明确导出、上传或人工记录时，不要把本机 localStorage 当成真实玩家指标。
 
@@ -35,6 +36,9 @@ JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
 - upgrade_purchase_count
 - save_loaded
 - offline_reward_claimed
+- resonance_earned
+- resonance_node_unlocked
+- first_resonance_time
 - feedback_clicked
 - session_history
 
@@ -44,11 +48,11 @@ JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
 
 ## 指标缺口
 
-指标仍只保存在本地，不上传。历史 session 汇总只保留最近 10 条，且只包含 session 时间、时长、点击数、升级购买数、首次升级时间、有效存档加载次数和离线收益提示次数。存档加载指标只记录有效本地存档被加载，离线收益指标只记录达到展示阈值并实际展示的本地返回提示。
+指标仍只保存在本地，不上传。历史 session 汇总只保留最近 10 条，且只包含 session 时间、时长、点击数、升级购买数、首次升级时间、有效存档加载次数、离线收益提示次数、共鸣获得次数、共鸣节点解锁次数和首次共鸣时间。存档加载指标只记录有效本地存档被加载，离线收益指标只记录达到展示阈值并实际展示的本地返回提示。
 
 ## 当前决策
 
-公开预览阶段仍保持 telemetry local-only。只添加直接支持反馈入口、前 60 秒清晰度或回访评估的指标。除非另有治理决策，不添加上传、外部 analytics SDK、个人数据或跨设备追踪。
+公开预览阶段仍保持 telemetry local-only。只添加直接支持反馈入口、前 60 秒清晰度、回访评估或 v0.3 共鸣系统触达判断的指标。除非另有治理决策，不添加上传、外部 analytics SDK、个人数据或跨设备追踪。
 
 ## 隐私边界
 
