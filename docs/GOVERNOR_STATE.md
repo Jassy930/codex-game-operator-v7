@@ -2,36 +2,38 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+OPERATE
 
 ## Reason
 
-首屏文案预算审计已通过。剩余具体风险是动作区长按钮在窄屏上的换行和布局稳定性；本轮复核现有 CSS 是否已经覆盖该风险。
+按 roadmap gate 刷新真实反馈输入。`ops/collect-feedback.sh` 已重新采集 GitHub issue 证据；Issue #1 没有玩家新补充，只有既有回复评论。
 
 ## Allowed Actions
 
-- 复核 `src/styles.css` 中 `.action-row` 和按钮的响应式约束。
-- 确认窄屏是否已有纵向布局和自然换行。
-- 更新 `docs/SELF_PLAYTEST.md` 和 `docs/DECISION.md`，记录 no-change 或 SIMPLIFY gap。
+- 刷新 `data/feedback/github-feedback.md`。
+- 确认是否有新 issue 或 Issue #1 的新玩家补充。
+- 如无新信号，记录 no-change 状态并不回复 issue。
 - 运行治理检查和低成本验证。
 
 ## Forbidden Actions
 
+- 不重复回复 Issue #1。
+- 不把我们自己的回复当成新玩家反馈。
 - 不改变游戏玩法、经济、UI 或反馈渠道。
 - 不新增上传 telemetry、analytics SDK 或个人数据收集。
-- 不因为做预算审计而新增提示、按钮、图片或面板。
+- 不新增提示、按钮、图片或面板。
 - 不削弱 issue routing、response budget、复杂度预算或 review protocol。
 
 ## Exit Criteria
 
-- `docs/SELF_PLAYTEST.md` 记录窄屏按钮布局复核。
-- 若现有 CSS 足够，`docs/DECISION.md` 记录 no-change；若不足，切换后续 SIMPLIFY。
+- `data/feedback/github-feedback.md` 刷新。
+- 确认 Issue #1 updatedAt 未出现玩家新补充。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只做响应式布局审计，不改变游戏、不新增玩法、不新增文案。
+未发现玩法漂移。本轮只刷新反馈证据，不改游戏、不回复 issue、不新增产品决策。
 
 ## Last Updated
 
@@ -124,3 +126,5 @@ SELF_PLAYTEST
 2026-05-07: SELF_PLAYTEST 复杂度审计完成；首屏初始状态约 101 个中文字符，短暂反馈出现时最高约 118 个，低于 300 字预算。本轮不进入 SIMPLIFY，不改 UI。
 
 2026-05-07: 继续 SELF_PLAYTEST；复核动作区长按钮的窄屏布局风险，检查现有 CSS 是否需要收敛。
+
+2026-05-07: 切换到 OPERATE；刷新 `data/feedback/github-feedback.md`，Issue #1 仍无玩家新补充，不重复回复，不新增改动。
