@@ -165,7 +165,7 @@
 
 Decision Anchor: `DECISION:2026-05-07-v03-resonance-system`
 
-进入 v0.3 共鸣系统。下一阶段允许新增 1 个第二资源 `共鸣`、1 个紧凑 `共鸣矩阵` 面板、v2 存档字段和最多 3 个 local-only 共鸣指标字段。第一版实现范围限定为首个共鸣里程碑、三选一永久节点和本地指标；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
+v0.3 共鸣系统第一版已实现。游戏现在允许 1 个第二资源 `共鸣`、1 个紧凑 `共鸣矩阵` 面板、v2 存档字段和 3 个 local-only 共鸣指标字段。实现范围限定为首个共鸣里程碑、三选一永久节点和本地指标；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
 
 ## Implementation Record
 
@@ -175,6 +175,15 @@ Decision Anchor: `DECISION:2026-05-07-v03-resonance-system`
 - Added tests runnable through both `bun test` and `bun run test`.
 - Implemented one-resource star dust loop: click to earn, buy auto collector, passive production, versioned save/load.
 - Added a minimal Chinese UI with visible first upgrade goal and local auto-save.
+
+2026-05-07 v0.3 RESONANCE_SYSTEM executed:
+
+- Added save version 2 with `resonance`, `earnedResonanceMilestones` and `unlockedResonanceNodes`, while migrating v1 saves with safe defaults.
+- Added the first resonance milestone: 20 auto collectors and 12 tuning levels grant 1 `共鸣` once.
+- Added one gated `共鸣矩阵` panel after `星尘引擎室`, with three permanent node choices and a v0.3 cap of one unlocked node.
+- Implemented all three node effects: `稳定回路` increases passive production, `回访线圈` increases offline rewards, and `调校刻印` increases effective tuning multiplier.
+- Added local-only resonance metrics for resonance earned count, node unlock count and first resonance time.
+- Did not add prestige, task system, extra panels, external analytics or telemetry upload.
 
 2026-05-06 FEEDBACK_INFRA selected:
 

@@ -582,6 +582,50 @@ Asset Workflow 收口后，若无新玩家反馈，回到 `SELF_PLAYTEST` 或 `R
 
 本轮 review finding cleanup 完成后，下一轮若无新 issue 补充，应先读取 feedback snapshot、local-only metrics 或做一次聚焦 self-playtest；不要因为 v0.2 预算允许 4 种 upgrade type 就直接新增第三种升级。
 
+## 2026-05-07 Retrospective 14
+
+### Window
+
+从首次回访后内容研究，到用户明确要求不要只增加里程碑，再到 v0.3 共鸣系统第一版实现。
+
+### What Changed
+
+- 新增 v0.3 Resonance Version Budget，允许 1 个第二资源、1 个紧凑面板、v2 存档和最多 3 个 local-only 共鸣指标。
+- 实现第二资源 `共鸣`、首个共鸣里程碑、`共鸣矩阵` 和三选一永久节点。
+- v1 存档迁移到 v2 时补齐共鸣字段。
+- 新增共鸣获得、节点解锁和首次共鸣时间的本地指标。
+- 三个节点都落地了可验证效果：被动产出、离线收益、有效调校倍率。
+
+### What Improved
+
+- 回访后玩家不再只看到更远里程碑，而是能把长期生产转化为永久选择。
+- v0.3 扩展有明确边界，没有同时引入 prestige、任务系统、多生产线或多个面板。
+- 共鸣系统有核心逻辑、UI、存档迁移、指标和文档测试覆盖。
+
+### What Got Worse
+
+- `docs/DECISION.md`、`docs/SELF_PLAYTEST.md` 和 `docs/RELEASE_LOG.md` 继续增长，后续需要优先做高信号收口。
+- 第二资源和新面板已经提高复杂度，下一轮更需要验证是否被玩家理解，而不是继续叠系统。
+
+### Drift Check
+
+- repeated issue replies: 无。Issue #1/#2 没有新补充，本轮不回复。
+- issue-driven thrashing: 无。本轮来自用户直接产品反馈和版本化复杂度预算。
+- feature bloat: 受控。新增 1 个第二资源和 1 个面板，但仍禁止 prestige、任务系统、多生产线和多个新面板。
+- lack of tests: 无。游戏逻辑、共鸣逻辑、UI 和 metrics 均有测试。
+- unclear North Star: 无。v0.3 聚焦回访后策略层，前 60 秒保持回归护栏。
+- harness friction: 可控。复杂度预算被显式升级，没有绕过治理约束。
+
+### Harness Lessons
+
+- 当用户明确要求更丰富玩法时，正确动作不是绕开预算，而是版本化复杂度预算并收紧第一版范围。
+- 三选一节点必须每个都有实际效果；保留“后续实现”的可解锁节点会让策略选择失真。
+- 新存档字段和新指标必须一起有迁移、测试和文档，不要只改 UI。
+
+### Next Operating Mode
+
+下一轮优先 `SELF_PLAYTEST` 或 local-only metrics readback，检查达成共鸣后的选择清晰度和节点价值感。不得直接进入 prestige、任务系统、多生产线或多个新面板。
+
 ## Template
 
 ```md
