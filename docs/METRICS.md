@@ -21,6 +21,7 @@ JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
 解释方式：
 
 - 当前 session 用于查看本轮点击数、升级购买数、首次升级时间和是否看到离线收益提示。
+- `offline_reward_claimed` 只表示玩家看到了本地离线收益提示；低于 `0.1` 星尘的离线收益不会展示，也不会计入该指标，避免出现或记录“离线获得 0 星尘”。
 - 最近 session history 用于本机回看趋势，只保留最近 10 次 session summary。
 - 这些数据不能代表真实玩家整体行为；没有明确导出、上传或人工记录时，不要把本机 localStorage 当成真实玩家指标。
 
@@ -43,7 +44,7 @@ JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
 
 ## 指标缺口
 
-指标仍只保存在本地，不上传。历史 session 汇总只保留最近 10 条，且只包含 session 时间、时长、点击数、升级购买数、首次升级时间、有效存档加载次数和离线收益提示次数。存档加载指标只记录有效本地存档被加载，离线收益指标只记录本地返回提示被展示。
+指标仍只保存在本地，不上传。历史 session 汇总只保留最近 10 条，且只包含 session 时间、时长、点击数、升级购买数、首次升级时间、有效存档加载次数和离线收益提示次数。存档加载指标只记录有效本地存档被加载，离线收益指标只记录达到展示阈值并实际展示的本地返回提示。
 
 ## 当前决策
 
