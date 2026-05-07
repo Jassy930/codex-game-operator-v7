@@ -59,10 +59,10 @@ export function App() {
     return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
   }, [state.dust, state.nextAutoCollectorCost]);
   const milestone = getAutoCollectorMilestone(state.autoCollectors);
-  const goalHint =
-    state.autoCollectors === 0
-      ? "目标：攒够星尘，购买第一个自动采集器"
-      : "目标：继续攒星尘，购买下一台自动采集器";
+  const goalHint = formatGoalHint(
+    state.autoCollectors,
+    state.autoCollectorEfficiencyLevel,
+  );
   const feedbackUrl = useMemo(() => createFeedbackIssueUrl(), []);
 
   useEffect(() => {
@@ -277,6 +277,21 @@ function formatNumber(value: number): string {
 
 export function formatAutoCollectorPurchaseMessage(dustPerSecond: number): string {
   return `自动采集器启动：每秒星尘 +${formatNumber(dustPerSecond)}`;
+}
+
+export function formatGoalHint(
+  autoCollectors: number,
+  efficiencyLevel: number,
+): string {
+  if (autoCollectors === 0) {
+    return "目标：攒够星尘，购买第一个自动采集器";
+  }
+
+  if (efficiencyLevel === 0) {
+    return "目标：继续攒星尘，购买下一台自动采集器或第一次调校";
+  }
+
+  return "目标：扩建或调校，让每秒星尘继续提高";
 }
 
 export function formatCollectFeedbackMessage(dustPerClick: number): string {

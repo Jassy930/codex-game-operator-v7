@@ -3,6 +3,7 @@ import {
   App,
   formatAutoCollectorPurchaseMessage,
   formatCollectFeedbackMessage,
+  formatGoalHint,
 } from "./App";
 import { createGameState, serializeGameState } from "./game";
 
@@ -56,6 +57,51 @@ describe("App", () => {
         value: originalWindow,
       });
     }
+  });
+
+  it("surfaces the expansion or tuning choice after efficiency tuning starts", () => {
+    const storage = createMemoryStorage();
+    const now = Date.now();
+    storage.setItem(
+      "stardust-workshop-save-v1",
+      serializeGameState({
+        ...createGameState(now),
+        autoCollectors: 3,
+        dustPerSecond: 0.66,
+        nextAutoCollectorCost: 34,
+        autoCollectorEfficiencyLevel: 1,
+        autoCollectorEfficiencyMultiplier: 1.1,
+        nextEfficiencyUpgradeCost: 45,
+      }),
+    );
+    const globalWithWindow = globalThis as typeof globalThis & { window?: Window };
+    const originalWindow = globalWithWindow.window;
+    Object.defineProperty(globalThis, "window", {
+      configurable: true,
+      value: { localStorage: storage },
+    });
+
+    try {
+      const html = renderToStaticMarkup(<App />);
+
+      expect(html).toContain("目标：扩建或调校，让每秒星尘继续提高");
+      expect(html).not.toContain("目标：继续攒星尘，购买下一台自动采集器");
+    } finally {
+      Object.defineProperty(globalThis, "window", {
+        configurable: true,
+        value: originalWindow,
+      });
+    }
+  });
+
+  it("formats the next goal from the current upgrade depth", () => {
+    expect(formatGoalHint(0, 0)).toBe("目标：攒够星尘，购买第一个自动采集器");
+    expect(formatGoalHint(2, 0)).toBe(
+      "目标：继续攒星尘，购买下一台自动采集器或第一次调校",
+    );
+    expect(formatGoalHint(3, 1)).toBe(
+      "目标：扩建或调校，让每秒星尘继续提高",
+    );
   });
 
   it("formats a lightweight auto collector purchase confirmation", () => {

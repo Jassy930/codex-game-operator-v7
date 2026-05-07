@@ -4,6 +4,35 @@
 
 ## 当前聚类
 
+## post-60s-engagement
+
+关联 Issue:
+- #2: https://github.com/Jassy930/codex-game-operator-v7/issues/2
+
+现象:
+- 玩家觉得只能玩前 60 秒，随后变无聊。
+- 玩家希望有更丰富的游戏内容。
+- 反馈发生在采集星尘阶段，说明核心循环入口可见，但持续参与度不足。
+
+假设:
+- 当前 `采集星尘 → 自动采集器 → 调校工具` 已提供早期目标，但 60 秒后缺少新的低噪音目标表达或可理解的下一层选择。
+- “更丰富内容”可能代表成长深度不足，也可能代表目标节奏不清楚；不能直接推导为第二资源、prestige、任务系统或多面板内容。
+
+North Star 匹配度:
+- high
+
+当前阶段匹配度:
+- medium
+
+决策:
+- action
+
+证据:
+- Issue #2
+- `docs/NORTH_STAR.md` 要求玩家感到“游戏在变深，但不是变吵”。
+- `docs/COMPLEXITY_BUDGET.md` 仍禁止第二资源和新面板，并将 upgrade types 限制在最多 3。
+- 当前已有 2 种 upgrade types，本轮只增强现有目标提示，不新增第三种升级或系统。
+
 ## first-60s-motivation
 
 关联 Issue:

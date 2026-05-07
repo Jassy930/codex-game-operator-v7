@@ -2,36 +2,42 @@
 
 ## Selected Mode
 
-METRICS_INFRA
+OPERATE
 
 ## Reason
 
-反馈快照无新信号后，复核 local-only metrics。实现和测试已覆盖 session history，但 `docs/METRICS.md` 缺少 operator 如何在本机查看这些指标的说明。
+Issue #2 提供新的真实反馈：玩家觉得只能玩前 60 秒，随后变无聊，并希望有更丰富的游戏内容。该反馈是 signal，不是直接功能任务；本轮已路由为 `post-60s-engagement`，并选择一个只增强目标提示的最小切片。
 
 ## Allowed Actions
 
-- 更新 `docs/METRICS.md`，补充 localStorage 查看方式。
-- 保持 metrics local-only。
-- 不改变指标结构或游戏行为。
+- 更新 `data/feedback/github-feedback.md` 快照。
+- 将 Issue #2 记录到 `docs/ISSUE_LEDGER.md`。
+- 将 Issue #2 归入 `docs/FEEDBACK_CLUSTERS.md`。
+- 在 `docs/DECISION.md` 记录可审计决策锚点。
+- 判断是否需要后续 research 或最小切片。
+- 实现一个已由 `docs/DECISION.md` 授权的最小目标提示文案切片。
 - 运行治理检查和低成本验证。
 
 ## Forbidden Actions
 
-- 不改变游戏玩法、经济、UI 或反馈渠道。
-- 不新增上传 telemetry、analytics SDK 或个人数据收集。
-- 不新增指标字段、上传路径、外部 SDK、提示、按钮、图片或面板。
-- 不削弱 issue routing、response budget、复杂度预算或 review protocol。
+- 不把“更丰富内容”直接转化为第二资源、prestige、任务系统、多面板、复杂 lore 或第三种升级。
+- 不直接修改 `docs/ROADMAP.md`。
+- 不回复 Issue #1，除非玩家有新的实质补充。
+- 不回复 Issue #2 的“已修复/已改进”，除非后续存在真实变更、commit/release evidence 和部署状态。
+- 不新增上传 telemetry、analytics SDK、个人数据收集、反馈渠道、图片资产或 UI 面板。
 
 ## Exit Criteria
 
-- `docs/METRICS.md` 说明如何在浏览器本机查看当前 session 和最近 session history。
-- 文档继续明确 local-only、无上传、无个人数据。
+- Issue #2 已出现在 ledger、cluster 和 decision 中。
+- 决策明确区分“有效信号”和“立即实现复杂内容”。
+- 目标提示切片通过测试、构建、推送和 Pages 验证。
+- Issue #2 回复必须在 release evidence 存在后进行，且不承诺复杂系统。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只补 metrics 查看文档，不改游戏、不新增 telemetry 字段、不上传数据。
+未发现玩法漂移。本轮只暴露已有“自动采集器或调校”的选择，不新增游戏系统、不改变经济、不扩张 UI。
 
 ## Last Updated
 
@@ -130,3 +136,7 @@ METRICS_INFRA
 2026-05-07: 切换到 METRICS_INFRA；补 `docs/METRICS.md` 的本地查看方式，让 operator 能读取 current session 和最近 session history。
 
 2026-05-07: Retrospective 11 已记录；覆盖 asset no-change、roadmap gate、文本预算、动作区布局、反馈快照和 metrics readback。后续无新信号时避免继续扩大文档或玩法。
+
+2026-05-07: 切换到 OPERATE；Issue #2 指向前 60 秒后的参与度不足。本轮先路由到 `post-60s-engagement`，不直接实现“更丰富内容”。
+
+2026-05-07: Issue #2 最小切片已进入待发布状态；目标提示会在调校工具出现后表达“下一台自动采集器或第一次调校”，已有调校后表达“扩建或调校”。

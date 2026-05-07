@@ -1,8 +1,9 @@
 # GitHub Feedback
 
-Generated at: Thu May  7 12:00:19 CST 2026
+Generated at: Thu May  7 12:12:37 CST 2026
 
 ## Open Issues
+2	OPEN	玩家反馈：星尘工坊		2026-05-07T04:05:30Z
 1	OPEN	玩家反馈：星尘工坊		2026-05-07T02:37:02Z
 
 ## Feedback Issues
@@ -14,6 +15,40 @@ Generated at: Thu May  7 12:00:19 CST 2026
 ## Idea Issues
 
 ## Issue Evidence
+
+### Issue #2
+number: #2
+title: 玩家反馈：星尘工坊
+url: https://github.com/Jassy930/codex-game-operator-v7/issues/2
+state: OPEN
+author: Jassy930
+createdAt: 2026-05-07T04:05:30Z
+updatedAt: 2026-05-07T04:05:30Z
+
+body:
+### 前 60 秒哪里不清楚？
+
+只能玩前60秒，然后就无聊了
+
+### 你当时想做什么？
+
+我想有更丰富的游戏内容
+
+### 主要发生在哪一步？
+
+采集星尘
+
+### 其他补充
+
+_No response_
+
+comments:
+none
+
+#### Ledger Draft
+| Issue | Fingerprint | Cluster | Class | Status | Last Reply | Linked Decision | Linked Commit/Release | Next Action |
+|---|---|---|---|---|---|---|---|---|
+| #2 | issue-2-2302457174 | TODO | TODO | new | none | none | none | route through SIGNAL_ROUTING |
 
 ### Issue #1
 number: #1

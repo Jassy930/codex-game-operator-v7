@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-当前已有 local-only metrics 和最近 session history，但文档没有告诉 operator 如何在浏览器本机查看这些指标。没有查看方式时，后续 self-playtest 仍可能只靠主观印象，无法使用已有 metrics 支撑判断。
+Issue #2 提供新的真实反馈：玩家觉得前 60 秒后变无聊，并希望有更丰富的内容。该信号符合 North Star 中“游戏在变深，但不是变吵”的方向，但不能直接授权第二资源、prestige、任务系统、多面板或复杂内容堆叠。
 
 ## Evidence
 
@@ -97,12 +97,16 @@
 - `src/metrics.ts` 已提供 `stardust-workshop-metrics-v1` 和 `stardust-workshop-metrics-history-v1`。
 - `src/metrics.test.ts` 已覆盖 session start/end、click count、upgrade purchase、first upgrade time、save load、offline reward 和最近 10 条 session history。
 - `docs/METRICS.md` 记录了 key 和指标含义，但没有记录浏览器控制台查看方式。
+- Issue #2 反馈：“只能玩前60秒，然后就无聊了”，并表示“我想有更丰富的游戏内容”。
+- 当前游戏已有单资源、自动采集器和调校工具，upgrade types 为 2，复杂度预算最多为 3。
+- `docs/COMPLEXITY_BUDGET.md` 仍禁止第二资源和新增面板。
+- `docs/SIGNAL_ROUTING.md` 要求 issue 必须先进入 ledger、cluster 和 decision，不能直接修改 roadmap 或实现功能。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-metrics-local-readback`
+Decision Anchor: `DECISION:2026-05-07-operate-post-60s-engagement`
 
-补充 `docs/METRICS.md` 的本地查看方式，说明如何读取当前 session、最近 session history 和 feedback click queue。本轮不新增指标字段、不改代码、不上传数据。
+接受 Issue #2 为 `post-60s-engagement` 反馈聚类的首个真实信号。当前经济模拟显示 60-180 秒仍有可达升级事件，缺口优先落在下一层目标表达，而不是大系统缺失。本轮授权一个最小 UI 文案切片：复用现有目标提示，在调校工具出现后表达“扩建自动采集器或调校效率”的二选一成长；不新增资源、按钮、面板、经济数值或复杂 lore。
 
 ## Implementation Record
 
@@ -509,16 +513,25 @@ Decision Anchor: `DECISION:2026-05-07-metrics-local-readback`
 - Decision: 在 `docs/METRICS.md` 增加 localStorage 读取示例和解释边界。
 - 约束：不新增上传、外部 SDK、个人数据、指标字段、UI 或玩法。
 
+2026-05-07 OPERATE post-60s engagement:
+
+- Decision Anchor: `DECISION:2026-05-07-operate-post-60s-engagement`
+- Issue #2 已路由到 `post-60s-engagement` 聚类。
+- Gap: 真实玩家觉得前 60 秒后变无聊，希望内容更丰富。
+- Economy check: 当前模拟显示，第 55 秒购买第 1 个调校工具后，第 76 秒可购买第 4 台自动采集器，第 100 秒可购买第 2 次调校，第 126 秒和第 160 秒继续购买自动采集器。
+- Decision: 先实现目标提示的最小 UI 文案切片，让 60 秒后已有的“扩建或调校”选择更明确；不把“更丰富内容”直接解释为第二资源、prestige、任务系统、多面板或复杂 lore。
+- 约束：不改经济、不新增资源、不新增按钮、不新增面板、不新增 telemetry；如果发布后回复 Issue #2，必须引用 release evidence。
+
 ## Input Source
 
-Metrics gap.
+GitHub Issue #2.
 
 ## Linked Signals
 
-- 当前无新 issue 或玩家补充。
-- `src/metrics.ts`
-- `src/metrics.test.ts`
-- `docs/METRICS.md`
+- Issue #2: https://github.com/Jassy930/codex-game-operator-v7/issues/2
+- `docs/FEEDBACK_CLUSTERS.md#post-60s-engagement`
+- `docs/ISSUE_LEDGER.md`
+- `docs/COMPLEXITY_BUDGET.md`
 
 ## Not Doing
 
