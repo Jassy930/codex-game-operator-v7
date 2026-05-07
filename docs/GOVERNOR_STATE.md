@@ -6,13 +6,13 @@ SELF_PLAYTEST
 
 ## Reason
 
-上一轮 review finding cleanup 已由 commit `fca81c5` 收口。当前没有新的玩家补充，v0.2 内容弧线要求下一步必须来自 3-15 分钟 self-playtest、local-only metrics 或明确反馈。本轮切到 SELF_PLAYTEST，复核阶段条件在 3-15 分钟内是否足够可验证。
+上一轮阶段进度文案切片已收口。当前 Issue #1/#2 没有新的玩家补充，v0.2 内容弧线要求下一步必须来自 15-60 分钟 self-playtest、首次回访证据、local-only metrics 或明确反馈。本轮继续 SELF_PLAYTEST，只做 15-60 分钟和回访目标复核。
 
 ## Allowed Actions
 
-- 用当前 `src/game.ts` 经济函数模拟 3-15 分钟升级节奏。
-- 复核工坊阶段、下一阶段条件、最近升级目标和回访目标是否可理解。
-- 如发现具体 gap，只允许改现有阶段文案或同一 UI 区块中的轻量表达。
+- 用当前 `src/game.ts` 经济函数模拟 15-60 分钟升级节奏和首次回访离线收益。
+- 复核 `星尘引擎室` 后的长期目标、最近升级目标和回访目标是否可理解。
+- 如发现具体 gap，只允许改现有阶段文案、回访文案或同一 UI 区块中的轻量表达。
 - 更新 `docs/DECISION.md`、`docs/SELF_PLAYTEST.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
 - 运行 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
@@ -20,21 +20,21 @@ SELF_PLAYTEST
 
 - 不新增第二资源、prestige、任务系统、复杂地图或新面板。
 - 不新增反馈渠道、analytics SDK、上传 telemetry、存档字段、指标字段或个人数据收集。
-- 不新增第三或第四种升级类型；本轮只处理阶段条件可验证性。
+- 不新增第三或第四种升级类型；本轮只处理 15-60 分钟和首次回访可理解性。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- 3-15 分钟模拟结果记录到 self-playtest。
-- 如果实现改动，阶段条件文案能显示当前进度，并有测试覆盖。
+- 15-60 分钟和首次回访模拟结果记录到 self-playtest。
+- 如果实现改动，回访或阶段目标文案能解释具体 gap，并有测试覆盖。
 - 复杂度仍保持 1 个主资源、0 个第二资源、2 种升级类型、无新面板、无新存档字段。
 - `bun test`、`bun run test`、`bun run build`、governor check 和 diff check 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只改善已有阶段条件表达，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
+未发现玩法漂移。本轮只复核已有阶段和回访目标，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
 
 ## Last Updated
 
@@ -183,3 +183,5 @@ SELF_PLAYTEST
 2026-05-07: review finding cleanup 已由 commit `fca81c5` 收口。本轮切换到 SELF_PLAYTEST；3-15 分钟模拟显示升级仍持续，但阶段条件缺少当前进度，当前切片只改 `下一阶段` 文案为当前值/目标值。
 
 2026-05-07: 阶段进度文案切片本地验证通过：`bun test` 48 pass，`bun run test` 48 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。本地提交已创建；推送因当前环境无法解析 `github.com` 受阻，工作区状态为 `main...origin/main [ahead 1]`。
+
+2026-05-07: 继续 SELF_PLAYTEST；15-60 分钟模拟显示第 15/30/60 分钟分别为 11/13/15 台自动采集器，调校 6/8/9，仍有升级推进。30 分钟回访会产生约 10260 星尘离线收益，现有 `星尘引擎室` 回访目标可解释该结果。本轮 no-change，不新增玩法或 UI。
