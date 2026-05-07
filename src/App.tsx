@@ -94,6 +94,7 @@ export function App() {
     workshopStage,
     showOfflineDust,
     canBuyAutoCollector || canBuyEfficiencyUpgrade,
+    resonanceProgress.canClaim,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -512,7 +513,12 @@ export function formatWorkshopStageNextRequirement(
   workshopStage: WorkshopStage,
   hasVisibleOfflineReward: boolean,
   canSpendVisibleOfflineReward: boolean,
+  canClaimResonance = false,
 ): string {
+  if (canClaimResonance && workshopStage.name === "星尘引擎室") {
+    return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
+  }
+
   if (hasVisibleOfflineReward && workshopStage.name === "星尘引擎室") {
     if (!canSpendVisibleOfflineReward) {
       return "回访目标：离线收益已投入工坊，继续攒下一次升级";

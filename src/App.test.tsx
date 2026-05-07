@@ -209,6 +209,22 @@ describe("App", () => {
     expect(html).toContain("调校 9/12");
   });
 
+  it("points the stage goal at claiming resonance when the first milestone is ready", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 8.8,
+      nextAutoCollectorCost: 33253,
+      nextEfficiencyUpgradeCost: 28922,
+    });
+
+    expect(html).toContain("领取共鸣 +1");
+    expect(html).toContain("共鸣目标：领取首个共鸣，再选择 1 个永久节点");
+    expect(html).not.toContain("长期目标：离开一会儿再回来");
+  });
+
   it("shows unlockable resonance nodes when resonance is available", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),

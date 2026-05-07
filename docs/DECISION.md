@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更多系统，而是验证首个共鸣选择是否清楚，避免玩家在消耗第一点共鸣前误以为三个节点都可以逐步启动。
+v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更多系统，而是验证首个共鸣门槛达成、领取和节点选择的连续目标是否清楚，避免玩家在可领取共鸣时仍被旧回访目标带偏。
 
 ## Evidence
 
@@ -163,12 +163,14 @@ v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更
 - 2026-05-07 v0.3 self-playtest 显示：60 秒状态仍在 `星尘小间`，`共鸣矩阵` 不会干扰前 60 秒。
 - 构造首次共鸣已消耗的存档后，旧 UI 中已选节点和未选节点都只是 disabled 按钮与普通描述，不能明确表达三选一已经完成。
 - 构造首次共鸣已领取但未消费的存档后，旧 UI 只显示 `可用共鸣：1` 和三个节点按钮，没有说明 v0.3 本轮只能启动 1 个永久节点。
+- 2026-05-07 共鸣门槛模拟显示：每秒点击一次并优先购买当前更便宜升级时，约第 13513 秒达到 20 台自动采集器和 12 次调校。
+- 首个共鸣门槛达成时 UI 已显示 `领取共鸣 +1`，但阶段目标仍可能显示“长期目标：离开一会儿再回来，查看引擎室积累的离线星尘”。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-resonance-choice-before-spend`
+Decision Anchor: `DECISION:2026-05-07-resonance-claim-goal`
 
-首次共鸣已领取、尚未消费时，同一 `共鸣矩阵` 面板必须在节点按钮前说明“选择 1 个永久节点，本轮只能启动一个”。本切片只补选择前约束文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
+首个共鸣门槛已达成、尚未领取时，同一阶段目标行必须指向“领取首个共鸣，再选择 1 个永久节点”。本切片只补可领取共鸣状态下的目标文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
 
 ## Implementation Record
 
@@ -200,6 +202,13 @@ Decision Anchor: `DECISION:2026-05-07-resonance-choice-before-spend`
 - Added a pre-choice hint in the existing `共鸣矩阵` panel when the player has unspent resonance and no unlocked node.
 - The hint explains that v0.3 allows one permanent node choice this round before the player clicks a node.
 - Added a rendering test for a claimed-but-unspent first-resonance save state.
+- Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
+
+2026-05-07 RESONANCE_CLAIM_GOAL executed:
+
+- Added a stage-goal override when the first resonance milestone is claimable in `星尘引擎室`.
+- The stage goal now points to claiming the first resonance before choosing one permanent node.
+- Added a rendering test for a ready-but-unclaimed first-resonance save state.
 - Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
 
 2026-05-06 FEEDBACK_INFRA selected:
