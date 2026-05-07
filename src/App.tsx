@@ -19,7 +19,11 @@ import {
   recordUpgradePurchase,
   startMetricsSession,
 } from "./metrics";
-import { getAutoCollectorMilestone, getWorkshopStage } from "./milestones";
+import {
+  getAutoCollectorMilestone,
+  getWorkshopStage,
+  type WorkshopStage,
+} from "./milestones";
 import autoCollectorArt from "./assets/auto-collector.webp";
 import stardustCrystalArt from "./assets/stardust-crystal.webp";
 import tuningToolArt from "./assets/tuning-tool.webp";
@@ -71,6 +75,10 @@ export function App() {
   const workshopStage = getWorkshopStage(
     state.autoCollectors,
     state.autoCollectorEfficiencyLevel,
+  );
+  const stageNextRequirement = formatWorkshopStageNextRequirement(
+    workshopStage,
+    showOfflineDust,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -264,7 +272,7 @@ export function App() {
           <p className="stage-hint">
             工坊阶段：{workshopStage.name} · {workshopStage.description}
           </p>
-          <p className="stage-next">{workshopStage.nextRequirement}</p>
+          <p className="stage-next">{stageNextRequirement}</p>
           <div className="progress-track" aria-hidden="true">
             <div style={{ width: `${nextUpgradeTarget.progressPercent}%` }} />
           </div>
@@ -355,6 +363,17 @@ export function formatGoalHint(
 
 export function shouldShowOfflineDust(offlineDust: number): boolean {
   return offlineDust >= 0.1;
+}
+
+export function formatWorkshopStageNextRequirement(
+  workshopStage: WorkshopStage,
+  hasVisibleOfflineReward: boolean,
+): string {
+  if (hasVisibleOfflineReward && workshopStage.name === "星尘引擎室") {
+    return "回访目标：花掉离线星尘，继续扩建或调校引擎室";
+  }
+
+  return workshopStage.nextRequirement;
 }
 
 export type NextUpgradeTarget = {

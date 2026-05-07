@@ -144,6 +144,46 @@ describe("App", () => {
     }
   });
 
+  it("uses a spend-next stage goal after offline return rewards are visible", () => {
+    const storage = createMemoryStorage();
+    const now = Date.now();
+    storage.setItem(
+      "stardust-workshop-save-v1",
+      serializeGameState({
+        ...createGameState(now),
+        dust: 3812.34,
+        autoCollectors: 15,
+        dustPerSecond: 5.7,
+        nextAutoCollectorCost: 4379,
+        autoCollectorEfficiencyLevel: 9,
+        autoCollectorEfficiencyMultiplier: 1.9,
+        nextEfficiencyUpgradeCost: 4959,
+        lastUpdatedAt: now - 1000 * 60 * 30,
+      }),
+    );
+    const globalWithWindow = globalThis as typeof globalThis & { window?: Window };
+    const originalWindow = globalWithWindow.window;
+    Object.defineProperty(globalThis, "window", {
+      configurable: true,
+      value: { localStorage: storage },
+    });
+
+    try {
+      const html = renderToStaticMarkup(<App />);
+
+      expect(html).toContain("离线获得");
+      expect(html).toContain(
+        "回访目标：花掉离线星尘，继续扩建或调校引擎室",
+      );
+      expect(html).not.toContain("长期目标：离开一会儿再回来");
+    } finally {
+      Object.defineProperty(globalThis, "window", {
+        configurable: true,
+        value: originalWindow,
+      });
+    }
+  });
+
   it("formats the next goal from the current upgrade depth", () => {
     expect(formatGoalHint(0, 0)).toBe("目标：攒够星尘，购买第一个自动采集器");
     expect(formatGoalHint(2, 0)).toBe(

@@ -6,13 +6,13 @@ SELF_PLAYTEST
 
 ## Reason
 
-上一轮阶段进度文案切片已收口。当前 Issue #1/#2 没有新的玩家补充，v0.2 内容弧线要求下一步必须来自 15-60 分钟 self-playtest、首次回访证据、local-only metrics 或明确反馈。本轮继续 SELF_PLAYTEST，只做 15-60 分钟和回访目标复核。
+上一轮 15-60 分钟 self-playtest 记录为 no-change。当前 Issue #1/#2 没有新的玩家补充，本轮继续 SELF_PLAYTEST，但扩大到首次回访后的首屏状态：如果玩家已经看到离线收益，现有 `星尘引擎室` 长期目标是否仍能解释下一步。
 
 ## Allowed Actions
 
-- 用当前 `src/game.ts` 经济函数模拟 15-60 分钟升级节奏和首次回访离线收益。
-- 复核 `星尘引擎室` 后的长期目标、最近升级目标和回访目标是否可理解。
-- 如发现具体 gap，只允许改现有阶段文案、回访文案或同一 UI 区块中的轻量表达。
+- 用当前 `src/game.ts` 经济函数模拟 60 分钟游玩、30 分钟离线和首次回访后消费。
+- 复核回访首屏中 `星尘引擎室` 的长期目标是否仍适合已经获得离线收益的玩家。
+- 如发现具体 gap，只允许改现有阶段目标行或同一 UI 区块中的轻量表达。
 - 更新 `docs/DECISION.md`、`docs/SELF_PLAYTEST.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
 - 运行 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
@@ -26,15 +26,15 @@ SELF_PLAYTEST
 
 ## Exit Criteria
 
-- 15-60 分钟和首次回访模拟结果记录到 self-playtest。
-- 如果实现改动，回访或阶段目标文案能解释具体 gap，并有测试覆盖。
+- 首次回访后首屏模拟结果记录到 self-playtest。
+- 如果实现改动，回访后的阶段目标文案能解释具体 gap，并有测试覆盖。
 - 复杂度仍保持 1 个主资源、0 个第二资源、2 种升级类型、无新面板、无新存档字段。
 - `bun test`、`bun run test`、`bun run build`、governor check 和 diff check 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只复核已有阶段和回访目标，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
+未发现玩法漂移。本轮只复核首次回访后的同一阶段目标行，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
 
 ## Last Updated
 
@@ -187,3 +187,5 @@ SELF_PLAYTEST
 2026-05-07: 继续 SELF_PLAYTEST；15-60 分钟模拟显示第 15/30/60 分钟分别为 11/13/15 台自动采集器，调校 6/8/9，仍有升级推进。30 分钟回访会产生约 10260 星尘离线收益，现有 `星尘引擎室` 回访目标可解释该结果。本轮 no-change，不新增玩法或 UI。
 
 2026-05-07: 15-60 分钟 self-playtest no-change 已由 commit `fce5b54` 推送到 `origin/main`。本地验证通过；`gh run list` 连接 `api.github.com` 失败，暂未验证 Pages workflow run。
+
+2026-05-07: 继续 SELF_PLAYTEST；首次回访后模拟显示离线 30 分钟带来约 10260 星尘，回访首屏足够购买第 16 台自动采集器和第 10 次调校。发现 `星尘引擎室` 目标仍要求离开再回来，本轮只在离线收益可见时把同一阶段目标行切换为消费离线星尘。
