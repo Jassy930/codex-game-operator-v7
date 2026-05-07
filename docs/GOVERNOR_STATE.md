@@ -220,3 +220,5 @@ v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束
 2026-05-08: 共鸣节点后续目标切片已由 commit `3f3c9f9` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 65 pass，`bun run test` 65 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。Vite dev server 已启动在 `http://127.0.0.1:5173/`；当前沙箱禁止终端连接 localhost，`curl` 返回 `Operation not permitted`。`gh run list` 无法连接 `api.github.com`，`curl` 无法解析 `jassy930.github.io`，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
 
 2026-05-08: 继续 SELF_PLAYTEST；复核已启动 `回访线圈` 后的实际回访状态。本轮只允许在同一阶段目标行把可见离线收益归因到 `回访线圈`，不改共鸣数值、节点效果、存档字段、指标字段、面板数量或资源数量。
+
+2026-05-08: 回访线圈回访目标切片已由 commit `36c046c` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 66 pass，`bun run test` 66 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --limit 3` 无法连接 `api.github.com`，`curl -I https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
