@@ -358,6 +358,52 @@ Update this file when either is true:
 
 本轮 META_IMPROVE 完成后，若继续处理 Issue #1，应回到 `OPERATE` 并在验证、提交和发布证据存在后再回复。
 
+## 2026-05-07 Retrospective 9
+
+### Window
+
+从 Issue #1 修复后的 no-change self-playtest，到 Soft Automation 研究、`调校工具` 实施、60 秒经济复核、前置条件文案修正和 Pages 发布收口。
+
+### What Changed
+
+- 研究确认：核心循环清晰后，下一步候选应是低复杂度 soft automation，而不是第二资源、prestige 或新面板。
+- 新增 `调校工具` upgrade type：使用星尘提升自动采集器效率。
+- 旧存档缺少新字段时保持兼容，默认调校等级为 0。
+- 60 秒模拟确认自动采集器仍在第 10、23、39 秒购入，第 55 秒才购买第一项调校工具。
+- 无自动采集器时，调校工具文案改为“需要先购买自动采集器”。
+- commit `7a15e5d` 已推送，Pages workflow `25474199644` 成功，公开预览 HTTP 200。
+
+### What Improved
+
+- 玩家购买第一台自动采集器后有了第二个低复杂度选择，能在数量和效率之间做轻量取舍。
+- 第一台自动采集器目标没有被 25 星尘调校成本抢走，前 60 秒节奏仍围绕同一核心循环。
+- 禁用态文案更准确，避免玩家误以为只要攒够 25 星尘就能购买调校工具。
+- 玩法扩展仍复用现有资源、主屏和反馈渠道。
+
+### What Got Worse
+
+- 动作区现在包含采集、自动采集器、调校工具三个按钮，长文案需要持续关注窄屏换行。
+- upgrade type 从 1 增至 2，后续不应在缺少真实反馈时继续加第三种升级。
+
+### Drift Check
+
+- repeated issue replies: 无。Issue #1 没有玩家新补充，本轮不回复。
+- issue-driven thrashing: 无。Soft Automation 来自 research-backed roadmap gap，不是把 #1 扩成新系统。
+- feature bloat: 受控。primary resource 仍为 1，upgrade types 为 2，visible panels 不增加。
+- lack of tests: 无。实现周期覆盖游戏逻辑、旧存档兼容和 UI 文案。
+- unclear North Star: 无。改动继续服务“采集星尘、购买自动采集器、提高持续产出”的前 60 秒循环。
+- harness friction: 无。治理检查和发布验证完成，没有削弱约束。
+
+### Harness Lessons
+
+- 新升级的禁用态不能只显示成本；如果还有结构性前置条件，按钮文案必须直接说明。
+- 研究支撑的新玩法也要做 60 秒经济回访，确认没有抢走已有第一目标。
+- 发布完成后应立即收口 governor state，避免状态长期停留在实施切片。
+
+### Next Operating Mode
+
+若 Issue #1 或新 issue 出现玩家补充，进入 `OPERATE` 并先更新 feedback snapshot、issue ledger 和 cluster。若继续无新反馈，优先 `SELF_PLAYTEST` 或 `RESEARCH` 做 no-change/等待判断；不要继续增加第三种升级。
+
 ## Template
 
 ```md
