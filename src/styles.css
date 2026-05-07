@@ -165,14 +165,17 @@ h1 {
 }
 
 .goal-hint,
-.milestone-hint {
+.milestone-hint,
+.stage-hint,
+.stage-next {
   margin: 0;
   color: #17211b;
   font-size: 0.95rem;
   line-height: 1.4;
 }
 
-.milestone-hint {
+.milestone-hint,
+.stage-next {
   color: #5f6f68;
 }
 

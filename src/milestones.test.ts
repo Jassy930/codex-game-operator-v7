@@ -1,4 +1,4 @@
-import { getAutoCollectorMilestone } from "./milestones";
+import { getAutoCollectorMilestone, getWorkshopStage } from "./milestones";
 
 describe("auto collector milestones", () => {
   it("targets the second auto collector before the first milestone is complete", () => {
@@ -20,6 +20,34 @@ describe("auto collector milestones", () => {
     expect(getAutoCollectorMilestone(3)).toEqual({
       current: 3,
       target: 5,
+    });
+  });
+});
+
+describe("workshop stages", () => {
+  it("starts at a spark bench with the first stage target", () => {
+    expect(getWorkshopStage(0, 0)).toEqual({
+      name: "火花工作台",
+      description: "先让自动采集器稳定运转。",
+      nextRequirement: "下一阶段：拥有 3 台自动采集器",
+    });
+  });
+
+  it("moves through tuning and sustained production stages", () => {
+    expect(getWorkshopStage(3, 0)).toEqual({
+      name: "星尘小间",
+      description: "自动采集器已经成组工作，下一步是调校效率。",
+      nextRequirement: "下一阶段：完成 2 次调校",
+    });
+    expect(getWorkshopStage(6, 2)).toEqual({
+      name: "稳定工坊",
+      description: "数量和效率开始叠加，工坊进入持续产出。",
+      nextRequirement: "下一阶段：拥有 10 台自动采集器并完成 4 次调校",
+    });
+    expect(getWorkshopStage(10, 4)).toEqual({
+      name: "星尘引擎室",
+      description: "工坊已经形成第一条长期生产线。",
+      nextRequirement: "v0.2 阶段目标已达成：继续观察 15 分钟后的回访节奏",
     });
   });
 });

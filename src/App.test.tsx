@@ -21,6 +21,8 @@ describe("App", () => {
     expect(html).toContain("需要先购买自动采集器");
     expect(html).toContain("购买进度");
     expect(html).toContain("目标：攒够星尘，购买第一个自动采集器");
+    expect(html).toContain("工坊阶段：火花工作台");
+    expect(html).toContain("下一阶段：拥有 3 台自动采集器");
     expect(html).toContain("里程碑：0 / 2 台自动采集器");
     expect(html).toContain("event-stack");
     expect(html).toContain("反馈");
@@ -86,6 +88,8 @@ describe("App", () => {
       const html = renderToStaticMarkup(<App />);
 
       expect(html).toContain("目标：扩建或调校，让每秒星尘继续提高");
+      expect(html).toContain("工坊阶段：星尘小间");
+      expect(html).toContain("下一阶段：完成 2 次调校");
       expect(html).toContain("调校倍率");
       expect(html).toContain("1.1x");
       expect(html).not.toContain("目标：继续攒星尘，购买下一台自动采集器");

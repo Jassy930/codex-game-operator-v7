@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-用户明确要求进入 3-15 分钟版本。当前最大问题是将复杂度预算从单一 v0.1 上限升级为版本化预算，让下一步内容扩展有清晰边界，同时避免把版本切换误解为第二资源、prestige、任务系统或新面板授权。
+用户明确反馈当前玩法仍然干枯太少，并要求继续丰富游戏内容。当前最大问题是给 v0.2 / 3-15 分钟版本增加可见内容弧线，同时避免把“丰富”误解为第二资源、prestige、任务系统或新面板。
 
 ## Evidence
 
@@ -123,12 +123,15 @@
 - 用户指出现在玩法仍然干枯太少，随后确认“现在进入3-15分钟版本吧”。
 - `docs/COMPLEXITY_BUDGET.md` 原本只有 First Public Version Budget，无法表达 v0.2 内容扩展边界。
 - `docs/META_GOVERNANCE.md` 允许在强摩擦或重复失败模式出现时修改 governance docs，但必须证明不削弱 North Star、issue routing、response budget、complexity budget 和 review protocol。
+- 用户继续确认“好的继续”，表示可以基于 v0.2 预算推进内容扩展。
+- `docs/COMPLEXITY_BUDGET.md` v0.2 允许 `Stage milestone / workshop phase` 和 `Delayed unlock copy`。
+- 当前可用状态变量已有 `autoCollectors` 和 `autoCollectorEfficiencyLevel`，足以推导工坊阶段，不需要新增资源、按钮、面板或存档字段。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-meta-v0-2-complexity-budget`
+Decision Anchor: `DECISION:2026-05-07-operate-workshop-stage`
 
-将复杂度预算版本化：保留 v0.1 First Public Version Budget 作为前 60 秒回归护栏，新增 v0.2 / 3-15 Minute Version Budget。v0.2 允许 3-15 分钟内容弧线、阶段里程碑/工坊阶段和延后解锁文案，升级类型上限提升到 4，存档格式版本上限提升到 2；仍禁止第二资源、prestige、任务系统、复杂地图、多面板扩张和外部 analytics。
+实现 v0.2 的第一个内容小切片：根据自动采集器数量和调校等级推导“工坊阶段”，在现有主屏中展示阶段名、阶段说明和下一阶段条件。该切片只使用现有状态和现有主屏结构，不新增资源、按钮、面板、升级类型、任务系统、prestige、指标字段或反馈渠道。
 
 ## Implementation Record
 
@@ -603,9 +606,17 @@ Decision Anchor: `DECISION:2026-05-07-meta-v0-2-complexity-budget`
 - Decision: 保留 v0.1 预算，新增 v0.2 / 3-15 Minute Version Budget；v0.2 允许内容弧线、阶段里程碑/工坊阶段、延后解锁文案和第 4 种升级类型。
 - 约束：进入 v0.2 不自动授权具体玩法；仍禁止第二资源、prestige、任务系统、复杂地图、多面板扩张、外部 analytics 或 issue 重复回复。
 
+2026-05-07 OPERATE workshop stage:
+
+- Decision Anchor: `DECISION:2026-05-07-operate-workshop-stage`
+- Signal: 用户反馈当前玩法仍然干枯太少，并确认继续推进 v0.2。
+- Decision: 用 `autoCollectors` 和 `autoCollectorEfficiencyLevel` 推导工坊阶段，展示阶段名、阶段说明和下一阶段条件。
+- v0.2 budget use: 使用 `Stage milestone / workshop phase` 和 `Delayed unlock copy`，不使用第 4 种升级类型。
+- v0.1 guardrail: 前 60 秒仍只有星尘、采集、自动采集器、调校工具和现有主屏；不新增第二资源、按钮、面板或反馈渠道。
+
 ## Input Source
 
-User request: 进入 3-15 分钟版本。
+User request: 玩法仍然干枯太少，需要丰富游戏内容。
 
 ## Linked Signals
 

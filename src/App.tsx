@@ -19,7 +19,7 @@ import {
   recordUpgradePurchase,
   startMetricsSession,
 } from "./metrics";
-import { getAutoCollectorMilestone } from "./milestones";
+import { getAutoCollectorMilestone, getWorkshopStage } from "./milestones";
 
 const SAVE_KEY = "stardust-workshop-save-v1";
 
@@ -60,6 +60,10 @@ export function App() {
     return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
   }, [state.dust, state.nextAutoCollectorCost]);
   const milestone = getAutoCollectorMilestone(state.autoCollectors);
+  const workshopStage = getWorkshopStage(
+    state.autoCollectors,
+    state.autoCollectorEfficiencyLevel,
+  );
   const goalHint = formatGoalHint(
     state.autoCollectors,
     state.autoCollectorEfficiencyLevel,
@@ -228,6 +232,10 @@ export function App() {
           <p className="milestone-hint">
             里程碑：{milestone.current} / {milestone.target} 台自动采集器
           </p>
+          <p className="stage-hint">
+            工坊阶段：{workshopStage.name} · {workshopStage.description}
+          </p>
+          <p className="stage-next">{workshopStage.nextRequirement}</p>
           <div className="progress-track" aria-hidden="true">
             <div style={{ width: `${progressToUpgrade}%` }} />
           </div>
