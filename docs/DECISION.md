@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-当前没有新的玩家补充，60-300 秒 self-playtest 未发现停滞。下一步内容方向仍不清楚；需要避免把“持续运营”误解为无信号加第三种升级。
+前 60 秒已经有真实反馈修复、self-playtest no-change 和持续回归检查。用户确认进入下一步；当前最大问题是把阶段焦点切到 3-5 分钟参与度，同时避免把阶段切换误解为新增系统授权。
 
 ## Evidence
 
@@ -109,12 +109,19 @@
 - `docs/METRICS.md` 尚未说明 `offline_reward_claimed` 的 `0.1` 星尘展示阈值。
 - 2026-05-07 research 显示，idle/incremental 后续内容应逐步引入优化挑战和长期目标，但当前本地 300 秒模拟没有显示明显停滞。
 - `docs/COMPLEXITY_BUDGET.md` 仍将 upgrade types 限制为最多 3，且禁止第二资源和新面板。
+- Issue #1 的前 60 秒采集动机问题已发布修复并回复一次，后续无新补充。
+- Issue #2 的 post-60s engagement 问题已发布目标提示最小切片并回复一次，后续无新补充。
+- 多轮 self-playtest 记录显示 60-300 秒内升级事件持续出现：第 10、23、39、55、76、100、126、160、194、238、290 秒。
+- 用户明确同意进入下一步；这应更新阶段焦点，而不是直接授权新系统。
+- 用户强调不要卡在一个阶段太长时间。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-research-post-300s-content`
+Decision Anchor: `DECISION:2026-05-07-stage-shift-3-5-minute`
 
-当前不实现第三种升级、第二资源、新面板或 prestige。后续若出现 post-300s 停滞、local-only metrics 可解释问题或新的玩家反馈，再优先研究一个复用现有主屏的 milestone unlock preview，而不是直接扩张系统。
+将当前阶段从“前 60 秒清晰度”切换为“3-5 分钟参与度”。前 60 秒继续作为回归护栏；下一步只允许通过 self-playtest、local-only metrics、真实反馈或 research-backed decision 形成小切片。不因阶段切换直接实现第三种升级、第二资源、新面板、prestige、任务系统或图片资产。
+
+阶段推进规则：同一时间窗连续两轮 no-change 后，必须进行 stage review，并选择扩大时间窗、定义内容弧线或明确等待真实反馈；不得继续反复产出同一阶段的 no-change 文档。
 
 ## Implementation Record
 
@@ -559,16 +566,24 @@ Decision Anchor: `DECISION:2026-05-07-research-post-300s-content`
 - Decision: 当前不实现第三种升级或新系统；只保留 future candidate：若后续出现明确 post-300s 停滞或新反馈，优先研究复用现有主屏的 milestone unlock preview。
 - 约束：不新增资源、面板、prestige、任务系统、成就系统、图片资产、反馈渠道或 telemetry 上传。
 
+2026-05-07 SELF_PLAYTEST stage shift:
+
+- Decision Anchor: `DECISION:2026-05-07-stage-shift-3-5-minute`
+- Trigger: 用户确认进入下一步。
+- Decision: 当前阶段焦点切换为 3-5 分钟参与度；前 60 秒清晰度降级为回归护栏。
+- Stage cadence: 同一阶段连续两轮 no-change 后，必须扩大时间窗、定义内容弧线或明确等待真实反馈。
+- 约束：阶段切换不是新增系统授权；任何玩法实现仍需新的 `DECISION.md` 锚点、复杂度预算复核、测试和发布证据。
+
 ## Input Source
 
-Research question.
+User-approved stage transition.
 
 ## Linked Signals
 
-- `docs/COMPLEXITY_BUDGET.md`
-- `docs/RESEARCH.md`
-- `docs/COMPLEXITY_BUDGET.md`
-- `src/game.ts`
+- Issue #1 已修复并无新补充。
+- Issue #2 已修复并无新补充。
+- `docs/SELF_PLAYTEST.md` 的 60-300 秒模拟未显示明确停滞。
+- 用户确认进入下一步。
 
 ## Not Doing
 

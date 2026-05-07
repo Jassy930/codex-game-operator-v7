@@ -491,6 +491,50 @@ Asset Workflow 收口后，若无新玩家反馈，回到 `SELF_PLAYTEST` 或 `R
 
 若出现新 issue 或 Issue #1 玩家补充，进入 `OPERATE` 并先更新 feedback snapshot、ledger 和 cluster。若继续无新反馈，下一轮优先只做一个有证据的 self-playtest 或 metrics readback；如果仍没有具体 gap，应等待新信号，不要继续扩大文档或玩法。
 
+## 2026-05-07 Retrospective 12
+
+### Window
+
+从用户确认“进入下一步”，到 North Star、Roadmap、Decision 和 Self-playtest 口径切换到 3-5 分钟参与度。
+
+### What Changed
+
+- `docs/NORTH_STAR.md` 的当前阶段从 early clean-room / first 60 seconds 切换为 early live-operation / 3-5 minute engagement。
+- `docs/ROADMAP.md` 明确前 60 秒现在是回归护栏，下一道闸门是 3-5 分钟目标清晰度、升级节奏和回访理解。
+- `docs/SELF_PLAYTEST.md` 增加前 3-5 分钟检查项。
+- `docs/DECISION.md` 记录阶段切换不是新增系统授权。
+- 增加 stage cadence：同一时间窗连续 no-change 后必须扩大时间窗、定义内容弧线或等待真实反馈。
+
+### What Improved
+
+- Operator 不会继续把所有下一步都压回前 60 秒。
+- Operator 也不能在 3-5 分钟阶段无限 no-change；必须向更长内容弧线推进。
+- 3-5 分钟体验有了明确检查口径，但仍保留第一分钟回归安全。
+- Roadmap 更清楚地区分“阶段焦点变化”和“功能实现授权”。
+
+### What Got Worse
+
+- 阶段切换后，后续判断会更依赖 180-300 秒模拟、local-only metrics 和真实反馈；不能再只靠首屏阅读判断。
+
+### Drift Check
+
+- repeated issue replies: 无。
+- issue-driven thrashing: 无，Issue #1/#2 均不重复处理。
+- feature bloat: 无，本轮只改文档和检查口径，不新增玩法、资源、图片、面板或 telemetry。
+- lack of tests: 通过 governor check 验证治理文件；无代码行为变化。
+- unclear North Star: 已改善，当前阶段更明确。
+- harness friction: 无，阶段切换保留复杂度预算和 review protocol。
+
+### Harness Lessons
+
+- 当前阶段必须在 North Star 中更新，否则 operator 会被旧优先级拖回上一阶段。
+- 阶段必须有推进节奏；no-change 是刹车，不是停车场。
+- 阶段切换不是功能授权；新的实现仍要走 decision、复杂度预算、测试和发布证据。
+
+### Next Operating Mode
+
+进入 3-5 分钟阶段后的下一轮优先 `SELF_PLAYTEST` 或 `METRICS_INFRA`：先读取/模拟 180-300 秒体验，再决定是否需要小切片。
+
 ## Template
 
 ```md

@@ -130,14 +130,18 @@ Use when game works but lacks enough feedback.
 
 Allowed:
 - Evaluate first 10/30/60 seconds.
+- Evaluate the current stage time window, such as 3-5 minutes or first return.
 - Update `SELF_PLAYTEST.md`.
 - Identify one improvement.
+- Record no-change when no concrete gap exists.
 
 Forbidden:
 - Large feature additions.
+- Repeating no-change checks in the same time window indefinitely.
 
 Exit criteria:
 - One concrete gap is documented in `DECISION.md`.
+- Or one no-change result is recorded; after two consecutive no-change cycles in the same time window, switch to stage review, research, metrics readback, or a longer time horizon.
 
 ## METRICS_INFRA
 
