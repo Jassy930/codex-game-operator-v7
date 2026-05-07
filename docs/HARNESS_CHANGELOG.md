@@ -236,6 +236,40 @@ Use `METRICS_INFRA` only when local measurement directly supports self-playtest 
 
 进入 v0.2 后，下一步应先设计 3-15 分钟内容弧线，再实现一个小切片。任何具体玩法仍必须经过 `docs/DECISION.md`，并说明使用 v0.2 预算且没有破坏 v0.1 回归护栏。
 
+## 2026-05-07 - Review Finding Cleanup
+
+### Files Changed
+
+- `data/feedback/github-feedback.md`
+- `ops/collect-feedback.sh`
+- `ops/create-pages-workflow.sh`
+- `src/ops-scripts.test.ts`
+- `docs/DECISION.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `docs/RELEASE_LOG.md`
+- `docs/RETROSPECTIVE.md`
+
+### Failure Mode
+
+反馈表单声明 `feedback` label，但远端仓库缺少该 label，导致真实 issue 不进入 `Feedback Issues` 分桶。Pages workflow 生成脚本也落后于真实部署 workflow，会写出旧版 `.github/workflows/pages.yml`，并用 `bun test || true` 吞掉失败。
+
+### Evidence
+
+`gh label list` 原本没有 `feedback`，Issue #1/#2 labels 为空。`ops/create-pages-workflow.sh` 原本生成 `pages.yml`，使用旧 actions，并允许 Bun 测试失败。Retrospective 最后一次记录停在 `e269f5e`，之后已有 11 个 commit。
+
+### Change
+
+创建远端 `feedback` label，并给 Issue #1/#2 回填该 label。`collect-feedback` 现在在已认证 GitHub 环境下验证必需 label 存在，缺失时写入快照并失败。`create-pages-workflow` 现在生成当前标准的 `deploy-pages.yml`，运行 `bun test`、`bun run test` 和 `bun run build`，并使用当前 Pages action 版本。补充脚本测试、release log、governor state 和 retrospective。
+
+### Why This Does Not Weaken Constraints
+
+该变更收紧反馈路由和发布工具标准，没有新增玩法、资源、面板、反馈渠道、telemetry 上传或 issue 回复，也没有降低测试、部署、issue routing、response budget、complexity budget 或 review protocol。
+
+### Follow-up
+
+后续如果 issue form 新增必需 label，要同步扩展 `collect-feedback` 的 required label 检查和脚本测试。
+
 ## Template
 
 ```md

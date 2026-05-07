@@ -535,6 +535,53 @@ Asset Workflow 收口后，若无新玩家反馈，回到 `SELF_PLAYTEST` 或 `R
 
 进入 3-5 分钟阶段后的下一轮优先 `SELF_PLAYTEST` 或 `METRICS_INFRA`：先读取/模拟 180-300 秒体验，再决定是否需要小切片。
 
+## 2026-05-07 Retrospective 13
+
+### Window
+
+从 `e269f5e` 阶段切换后，到 imagegen 背景、调校倍率可见性、v0.2 复杂度预算、工坊阶段、物件插图、内容弧线、最近升级进度、阶段完成反馈、延后解锁预告、引擎室回访目标和本轮 review finding cleanup。
+
+### What Changed
+
+- 使用 imagegen 接入星尘工坊背景和三张核心物件插图。
+- 将主屏统计中的点击收益替换为调校倍率，让调校成长可见。
+- 将复杂度预算版本化为 v0.1 / v0.2，并用 v0.2 支持 3-15 分钟内容弧线。
+- 增加工坊阶段、下一升级进度、阶段完成反馈和延后解锁预告。
+- 将 `星尘引擎室` 后续目标改为首次回访目标。
+- 创建并回填远端 `feedback` label，刷新反馈快照。
+- 收紧 `collect-feedback` 必需 label 检查，并修正 `create-pages-workflow` 生成当前标准 Pages workflow。
+
+### What Improved
+
+- 3-15 分钟内容不再只依赖数字上涨，玩家能看到阶段名、下一阶段名称、当前最近升级和阶段跨越反馈。
+- 视觉素材服务核心链路，没有新增资源、按钮、面板或远程热链。
+- 反馈 issue 现在能进入 `Feedback Issues` 分区，后续路由不会因为缺 label 漏信号。
+- Pages workflow 生成脚本不再生成第二套旧 workflow，也不会吞掉测试失败。
+
+### What Got Worse
+
+- Runtime 文档继续增长，`docs/DECISION.md`、`docs/SELF_PLAYTEST.md` 和本 retrospective 已经偏长。
+- 视觉和阶段表达增加后，后续更需要用真实反馈或截图验证首屏是否仍足够安静。
+
+### Drift Check
+
+- repeated issue replies: 无。Issue #1/#2 本轮只回填 label，没有新增回复。
+- issue-driven thrashing: 无。本轮是 review finding cleanup 和 v0.2 内容弧线收口，不把单个 issue 直接当 backlog。
+- feature bloat: 受控。仍为 1 个主资源、0 个第二资源、2 种升级类型、无新面板、无任务系统、无 prestige。
+- lack of tests: 已改善。新增脚本测试覆盖缺失 `feedback` label 和 Pages workflow 生成标准。
+- unclear North Star: 无。当前阶段仍是 3-15 分钟内容弧线与首次回访，前 60 秒是回归护栏。
+- harness friction: 已收紧。反馈分桶和 Pages 生成脚本现在更接近真实运行标准。
+
+### Harness Lessons
+
+- Issue form 的默认 label 不是纯本地配置；远端 label 缺失会让后续分桶和自动化失效。
+- `ops` 工具箱必须和真实 CI 保持同步，否则旧脚本会在未来重新引入已经修过的发布风险。
+- Retrospective 触发规则需要严格执行；大量小切片完成后不回顾，会让 governor state 停在旧周期。
+
+### Next Operating Mode
+
+本轮 review finding cleanup 完成后，下一轮若无新 issue 补充，应先读取 feedback snapshot、local-only metrics 或做一次聚焦 self-playtest；不要因为 v0.2 预算允许 4 种 upgrade type 就直接新增第三种升级。
+
 ## Template
 
 ```md

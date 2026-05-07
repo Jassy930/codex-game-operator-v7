@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-用户明确反馈当前玩法仍然干枯太少，并要求继续丰富游戏内容。v0.2 已经完成工坊阶段、物件插图、最近升级进度、阶段完成反馈和延后解锁预告。当前最大问题转为 15-60 分钟 / 首次回访：达到 `星尘引擎室` 后，下一步文案仍像 operator 备注，不像玩家可执行的长期目标。
+本轮 review 发现反馈 intake 和发布工具存在治理缺口：GitHub Issue Form 声明 `feedback` label，但远端仓库没有该 label，导致反馈分桶失效；`ops/create-pages-workflow.sh` 仍会生成旧版 `pages.yml` 并吞掉 `bun test` 失败；Retrospective 和 Governor State 也没有记录 v0.2 最近 11 个 commit 的阶段收口。
 
 ## Evidence
 
@@ -135,12 +135,17 @@
 - `docs/CONTENT_ARC.md` 已把 15-60 分钟和首次回访列为后续时间窗。
 - `星尘引擎室` 的旧后续文案是“v0.2 阶段目标已达成：继续观察 15 分钟后的回访节奏”，这更适合文档，不适合玩家界面。
 - 游戏已有离线收益提示，因此 `星尘引擎室` 后的最小玩家目标可以指向首次回访，而不需要新增系统。
+- 2026-05-07 review finding: `.github/ISSUE_TEMPLATE/feedback.yml` 声明 `labels: [feedback]`，但 `gh label list` 没有 `feedback`，Issue #1/#2 的 labels 为空。
+- 2026-05-07 review finding: `ops/create-pages-workflow.sh` 会生成 `.github/workflows/pages.yml`，使用旧 Pages actions，并包含 `bun test || true`。
+- 2026-05-07 review finding: `docs/RETROSPECTIVE.md` 最后一次 retrospective 对应 `e269f5e`，之后到 `2f4a4c4` 已有 11 个 commit。
+- 2026-05-07 review finding: `docs/GOVERNOR_STATE.md` 未记录 `2f4a4c4`、Pages run `25487424830`、公开预览 HTTP 200 和 clean worktree。
+- `gh label create feedback` 已创建远端 label，Issue #1/#2 已回填 `feedback` label，`./ops/collect-feedback.sh` 刷新后 `Feedback Issues` 分区能列出两条 issue。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-self-playtest-engine-room-return-goal`
+Decision Anchor: `DECISION:2026-05-07-review-finding-cleanup`
 
-实现 v0.2 的 15-60 分钟 / 首次回访小切片：将 `星尘引擎室` 达成后的 `nextRequirement` 改为玩家可执行的回访目标，提示离开一会儿再回来查看引擎室积累的离线星尘。该切片只复用现有阶段行和离线收益机制，不新增资源、按钮、面板、升级类型、任务系统、prestige、存档字段、指标字段或反馈渠道。
+处理本轮完整 review 的四个治理缺口：创建并回填 `feedback` label；让 `ops/collect-feedback.sh` 在已认证 GitHub 环境下验证必需 label 存在；让 `ops/create-pages-workflow.sh` 生成当前标准的 `.github/workflows/deploy-pages.yml`，且不吞掉测试失败；补 Retrospective 和 Governor State 收口。该修复不改变游戏玩法、经济、UI、反馈渠道数量、telemetry、issue 回复预算或部署权限。
 
 ## Implementation Record
 

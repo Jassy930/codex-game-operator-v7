@@ -3,6 +3,7 @@ set -euo pipefail
 
 mkdir -p data/feedback
 OUT="data/feedback/github-feedback.md"
+required_labels=("feedback")
 
 {
   echo "# GitHub Feedback"
@@ -20,6 +21,24 @@ if ! gh auth status >/dev/null 2>&1; then
   echo "gh not authenticated." >> "$OUT"
   exit 0
 fi
+
+{
+  echo "## Required Labels"
+} >> "$OUT"
+
+label_names="$(gh label list --limit 200 2>/dev/null | awk '{print $1}' || true)"
+
+for label in "${required_labels[@]}"; do
+  if printf "%s\n" "$label_names" | grep -Fx "$label" >/dev/null 2>&1; then
+    echo "- $label: present" >> "$OUT"
+  else
+    echo "- $label: missing" >> "$OUT"
+    echo "Missing required GitHub label: $label" >> "$OUT"
+    exit 3
+  fi
+done
+
+echo >> "$OUT"
 
 {
   echo "## Open Issues"

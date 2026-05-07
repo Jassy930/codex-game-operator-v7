@@ -1,4 +1,12 @@
-import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFileSync, spawnSync } from "node:child_process";
@@ -65,6 +73,10 @@ describe("ops scripts", () => {
 if [ "$1 $2" = "auth status" ]; then
   exit 0
 fi
+if [ "$1 $2" = "label list" ]; then
+  printf 'feedback\\tPlayer feedback\\t#0e8a16\\n'
+  exit 0
+fi
 if [ "$1 $2 $3" = "issue list --state" ]; then
   if echo "$*" | grep -q -- "--json"; then
     printf '[{"number":1}]\\n'
@@ -100,6 +112,69 @@ exit 1
     expect(output).toContain("我不知道为何要采集");
     expect(output).toContain("采集反馈不明显");
     expect(output).toContain("Ledger Draft");
+  });
+
+  it("fails feedback collection when the required feedback label is missing", () => {
+    const workspace = createCollectorWorkspace();
+    const binDir = join(workspace, "bin");
+    mkdirSync(binDir);
+    writeFileSync(
+      join(binDir, "gh"),
+      `#!/usr/bin/env sh
+if [ "$1 $2" = "auth status" ]; then
+  exit 0
+fi
+if [ "$1 $2" = "label list" ]; then
+  printf 'bug\\tSomething is not working\\t#d73a4a\\n'
+  exit 0
+fi
+exit 1
+`,
+      { mode: 0o755 },
+    );
+
+    const result = spawnSync("bash", [join(workspace, "ops/collect-feedback.sh")], {
+      cwd: workspace,
+      env: {
+        ...process.env,
+        PATH: `${binDir}:${process.env.PATH ?? ""}`,
+      },
+      encoding: "utf8",
+    });
+
+    const output = readFileSync(join(workspace, "data/feedback/github-feedback.md"), "utf8");
+    rmSync(workspace, { recursive: true, force: true });
+
+    expect(result.status).not.toBe(0);
+    expect(output).toContain("Missing required GitHub label: feedback");
+  });
+
+  it("generates the current deploy-pages workflow without swallowing test failures", () => {
+    const workspace = mkdtempSync(join(tmpdir(), "pages-workflow-"));
+    mkdirSync(join(workspace, "ops"), { recursive: true });
+    cpSync(
+      join(process.cwd(), "ops/create-pages-workflow.sh"),
+      join(workspace, "ops/create-pages-workflow.sh"),
+    );
+
+    execFileSync("bash", [join(workspace, "ops/create-pages-workflow.sh")], {
+      cwd: workspace,
+    });
+
+    const workflow = readFileSync(
+      join(workspace, ".github/workflows/deploy-pages.yml"),
+      "utf8",
+    );
+    const hasLegacyWorkflow = existsSync(join(workspace, ".github/workflows/pages.yml"));
+    rmSync(workspace, { recursive: true, force: true });
+
+    expect(workflow).toContain("uses: actions/checkout@v6.0.2");
+    expect(workflow).toContain("uses: actions/upload-pages-artifact@v5.0.0");
+    expect(workflow).toContain("uses: actions/deploy-pages@v5.0.0");
+    expect(workflow).toContain("run: bun test");
+    expect(workflow).toContain("run: bun run test");
+    expect(workflow).not.toContain("bun test || true");
+    expect(hasLegacyWorkflow).toBe(false);
   });
 });
 

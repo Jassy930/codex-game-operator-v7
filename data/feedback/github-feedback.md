@@ -1,12 +1,17 @@
 # GitHub Feedback
 
-Generated at: Thu May  7 12:22:47 CST 2026
+Generated at: Thu May  7 17:39:39 CST 2026
+
+## Required Labels
+- feedback: present
 
 ## Open Issues
-2	OPEN	玩家反馈：星尘工坊		2026-05-07T04:22:28Z
-1	OPEN	玩家反馈：星尘工坊		2026-05-07T02:37:02Z
+2	OPEN	玩家反馈：星尘工坊	feedback	2026-05-07T09:39:29Z
+1	OPEN	玩家反馈：星尘工坊	feedback	2026-05-07T09:39:29Z
 
 ## Feedback Issues
+2	OPEN	玩家反馈：星尘工坊	feedback	2026-05-07T09:39:29Z
+1	OPEN	玩家反馈：星尘工坊	feedback	2026-05-07T09:39:29Z
 
 ## Bug Issues
 
@@ -23,7 +28,7 @@ url: https://github.com/Jassy930/codex-game-operator-v7/issues/2
 state: OPEN
 author: Jassy930
 createdAt: 2026-05-07T04:05:30Z
-updatedAt: 2026-05-07T04:22:28Z
+updatedAt: 2026-05-07T09:39:29Z
 
 body:
 ### 前 60 秒哪里不清楚？
@@ -63,7 +68,7 @@ url: https://github.com/Jassy930/codex-game-operator-v7/issues/1
 state: OPEN
 author: yazoolyy
 createdAt: 2026-05-07T00:04:55Z
-updatedAt: 2026-05-07T02:37:02Z
+updatedAt: 2026-05-07T09:39:29Z
 
 body:
 ### 前 60 秒哪里不清楚？
