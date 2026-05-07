@@ -193,3 +193,5 @@ SELF_PLAYTEST
 2026-05-07: 首次回访消费目标切片已由 commit `1b5bb6a` 推送到 `origin/main`。本地验证通过；`gh run list` 连接 `api.github.com` 失败，暂未验证 Pages workflow run。
 
 2026-05-07: 继续 SELF_PLAYTEST；首次回访后连续购买第 16 台自动采集器和第 10 次调校后，离线收益提示仍可见但当前星尘低于下一次升级成本。本轮只让同一阶段目标行在无法继续消费时切换为“离线收益已投入工坊，继续攒下一次升级”。
+
+2026-05-07: 回访后消费目标切片已由 commit `a8bfe73` 推送到 `origin/main`。本地验证通过；`gh run list` 连接 `api.github.com` 失败，`curl` 无法解析 `jassy930.github.io`，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
