@@ -48,7 +48,7 @@ describe("workshop stages", () => {
     expect(getWorkshopStage(10, 4)).toEqual({
       name: "星尘引擎室",
       description: "工坊已经形成第一条长期生产线。",
-      nextRequirement: "v0.2 阶段目标已达成：继续观察 15 分钟后的回访节奏",
+      nextRequirement: "长期目标：离开一会儿再回来，查看引擎室积累的离线星尘",
     });
   });
 });

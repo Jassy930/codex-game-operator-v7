@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-用户明确反馈当前玩法仍然干枯太少，并要求继续丰富游戏内容。工坊阶段、物件插图和最近升级进度已经让 3-15 分钟内容弧线更可见，但阶段跨越只静态出现在阶段行里，购买瞬间没有告诉玩家“工坊进入了新阶段”。当前最大问题是让阶段推进在购买时可感知，同时避免把“丰富”误解为第二资源、prestige、任务系统或新面板。
+用户明确反馈当前玩法仍然干枯太少，并要求继续丰富游戏内容。v0.2 已经完成工坊阶段、物件插图、最近升级进度、阶段完成反馈和延后解锁预告。当前最大问题转为 15-60 分钟 / 首次回访：达到 `星尘引擎室` 后，下一步文案仍像 operator 备注，不像玩家可执行的长期目标。
 
 ## Evidence
 
@@ -132,12 +132,15 @@
 - 工坊阶段已经显示阶段名、说明和下一阶段条件，但阶段变化只在静态阶段行里体现。
 - 购买第 3 台自动采集器会从 `火花工作台` 进入 `星尘小间`；这正是 3-15 分钟内容弧线里的阶段完成时刻。
 - 现有 purchase message 区域已经用于非打断式购买反馈，可以复用来显示阶段完成，不需要新增面板、资源、按钮、存档字段或指标字段。
+- `docs/CONTENT_ARC.md` 已把 15-60 分钟和首次回访列为后续时间窗。
+- `星尘引擎室` 的旧后续文案是“v0.2 阶段目标已达成：继续观察 15 分钟后的回访节奏”，这更适合文档，不适合玩家界面。
+- 游戏已有离线收益提示，因此 `星尘引擎室` 后的最小玩家目标可以指向首次回访，而不需要新增系统。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-operate-stage-completion-feedback`
+Decision Anchor: `DECISION:2026-05-07-self-playtest-engine-room-return-goal`
 
-实现 v0.2 的下一个内容小切片：当一次购买让 `getWorkshopStage` 的阶段名发生变化时，复用现有事件反馈区显示“工坊升级：阶段名 · 阶段说明”。该切片只使用现有状态和现有主屏结构，不新增资源、按钮、面板、升级类型、任务系统、prestige、存档字段、指标字段或反馈渠道。
+实现 v0.2 的 15-60 分钟 / 首次回访小切片：将 `星尘引擎室` 达成后的 `nextRequirement` 改为玩家可执行的回访目标，提示离开一会儿再回来查看引擎室积累的离线星尘。该切片只复用现有阶段行和离线收益机制，不新增资源、按钮、面板、升级类型、任务系统、prestige、存档字段、指标字段或反馈渠道。
 
 ## Implementation Record
 
@@ -652,6 +655,14 @@ Decision Anchor: `DECISION:2026-05-07-operate-stage-completion-feedback`
 - Decision: 将现有 `nextRequirement` 文案扩展为条件 + 下一阶段名称，例如“拥有 3 台自动采集器，开启星尘小间”。
 - v0.2 budget use: 使用 `Delayed unlock copy`，复用现有阶段行，不使用第 4 种升级类型。
 - v0.1 guardrail: 不新增资源、按钮、面板、存档字段、指标字段、反馈渠道或 issue 回复；前 60 秒只是多一个短阶段名预告。
+
+2026-05-07 SELF_PLAYTEST engine room return goal:
+
+- Decision Anchor: `DECISION:2026-05-07-self-playtest-engine-room-return-goal`
+- Gap: `星尘引擎室` 达成后的旧文案是 operator 观察备注，不能作为玩家的 15-60 分钟 / 首次回访目标。
+- Decision: 将最终阶段后续目标改为“长期目标：离开一会儿再回来，查看引擎室积累的离线星尘”。
+- v0.2 budget use: 使用 `Delayed unlock copy` 和首次回访内容弧线，复用现有阶段行，不使用第 4 种升级类型。
+- v0.1 guardrail: 前 60 秒目标、购买进度、阶段预告和事件反馈保持不变；不新增资源、按钮、面板、存档字段、指标字段、反馈渠道或 issue 回复。
 
 ## Input Source
 
