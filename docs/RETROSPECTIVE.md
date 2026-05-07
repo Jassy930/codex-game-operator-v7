@@ -324,6 +324,7 @@ Update this file when either is true:
 
 - `governor-check` 开始验证 ledger、cluster、decision 锚点和 release evidence。
 - `collect-feedback` 开始抓取 issue 正文、评论，并生成 ledger draft。
+- 修正 `collect-feedback` 真实输出缺少 issue 原始正文的问题，改用显式 JSON/template。
 - `ISSUE_LEDGER.md` 增加 evidence format 规则。
 - 新增脚本测试覆盖缺失聚类、缺失 release evidence 和缺少 issue 正文/评论证据。
 
@@ -331,6 +332,7 @@ Update this file when either is true:
 
 - 反馈闭环不再只依赖代理记住流程，关键证据链可以被自动检查。
 - issue 路由输入更完整，后续聚类和决策能看到正文与评论上下文。
+- 反馈快照现在能同时保留玩家原始正文和后续回复，减少把回复误当原始信号的风险。
 - 已修复/已发布状态不能再使用模糊 `pending` 证据通过检查。
 
 ### What Got Worse
@@ -350,7 +352,7 @@ Update this file when either is true:
 ### Harness Lessons
 
 - 文档规则必须尽快转化为可执行检查，否则真实 issue 出现后容易漏掉证据链。
-- 反馈采集快照必须包含正文和评论；列表只能说明“存在 issue”，不能支撑路由判断。
+- 反馈采集快照必须用结构化字段包含正文和评论；依赖 CLI 默认渲染不够可靠。
 
 ### Next Operating Mode
 

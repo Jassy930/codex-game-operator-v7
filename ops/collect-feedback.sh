@@ -63,10 +63,17 @@ for issue_number in $issue_numbers; do
   {
     echo
     echo "### Issue #$issue_number"
-    gh issue view "$issue_number" --comments || true
+    gh issue view "$issue_number" \
+      --json number,title,body,comments,url,state,author,createdAt,updatedAt \
+      --template '{{printf "number: #%v\n" .number}}{{printf "title: %s\n" .title}}{{printf "url: %s\n" .url}}{{printf "state: %s\n" .state}}{{printf "author: %s\n" .author.login}}{{printf "createdAt: %s\n" .createdAt}}{{printf "updatedAt: %s\n\n" .updatedAt}}body:
+{{.body}}
+
+comments:
+{{range .comments}}{{printf "- %s at %s:\n%s\n" .author.login .createdAt .body}}{{else}}none
+{{end}}' || true
     echo
     echo "#### Ledger Draft"
-    fingerprint="issue-$issue_number-$(gh issue view "$issue_number" --comments 2>/dev/null | cksum | awk '{print $1}')"
+    fingerprint="issue-$issue_number-$(gh issue view "$issue_number" --json title,body,comments 2>/dev/null | cksum | awk '{print $1}')"
     echo "| Issue | Fingerprint | Cluster | Class | Status | Last Reply | Linked Decision | Linked Commit/Release | Next Action |"
     echo "|---|---|---|---|---|---|---|---|---|"
     echo "| #$issue_number | $fingerprint | TODO | TODO | new | none | none | none | route through SIGNAL_ROUTING |"

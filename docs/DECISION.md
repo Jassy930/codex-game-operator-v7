@@ -73,6 +73,8 @@
 - 2026-05-07 review finding: `ops/collect-feedback.sh` 只抓 issue 列表，缺少 body、comments 和 ledger draft，无法支撑可审计路由。
 - 2026-05-07 review finding: `docs/ISSUE_LEDGER.md` 允许模糊 decision 和 commit/release 文本，后续 issue 回复可能绕过证据要求。
 - 新增脚本测试先证明以上缺口存在：缺聚类、缺 release evidence 和缺正文评论证据时，旧脚本不会失败。
+- 2026-05-07 follow-up: 真实运行 `ops/collect-feedback.sh` 后发现默认 `gh issue view --comments` 输出仍缺少 issue 原始正文，只包含评论渲染。
+- 显式 `gh issue view --json ... --template ...` 后，`data/feedback/github-feedback.md` 同时包含 Issue #1 的原始正文和回复评论。
 
 ## Current Decision
 
@@ -402,6 +404,12 @@ Decision Anchor: `DECISION:2026-05-07-meta-feedback-loop-automation`
 - Gap: feedback loop 的关键闸门主要停留在文档层，脚本不能自动识别缺失聚类、缺失 decision 锚点、缺失 release evidence 或缺少 issue 正文证据。
 - Decision: 为 ops 脚本添加回归测试，并收紧 `governor-check`、`collect-feedback` 和 ledger evidence format。
 - 约束：只加强反馈闭环检查，不改变游戏玩法、不新增反馈渠道、不回复 issue、不削弱 response budget。
+
+2026-05-07 META_IMPROVE collector JSON correction:
+
+- Gap: `collect-feedback` 使用 `gh issue view --comments` 默认输出时，真实快照没有 issue 原始正文。
+- Decision: 改用显式 `--json` 和 `--template` 输出 issue number/title/url/state/author/body/comments。
+- 约束：不新增反馈渠道、不上传 telemetry、不改变 issue 回复策略。
 
 ## Input Source
 

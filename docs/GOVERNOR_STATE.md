@@ -2,34 +2,37 @@
 
 ## Selected Mode
 
-OPERATE
+META_IMPROVE
 
 ## Reason
 
-Issue #1 已路由、实现、提交并部署。`docs/ISSUE_LEDGER.md` 已关联 `DECISION:2026-05-07-operate-collect-motivation` 和 commit `861ba0b`，Pages workflow `25472615361` 已成功。本轮回到 OPERATE，只执行一次有证据的发布回复。
+反馈采集快照发现 `ops/collect-feedback.sh` 仍未可靠记录 issue 原始正文，只记录了评论输出。这会削弱后续 issue routing 的证据链。本轮进入 META_IMPROVE，修正 collector 为显式 JSON/template 采集，并保留真实反馈快照。
 
 ## Allowed Actions
 
-- 按 `docs/RESPONSE_BUDGET.md` 对 Issue #1 回复一次。
-- 回复只引用已发布的最小改动、公开预览和 commit 证据。
-- 回复后更新 `docs/ISSUE_LEDGER.md` 和 `docs/GOVERNOR_STATE.md`。
+- 修正 `ops/collect-feedback.sh` 的 issue body/comments 采集。
+- 更新 ops 脚本测试，覆盖默认渲染缺失 body 的失败模式。
+- 运行 `ops/collect-feedback.sh` 生成可审计反馈快照。
+- 更新 `docs/DECISION.md`、`docs/HARNESS_CHANGELOG.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
 
 ## Forbidden Actions
 
-- 不再次修改玩法、经济、UI 或反馈渠道。
-- 不承诺复杂新系统、奖励系统、技能树或后续路线。
+- 不新增反馈渠道。
+- 不上传 telemetry，不新增 analytics SDK，不收集个人数据。
+- 不改变游戏玩法、经济或 UI。
 - 不重复回复 Issue #1。
-- 不绕过 response budget。
+- 不削弱 issue routing、response budget、复杂度预算或 review protocol。
 
 ## Exit Criteria
 
-- Issue #1 已收到一次有证据的发布回复。
-- `docs/ISSUE_LEDGER.md` 的 Last Reply 已更新。
+- `data/feedback/github-feedback.md` 同时包含 Issue #1 原始正文和回复评论。
+- ops 脚本测试覆盖 collector 的正文采集。
+- `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只完成 Issue #1 的一次性发布回复，不新增产品改动。
+未发现玩法漂移。本轮只修正反馈采集证据链，不改变游戏机制、UI、指标上传边界或 issue 回复策略。
 
 ## Last Updated
 
@@ -90,3 +93,5 @@ Issue #1 已路由、实现、提交并部署。`docs/ISSUE_LEDGER.md` 已关联
 2026-05-07: 切换回 OPERATE；release evidence 已齐备，准备按 response budget 对 Issue #1 回复一次。
 
 2026-05-07: 已按 response budget 回复 Issue #1 一次：`https://github.com/Jassy930/codex-game-operator-v7/issues/1#issuecomment-4393783244`。后续等待新信息，不重复回复。
+
+2026-05-07: 切换到 META_IMPROVE；修正 `collect-feedback` 真实输出缺少 issue 原始正文的问题。

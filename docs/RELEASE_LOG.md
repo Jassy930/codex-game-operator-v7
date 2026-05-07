@@ -41,3 +41,4 @@
 - 增加 local-only 最近 session 汇总指标，保留最近 10 个 session，用于本机回看。
 - 根据 Issue #1 增加采集动机文案和短暂采集反馈，说明星尘会转化为自动采集器和持续生产。
 - 收紧反馈闭环自动化检查：governor check 验证 issue 聚类、decision 锚点和 release evidence，反馈采集脚本记录 issue 正文、评论和 ledger draft。
+- 修正反馈采集脚本，显式记录 issue 原始正文和评论，避免只采集回复评论。

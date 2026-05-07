@@ -137,6 +137,38 @@ Use `METRICS_INFRA` only when local measurement directly supports self-playtest 
 
 后续若增加 issue 回复自动化，应先扩展 governor check，验证回复预算和最后回复记录，而不是直接调用 GitHub API 回复。
 
+## 2026-05-07 - Feedback Collector JSON Output
+
+### Files Changed
+
+- `ops/collect-feedback.sh`
+- `src/ops-scripts.test.ts`
+- `data/feedback/github-feedback.md`
+- `docs/DECISION.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `docs/RELEASE_LOG.md`
+
+### Failure Mode
+
+真实运行 `ops/collect-feedback.sh` 后，`gh issue view --comments` 的默认文本输出没有包含 issue 原始正文，只记录了评论。这会让后续路由只能看到回复，缺失玩家原始信号。
+
+### Evidence
+
+`data/feedback/github-feedback.md` 的快照一开始只包含 Issue #1 的回复评论，没有包含“我不知道为何要采集？”这段原始正文。
+
+### Change
+
+`collect-feedback` 改为显式使用 `gh issue view --json ... --template ...` 输出 issue 元数据、body 和 comments。脚本测试现在模拟默认渲染缺失 body 的情况，防止回归。
+
+### Why This Does Not Weaken Constraints
+
+该变更只加强 issue routing 的证据质量，不新增反馈渠道、不上传 telemetry、不收集个人数据，也不改变 response budget 或产品决策规则。
+
+### Follow-up
+
+继续把 `data/feedback/github-feedback.md` 当作原始反馈快照处理；真实产品决策仍必须经过 ledger、cluster 和 `DECISION.md`。
+
 ## Template
 
 ```md

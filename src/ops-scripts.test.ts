@@ -53,9 +53,13 @@ if [ "$1 $2 $3" = "issue list --state" ]; then
   exit 0
 fi
 if [ "$1 $2" = "issue view" ]; then
-  printf 'title: 玩家反馈：星尘工坊\\n'
-  printf 'body: 我不知道为何要采集。\\n'
-  printf 'comments: 采集反馈不明显。\\n'
+  if echo "$*" | grep -q -- "--json"; then
+    printf 'title: 玩家反馈：星尘工坊\\n'
+    printf 'body: 我不知道为何要采集。\\n'
+    printf 'comments: 采集反馈不明显。\\n'
+  else
+    printf 'comments: 采集反馈不明显。\\n'
+  fi
   exit 0
 fi
 exit 1
