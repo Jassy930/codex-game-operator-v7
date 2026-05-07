@@ -228,6 +228,25 @@ describe("App", () => {
     expect(html).toContain("调校刻印");
   });
 
+  it("makes the spent resonance node choice explicit", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 8.8,
+      nextAutoCollectorCost: 33253,
+      nextEfficiencyUpgradeCost: 28922,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+    });
+
+    expect(html).toContain("稳定回路");
+    expect(html).toContain("已启动 · 自动采集产出 +10%");
+    expect(html).toContain("本轮已选择其他节点 · 离线收益 +10%");
+    expect(html).toContain("本轮已选择其他节点 · 调校倍率 +0.05");
+  });
+
   it("formats the next goal from the current upgrade depth", () => {
     expect(formatGoalHint(0, 0)).toBe("目标：攒够星尘，购买第一个自动采集器");
     expect(formatGoalHint(2, 0)).toBe(

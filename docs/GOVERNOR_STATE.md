@@ -2,32 +2,32 @@
 
 ## Selected Mode
 
-OPERATE
+SELF_PLAYTEST
 
 ## Reason
 
-用户明确要求进入下一阶段，并指出只增加里程碑不足以形成更丰富的玩法。v0.3 预算已经完成版本化，本轮进入 OPERATE，按 `DECISION:2026-05-07-v03-resonance-system` 实现第二资源 `共鸣`、一个紧凑 `共鸣矩阵`、v2 存档迁移和 local-only 共鸣指标。
+v0.3 共鸣系统第一版已经发布。本轮按 roadmap 闸门进入 SELF_PLAYTEST，复核 `共鸣矩阵` 是否在前 60 秒外才出现、共鸣门槛是否清楚，以及首次领取共鸣后的三选一节点状态是否足够明确。
 
 ## Allowed Actions
 
-- 实现首个共鸣里程碑、共鸣资源、一个 `共鸣矩阵` 面板和三选一永久节点。
-- 实现 v1 到 v2 存档迁移，并补齐 local-only 共鸣指标。
+- 只读模拟前 60 秒、3-15 分钟、首次共鸣前后状态。
+- 若发现具体 gap，仅实施一个可测试的小切片，优先改善共鸣门槛、节点选择或本地指标可读性。
 - 更新相关测试和文档，保持 `docs/DECISION.md` 可追溯。
 - 运行完整本地验证：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
 - 不新增 prestige、任务系统、复杂地图、多生产线或第二个新面板。
+- 不新增第三或第四种常规升级类型，不扩大共鸣节点数量或数值系统。
 - 不新增反馈渠道、analytics SDK、上传 telemetry 或个人数据收集。
-- 不实现第三或第四种常规升级类型。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- v0.3 共鸣系统第一版可玩，并且前 60 秒不显示 `共鸣矩阵`。
-- v1 存档可迁移到 v2，v2 存档保留共鸣字段。
-- 共鸣获得、节点解锁和首次共鸣时间只记录在 localStorage。
+- 前 60 秒仍不显示 `共鸣矩阵`。
+- 共鸣门槛和首次共鸣后的节点选择状态已复核。
+- 若存在具体 gap，已用最小切片和测试覆盖；若没有，记录 no-change。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
@@ -202,3 +202,5 @@ OPERATE
 2026-05-07: 切换到 META_IMPROVE；用户明确要求不要只增加里程碑，而是进入更丰富玩法阶段。本轮新增 v0.3 Resonance Version Budget，并将共鸣系统设计为第二资源 + 一个紧凑共鸣矩阵 + v2 存档 + local-only 指标的受限扩展。
 
 2026-05-07: 切换到 OPERATE；触发信号来自用户明确要求进入更丰富玩法阶段，而不是 GitHub Issue。v0.3 共鸣系统第一版已实现为受控扩展：第二资源 `共鸣`、一个 `共鸣矩阵` 面板、v2 存档、首个共鸣里程碑、三选一永久节点和 local-only 共鸣指标。仍禁止 prestige、任务系统、多生产线、多个新面板、外部 analytics 和 telemetry 上传。无需回复 Issue #1/#2。
+
+2026-05-07: 切换到 SELF_PLAYTEST；复核 v0.3 共鸣系统第一版。发现首次节点选择后已选/未选节点状态不够明确，本轮只改同一节点描述文案为“已启动”或“本轮已选择其他节点”，不改数值、资源、存档、指标或面板数量。

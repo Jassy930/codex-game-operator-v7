@@ -355,6 +355,8 @@ export function App() {
             <div className="resonance-nodes">
               {RESONANCE_NODES.map((node) => {
                 const isUnlocked = state.unlockedResonanceNodes.includes(node.id);
+                const hasUsedResonanceChoice =
+                  state.unlockedResonanceNodes.length >= 1;
                 return (
                   <button
                     className="resonance-node"
@@ -367,7 +369,13 @@ export function App() {
                     onClick={() => handleUnlockResonanceNodeClick(node.id)}
                   >
                     <span>{node.name}</span>
-                    <small>{node.description}</small>
+                    <small>
+                      {formatResonanceNodeDescription(
+                        node.description,
+                        isUnlocked,
+                        hasUsedResonanceChoice,
+                      )}
+                    </small>
                   </button>
                 );
               })}
@@ -413,6 +421,22 @@ const RESONANCE_NODES: Array<{
 
 function formatResonanceNodeName(nodeId: ResonanceNodeId): string {
   return RESONANCE_NODES.find((node) => node.id === nodeId)?.name ?? nodeId;
+}
+
+function formatResonanceNodeDescription(
+  description: string,
+  isUnlocked: boolean,
+  hasUsedResonanceChoice: boolean,
+): string {
+  if (isUnlocked) {
+    return `已启动 · ${description}`;
+  }
+
+  if (hasUsedResonanceChoice) {
+    return `本轮已选择其他节点 · ${description}`;
+  }
+
+  return description;
 }
 
 function loadGame(): HydratedGameState {
