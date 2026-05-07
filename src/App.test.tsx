@@ -279,6 +279,25 @@ describe("App", () => {
     expect(html).toContain("本轮已选择其他节点 · 调校倍率 +0.05");
   });
 
+  it("points the stage goal at the selected resonance node value", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 9.68,
+      nextAutoCollectorCost: 33253,
+      nextEfficiencyUpgradeCost: 28922,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+    });
+
+    expect(html).toContain(
+      "共鸣目标：稳定回路已启动，继续扩建自动采集器放大产出",
+    );
+    expect(html).not.toContain("长期目标：离开一会儿再回来");
+  });
+
   it("formats the next goal from the current upgrade depth", () => {
     expect(formatGoalHint(0, 0)).toBe("目标：攒够星尘，购买第一个自动采集器");
     expect(formatGoalHint(2, 0)).toBe(

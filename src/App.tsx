@@ -95,6 +95,7 @@ export function App() {
     showOfflineDust,
     canBuyAutoCollector || canBuyEfficiencyUpgrade,
     resonanceProgress.canClaim,
+    state.unlockedResonanceNodes,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -514,6 +515,7 @@ export function formatWorkshopStageNextRequirement(
   hasVisibleOfflineReward: boolean,
   canSpendVisibleOfflineReward: boolean,
   canClaimResonance = false,
+  unlockedResonanceNodes: string[] = [],
 ): string {
   if (canClaimResonance && workshopStage.name === "星尘引擎室") {
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
@@ -527,7 +529,32 @@ export function formatWorkshopStageNextRequirement(
     return "回访目标：花掉离线星尘，继续扩建或调校引擎室";
   }
 
+  const selectedResonanceGoal = formatSelectedResonanceGoal(
+    unlockedResonanceNodes,
+  );
+  if (selectedResonanceGoal && workshopStage.name === "星尘引擎室") {
+    return selectedResonanceGoal;
+  }
+
   return workshopStage.nextRequirement;
+}
+
+function formatSelectedResonanceGoal(unlockedResonanceNodes: string[]): string {
+  const selectedNode = unlockedResonanceNodes[0];
+
+  if (selectedNode === "stable-circuit") {
+    return "共鸣目标：稳定回路已启动，继续扩建自动采集器放大产出";
+  }
+
+  if (selectedNode === "return-coil") {
+    return "共鸣目标：回访线圈已启动，离开一会儿再查看离线收益";
+  }
+
+  if (selectedNode === "tuning-engraving") {
+    return "共鸣目标：调校刻印已启动，继续调校放大引擎效率";
+  }
+
+  return "";
 }
 
 export type NextUpgradeTarget = {
