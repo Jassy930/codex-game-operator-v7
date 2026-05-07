@@ -2,17 +2,17 @@
 
 ## Selected Mode
 
-METRICS_INFRA
+RESEARCH
 
 ## Reason
 
-离线收益显示阈值修复后，`docs/METRICS.md` 仍未说明 `offline_reward_claimed` 只在离线收益达到可展示阈值时记录。需要同步指标语义，避免后续 self-playtest 误读本地指标。
+当前没有新的玩家补充，60-300 秒 self-playtest 未发现足够具体的玩法 gap。为避免“无信号加系统”，本轮只研究下一步内容方向，判断第三种升级、解锁目标或回访优化是否应进入候选。
 
 ## Allowed Actions
 
-- 更新 `docs/METRICS.md` 的离线收益指标语义。
-- 保持 metrics local-only。
-- 不改变指标字段、代码或上传边界。
+- 调研 idle/incremental 后续内容与升级节奏。
+- 更新 `docs/RESEARCH.md` 和 `docs/DECISION.md`。
+- 形成一个不直接实现的内容方向判断。
 - 运行治理检查和低成本验证。
 
 ## Forbidden Actions
@@ -20,20 +20,21 @@ METRICS_INFRA
 - 不新增第三种升级、第二资源、任务系统、prestige、复杂 lore 或新面板。
 - 不新增反馈渠道、图片资产、analytics SDK、上传 telemetry 或个人数据收集。
 - 不改变游戏代码、经济、UI、指标字段或 localStorage key。
+- 不把 research 直接当实现授权。
 - 不重复回复 Issue #1 或 Issue #2。
 - 不重复回复 Issue #1 或 Issue #2，除非玩家提供新的实质信息。
 
 ## Exit Criteria
 
-- `docs/METRICS.md` 明确 `offline_reward_claimed` 的展示阈值语义。
-- 文档继续说明指标 local-only、无上传、无个人数据。
+- `docs/RESEARCH.md` 记录当前下一步内容方向。
+- `docs/DECISION.md` 明确是否行动、延后或拒绝。
 - governor check 和 diff check 通过。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只同步 metrics 文档，不新增系统、不改变经济、不扩张 UI。
+未发现玩法漂移。本轮只做 research，不新增系统、不改变经济、不扩张 UI。
 
 ## Last Updated
 
@@ -144,3 +145,5 @@ METRICS_INFRA
 2026-05-07: 继续 SELF_PLAYTEST；60-300 秒模拟显示自动采集器/调校事件持续出现，300 秒时距离下一升级约 47 秒。本轮 no-change，不新增第三种升级。
 
 2026-05-07: 切换到 METRICS_INFRA；同步 `offline_reward_claimed` 文档语义，明确低于 `0.1` 星尘的离线收益不会展示，也不会记录为已展示。
+
+2026-05-07: 切换到 RESEARCH；研究 300 秒后下一步内容方向。结论限定为候选方向，不直接实现第三种升级、第二资源、prestige 或新面板。

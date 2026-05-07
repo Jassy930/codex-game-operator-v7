@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-离线收益显示阈值已经发布，但 metrics 文档没有明确 `offline_reward_claimed` 的阈值语义。后续 operator 可能误读该指标，以为所有正向离线收益都会被记录。
+当前没有新的玩家补充，60-300 秒 self-playtest 未发现停滞。下一步内容方向仍不清楚；需要避免把“持续运营”误解为无信号加第三种升级。
 
 ## Evidence
 
@@ -107,12 +107,14 @@
 - 第 300 秒状态为 7 台自动采集器、调校等级 4、每秒 +1.96 星尘，距离下一次升级约 47 秒。
 - `src/App.tsx` 只在 `offlineDust >= 0.1` 时展示离线收益并调用 `recordOfflineRewardClaimed`。
 - `docs/METRICS.md` 尚未说明 `offline_reward_claimed` 的 `0.1` 星尘展示阈值。
+- 2026-05-07 research 显示，idle/incremental 后续内容应逐步引入优化挑战和长期目标，但当前本地 300 秒模拟没有显示明显停滞。
+- `docs/COMPLEXITY_BUDGET.md` 仍将 upgrade types 限制为最多 3，且禁止第二资源和新面板。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-metrics-offline-threshold-doc`
+Decision Anchor: `DECISION:2026-05-07-research-post-300s-content`
 
-同步 `docs/METRICS.md`，明确 `offline_reward_claimed` 只在离线收益达到 `0.1` 星尘展示阈值并实际展示时记录。本轮不改代码、不新增指标字段、不改变 localStorage key、不上传数据。
+当前不实现第三种升级、第二资源、新面板或 prestige。后续若出现 post-300s 停滞、local-only metrics 可解释问题或新的玩家反馈，再优先研究一个复用现有主屏的 milestone unlock preview，而不是直接扩张系统。
 
 ## Implementation Record
 
@@ -550,15 +552,23 @@ Decision Anchor: `DECISION:2026-05-07-metrics-offline-threshold-doc`
 - Decision: 更新 `docs/METRICS.md`，说明低于 `0.1` 星尘的离线收益不会展示，也不会记录为已展示。
 - 约束：不改代码、不新增指标字段、不新增上传路径、不改变 localStorage key、不回复 issue。
 
+2026-05-07 RESEARCH post-300s content:
+
+- Decision Anchor: `DECISION:2026-05-07-research-post-300s-content`
+- Question: 60-300 秒仍有稳定升级事件后，是否应该开始设计下一项玩法内容。
+- Decision: 当前不实现第三种升级或新系统；只保留 future candidate：若后续出现明确 post-300s 停滞或新反馈，优先研究复用现有主屏的 milestone unlock preview。
+- 约束：不新增资源、面板、prestige、任务系统、成就系统、图片资产、反馈渠道或 telemetry 上传。
+
 ## Input Source
 
-Metrics documentation sync.
+Research question.
 
 ## Linked Signals
 
 - `docs/COMPLEXITY_BUDGET.md`
-- `docs/METRICS.md`
-- `src/App.tsx`
+- `docs/RESEARCH.md`
+- `docs/COMPLEXITY_BUDGET.md`
+- `src/game.ts`
 
 ## Not Doing
 

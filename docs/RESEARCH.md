@@ -2,7 +2,45 @@
 
 ## Current Research
 
-2026-05-07 - Issue #2 后的 60 秒后参与度切片。
+2026-05-07 - 300 秒后下一步内容方向。
+
+## 2026-05-07 - 300 秒后下一步内容方向
+
+### Question
+
+Issue #2 已通过目标提示切片处理，60-300 秒模拟也显示升级事件仍然稳定出现。下一步内容应继续等待反馈，还是开始设计第三种升级、解锁目标或回访优化？
+
+### Sources / Observations
+
+- 本地 300 秒模拟显示升级事件出现在第 10、23、39、55、76、100、126、160、194、238、290 秒；第 300 秒距离下一次升级约 47 秒，暂未出现明显停滞。
+- CHI 2018《Playing to Wait》将 incremental games 描述为玩家选择资源生成、等待资源积累、再花费资源自动化生产；它强调等待是玩法的一部分，玩家的选择会随时间展开。
+- Incremental game 类型资料强调资源积累、重复动作、自动化和逐步升级是核心，玩家在昂贵升级与快速替换之间追逐增长感。
+- 近期 idle 设计资料强调早期应打好基础、逐步引入新系统，并让长期目标逐渐展开；如果 pacing 错误，玩家会逐渐流失，而不是立刻报告明确错误。
+- 设计实践资料建议早期优先基础 generator、multiplier、unlock gate、efficiency 和 quality-of-life，但这不等于应在没有信号时一次性加入多层系统。
+
+Sources:
+
+- https://par.nsf.gov/servlets/purl/10061230
+- https://en.wikipedia.org/wiki/Incremental_game
+- https://www.capermint.com/blog/idle-game-development/
+- https://gridinc.co.za/blog/idle-games-best-practices
+
+### General Principles
+
+- 当前仍应保持单资源、现有主屏和最多 2 种已实现升级。
+- 第三种升级只有在出现明确 post-300s 停滞、真实反馈或 local-only metrics 证据时才进入实现。
+- 如果未来需要新内容，优先考虑“解锁预告 / milestone gate / 回访后选择”，而不是第二资源、prestige、任务系统或复杂 lore。
+- 新内容应让玩家更会判断下一步，而不是制造更多按钮。
+
+### Decision Impact
+
+当前不实现第三种升级或新系统。下一步候选只保留为 research-backed direction：如果后续出现 post-300s 停滞或玩家再次反馈“内容少”，优先研究一个复用现有主屏的 milestone unlock preview，让玩家看到 10 台自动采集器或若干调校后的下一个目标；仍不新增资源、面板或 prestige。
+
+### What Not To Copy
+
+- 不复制长期运营游戏的多资源、prestige、任务系统、成就系统或多面板结构。
+- 不把“逐步引入新系统”理解成当前马上加第三种升级。
+- 不用新内容掩盖没有真实证据的 pacing 判断。
 
 ## 2026-05-07 - Issue #2 后的 60 秒后参与度切片
 
