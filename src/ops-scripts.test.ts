@@ -2,7 +2,8 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } f
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFileSync, spawnSync } from "node:child_process";
-import styles from "./styles.css?raw";
+
+const styles = readFileSync(new URL("./styles.css", import.meta.url), "utf8");
 
 describe("ops scripts", () => {
   it("fails governor check when an accepted issue is not clustered", () => {
