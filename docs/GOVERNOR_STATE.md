@@ -2,39 +2,38 @@
 
 ## Selected Mode
 
-OPERATE
+META_IMPROVE
 
 ## Reason
 
-GitHub Issue #1 是第一条真实玩家反馈。反馈集中在前 60 秒采集动机不清楚：“不知道为何要采集、采集能带来什么、如何提高兴奋点”。本轮进入 OPERATE，先路由该 issue，再实施一个符合 North Star 的最小改动。
+代码评审指出反馈闭环的自动化执行力不足：governor check 不能验证 ledger、cluster、decision 和 release evidence；反馈采集脚本缺少 issue body/comments；ledger 允许模糊证据。本轮进入 META_IMPROVE，只加强 harness 检查和证据采集，不改变产品方向。
 
 ## Allowed Actions
 
-- 读取和路由 Issue #1。
-- 更新 `docs/ISSUE_LEDGER.md` 和 `docs/FEEDBACK_CLUSTERS.md`。
-- 更新 `docs/DECISION.md`，把 issue 变成受约束的产品决策。
-- 实施一个最小 UI/copy 变更，强化采集动机和即时反馈。
-- 在 response budget 允许时，对 #1 做一次有证据的简短回复。
+- 为 ops 脚本添加回归测试。
+- 收紧 `ops/governor-check.sh` 的 ledger、cluster、decision、release evidence 检查。
+- 更新 `ops/collect-feedback.sh`，采集 issue body/comments 并生成 ledger draft。
+- 更新 `docs/ISSUE_LEDGER.md` 的 evidence format 规则。
+- 更新 `docs/DECISION.md`、`docs/HARNESS_CHANGELOG.md`、`docs/RELEASE_LOG.md` 和 retrospective。
 
 ## Forbidden Actions
 
-- 不把 #1 直接当成完整产品路线。
-- 不新增资源、奖励系统、prestige、技能树、复杂 lore 或新面板。
-- 不上传 telemetry，不新增 analytics SDK，不收集个人数据。
-- 不重复回复 #1。
-- 不改变 `ROADMAP.md` 来迎合单个 issue。
+- 不削弱 issue routing。
+- 不削弱 response budget。
+- 不降低测试、构建或发布门槛。
+- 不新增反馈渠道、上传 telemetry、analytics SDK 或个人数据收集。
+- 不改变游戏玩法、经济或 UI。
+- 不回复 issue。
 
 ## Exit Criteria
 
-- Issue #1 已在 ledger 和反馈聚类中记录。
-- `docs/DECISION.md` 记录本轮行动与约束。
-- 最小变更有测试覆盖。
+- 脚本测试覆盖缺失聚类、缺失 release evidence 和缺少 issue 正文/评论证据。
 - `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只处理 Issue #1 指向的首分钟动机缺口，限定为现有 UI/copy 和即时反馈增强。
+未发现玩法漂移。本轮只加强反馈闭环 harness 自动化，不改变游戏机制、UI、指标上传边界或 issue 回复策略。
 
 ## Last Updated
 
@@ -84,4 +83,10 @@ GitHub Issue #1 是第一条真实玩家反馈。反馈集中在前 60 秒采集
 
 2026-05-07: 切换到 OPERATE；Issue #1 提供第一条真实玩家反馈，问题集中在前 60 秒采集动机和即时兴奋点不足。
 
+2026-05-07: 切换到 META_IMPROVE；根据代码评审收紧反馈闭环自动化检查和 issue 证据采集。
+
 2026-05-07: OPERATE 最小改动已通过本地验证；新增采集动机文案和短暂采集反馈，等待提交、推送和 issue 回复。
+
+2026-05-07: commit `861ba0b` 已推送；Pages workflow `25472615361` 成功，公开预览 HTTP 200。Issue #1 ledger 标记为 released，下一步只做一次有证据回复。
+
+2026-05-07: 顺带收紧 issue 证据自动化检查；governor check 现在验证 issue ledger 的聚类、决策锚点和 commit/release 证据。

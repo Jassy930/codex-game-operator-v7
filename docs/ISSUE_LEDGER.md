@@ -4,7 +4,7 @@
 
 | Issue | Fingerprint | Cluster | Class | Status | Last Reply | Linked Decision | Linked Commit/Release | Next Action |
 |---|---|---|---|---|---|---|---|---|
-| #1 | collect-motivation-first-60s | first-60s-motivation | ACTIONABLE | fixed-awaiting-release | none | 2026-05-07 OPERATE collect motivation | pending | 验证通过并提交后回复一次 |
+| #1 | collect-motivation-first-60s | first-60s-motivation | ACTIONABLE | released | none | DECISION:2026-05-07-operate-collect-motivation | 861ba0b | 回复一次后等待新信息 |
 
 ## Status Values
 
@@ -21,3 +21,10 @@
 ## Rule
 
 如果 issue 不在本 ledger 中，不要实现它；除最多一次简短澄清外，不要回复它。
+
+## Evidence Format Rule
+
+- `Linked Decision` 必须使用 `DECISION:YYYY-MM-DD-slug`，且同一锚点必须出现在 `docs/DECISION.md`。
+- `fixed-awaiting-release` 和 `released` 必须提供具体 `Linked Commit/Release`：短/长 commit hash，或 `RELEASE_LOG:Unreleased` / `RELEASE_LOG:版本号`。
+- 已回复的 issue 不能使用 `none`、`pending`、`pending-release` 或 `pending-commit` 作为 commit/release 证据。
+- `fixed-awaiting-release` 或 `released` 的 issue 必须能在 `docs/RELEASE_LOG.md` 找到对应 issue 记录。

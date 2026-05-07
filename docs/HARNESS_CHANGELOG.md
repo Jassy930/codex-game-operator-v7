@@ -104,6 +104,39 @@ The mode forbids uploads, personal data, external analytics SDKs, new gameplay m
 
 Use `METRICS_INFRA` only when local measurement directly supports self-playtest or roadmap decisions.
 
+## 2026-05-07 - Feedback Loop Automation Checks
+
+### Files Changed
+
+- `ops/governor-check.sh`
+- `ops/collect-feedback.sh`
+- `src/ops-scripts.test.ts`
+- `docs/ISSUE_LEDGER.md`
+- `docs/DECISION.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `docs/RELEASE_LOG.md`
+
+### Failure Mode
+
+反馈闭环规则主要停留在文档层。脚本只检查文件存在，不能阻止 accepted/fixed issue 缺少聚类、decision 锚点或 release evidence；反馈采集也只保留 issue 列表，缺少 body/comments 证据。
+
+### Evidence
+
+代码评审指出三处缺口：governor check 未验证反馈闭环，collector 缺少可路由证据，ledger 允许模糊链接。新增 `src/ops-scripts.test.ts` 先复现这些失败模式。
+
+### Change
+
+`governor-check` 现在验证 issue ledger 中已接受/已修复条目的 cluster、decision anchor、release evidence 和 release log 关联。`collect-feedback` 现在抓取 issue body/comments，并输出 ledger draft。`ISSUE_LEDGER.md` 增加 evidence format 规则。
+
+### Why This Does Not Weaken Constraints
+
+该变更只加强 issue routing、response budget 和 release evidence 的自动化检查，不放宽复杂度预算、review protocol、测试要求或部署要求。
+
+### Follow-up
+
+后续若增加 issue 回复自动化，应先扩展 governor check，验证回复预算和最后回复记录，而不是直接调用 GitHub API 回复。
+
 ## Template
 
 ```md

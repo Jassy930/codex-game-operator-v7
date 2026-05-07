@@ -314,6 +314,48 @@ Update this file when either is true:
 
 若仍没有真实反馈，下一轮优先 `SELF_PLAYTEST` 或 `RESEARCH`，避免继续只做低优先级文档语言收口；若出现 issue，进入 `OPERATE` 并先更新 `ISSUE_LEDGER.md`。
 
+## 2026-05-07 Retrospective 8
+
+### Window
+
+从首条真实 issue 路由开始，到代码评审指出反馈闭环自动化不足并完成 harness 收紧。
+
+### What Changed
+
+- `governor-check` 开始验证 ledger、cluster、decision 锚点和 release evidence。
+- `collect-feedback` 开始抓取 issue 正文、评论，并生成 ledger draft。
+- `ISSUE_LEDGER.md` 增加 evidence format 规则。
+- 新增脚本测试覆盖缺失聚类、缺失 release evidence 和缺少 issue 正文/评论证据。
+
+### What Improved
+
+- 反馈闭环不再只依赖代理记住流程，关键证据链可以被自动检查。
+- issue 路由输入更完整，后续聚类和决策能看到正文与评论上下文。
+- 已修复/已发布状态不能再使用模糊 `pending` 证据通过检查。
+
+### What Got Worse
+
+- harness 检查脚本更复杂，后续维护时需要同步更新测试。
+- 当前工作区同时包含 Issue #1 产品改动和本轮 harness 改动，提交前需要整理变更边界。
+
+### Drift Check
+
+- repeated issue replies: 无，本轮未回复 issue。
+- issue-driven thrashing: 无，harness 改动来自代码评审，不扩大 #1 产品范围。
+- feature bloat: 无，没有改变玩法、经济、资源或 UI。
+- lack of tests: 已改善，新增 ops 脚本回归测试。
+- unclear North Star: 无，反馈闭环自动化是为了更可靠地吸收真实玩家反馈。
+- harness friction: 发现并收紧，未削弱治理约束。
+
+### Harness Lessons
+
+- 文档规则必须尽快转化为可执行检查，否则真实 issue 出现后容易漏掉证据链。
+- 反馈采集快照必须包含正文和评论；列表只能说明“存在 issue”，不能支撑路由判断。
+
+### Next Operating Mode
+
+本轮 META_IMPROVE 完成后，若继续处理 Issue #1，应回到 `OPERATE` 并在验证、提交和发布证据存在后再回复。
+
 ## Template
 
 ```md
