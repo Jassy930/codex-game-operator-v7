@@ -3,6 +3,7 @@ import {
   App,
   formatAutoCollectorPurchaseMessage,
   formatCollectFeedbackMessage,
+  formatPurchaseFeedbackMessage,
   formatGoalHint,
   getNextUpgradeTarget,
   shouldShowOfflineDust,
@@ -190,6 +191,56 @@ describe("App", () => {
     expect(formatAutoCollectorPurchaseMessage(0.2)).toBe(
       "自动采集器启动：每秒星尘 +0.2",
     );
+  });
+
+  it("surfaces a workshop stage completion when a purchase crosses a stage boundary", () => {
+    const before = {
+      ...createGameState(0),
+      dust: 34,
+      autoCollectors: 2,
+      dustPerSecond: 0.4,
+      nextAutoCollectorCost: 34,
+    };
+    const after = {
+      ...before,
+      dust: 0,
+      autoCollectors: 3,
+      dustPerSecond: 0.6,
+      nextAutoCollectorCost: 51,
+    };
+
+    expect(
+      formatPurchaseFeedbackMessage(
+        before,
+        after,
+        formatAutoCollectorPurchaseMessage(after.dustPerSecond),
+      ),
+    ).toBe("工坊升级：星尘小间 · 自动采集器已经成组工作，下一步是调校效率。");
+  });
+
+  it("keeps the regular purchase confirmation when the workshop stage is unchanged", () => {
+    const before = {
+      ...createGameState(0),
+      dust: 15,
+      autoCollectors: 1,
+      dustPerSecond: 0.2,
+      nextAutoCollectorCost: 15,
+    };
+    const after = {
+      ...before,
+      dust: 0,
+      autoCollectors: 2,
+      dustPerSecond: 0.4,
+      nextAutoCollectorCost: 23,
+    };
+
+    expect(
+      formatPurchaseFeedbackMessage(
+        before,
+        after,
+        formatAutoCollectorPurchaseMessage(after.dustPerSecond),
+      ),
+    ).toBe("自动采集器启动：每秒星尘 +0.4");
   });
 
   it("formats a lightweight collect feedback message", () => {

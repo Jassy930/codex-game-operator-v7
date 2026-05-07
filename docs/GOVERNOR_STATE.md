@@ -6,36 +6,36 @@ OPERATE
 
 ## Reason
 
-用户明确反馈“现在玩法还是太干枯太少了，丰富一下游戏内容”，并确认继续进入 v0.2 / 3-15 分钟版本。工坊阶段和物件插图已经落地后，新的 3-15 分钟 gap 是目标提示说“扩建或调校”，但进度条仍只指向下一台自动采集器。本轮继续 OPERATE，实施一个受 v0.2 预算约束的小切片：定义内容弧线，并让主屏进度自动指向当前最近的升级目标。
+用户反馈仍指向 `post-60s-engagement`：玩法内容偏少、60 秒后缺少持续目标。上一轮已定义内容弧线并让进度条指向最近升级目标；当前 3-15 分钟 gap 是工坊阶段已经会显示，但阶段跨越只静态出现在阶段行里，购买瞬间缺少完成反馈。本轮继续 OPERATE，实施一个受 v0.2 预算约束的小切片：当购买动作让工坊进入新阶段时，复用现有事件反馈区提示阶段完成。
 
 ## Allowed Actions
 
-- 定义 `docs/CONTENT_ARC.md`，覆盖 0-60 分钟、3-15 分钟、15-60 分钟和首次回访目标。
-- 使用现有 `autoCollectors`、`nextAutoCollectorCost` 和 `nextEfficiencyUpgradeCost` 推导最近升级目标。
-- 将现有进度条从固定自动采集器目标改为“下一升级进度”。
+- 使用现有 `getWorkshopStage(autoCollectors, autoCollectorEfficiencyLevel)` 判断购买前后是否跨阶段。
+- 复用现有 purchase message 区域展示阶段完成反馈。
+- 保持自动采集器、调校工具、阶段行和进度条的既有结构。
 - 更新 `docs/DECISION.md`、`docs/SELF_PLAYTEST.md`、`docs/RELEASE_LOG.md` 和 `docs/ROADMAP.md`。
 - 运行 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
 - 不新增第二资源、prestige、任务系统、复杂地图或新面板。
-- 不新增反馈渠道、analytics SDK、上传 telemetry 或个人数据收集。
-- 不新增第三或第四种升级类型；本轮只做内容弧线和最近升级进度。
+- 不新增反馈渠道、analytics SDK、上传 telemetry、存档字段或个人数据收集。
+- 不新增第三或第四种升级类型；本轮只做阶段完成反馈。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- `docs/CONTENT_ARC.md` 定义 0-60 分钟到首次回访的内容弧线。
-- `docs/DECISION.md` 说明本轮使用 v0.2 预算且不破坏 v0.1 回归护栏。
-- UI 展示“下一升级进度”，并在自动采集器和调校工具中选择当前最近目标。
-- `docs/SELF_PLAYTEST.md` 记录 3-15 分钟最近升级进度检查。
+- `docs/DECISION.md` 说明本轮使用 v0.2 的阶段里程碑预算且不破坏 v0.1 回归护栏。
+- 购买自动采集器或调校工具导致工坊阶段变化时，事件区显示阶段完成反馈。
+- 未跨阶段的购买仍显示原有自动采集器或调校工具反馈。
+- `docs/SELF_PLAYTEST.md` 记录 3-15 分钟阶段完成反馈检查。
 - `bun test`、`bun run test`、`bun run build`、governor check 和 diff check 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只用现有状态推导最近升级目标并复用现有进度区域，不新增第二资源、prestige、任务系统、新面板、外部 analytics 或 issue 回复。
+未发现玩法漂移。本轮只用现有状态判断阶段变化并复用现有事件反馈区域，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段或 issue 回复。
 
 ## Last Updated
 
@@ -168,3 +168,5 @@ OPERATE
 2026-05-07: v0.2 工坊阶段切片完成；使用自动采集器数量和调校等级显示阶段名和下一阶段条件，不新增资源、按钮、面板或存档字段。
 
 2026-05-07: 继续 OPERATE；定义 `docs/CONTENT_ARC.md`，并将进度条改为“下一升级进度”，在自动采集器和调校工具之间指向更近的升级目标。
+
+2026-05-07: 继续 OPERATE；购买导致工坊阶段变化时复用事件反馈区显示“工坊升级”，不新增资源、按钮、面板、升级类型、存档字段或指标字段。

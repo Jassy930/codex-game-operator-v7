@@ -137,7 +137,13 @@ export function App() {
       if (next !== current && typeof window !== "undefined") {
         recordUpgradePurchase(window.localStorage);
         clearCollectMessage();
-        showPurchaseMessage(formatAutoCollectorPurchaseMessage(next.dustPerSecond));
+        showPurchaseMessage(
+          formatPurchaseFeedbackMessage(
+            current,
+            next,
+            formatAutoCollectorPurchaseMessage(next.dustPerSecond),
+          ),
+        );
       }
 
       return next;
@@ -150,7 +156,13 @@ export function App() {
       if (next !== current && typeof window !== "undefined") {
         recordUpgradePurchase(window.localStorage);
         clearCollectMessage();
-        showPurchaseMessage(formatEfficiencyUpgradeMessage(next.autoCollectorEfficiencyMultiplier));
+        showPurchaseMessage(
+          formatPurchaseFeedbackMessage(
+            current,
+            next,
+            formatEfficiencyUpgradeMessage(next.autoCollectorEfficiencyMultiplier),
+          ),
+        );
       }
 
       return next;
@@ -303,6 +315,27 @@ function formatNumber(value: number): string {
 
 export function formatAutoCollectorPurchaseMessage(dustPerSecond: number): string {
   return `自动采集器启动：每秒星尘 +${formatNumber(dustPerSecond)}`;
+}
+
+export function formatPurchaseFeedbackMessage(
+  current: GameState,
+  next: GameState,
+  fallbackMessage: string,
+): string {
+  const currentStage = getWorkshopStage(
+    current.autoCollectors,
+    current.autoCollectorEfficiencyLevel,
+  );
+  const nextStage = getWorkshopStage(
+    next.autoCollectors,
+    next.autoCollectorEfficiencyLevel,
+  );
+
+  if (currentStage.name !== nextStage.name) {
+    return `工坊升级：${nextStage.name} · ${nextStage.description}`;
+  }
+
+  return fallbackMessage;
 }
 
 export function formatGoalHint(
