@@ -28,6 +28,18 @@ Goal: reward return visits.
 
 Goal: let the player gradually reduce clicking.
 
+### Milestone Unlock Preview
+
+Goal: if future post-300s evidence shows stalled motivation, show a lightweight preview of the next meaningful milestone, such as 10 auto collectors or a later tuning threshold.
+
+Constraints:
+- not a current task
+- no new resource
+- no new panel
+- no prestige
+- no task system
+- requires fresh feedback, local metrics, or self-playtest evidence before implementation
+
 ## Parked for Later
 
 - prestige

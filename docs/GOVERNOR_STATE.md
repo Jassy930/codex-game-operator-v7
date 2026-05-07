@@ -147,3 +147,5 @@ RESEARCH
 2026-05-07: 切换到 METRICS_INFRA；同步 `offline_reward_claimed` 文档语义，明确低于 `0.1` 星尘的离线收益不会展示，也不会记录为已展示。
 
 2026-05-07: 切换到 RESEARCH；研究 300 秒后下一步内容方向。结论限定为候选方向，不直接实现第三种升级、第二资源、prestige 或新面板。
+
+2026-05-07: 将 `Milestone Unlock Preview` 停放到 `docs/IDEA_PARKING_LOT.md`，明确它不是当前任务，只有出现新的 post-300s 证据后才可重新评估。
