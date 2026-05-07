@@ -2,40 +2,39 @@
 
 ## Selected Mode
 
-META_IMPROVE
+SELF_PLAYTEST
 
 ## Reason
 
-完整 review 发现反馈 label、Pages workflow 生成脚本、retrospective 和 governor state 存在治理收口缺口。本轮切到 META_IMPROVE，修复这些不改变玩法但会影响后续自治质量的工具与文档问题。
+上一轮 review finding cleanup 已由 commit `fca81c5` 收口。当前没有新的玩家补充，v0.2 内容弧线要求下一步必须来自 3-15 分钟 self-playtest、local-only metrics 或明确反馈。本轮切到 SELF_PLAYTEST，复核阶段条件在 3-15 分钟内是否足够可验证。
 
 ## Allowed Actions
 
-- 创建远端 `feedback` label，并给 Issue #1/#2 回填该 label。
-- 让 `ops/collect-feedback.sh` 验证必需 GitHub label 存在。
-- 让 `ops/create-pages-workflow.sh` 生成当前标准的 `.github/workflows/deploy-pages.yml`。
-- 更新 `docs/DECISION.md`、`docs/HARNESS_CHANGELOG.md`、`docs/RELEASE_LOG.md`、`docs/RETROSPECTIVE.md`、`docs/GOVERNOR_STATE.md` 和 `data/feedback/github-feedback.md`。
+- 用当前 `src/game.ts` 经济函数模拟 3-15 分钟升级节奏。
+- 复核工坊阶段、下一阶段条件、最近升级目标和回访目标是否可理解。
+- 如发现具体 gap，只允许改现有阶段文案或同一 UI 区块中的轻量表达。
+- 更新 `docs/DECISION.md`、`docs/SELF_PLAYTEST.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
 - 运行 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
 - 不新增第二资源、prestige、任务系统、复杂地图或新面板。
-- 不新增反馈渠道、analytics SDK、上传 telemetry、存档字段或个人数据收集。
-- 不新增第三或第四种升级类型；本轮只处理 review finding cleanup。
+- 不新增反馈渠道、analytics SDK、上传 telemetry、存档字段、指标字段或个人数据收集。
+- 不新增第三或第四种升级类型；本轮只处理阶段条件可验证性。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- `feedback` label 存在于远端仓库，Issue #1/#2 带有该 label，`Feedback Issues` 分区不再为空。
-- `collect-feedback` 在缺少必需 label 时失败，并有测试覆盖。
-- `create-pages-workflow` 不再生成旧 `pages.yml`，不再使用 `bun test || true`，并有测试覆盖。
-- Retrospective 13 和本 Governor State 记录 `2f4a4c4` 之后的阶段收口。
+- 3-15 分钟模拟结果记录到 self-playtest。
+- 如果实现改动，阶段条件文案能显示当前进度，并有测试覆盖。
+- 复杂度仍保持 1 个主资源、0 个第二资源、2 种升级类型、无新面板、无新存档字段。
 - `bun test`、`bun run test`、`bun run build`、governor check 和 diff check 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只收紧反馈与发布工具，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
+未发现玩法漂移。本轮只改善已有阶段条件表达，不新增第二资源、prestige、任务系统、新面板、外部 analytics、存档字段、指标字段、反馈渠道或 issue 回复。
 
 ## Last Updated
 
@@ -180,3 +179,7 @@ META_IMPROVE
 2026-05-07: 切换到 META_IMPROVE；处理完整 review 发现的四个治理缺口：远端 `feedback` label 缺失、Pages workflow 生成脚本降级、Retrospective 过期、Governor State 未收口。
 
 2026-05-07: 已创建远端 `feedback` label，并给 Issue #1/#2 回填 label。`./ops/collect-feedback.sh` 刷新后，`Feedback Issues` 分区列出 Issue #1/#2。
+
+2026-05-07: review finding cleanup 已由 commit `fca81c5` 收口。本轮切换到 SELF_PLAYTEST；3-15 分钟模拟显示升级仍持续，但阶段条件缺少当前进度，当前切片只改 `下一阶段` 文案为当前值/目标值。
+
+2026-05-07: 阶段进度文案切片本地验证通过：`bun test` 48 pass，`bun run test` 48 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。本地提交已创建；推送因当前环境无法解析 `github.com` 受阻，工作区状态为 `main...origin/main [ahead 1]`。

@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-本轮 review 发现反馈 intake 和发布工具存在治理缺口：GitHub Issue Form 声明 `feedback` label，但远端仓库没有该 label，导致反馈分桶失效；`ops/create-pages-workflow.sh` 仍会生成旧版 `pages.yml` 并吞掉 `bun test` 失败；Retrospective 和 Governor State 也没有记录 v0.2 最近 11 个 commit 的阶段收口。
+3-15 分钟 self-playtest 显示，工坊阶段条件已经能告诉玩家下一层阶段，但条件缺少当前进度。例如 `稳定工坊` 只写需要 10 台自动采集器和 4 次调校，玩家不能直接确认自己现在离阶段目标还有多远，尤其调校次数只能从倍率间接反推。
 
 ## Evidence
 
@@ -140,12 +140,15 @@
 - 2026-05-07 review finding: `docs/RETROSPECTIVE.md` 最后一次 retrospective 对应 `e269f5e`，之后到 `2f4a4c4` 已有 11 个 commit。
 - 2026-05-07 review finding: `docs/GOVERNOR_STATE.md` 未记录 `2f4a4c4`、Pages run `25487424830`、公开预览 HTTP 200 和 clean worktree。
 - `gh label create feedback` 已创建远端 label，Issue #1/#2 已回填 `feedback` label，`./ops/collect-feedback.sh` 刷新后 `Feedback Issues` 分区能列出两条 issue。
+- 2026-05-07 3-15 分钟模拟显示升级事件持续出现：第 348、427、502、606、724、862、1050 秒仍有自动采集器或调校升级。
+- 第 606 秒达到 10 台自动采集器和 5 次调校，进入 `星尘引擎室`，证明当前 3-15 分钟不是升级停滞问题。
+- 阶段条件仍缺少当前进度：`火花工作台`、`星尘小间` 和 `稳定工坊` 只描述下一阶段门槛，没有把当前自动采集器数量或调校次数写进同一行。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-review-finding-cleanup`
+Decision Anchor: `DECISION:2026-05-07-stage-progress-copy`
 
-处理本轮完整 review 的四个治理缺口：创建并回填 `feedback` label；让 `ops/collect-feedback.sh` 在已认证 GitHub 环境下验证必需 label 存在；让 `ops/create-pages-workflow.sh` 生成当前标准的 `.github/workflows/deploy-pages.yml`，且不吞掉测试失败；补 Retrospective 和 Governor State 收口。该修复不改变游戏玩法、经济、UI、反馈渠道数量、telemetry、issue 回复预算或部署权限。
+把现有“下一阶段”文案改为带当前进度的阶段条件：`自动采集器 0/3`、`调校 1/2`、`自动采集器 6/10，调校 2/4`。这使用 v0.2 的 `Delayed unlock copy` 和 `Stage milestone / workshop phase` 预算，只改同一行文案，不新增资源、按钮、面板、升级类型、存档字段、指标字段或反馈渠道。
 
 ## Implementation Record
 

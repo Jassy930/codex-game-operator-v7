@@ -28,7 +28,7 @@ describe("App", () => {
     expect(html).toContain("下一升级：自动采集器 · 需要 10 星尘");
     expect(html).toContain("目标：攒够星尘，购买第一个自动采集器");
     expect(html).toContain("工坊阶段：火花工作台");
-    expect(html).toContain("下一阶段：拥有 3 台自动采集器，开启星尘小间");
+    expect(html).toContain("下一阶段：自动采集器 0/3，开启星尘小间");
     expect(html).toContain("里程碑：0 / 2 台自动采集器");
     expect(html).toContain("event-stack");
     expect(html).toContain("反馈");
@@ -95,7 +95,7 @@ describe("App", () => {
 
       expect(html).toContain("目标：扩建或调校，让每秒星尘继续提高");
       expect(html).toContain("工坊阶段：星尘小间");
-      expect(html).toContain("下一阶段：完成 2 次调校，进入稳定工坊");
+      expect(html).toContain("下一阶段：调校 1/2，进入稳定工坊");
       expect(html).toContain("下一升级：自动采集器 · 需要 34 星尘");
       expect(html).toContain("调校倍率");
       expect(html).toContain("1.1x");
