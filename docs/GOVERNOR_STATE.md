@@ -2,38 +2,36 @@
 
 ## Selected Mode
 
-OPERATE
+METRICS_INFRA
 
 ## Reason
 
-按 roadmap gate 刷新真实反馈输入。`ops/collect-feedback.sh` 已重新采集 GitHub issue 证据；Issue #1 没有玩家新补充，只有既有回复评论。
+反馈快照无新信号后，复核 local-only metrics。实现和测试已覆盖 session history，但 `docs/METRICS.md` 缺少 operator 如何在本机查看这些指标的说明。
 
 ## Allowed Actions
 
-- 刷新 `data/feedback/github-feedback.md`。
-- 确认是否有新 issue 或 Issue #1 的新玩家补充。
-- 如无新信号，记录 no-change 状态并不回复 issue。
+- 更新 `docs/METRICS.md`，补充 localStorage 查看方式。
+- 保持 metrics local-only。
+- 不改变指标结构或游戏行为。
 - 运行治理检查和低成本验证。
 
 ## Forbidden Actions
 
-- 不重复回复 Issue #1。
-- 不把我们自己的回复当成新玩家反馈。
 - 不改变游戏玩法、经济、UI 或反馈渠道。
 - 不新增上传 telemetry、analytics SDK 或个人数据收集。
-- 不新增提示、按钮、图片或面板。
+- 不新增指标字段、上传路径、外部 SDK、提示、按钮、图片或面板。
 - 不削弱 issue routing、response budget、复杂度预算或 review protocol。
 
 ## Exit Criteria
 
-- `data/feedback/github-feedback.md` 刷新。
-- 确认 Issue #1 updatedAt 未出现玩家新补充。
+- `docs/METRICS.md` 说明如何在浏览器本机查看当前 session 和最近 session history。
+- 文档继续明确 local-only、无上传、无个人数据。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只刷新反馈证据，不改游戏、不回复 issue、不新增产品决策。
+未发现玩法漂移。本轮只补 metrics 查看文档，不改游戏、不新增 telemetry 字段、不上传数据。
 
 ## Last Updated
 
@@ -128,3 +126,5 @@ OPERATE
 2026-05-07: 继续 SELF_PLAYTEST；复核动作区长按钮的窄屏布局风险，检查现有 CSS 是否需要收敛。
 
 2026-05-07: 切换到 OPERATE；刷新 `data/feedback/github-feedback.md`，Issue #1 仍无玩家新补充，不重复回复，不新增改动。
+
+2026-05-07: 切换到 METRICS_INFRA；补 `docs/METRICS.md` 的本地查看方式，让 operator 能读取 current session 和最近 session history。

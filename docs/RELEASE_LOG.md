@@ -50,3 +50,4 @@
 - 更新 Roadmap 当前状态：M0-M3 已基本完成，M4/M5 持续运营中，下一步必须来自新反馈、明确 gap、research-backed decision 或可验证 harness 缺口。
 - 记录首屏文案预算审计：调校工具上线后首屏仍低于 300 中文字符预算，本轮不触发 SIMPLIFY。
 - 记录窄屏动作区布局复核：现有 CSS 已支持按钮换行和 560px 以下纵向排列，本轮不改 UI。
+- 补充 metrics 本地查看方式，说明 operator 如何读取当前 session、最近 session history 和 feedback click queue。

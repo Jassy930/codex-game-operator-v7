@@ -8,6 +8,22 @@
 - `stardust-workshop-metrics-v1`: 当前 session 开始/结束时间、session 时长、点击次数、升级购买次数、首次升级时间、有效存档加载次数、离线收益提示次数和最后一次离线收益数值。每次打开 App 都会重置为新的 session。
 - `stardust-workshop-metrics-history-v1`: 最近 10 个 session 的本地汇总，只在 session 结束时写入，用于本机回看前 60 秒相关指标趋势。
 
+## 本地查看方式
+
+这些指标只存在于当前浏览器的 `localStorage`。operator 做 self-playtest 或本机复核时，可以在浏览器控制台读取：
+
+```js
+JSON.parse(localStorage.getItem("stardust-workshop-metrics-v1") ?? "null")
+JSON.parse(localStorage.getItem("stardust-workshop-metrics-history-v1") ?? "[]")
+JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
+```
+
+解释方式：
+
+- 当前 session 用于查看本轮点击数、升级购买数、首次升级时间和是否看到离线收益提示。
+- 最近 session history 用于本机回看趋势，只保留最近 10 次 session summary。
+- 这些数据不能代表真实玩家整体行为；没有明确导出、上传或人工记录时，不要把本机 localStorage 当成真实玩家指标。
+
 ## 目标指标
 
 - session_start
