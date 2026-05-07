@@ -6,6 +6,7 @@ import {
   clickForDust,
   createGameState,
   hydrateGameStateWithReport,
+  recalculateProduction,
   serializeGameState,
   tickGame,
   type GameState,
@@ -24,6 +25,12 @@ import {
   getWorkshopStage,
   type WorkshopStage,
 } from "./milestones";
+import {
+  claimResonanceMilestones,
+  getResonanceMilestoneProgress,
+  unlockResonanceNode,
+  type ResonanceNodeId,
+} from "./resonance";
 import autoCollectorArt from "./assets/auto-collector.webp";
 import stardustCrystalArt from "./assets/stardust-crystal.webp";
 import tuningToolArt from "./assets/tuning-tool.webp";
@@ -76,6 +83,8 @@ export function App() {
     state.autoCollectors,
     state.autoCollectorEfficiencyLevel,
   );
+  const resonanceProgress = getResonanceMilestoneProgress(state);
+  const showResonanceMatrix = workshopStage.name === "星尘引擎室";
   const stageNextRequirement = formatWorkshopStageNextRequirement(
     workshopStage,
     showOfflineDust,
@@ -204,6 +213,32 @@ export function App() {
     }
   }
 
+  function handleClaimResonanceClick() {
+    setState((current) => {
+      const next = claimResonanceMilestones(current);
+      if (next !== current) {
+        showPurchaseMessage("共鸣已聚合：获得 1 共鸣");
+      }
+
+      return next;
+    });
+  }
+
+  function handleUnlockResonanceNodeClick(nodeId: ResonanceNodeId) {
+    setState((current) => {
+      const unlocked = unlockResonanceNode(current, nodeId);
+      if (unlocked !== current) {
+        const next = recalculateProduction(unlocked);
+        showPurchaseMessage(
+          `共鸣节点启动：${formatResonanceNodeName(nodeId)}`,
+        );
+        return next;
+      }
+
+      return current;
+    });
+  }
+
   return (
     <main className="app-shell">
       <section className="game-panel" aria-labelledby="game-title">
@@ -290,6 +325,47 @@ export function App() {
           </div>
         </dl>
 
+        {showResonanceMatrix ? (
+          <section className="resonance-panel" aria-labelledby="resonance-title">
+            <div className="resonance-header">
+              <div>
+                <h2 id="resonance-title">共鸣矩阵</h2>
+                <p>可用共鸣：{state.resonance}</p>
+              </div>
+              {resonanceProgress.canClaim ? (
+                <button className="resonance-claim" onClick={handleClaimResonanceClick}>
+                  领取共鸣 +{resonanceProgress.resonanceReward}
+                </button>
+              ) : null}
+            </div>
+            <p className="resonance-progress">
+              共鸣门槛：自动采集器 {resonanceProgress.autoCollectors.current}/
+              {resonanceProgress.autoCollectors.target}，调校{" "}
+              {resonanceProgress.tuning.current}/{resonanceProgress.tuning.target}
+            </p>
+            <div className="resonance-nodes">
+              {RESONANCE_NODES.map((node) => {
+                const isUnlocked = state.unlockedResonanceNodes.includes(node.id);
+                return (
+                  <button
+                    className="resonance-node"
+                    disabled={
+                      isUnlocked ||
+                      state.resonance < 1 ||
+                      state.unlockedResonanceNodes.length >= 1
+                    }
+                    key={node.id}
+                    onClick={() => handleUnlockResonanceNodeClick(node.id)}
+                  >
+                    <span>{node.name}</span>
+                    <small>{node.description}</small>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        ) : null}
+
         <a
           className="feedback-link"
           href={feedbackUrl}
@@ -302,6 +378,32 @@ export function App() {
       </section>
     </main>
   );
+}
+
+const RESONANCE_NODES: Array<{
+  id: ResonanceNodeId;
+  name: string;
+  description: string;
+}> = [
+  {
+    id: "stable-circuit",
+    name: "稳定回路",
+    description: "自动采集产出 +10%",
+  },
+  {
+    id: "return-coil",
+    name: "回访线圈",
+    description: "离线收益 +10%",
+  },
+  {
+    id: "tuning-engraving",
+    name: "调校刻印",
+    description: "保留为后续调校强化",
+  },
+];
+
+function formatResonanceNodeName(nodeId: ResonanceNodeId): string {
+  return RESONANCE_NODES.find((node) => node.id === nodeId)?.name ?? nodeId;
 }
 
 function loadGame(): HydratedGameState {

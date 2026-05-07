@@ -34,6 +34,7 @@ describe("App", () => {
     expect(html).toContain("里程碑：0 / 2 台自动采集器");
     expect(html).toContain("event-stack");
     expect(html).toContain("反馈");
+    expect(html).not.toContain("共鸣矩阵");
   });
 
   it("updates the goal hint after the first auto collector is purchased", () => {
@@ -192,6 +193,41 @@ describe("App", () => {
     ).toBe("回访目标：离线收益已投入工坊，继续攒下一次升级");
   });
 
+  it("shows resonance progress after the engine room is online", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 15,
+      autoCollectorEfficiencyLevel: 9,
+      autoCollectorEfficiencyMultiplier: 1.9,
+      dustPerSecond: 5.7,
+      nextAutoCollectorCost: 4379,
+      nextEfficiencyUpgradeCost: 4959,
+    });
+
+    expect(html).toContain("共鸣矩阵");
+    expect(html).toContain("自动采集器 15/20");
+    expect(html).toContain("调校 9/12");
+  });
+
+  it("shows unlockable resonance nodes when resonance is available", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 8.8,
+      nextAutoCollectorCost: 33253,
+      nextEfficiencyUpgradeCost: 28922,
+      resonance: 1,
+    });
+
+    expect(html).toContain("共鸣矩阵");
+    expect(html).toContain("可用共鸣：1");
+    expect(html).toContain("稳定回路");
+    expect(html).toContain("回访线圈");
+    expect(html).toContain("调校刻印");
+  });
+
   it("formats the next goal from the current upgrade depth", () => {
     expect(formatGoalHint(0, 0)).toBe("目标：攒够星尘，购买第一个自动采集器");
     expect(formatGoalHint(2, 0)).toBe(
@@ -321,4 +357,24 @@ function createMemoryStorage(): Storage {
       values.set(key, value);
     },
   };
+}
+
+function renderAppWithSave(state: ReturnType<typeof createGameState>): string {
+  const storage = createMemoryStorage();
+  storage.setItem("stardust-workshop-save-v1", serializeGameState(state));
+  const globalWithWindow = globalThis as typeof globalThis & { window?: Window };
+  const originalWindow = globalWithWindow.window;
+  Object.defineProperty(globalThis, "window", {
+    configurable: true,
+    value: { localStorage: storage },
+  });
+
+  try {
+    return renderToStaticMarkup(<App />);
+  } finally {
+    Object.defineProperty(globalThis, "window", {
+      configurable: true,
+      value: originalWindow,
+    });
+  }
 }

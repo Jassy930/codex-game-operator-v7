@@ -242,6 +242,78 @@ h1 {
   background: #ffffff;
 }
 
+.resonance-panel {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(41, 91, 82, 0.2);
+  border-radius: 8px;
+  background: #f3f7f5;
+}
+
+.resonance-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.resonance-header h2,
+.resonance-header p,
+.resonance-progress {
+  margin: 0;
+}
+
+.resonance-header h2 {
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.resonance-header p,
+.resonance-progress,
+.resonance-node small {
+  color: #5f6f68;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.resonance-claim,
+.resonance-node {
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.resonance-claim {
+  min-height: 40px;
+  padding: 8px 12px;
+  color: #ffffff;
+  background: #295b52;
+}
+
+.resonance-nodes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.resonance-node {
+  min-height: 74px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  padding: 10px;
+  color: #17211b;
+  background: #ffffff;
+}
+
+.resonance-node:disabled {
+  cursor: not-allowed;
+  color: #6b746f;
+  background: #d8ded9;
+}
+
 .feedback-link {
   min-height: 44px;
   display: grid;
@@ -287,8 +359,13 @@ dd {
 
   .title-row,
   .action-row,
-  .stats-grid {
+  .stats-grid,
+  .resonance-header {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .resonance-nodes {
+    grid-template-columns: 1fr;
   }
 }
