@@ -128,3 +128,5 @@ METRICS_INFRA
 2026-05-07: 切换到 OPERATE；刷新 `data/feedback/github-feedback.md`，Issue #1 仍无玩家新补充，不重复回复，不新增改动。
 
 2026-05-07: 切换到 METRICS_INFRA；补 `docs/METRICS.md` 的本地查看方式，让 operator 能读取 current session 和最近 session history。
+
+2026-05-07: Retrospective 11 已记录；覆盖 asset no-change、roadmap gate、文本预算、动作区布局、反馈快照和 metrics readback。后续无新信号时避免继续扩大文档或玩法。

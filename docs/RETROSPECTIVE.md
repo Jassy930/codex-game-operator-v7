@@ -445,6 +445,52 @@ Update this file when either is true:
 
 Asset Workflow 收口后，若无新玩家反馈，回到 `SELF_PLAYTEST` 或 `RESEARCH`，优先判断是否停手等待反馈。
 
+## 2026-05-07 Retrospective 11
+
+### Window
+
+从 Asset Workflow 收口后的 no-change 决策开始，到 roadmap gate、首屏文案预算、窄屏动作区、反馈快照刷新和 metrics 本地查看方式收敛。
+
+### What Changed
+
+- 记录当前不生成 `imagegen` 图片、不新增 `src/assets/` 的决策。
+- `ROADMAP.md` 增加当前状态和下一道闸门，明确 M0-M3 已基本完成，M4/M5 处于持续运营中。
+- 完成 first-screen text budget 审计，调校工具上线后首屏仍低于 300 中文字符预算。
+- 完成动作区窄屏 CSS 复核，现有样式支持换行和 560px 以下纵向排列。
+- 刷新 GitHub feedback snapshot，确认 Issue #1 没有玩家新补充。
+- `METRICS.md` 增加本地 localStorage 查看方式，便于 operator 读取 current session、session history 和 feedback click queue。
+
+### What Improved
+
+- 后续 operator 更清楚哪些 milestone 已完成，避免把 roadmap 当 backlog。
+- no-change 决策有了更明确的证据：文字预算、CSS 响应式规则、反馈快照和 metrics readback。
+- Asset Workflow 被正确应用为“需要时评估”，而不是推动无信号图片生成。
+- metrics 仍保持 local-only，但现在更容易用于本机 self-playtest 复核。
+
+### What Got Worse
+
+- 连续小文档提交较多，Pages workflow 频繁运行。
+- 当前仍缺少新真实玩家反馈；运营动作主要是在降低未来 drift 风险，而不是增加可见玩法内容。
+
+### Drift Check
+
+- repeated issue replies: 无。Issue #1 没有新玩家补充，本轮未回复。
+- issue-driven thrashing: 无。没有继续基于 #1 添加提示或系统。
+- feature bloat: 无。没有新增资源、升级、图片、面板、反馈渠道或 telemetry 上传。
+- lack of tests: 无。涉及代码状态的流程继续通过 tests/build；文档变更通过 governor check。
+- unclear North Star: 无。roadmap gate 和 no-change 决策都围绕前 60 秒清晰度、成长反馈和避免噪音。
+- harness friction: 轻微增加。文档越来越多，需要后续避免把每个 no-change 都扩成大文档周期。
+
+### Harness Lessons
+
+- 持续运营不等于持续加功能；当没有新反馈时，可验证的 no-change 决策比无信号扩张更健康。
+- Roadmap 需要显示当前状态，否则完成的里程碑会被反复当成待办。
+- Local-only metrics 只有能被 operator 读取，才真正能支持 self-playtest；但不能把本机数据伪装成真实玩家指标。
+
+### Next Operating Mode
+
+若出现新 issue 或 Issue #1 玩家补充，进入 `OPERATE` 并先更新 feedback snapshot、ledger 和 cluster。若继续无新反馈，下一轮优先只做一个有证据的 self-playtest 或 metrics readback；如果仍没有具体 gap，应等待新信号，不要继续扩大文档或玩法。
+
 ## Template
 
 ```md
