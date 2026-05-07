@@ -370,6 +370,12 @@ describe("App", () => {
     );
   });
 
+  it("credits stable circuit in the auto collector purchase confirmation", () => {
+    expect(formatAutoCollectorPurchaseMessage(9.68, true)).toBe(
+      "稳定回路共振：自动采集每秒星尘 +9.7",
+    );
+  });
+
   it("credits tuning engraving in the tuning purchase confirmation", () => {
     expect(formatEfficiencyUpgradeMessage(2.25, true)).toBe(
       "调校刻印共振：有效调校倍率 x2.3",

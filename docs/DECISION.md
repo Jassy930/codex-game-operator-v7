@@ -168,12 +168,13 @@ v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更
 - 首个共鸣节点启动后，`共鸣矩阵` 已能说明“已启动”和“本轮已选择其他节点”，但阶段目标仍回到普通回访目标，没有解释已选永久节点接下来如何影响玩家行动。
 - 当玩家选择 `回访线圈` 并真正回访看到离线收益时，旧目标行优先显示通用“花掉离线星尘”，没有把本次离线收益与已启动节点的 +10% 价值连接起来。
 - 当玩家选择 `调校刻印` 并继续购买调校工具时，有效倍率已经包含节点加成，但旧购买反馈仍显示普通“调校完成：自动采集效率”，没有把这次提升归因到已启动节点。
+- 当玩家选择 `稳定回路` 并继续购买自动采集器时，每秒星尘已经包含节点加成，但旧购买反馈仍显示普通“自动采集器启动”，没有把这次产出提升归因到已启动节点。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-tuning-engraving-feedback`
+Decision Anchor: `DECISION:2026-05-08-stable-circuit-feedback`
 
-如果玩家已启动 `调校刻印`，并继续购买调校工具，现有事件反馈区必须承认这是调校刻印共振后的有效调校倍率。本切片只补节点生效后的购买反馈文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
+如果玩家已启动 `稳定回路`，并继续购买自动采集器，现有事件反馈区必须承认这是稳定回路共振后的自动采集产出。本切片只补节点生效后的购买反馈文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
 
 ## Implementation Record
 
@@ -233,6 +234,13 @@ Decision Anchor: `DECISION:2026-05-08-tuning-engraving-feedback`
 - Added a `调校刻印`-specific tuning purchase message in the existing event feedback area.
 - When the node is active, tuning purchases now show the effective tuning multiplier as resonance-powered feedback.
 - Added a behavior test for the tuning-engraving purchase confirmation.
+- Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
+
+2026-05-08 STABLE_CIRCUIT_FEEDBACK executed:
+
+- Added a `稳定回路`-specific auto collector purchase message in the existing event feedback area.
+- When the node is active, auto collector purchases now show resonance-powered passive production feedback.
+- Added a behavior test for the stable-circuit purchase confirmation.
 - Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
 
 2026-05-06 FEEDBACK_INFRA selected:

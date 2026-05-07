@@ -166,7 +166,10 @@ export function App() {
           formatPurchaseFeedbackMessage(
             current,
             next,
-            formatAutoCollectorPurchaseMessage(next.dustPerSecond),
+            formatAutoCollectorPurchaseMessage(
+              next.dustPerSecond,
+              next.unlockedResonanceNodes.includes("stable-circuit"),
+            ),
           ),
         );
       }
@@ -469,7 +472,14 @@ function formatNumber(value: number): string {
   });
 }
 
-export function formatAutoCollectorPurchaseMessage(dustPerSecond: number): string {
+export function formatAutoCollectorPurchaseMessage(
+  dustPerSecond: number,
+  hasStableCircuit = false,
+): string {
+  if (hasStableCircuit) {
+    return `稳定回路共振：自动采集每秒星尘 +${formatNumber(dustPerSecond)}`;
+  }
+
   return `自动采集器启动：每秒星尘 +${formatNumber(dustPerSecond)}`;
 }
 
