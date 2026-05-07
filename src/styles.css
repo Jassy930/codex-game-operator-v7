@@ -200,6 +200,7 @@ h1 {
 }
 
 .goal-hint,
+.upgrade-target,
 .milestone-hint,
 .stage-hint,
 .stage-next {
@@ -210,6 +211,7 @@ h1 {
 }
 
 .milestone-hint,
+.upgrade-target,
 .stage-next {
   color: #5f6f68;
 }

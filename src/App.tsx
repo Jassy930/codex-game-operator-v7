@@ -59,9 +59,14 @@ export function App() {
       : `调校工具 · 自动采集效率 +10% · 需要 ${formatNumber(
           state.nextEfficiencyUpgradeCost,
         )} 星尘`;
-  const progressToUpgrade = useMemo(() => {
-    return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
-  }, [state.dust, state.nextAutoCollectorCost]);
+  const nextUpgradeTarget = useMemo(() => {
+    return getNextUpgradeTarget(state);
+  }, [
+    state.autoCollectors,
+    state.dust,
+    state.nextAutoCollectorCost,
+    state.nextEfficiencyUpgradeCost,
+  ]);
   const milestone = getAutoCollectorMilestone(state.autoCollectors);
   const workshopStage = getWorkshopStage(
     state.autoCollectors,
@@ -233,9 +238,13 @@ export function App() {
 
         <div className="progress-block">
           <div className="progress-label">
-            <span>购买进度</span>
-            <span>{Math.floor(progressToUpgrade)}%</span>
+            <span>下一升级进度</span>
+            <span>{nextUpgradeTarget.progressPercent}%</span>
           </div>
+          <p className="upgrade-target">
+            下一升级：{nextUpgradeTarget.label} · 需要{" "}
+            {formatNumber(nextUpgradeTarget.cost)} 星尘
+          </p>
           <p className="goal-hint">{goalHint}</p>
           <p className="milestone-hint">
             里程碑：{milestone.current} / {milestone.target} 台自动采集器
@@ -245,7 +254,7 @@ export function App() {
           </p>
           <p className="stage-next">{workshopStage.nextRequirement}</p>
           <div className="progress-track" aria-hidden="true">
-            <div style={{ width: `${progressToUpgrade}%` }} />
+            <div style={{ width: `${nextUpgradeTarget.progressPercent}%` }} />
           </div>
         </div>
 
@@ -313,6 +322,31 @@ export function formatGoalHint(
 
 export function shouldShowOfflineDust(offlineDust: number): boolean {
   return offlineDust >= 0.1;
+}
+
+export type NextUpgradeTarget = {
+  autoCollectors: number;
+  dust: number;
+  nextAutoCollectorCost: number;
+  nextEfficiencyUpgradeCost: number;
+};
+
+export function getNextUpgradeTarget(target: NextUpgradeTarget) {
+  const canConsiderTuning = target.autoCollectors > 0;
+  const cost =
+    canConsiderTuning && target.nextEfficiencyUpgradeCost < target.nextAutoCollectorCost
+      ? target.nextEfficiencyUpgradeCost
+      : target.nextAutoCollectorCost;
+  const label =
+    canConsiderTuning && cost === target.nextEfficiencyUpgradeCost
+      ? "调校工具"
+      : "自动采集器";
+
+  return {
+    label,
+    cost,
+    progressPercent: Math.min(100, Math.floor((target.dust / cost) * 100)),
+  };
 }
 
 export function formatCollectFeedbackMessage(dustPerClick: number): string {

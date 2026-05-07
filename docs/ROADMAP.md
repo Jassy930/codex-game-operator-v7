@@ -43,7 +43,7 @@ Roadmap 只记录里程碑层级方向，不是任务清单。
 - 如果定义内容弧线，先写文档，不直接实现系统。
 - 如果等待真实反馈，不继续产出重复 no-change 文档；转向反馈获取、metrics readback 或暂停新增玩法。
 
-当前 v0.2 阶段应先定义 3-15 分钟内容弧线，再实现具体玩法切片。若仍无具体 gap，下一步应定义 `docs/CONTENT_ARC.md`，覆盖 0-60 分钟和首次回访目标。
+当前 v0.2 阶段已有 `docs/CONTENT_ARC.md` 覆盖 0-60 分钟和首次回访目标。后续实现必须从该内容弧线、真实反馈、self-playtest gap 或 local-only metrics 出发。
 
 ## M0: 治理框架就绪
 

@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-用户明确反馈当前玩法仍然干枯太少，并要求继续丰富游戏内容。当前最大问题是给 v0.2 / 3-15 分钟版本增加可见内容弧线，同时避免把“丰富”误解为第二资源、prestige、任务系统或新面板。
+用户明确反馈当前玩法仍然干枯太少，并要求继续丰富游戏内容。工坊阶段和物件插图已经让 3-15 分钟内容弧线更可见，但主屏“扩建或调校”的目标提示与固定自动采集器进度条不一致。当前最大问题是让玩家看见最近的升级目标，同时避免把“丰富”误解为第二资源、prestige、任务系统或新面板。
 
 ## Evidence
 
@@ -126,12 +126,15 @@
 - 用户继续确认“好的继续”，表示可以基于 v0.2 预算推进内容扩展。
 - `docs/COMPLEXITY_BUDGET.md` v0.2 允许 `Stage milestone / workshop phase` 和 `Delayed unlock copy`。
 - 当前可用状态变量已有 `autoCollectors` 和 `autoCollectorEfficiencyLevel`，足以推导工坊阶段，不需要新增资源、按钮、面板或存档字段。
+- Roadmap 要求 v0.2 后续实现必须从内容弧线、真实反馈、self-playtest gap 或 local-only metrics 出发。
+- 工坊阶段和物件插图落地后，目标提示已经会说“扩建或调校”，但进度条仍固定计算下一台自动采集器。
+- 3-15 分钟阶段内调校工具可能比下一台自动采集器更近；固定自动采集器进度会削弱“扩建或调校”的可验证性。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-operate-workshop-stage`
+Decision Anchor: `DECISION:2026-05-07-operate-next-upgrade-progress`
 
-实现 v0.2 的第一个内容小切片：根据自动采集器数量和调校等级推导“工坊阶段”，在现有主屏中展示阶段名、阶段说明和下一阶段条件。该切片只使用现有状态和现有主屏结构，不新增资源、按钮、面板、升级类型、任务系统、prestige、指标字段或反馈渠道。
+实现 v0.2 的下一个内容小切片：定义 `docs/CONTENT_ARC.md`，并把现有进度条改为“下一升级进度”，在自动采集器和调校工具之间指向当前成本更近的一项。该切片只使用现有状态和现有主屏结构，不新增资源、按钮、面板、升级类型、任务系统、prestige、指标字段或反馈渠道。
 
 ## Implementation Record
 
@@ -623,9 +626,17 @@ Decision Anchor: `DECISION:2026-05-07-operate-workshop-stage`
 - v0.2 budget use: 只增强现有核心链路的可读性，不使用第 4 种升级类型，不增加 visible panel。
 - 约束：不新增玩法、资源、按钮、面板、复杂 lore、远程热链、analytics、指标字段或反馈渠道。
 
+2026-05-07 OPERATE next upgrade progress:
+
+- Decision Anchor: `DECISION:2026-05-07-operate-next-upgrade-progress`
+- Content arc: 新增 `docs/CONTENT_ARC.md`，定义 0-60 分钟、3-15 分钟、15-60 分钟和首次回访的低复杂度内容弧线。
+- Decision: 将固定自动采集器进度改为“下一升级进度”，自动指向自动采集器和调校工具中当前成本更近的一项。
+- v0.2 budget use: 使用 `Delayed unlock copy` 和现有 3-15 分钟内容弧线表达，不使用新的 upgrade type。
+- v0.1 guardrail: 前 60 秒仍先指向第一台自动采集器；不新增第二资源、按钮、面板、存档字段、指标字段或反馈渠道。
+
 ## Input Source
 
-User request: 玩法仍然干枯太少，需要丰富游戏内容；用户确认使用资源/升级插图优化画面表现。
+User request: 玩法仍然干枯太少，需要丰富游戏内容；用户确认使用资源/升级插图优化画面表现；自动化继续要求作为独立开发人员持续丰富优化游戏内容。
 
 ## Linked Signals
 

@@ -35,6 +35,8 @@ North Star 匹配度:
 - `docs/NORTH_STAR.md` 要求玩家感到“游戏在变深，但不是变吵”。
 - `docs/COMPLEXITY_BUDGET.md` v0.2 允许 3-15 分钟内容弧线和阶段里程碑，但仍禁止第二资源、prestige、任务系统和新多面板。
 - 当前已有 2 种 upgrade types，本轮优先用工坊阶段形成内容弧线，不新增资源、按钮或面板。
+- `docs/CONTENT_ARC.md` 已定义 v0.2 的 0-60 分钟到首次回访内容弧线。
+- 本轮最近升级进度切片让“扩建或调校”目标能指向当前更近的升级，不新增资源、按钮、面板或存档字段。
 
 ## first-60s-motivation
 

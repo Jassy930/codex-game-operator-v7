@@ -4,6 +4,7 @@ import {
   formatAutoCollectorPurchaseMessage,
   formatCollectFeedbackMessage,
   formatGoalHint,
+  getNextUpgradeTarget,
   shouldShowOfflineDust,
 } from "./App";
 import { createGameState, serializeGameState } from "./game";
@@ -22,7 +23,8 @@ describe("App", () => {
     expect(html).toContain("调校工具");
     expect(html).toContain('alt="调校工具"');
     expect(html).toContain("需要先购买自动采集器");
-    expect(html).toContain("购买进度");
+    expect(html).toContain("下一升级进度");
+    expect(html).toContain("下一升级：自动采集器 · 需要 10 星尘");
     expect(html).toContain("目标：攒够星尘，购买第一个自动采集器");
     expect(html).toContain("工坊阶段：火花工作台");
     expect(html).toContain("下一阶段：拥有 3 台自动采集器");
@@ -93,6 +95,7 @@ describe("App", () => {
       expect(html).toContain("目标：扩建或调校，让每秒星尘继续提高");
       expect(html).toContain("工坊阶段：星尘小间");
       expect(html).toContain("下一阶段：完成 2 次调校");
+      expect(html).toContain("下一升级：自动采集器 · 需要 34 星尘");
       expect(html).toContain("调校倍率");
       expect(html).toContain("1.1x");
       expect(html).not.toContain("目标：继续攒星尘，购买下一台自动采集器");
@@ -148,6 +151,34 @@ describe("App", () => {
     expect(formatGoalHint(3, 1)).toBe(
       "目标：扩建或调校，让每秒星尘继续提高",
     );
+  });
+
+  it("targets the closest available upgrade for the progress bar", () => {
+    expect(
+      getNextUpgradeTarget({
+        autoCollectors: 0,
+        dust: 5,
+        nextAutoCollectorCost: 10,
+        nextEfficiencyUpgradeCost: 25,
+      }),
+    ).toEqual({
+      label: "自动采集器",
+      cost: 10,
+      progressPercent: 50,
+    });
+
+    expect(
+      getNextUpgradeTarget({
+        autoCollectors: 7,
+        dust: 100,
+        nextAutoCollectorCost: 171,
+        nextEfficiencyUpgradeCost: 146,
+      }),
+    ).toEqual({
+      label: "调校工具",
+      cost: 146,
+      progressPercent: 68,
+    });
   });
 
   it("uses the displayed offline reward threshold for visibility and metrics", () => {
