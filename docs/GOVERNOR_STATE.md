@@ -189,3 +189,5 @@ SELF_PLAYTEST
 2026-05-07: 15-60 分钟 self-playtest no-change 已由 commit `fce5b54` 推送到 `origin/main`。本地验证通过；`gh run list` 连接 `api.github.com` 失败，暂未验证 Pages workflow run。
 
 2026-05-07: 继续 SELF_PLAYTEST；首次回访后模拟显示离线 30 分钟带来约 10260 星尘，回访首屏足够购买第 16 台自动采集器和第 10 次调校。发现 `星尘引擎室` 目标仍要求离开再回来，本轮只在离线收益可见时把同一阶段目标行切换为消费离线星尘。
+
+2026-05-07: 首次回访消费目标切片已由 commit `1b5bb6a` 推送到 `origin/main`。本地验证通过；`gh run list` 连接 `api.github.com` 失败，暂未验证 Pages workflow run。
