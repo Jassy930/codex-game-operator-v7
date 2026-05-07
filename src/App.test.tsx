@@ -3,6 +3,7 @@ import {
   App,
   formatAutoCollectorPurchaseMessage,
   formatCollectFeedbackMessage,
+  formatEfficiencyUpgradeMessage,
   formatWorkshopStageNextRequirement,
   formatPurchaseFeedbackMessage,
   formatGoalHint,
@@ -366,6 +367,12 @@ describe("App", () => {
   it("formats a lightweight auto collector purchase confirmation", () => {
     expect(formatAutoCollectorPurchaseMessage(0.2)).toBe(
       "自动采集器启动：每秒星尘 +0.2",
+    );
+  });
+
+  it("credits tuning engraving in the tuning purchase confirmation", () => {
+    expect(formatEfficiencyUpgradeMessage(2.25, true)).toBe(
+      "调校刻印共振：有效调校倍率 x2.3",
     );
   });
 

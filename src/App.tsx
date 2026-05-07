@@ -185,7 +185,10 @@ export function App() {
           formatPurchaseFeedbackMessage(
             current,
             next,
-            formatEfficiencyUpgradeMessage(next.autoCollectorEfficiencyMultiplier),
+            formatEfficiencyUpgradeMessage(
+              getEffectiveAutoCollectorEfficiencyMultiplier(next),
+              next.unlockedResonanceNodes.includes("tuning-engraving"),
+            ),
           ),
         );
       }
@@ -594,6 +597,13 @@ export function formatCollectFeedbackMessage(dustPerClick: number): string {
   return `采集到 ${formatNumber(dustPerClick)} 星尘：正在推进下一台自动采集器`;
 }
 
-export function formatEfficiencyUpgradeMessage(multiplier: number): string {
+export function formatEfficiencyUpgradeMessage(
+  multiplier: number,
+  hasTuningEngraving = false,
+): string {
+  if (hasTuningEngraving) {
+    return `调校刻印共振：有效调校倍率 x${formatNumber(multiplier)}`;
+  }
+
   return `调校完成：自动采集效率 x${formatNumber(multiplier)}`;
 }

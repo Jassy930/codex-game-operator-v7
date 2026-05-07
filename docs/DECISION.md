@@ -167,12 +167,13 @@ v0.3 共鸣系统第一版已经发布。当前最大问题不是继续扩展更
 - 首个共鸣门槛达成时 UI 已显示 `领取共鸣 +1`，但阶段目标仍可能显示“长期目标：离开一会儿再回来，查看引擎室积累的离线星尘”。
 - 首个共鸣节点启动后，`共鸣矩阵` 已能说明“已启动”和“本轮已选择其他节点”，但阶段目标仍回到普通回访目标，没有解释已选永久节点接下来如何影响玩家行动。
 - 当玩家选择 `回访线圈` 并真正回访看到离线收益时，旧目标行优先显示通用“花掉离线星尘”，没有把本次离线收益与已启动节点的 +10% 价值连接起来。
+- 当玩家选择 `调校刻印` 并继续购买调校工具时，有效倍率已经包含节点加成，但旧购买反馈仍显示普通“调校完成：自动采集效率”，没有把这次提升归因到已启动节点。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-return-coil-offline-goal`
+Decision Anchor: `DECISION:2026-05-08-tuning-engraving-feedback`
 
-如果玩家已启动 `回访线圈`，并在回访时看到可见离线收益，`星尘引擎室` 的同一阶段目标行必须承认这是回访线圈带回的更多离线星尘，再指向花掉收益继续扩建或调校。本切片只补节点生效后的目标文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
+如果玩家已启动 `调校刻印`，并继续购买调校工具，现有事件反馈区必须承认这是调校刻印共振后的有效调校倍率。本切片只补节点生效后的购买反馈文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
 
 ## Implementation Record
 
@@ -225,6 +226,13 @@ Decision Anchor: `DECISION:2026-05-08-return-coil-offline-goal`
 - Added a `回访线圈`-specific offline return goal in the existing `星尘引擎室` stage target line.
 - When visible offline rewards are present after selecting `回访线圈`, the goal now credits the node before pointing players back to spending the return gains.
 - Added a rendering test for a return-coil save state with visible offline rewards.
+- Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
+
+2026-05-08 TUNING_ENGRAVING_FEEDBACK executed:
+
+- Added a `调校刻印`-specific tuning purchase message in the existing event feedback area.
+- When the node is active, tuning purchases now show the effective tuning multiplier as resonance-powered feedback.
+- Added a behavior test for the tuning-engraving purchase confirmation.
 - Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
 
 2026-05-06 FEEDBACK_INFRA selected:
