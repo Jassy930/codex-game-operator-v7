@@ -411,6 +411,12 @@ Decision Anchor: `DECISION:2026-05-07-meta-feedback-loop-automation`
 - Decision: 改用显式 `--json` 和 `--template` 输出 issue number/title/url/state/author/body/comments。
 - 约束：不新增反馈渠道、不上传 telemetry、不改变 issue 回复策略。
 
+2026-05-07 SELF_PLAYTEST collect motivation no-change:
+
+- Gap check: Issue #1 指向的采集动机缺口已由动机文案和短暂采集反馈覆盖。
+- Decision: 本轮不继续修改 UI、经济或玩法，避免重复处理同一 issue 和增加首屏噪音。
+- 约束：等待新玩家信息或新的研究问题；不新增资源、奖励系统、面板或反馈渠道。
+
 ## Input Source
 
 Code review findings.

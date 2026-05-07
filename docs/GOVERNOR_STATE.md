@@ -2,37 +2,36 @@
 
 ## Selected Mode
 
-META_IMPROVE
+SELF_PLAYTEST
 
 ## Reason
 
-反馈采集快照发现 `ops/collect-feedback.sh` 仍未可靠记录 issue 原始正文，只记录了评论输出。这会削弱后续 issue routing 的证据链。本轮进入 META_IMPROVE，修正 collector 为显式 JSON/template 采集，并保留真实反馈快照。
+Issue #1 已路由、发布并回复；当前没有新的玩家补充。上一轮 META_IMPROVE 已修正反馈采集证据链。按 anti-achievement clause，本轮进入 SELF_PLAYTEST，只读复核采集动机改动后的前 60 秒体验，不重复修改同一 issue。
 
 ## Allowed Actions
 
-- 修正 `ops/collect-feedback.sh` 的 issue body/comments 采集。
-- 更新 ops 脚本测试，覆盖默认渲染缺失 body 的失败模式。
-- 运行 `ops/collect-feedback.sh` 生成可审计反馈快照。
-- 更新 `docs/DECISION.md`、`docs/HARNESS_CHANGELOG.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
+- 复核前 10/30/60 秒体验。
+- 检查采集动机文案和采集反馈是否解决已知缺口。
+- 检查首屏是否接近复杂度预算。
+- 更新 `docs/SELF_PLAYTEST.md` 和 `docs/DECISION.md`，记录改动或 no-change 决策。
 
 ## Forbidden Actions
 
-- 不新增反馈渠道。
-- 不上传 telemetry，不新增 analytics SDK，不收集个人数据。
-- 不改变游戏玩法、经济或 UI。
 - 不重复回复 Issue #1。
-- 不削弱 issue routing、response budget、复杂度预算或 review protocol。
+- 不基于同一 issue 再次修改游戏，除非发现新的具体回归。
+- 不新增玩法、资源、奖励系统、面板或反馈渠道。
+- 不上传 telemetry、不新增 analytics SDK、不收集个人数据。
 
 ## Exit Criteria
 
-- `data/feedback/github-feedback.md` 同时包含 Issue #1 原始正文和回复评论。
-- ops 脚本测试覆盖 collector 的正文采集。
-- `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
+- 前 10/30/60 秒检查已记录。
+- 若没有足够具体的新 gap，记录 no-change 决策。
+- `./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只修正反馈采集证据链，不改变游戏机制、UI、指标上传边界或 issue 回复策略。
+未发现玩法漂移。本轮只做只读 self-playtest，不改变游戏机制、UI、指标上传边界或 issue 回复策略。
 
 ## Last Updated
 
@@ -95,3 +94,7 @@ META_IMPROVE
 2026-05-07: 已按 response budget 回复 Issue #1 一次：`https://github.com/Jassy930/codex-game-operator-v7/issues/1#issuecomment-4393783244`。后续等待新信息，不重复回复。
 
 2026-05-07: 切换到 META_IMPROVE；修正 `collect-feedback` 真实输出缺少 issue 原始正文的问题。
+
+2026-05-07: 切换到 SELF_PLAYTEST；复核 Issue #1 改动后的前 60 秒体验，不重复处理同一 issue。
+
+2026-05-07: SELF_PLAYTEST 复核完成；采集动机缺口已有最小修复，本轮 no-change，避免继续向首屏叠加提示。
