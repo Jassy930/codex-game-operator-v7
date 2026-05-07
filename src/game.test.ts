@@ -21,6 +21,9 @@ describe("core idle loop", () => {
     expect(state.autoCollectorEfficiencyLevel).toBe(0);
     expect(state.autoCollectorEfficiencyMultiplier).toBe(1);
     expect(state.nextEfficiencyUpgradeCost).toBe(25);
+    expect(state.resonance).toBe(0);
+    expect(state.earnedResonanceMilestones).toEqual([]);
+    expect(state.unlockedResonanceNodes).toEqual([]);
     expect(state.lastUpdatedAt).toBe(1_000);
   });
 
@@ -131,9 +134,13 @@ describe("core idle loop", () => {
 
     const loaded = hydrateGameState(saved, now);
 
+    expect(loaded.version).toBe(2);
     expect(loaded.autoCollectorEfficiencyLevel).toBe(0);
     expect(loaded.autoCollectorEfficiencyMultiplier).toBe(1);
     expect(loaded.nextEfficiencyUpgradeCost).toBe(25);
+    expect(loaded.resonance).toBe(0);
+    expect(loaded.earnedResonanceMilestones).toEqual([]);
+    expect(loaded.unlockedResonanceNodes).toEqual([]);
     expect(loaded.dustPerSecond).toBe(0.2);
   });
 

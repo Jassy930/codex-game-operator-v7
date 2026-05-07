@@ -1,5 +1,5 @@
 export type GameState = {
-  version: 1;
+  version: 2;
   dust: number;
   dustPerClick: number;
   dustPerSecond: number;
@@ -8,6 +8,9 @@ export type GameState = {
   autoCollectorEfficiencyLevel: number;
   autoCollectorEfficiencyMultiplier: number;
   nextEfficiencyUpgradeCost: number;
+  resonance: number;
+  earnedResonanceMilestones: string[];
+  unlockedResonanceNodes: string[];
   lastUpdatedAt: number;
 };
 
@@ -17,7 +20,8 @@ export type HydratedGameState = {
   saveLoaded: boolean;
 };
 
-const SAVE_VERSION = 1;
+const SAVE_VERSION = 2;
+const LEGACY_SAVE_VERSION = 1;
 const AUTO_COLLECTOR_BASE_COST = 10;
 const AUTO_COLLECTOR_GROWTH = 1.5;
 const DUST_PER_AUTO_COLLECTOR = 0.2;
@@ -37,6 +41,9 @@ export function createGameState(now = Date.now()): GameState {
     autoCollectorEfficiencyLevel: 0,
     autoCollectorEfficiencyMultiplier: 1,
     nextEfficiencyUpgradeCost: EFFICIENCY_BASE_COST,
+    resonance: 0,
+    earnedResonanceMilestones: [],
+    unlockedResonanceNodes: [],
     lastUpdatedAt: now,
   };
 }
@@ -126,8 +133,8 @@ export function hydrateGameStateWithReport(
   }
 
   try {
-    const parsed = JSON.parse(saved) as Partial<GameState>;
-    if (parsed.version !== SAVE_VERSION) {
+    const parsed = JSON.parse(saved) as Partial<GameState> & { version?: number };
+    if (parsed.version !== SAVE_VERSION && parsed.version !== LEGACY_SAVE_VERSION) {
       return {
         state: createGameState(now),
         offlineDust: 0,
@@ -164,6 +171,12 @@ export function hydrateGameStateWithReport(
           parsed.nextEfficiencyUpgradeCost,
           calculateEfficiencyUpgradeCost(autoCollectorEfficiencyLevel),
         ),
+        resonance: numberOr(parsed.resonance, 0),
+        earnedResonanceMilestones: stringArrayOr(
+          parsed.earnedResonanceMilestones,
+          [],
+        ),
+        unlockedResonanceNodes: stringArrayOr(parsed.unlockedResonanceNodes, []),
         lastUpdatedAt: numberOr(parsed.lastUpdatedAt, now),
       },
       now,
@@ -185,6 +198,14 @@ export function hydrateGameStateWithReport(
 
 function numberOr(value: unknown, fallback: number): number {
   return typeof value === "number" && Number.isFinite(value) ? value : fallback;
+}
+
+function stringArrayOr(value: unknown, fallback: string[]): string[] {
+  if (!Array.isArray(value)) {
+    return fallback;
+  }
+
+  return value.filter((item): item is string => typeof item === "string");
 }
 
 function round(value: number): number {
