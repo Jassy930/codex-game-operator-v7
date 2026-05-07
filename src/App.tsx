@@ -26,7 +26,9 @@ export function App() {
   const [loadedGame] = useState<HydratedGameState>(() => loadGame());
   const [state, setState] = useState<GameState>(loadedGame.state);
   const [offlineDust] = useState(loadedGame.offlineDust);
+  const [collectMessage, setCollectMessage] = useState("");
   const [purchaseMessage, setPurchaseMessage] = useState("");
+  const collectMessageTimer = useRef<number | null>(null);
   const purchaseMessageTimer = useRef<number | null>(null);
 
   useEffect(() => {
@@ -77,6 +79,9 @@ export function App() {
 
   useEffect(() => {
     return () => {
+      if (collectMessageTimer.current !== null) {
+        window.clearTimeout(collectMessageTimer.current);
+      }
       if (purchaseMessageTimer.current !== null) {
         window.clearTimeout(purchaseMessageTimer.current);
       }
@@ -86,9 +91,22 @@ export function App() {
   function handleCollectClick() {
     if (typeof window !== "undefined") {
       recordPlayerClick(window.localStorage);
+      showCollectMessage(formatCollectFeedbackMessage(state.dustPerClick));
     }
 
     setState(clickForDust);
+  }
+
+  function showCollectMessage(message: string) {
+    setCollectMessage(message);
+    if (collectMessageTimer.current !== null) {
+      window.clearTimeout(collectMessageTimer.current);
+    }
+
+    collectMessageTimer.current = window.setTimeout(() => {
+      setCollectMessage("");
+      collectMessageTimer.current = null;
+    }, 1800);
   }
 
   function handleUpgradeClick() {
@@ -96,6 +114,7 @@ export function App() {
       const next = buyAutoCollector(current);
       if (next !== current && typeof window !== "undefined") {
         recordUpgradePurchase(window.localStorage);
+        clearCollectMessage();
         showPurchaseMessage(formatAutoCollectorPurchaseMessage(next.dustPerSecond));
       }
 
@@ -113,6 +132,14 @@ export function App() {
       setPurchaseMessage("");
       purchaseMessageTimer.current = null;
     }, 2400);
+  }
+
+  function clearCollectMessage() {
+    setCollectMessage("");
+    if (collectMessageTimer.current !== null) {
+      window.clearTimeout(collectMessageTimer.current);
+      collectMessageTimer.current = null;
+    }
   }
 
   function handleFeedbackClick() {
@@ -136,12 +163,15 @@ export function App() {
           <span>星尘</span>
           <strong>{formatNumber(state.dust)}</strong>
           <small>每秒 +{formatNumber(state.dustPerSecond)}</small>
+          <p className="motivation-copy">星尘会变成自动采集器，让工坊持续产出</p>
         </div>
 
         <div className="event-stack" aria-live="polite">
           {offlineDust > 0 ? (
             <p className="offline-gain">离线获得 {formatNumber(offlineDust)} 星尘</p>
           ) : null}
+
+          {collectMessage ? <p className="collect-feedback">{collectMessage}</p> : null}
 
           {purchaseMessage ? <p className="purchase-feedback">{purchaseMessage}</p> : null}
         </div>
@@ -218,4 +248,8 @@ function formatNumber(value: number): string {
 
 export function formatAutoCollectorPurchaseMessage(dustPerSecond: number): string {
   return `自动采集器启动：每秒星尘 +${formatNumber(dustPerSecond)}`;
+}
+
+export function formatCollectFeedbackMessage(dustPerClick: number): string {
+  return `采集到 ${formatNumber(dustPerClick)} 星尘：正在推进下一台自动采集器`;
 }

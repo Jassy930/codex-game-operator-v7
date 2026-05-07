@@ -1,5 +1,9 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { App, formatAutoCollectorPurchaseMessage } from "./App";
+import {
+  App,
+  formatAutoCollectorPurchaseMessage,
+  formatCollectFeedbackMessage,
+} from "./App";
 import { createGameState, serializeGameState } from "./game";
 
 describe("App", () => {
@@ -7,6 +11,7 @@ describe("App", () => {
     const html = renderToStaticMarkup(<App />);
 
     expect(html).toContain("星尘");
+    expect(html).toContain("星尘会变成自动采集器，让工坊持续产出");
     expect(html).toContain("采集");
     expect(html).toContain("自动采集器");
     expect(html).toContain("需要 10 星尘");
@@ -52,6 +57,12 @@ describe("App", () => {
   it("formats a lightweight auto collector purchase confirmation", () => {
     expect(formatAutoCollectorPurchaseMessage(0.2)).toBe(
       "自动采集器启动：每秒星尘 +0.2",
+    );
+  });
+
+  it("formats a lightweight collect feedback message", () => {
+    expect(formatCollectFeedbackMessage(1)).toBe(
+      "采集到 1 星尘：正在推进下一台自动采集器",
     );
   });
 });

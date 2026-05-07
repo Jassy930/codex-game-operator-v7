@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-公开预览、单一 GitHub Issue Form、站外 playtest 邀请素材和 M3 反馈处理文档已收口，但仍没有真实玩家反馈。当前本地指标缺少跨 session 的轻量汇总，不利于本机回看前 60 秒趋势。
+Issue #1 提供第一条真实玩家反馈。玩家不清楚为什么要采集星尘、采集能带来什么，以及采集动作的兴奋点在哪里。
 
 ## Evidence
 
@@ -65,10 +65,14 @@
 - 当前经济模拟显示：每秒点击一次时，第 10、23、39 秒购买前三台自动采集器，第 60 秒下一台购买进度约 98%。
 - `docs/METRICS.md` 记录过当前不保留历史 session 汇总。
 - `recordSessionEnd` 已在浏览器 `pagehide` 时调用，可以在同一 localStorage 边界内保存最近 session 汇总。
+- Issue #1 反馈：“我不知道为何要采集？采集能为我带来什么？如何提高采集给我带来的兴奋点？”
+- 当前 UI 已显示星尘、采集、自动采集器、购买进度、目标、里程碑和反馈入口。
+- 当前 UI 没有直接说明星尘的用途链路：采集星尘 → 购买自动采集器 → 获得持续生产。
+- 当前首屏复杂度接近预算，不应通过新资源、新奖励系统或新面板解决该问题。
 
 ## Current Decision
 
-添加 local-only 最近 10 个 session 汇总，写入 `stardust-workshop-metrics-history-v1`。该指标只在本机 localStorage 保存，不上传、不新增 SDK、不收集个人数据、不改变游戏 UI 或玩法。
+对 Issue #1 采取最小 OPERATE 行动：在现有首屏内强化采集动机和即时反馈，让玩家明确“采集星尘是为了启动自动采集器，让工坊持续产出”。不新增资源、奖励系统、面板、数值变化或外部 telemetry。
 
 ## Implementation Record
 
@@ -378,13 +382,20 @@
 - Decision: 在 `stardust-workshop-metrics-history-v1` 中保留最近 10 个 session 汇总。
 - 约束：local-only、无上传、无个人数据、无外部 SDK、无 UI 改动。
 
+2026-05-07 OPERATE collect motivation:
+
+- Issue #1 已路由到 `first-60s-motivation` 聚类。
+- Gap: 首屏说明了“怎么采集”和“怎么买”，但没有直接说明“为什么采集值得做”。
+- Decision: 增加一条短文案说明星尘会转化为自动采集器和持续生产，并增强采集点击的短暂反馈。
+- 约束：不新增资源、奖励系统、新面板、经济数值变化、上传 telemetry 或第二反馈渠道。
+
 ## Input Source
 
-Self-playtest gap.
+GitHub Issue #1.
 
 ## Linked Signals
 
-None.
+Issue #1: https://github.com/Jassy930/codex-game-operator-v7/issues/1
 
 ## Not Doing
 

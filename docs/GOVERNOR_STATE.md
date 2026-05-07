@@ -2,37 +2,39 @@
 
 ## Selected Mode
 
-METRICS_INFRA
+OPERATE
 
 ## Reason
 
-当前没有开放 GitHub Issues。最新 self-playtest 没有经济或 UI gap。`docs/METRICS.md` 明确当前不保留历史 session 汇总；这会限制后续用本地指标辅助 first-60-second 评估。本轮进入 METRICS_INFRA，仅添加 local-only 最近 session 汇总，不上传、不加 SDK、不收集个人数据。
+GitHub Issue #1 是第一条真实玩家反馈。反馈集中在前 60 秒采集动机不清楚：“不知道为何要采集、采集能带来什么、如何提高兴奋点”。本轮进入 OPERATE，先路由该 issue，再实施一个符合 North Star 的最小改动。
 
 ## Allowed Actions
 
-- 添加 local-only 最近 session 汇总。
-- 保持所有指标只写入浏览器 localStorage。
-- 添加/更新 metrics 测试。
-- 更新 `docs/METRICS.md`、`docs/DECISION.md`、`docs/RELEASE_LOG.md`。
+- 读取和路由 Issue #1。
+- 更新 `docs/ISSUE_LEDGER.md` 和 `docs/FEEDBACK_CLUSTERS.md`。
+- 更新 `docs/DECISION.md`，把 issue 变成受约束的产品决策。
+- 实施一个最小 UI/copy 变更，强化采集动机和即时反馈。
+- 在 response budget 允许时，对 #1 做一次有证据的简短回复。
 
 ## Forbidden Actions
 
-- 不上传 telemetry。
-- 不收集个人数据。
-- 不新增 analytics SDK、上传路径、个人数据或跨设备追踪。
-- 不新增玩法、资源、奖励、面板或反馈渠道。
-- 不回复 issue。
+- 不把 #1 直接当成完整产品路线。
+- 不新增资源、奖励系统、prestige、技能树、复杂 lore 或新面板。
+- 不上传 telemetry，不新增 analytics SDK，不收集个人数据。
+- 不重复回复 #1。
+- 不改变 `ROADMAP.md` 来迎合单个 issue。
 
 ## Exit Criteria
 
-- 最近 session 汇总只保存在 localStorage。
-- `docs/METRICS.md` 说明新 storage key 和边界。
+- Issue #1 已在 ledger 和反馈聚类中记录。
+- `docs/DECISION.md` 记录本轮行动与约束。
+- 最小变更有测试覆盖。
 - `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 通过。
 - 周期结束后记录工作区状态。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只补 local-only metrics 支撑，不改变游戏机制或 UI。
+未发现玩法漂移。本轮只处理 Issue #1 指向的首分钟动机缺口，限定为现有 UI/copy 和即时反馈增强。
 
 ## Last Updated
 
@@ -79,3 +81,7 @@ METRICS_INFRA
 2026-05-06: 切换到 METRICS_INFRA；补最近 session 汇总，仍保持 local-only 和无个人数据。
 
 2026-05-06: METRICS_INFRA 实施完成；新增 `stardust-workshop-metrics-history-v1`，只保留最近 10 个本地 session 汇总。
+
+2026-05-07: 切换到 OPERATE；Issue #1 提供第一条真实玩家反馈，问题集中在前 60 秒采集动机和即时兴奋点不足。
+
+2026-05-07: OPERATE 最小改动已通过本地验证；新增采集动机文案和短暂采集反馈，等待提交、推送和 issue 回复。

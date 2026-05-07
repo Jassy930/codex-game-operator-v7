@@ -57,6 +57,7 @@ button {
 .eyebrow,
 .save-state,
 .resource-readout small,
+.motivation-copy,
 .progress-label,
 dt {
   margin: 0;
@@ -86,6 +87,11 @@ h1 {
   letter-spacing: 0;
 }
 
+.motivation-copy {
+  max-width: 32rem;
+  line-height: 1.45;
+}
+
 .event-stack {
   min-height: 42px;
   display: grid;
@@ -93,6 +99,7 @@ h1 {
 }
 
 .offline-gain,
+.collect-feedback,
 .purchase-feedback {
   margin: 0;
   padding: 10px 12px;
@@ -111,6 +118,12 @@ h1 {
   border: 1px solid rgba(41, 91, 82, 0.22);
   color: #21493f;
   background: #eef8f2;
+}
+
+.collect-feedback {
+  border: 1px solid rgba(176, 108, 58, 0.22);
+  color: #5b351d;
+  background: #fff7e8;
 }
 
 .action-row {

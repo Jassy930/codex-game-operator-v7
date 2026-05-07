@@ -4,7 +4,7 @@
 
 | Issue | Fingerprint | Cluster | Class | Status | Last Reply | Linked Decision | Linked Commit/Release | Next Action |
 |---|---|---|---|---|---|---|---|---|
-| none | none | none | none | none | none | none | none | none |
+| #1 | collect-motivation-first-60s | first-60s-motivation | ACTIONABLE | fixed-awaiting-release | none | 2026-05-07 OPERATE collect motivation | pending | 验证通过并提交后回复一次 |
 
 ## Status Values
 
