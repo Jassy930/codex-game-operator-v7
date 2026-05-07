@@ -213,4 +213,4 @@ v0.3 共鸣系统第一版已经发布，首次节点选择前后的约束和状
 
 2026-05-07: 继续 SELF_PLAYTEST；复核首个共鸣门槛已达成但尚未领取的状态。模拟显示门槛达成时已有 `领取共鸣 +1` 按钮，但阶段目标仍可能停留在“离开一会儿再回来”，本轮只允许收敛同一阶段目标文案。
 
-2026-05-07: 首个共鸣领取目标切片本地验证通过：新增测试先按预期失败，随后 `bun test` 64 pass，`bun run test` 64 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。等待提交、推送和远端验证。
+2026-05-07: 首个共鸣领取目标切片已由 commit `b3d211c` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 64 pass，`bun run test` 64 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`HEAD` 与 `origin/main` 均为 `b3d211c781f553785fc5e26aec9507a4026a9fa3`；`gh run list` 无法连接 `api.github.com`，`curl` 无法解析 `jassy930.github.io`，暂未验证 Pages workflow run 或公开预览 HTTP 状态。
