@@ -4,7 +4,7 @@
 
 | Issue | Fingerprint | Cluster | Class | Status | Last Reply | Linked Decision | Linked Commit/Release | Next Action |
 |---|---|---|---|---|---|---|---|---|
-| #1 | collect-motivation-first-60s | first-60s-motivation | ACTIONABLE | released | none | DECISION:2026-05-07-operate-collect-motivation | 861ba0b | 回复一次后等待新信息 |
+| #1 | collect-motivation-first-60s | first-60s-motivation | ACTIONABLE | released | 2026-05-07 | DECISION:2026-05-07-operate-collect-motivation | 861ba0b | 等待新信息，不重复回复 |
 
 ## Status Values
 
