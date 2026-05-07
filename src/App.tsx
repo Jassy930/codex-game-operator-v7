@@ -239,8 +239,8 @@ export function App() {
             <dd>{state.autoCollectors}</dd>
           </div>
           <div>
-            <dt>点击收益</dt>
-            <dd>{formatNumber(state.dustPerClick)}</dd>
+            <dt>调校倍率</dt>
+            <dd>{formatNumber(state.autoCollectorEfficiencyMultiplier)}x</dd>
           </div>
         </dl>
 

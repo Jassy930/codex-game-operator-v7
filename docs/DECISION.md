@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-用户明确要求使用 imagegen 优化当前画面表现。当前最大问题是按 Asset Workflow 增加视觉氛围，同时避免图片变成复杂 lore、新玩法或首屏噪音。
+当前阶段是 3-5 分钟参与度。Issue #1 和 Issue #2 没有玩家新补充，不能重复处理或回复；当前最大问题是让 3-5 分钟内已经存在的“扩建或调校”选择更可读，同时避免新增第三种升级、第二资源或新面板。
 
 ## Evidence
 
@@ -117,12 +117,15 @@
 - 用户明确要求“使用imggen图像优化一下现在的画面表现”。
 - `docs/ASSET_WORKFLOW.md` 允许游戏背景、资源/建筑/升级插图、纹理、透明背景 cutout 等 raster asset，前提是改善当前体验且不增加噪音或额外面板。
 - 生成资产派生为项目内 WebP 文件 `src/assets/stardust-workshop-bg.webp`，不是远程热链；原始 PNG 生成图保留在 `/Users/jassy/.codex/generated_images/...`。
+- 2026-05-07 3-5 分钟模拟显示，第 180 秒已有调校等级 2，第 240 秒已有调校等级 3，第 300 秒已有调校等级 4。
+- 现有目标提示会说“扩建或调校”，但主屏统计仍显示恒定的“点击收益 1”，没有展示调校倍率。
+- 同一统计格可替换为调校倍率，不新增面板、按钮、资源、升级类型或指标字段。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-asset-background-imagegen`
+Decision Anchor: `DECISION:2026-05-07-self-playtest-tuning-visibility`
 
-使用 imagegen 生成一张低噪音“星尘工坊”背景图，并作为 `.app-shell` 背景接入。该素材只改善视觉氛围和公开预览观感，不新增玩法、资源、面板、按钮、指标或反馈渠道；白色主面板继续承担文本和交互可读性。
+将主屏第二个统计项从“点击收益”替换为“调校倍率”，让玩家在 3-5 分钟阶段能看到调校工具带来的效率成长。该切片只复用现有统计格和现有调校字段，不新增玩法、资源、面板、按钮、指标字段或反馈渠道。
 
 ## Implementation Record
 
@@ -583,9 +586,16 @@ Decision Anchor: `DECISION:2026-05-07-asset-background-imagegen`
 - Decision: 使用 imagegen 生成一张无文字、无人物、低噪音的星尘工坊背景，压缩为 WebP 后通过 CSS 作为全屏背景接入；主游戏面板仍保持现有结构和白色可读背景。
 - 约束：不新增玩法、资源、面板、按钮、复杂 lore、远程热链、analytics 或反馈渠道。
 
+2026-05-07 SELF_PLAYTEST tuning visibility:
+
+- Decision Anchor: `DECISION:2026-05-07-self-playtest-tuning-visibility`
+- Gap check: 3-5 分钟模拟显示调校工具已经多次购买，但主屏统计仍显示恒定的“点击收益 1”，无法支撑“扩建或调校”的目标提示。
+- Decision: 将同一统计格替换为“调校倍率”，显示当前 `autoCollectorEfficiencyMultiplier`。
+- 约束：不新增升级类型、资源、面板、按钮、经济公式、指标字段、反馈渠道或 issue 回复。
+
 ## Input Source
 
-User request: 使用 imagegen 优化当前画面表现。
+Self-playtest: 3-5 分钟调校可见性复核。
 
 ## Linked Signals
 

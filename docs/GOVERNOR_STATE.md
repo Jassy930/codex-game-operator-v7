@@ -6,38 +6,37 @@ SELF_PLAYTEST
 
 ## Reason
 
-用户明确要求使用 imagegen 优化当前画面表现。本轮按 `docs/ASSET_WORKFLOW.md` 生成并接入一个低噪音背景资产，只改善视觉氛围和首屏观感，不新增玩法系统。
+用户要求继续执行 goal。Issue #1 和 Issue #2 没有玩家新补充，不能重复回复或重复处理；当前 roadmap 阶段是 3-5 分钟参与度。本轮用 SELF_PLAYTEST 复核第 3-5 分钟目标清晰度、升级节奏和回访理解，先找具体 gap，再决定 no-change 或小切片。
 
 ## Allowed Actions
 
-- 使用 imagegen 生成一个项目内 raster 背景资产。
-- 将最终图片复制到 `src/assets/`。
-- 用 CSS 接入背景，同时保持 UI 文本和控件可读。
-- 更新 `docs/DECISION.md` 和 `docs/RELEASE_LOG.md`。
-- 运行测试、构建、governor check 和视觉/资产验证。
+- 读取 issue、ledger、roadmap 和 self-playtest 证据。
+- 用现有游戏逻辑模拟 180-300 秒窗口。
+- 检查当前 UI 是否在 3-5 分钟阶段仍表达下一步目标。
+- 更新 `docs/SELF_PLAYTEST.md`、`docs/DECISION.md`，必要时更新 `docs/RELEASE_LOG.md`。
+- 若发现具体 gap，只允许一个小切片，且必须使用现有资源、现有面板和现有升级类型。
+- 运行 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
 - 不新增第三种升级、第二资源、任务系统、prestige、复杂 lore 或新面板。
 - 不新增反馈渠道、analytics SDK、上传 telemetry 或个人数据收集。
-- 不用图片替代应该清楚的 UI 文案、数值或交互。
-- 不引入远程热链、不明授权素材或真实人物/品牌。
-- 不重复回复 Issue #1 或 Issue #2。
+- 不新增图片资产、远程热链、不明授权素材或真实人物/品牌。
+- 不把阶段切换直接当成新增系统授权。
 - 不重复回复 Issue #1 或 Issue #2，除非玩家提供新的实质信息。
 
 ## Exit Criteria
 
-- 背景资产在 `src/assets/` 中，CSS 只引用项目内路径。
-- 面板文字、按钮、进度条和反馈入口不被图片遮挡。
-- `docs/DECISION.md` 记录 Asset Workflow 决策。
-- `docs/RELEASE_LOG.md` 记录素材变化。
-- `bun test`、`bun run build`、governor check 和 diff check 通过。
+- 3-5 分钟窗口复核记录到 `docs/SELF_PLAYTEST.md`。
+- `docs/DECISION.md` 记录本轮 no-change 或一个具体小切片。
+- 若有代码改动，`docs/RELEASE_LOG.md` 记录变化。
+- `bun test`、`bun run test`、`bun run build`、governor check 和 diff check 通过。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只新增一个背景视觉资产，不新增系统、不改变经济、不扩张玩法 UI。
+未发现玩法漂移。本轮只复用现有统计格展示调校倍率，不新增系统、第二资源、新面板或 issue 回复。
 
 ## Last Updated
 
@@ -158,3 +157,7 @@ SELF_PLAYTEST
 2026-05-07: 补阶段推进节奏；同一时间窗连续 no-change 后必须 stage review，避免卡在单一阶段反复打磨。
 
 2026-05-07: 用户明确要求使用 imagegen 优化画面表现；生成并接入 `src/assets/stardust-workshop-bg.webp` 作为低噪音背景，保持现有主屏和玩法不变。
+
+2026-05-07: 继续 goal；Issue #1/#2 无玩家新补充，切换到 SELF_PLAYTEST 复核 3-5 分钟参与度，不重复回复 issue，不直接新增系统。
+
+2026-05-07: 3-5 分钟 self-playtest 发现调校工具已多次购买但主屏仍显示恒定点击收益；本轮只将同一统计格替换为调校倍率，保持玩法和 UI 面板数不变。

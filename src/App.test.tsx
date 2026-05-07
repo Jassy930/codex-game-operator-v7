@@ -86,7 +86,10 @@ describe("App", () => {
       const html = renderToStaticMarkup(<App />);
 
       expect(html).toContain("目标：扩建或调校，让每秒星尘继续提高");
+      expect(html).toContain("调校倍率");
+      expect(html).toContain("1.1x");
       expect(html).not.toContain("目标：继续攒星尘，购买下一台自动采集器");
+      expect(html).not.toContain("点击收益");
     } finally {
       Object.defineProperty(globalThis, "window", {
         configurable: true,
