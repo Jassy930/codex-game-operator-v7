@@ -4,6 +4,7 @@ import {
   formatAutoCollectorPurchaseMessage,
   formatCollectFeedbackMessage,
   formatGoalHint,
+  shouldShowOfflineDust,
 } from "./App";
 import { createGameState, serializeGameState } from "./game";
 
@@ -94,6 +95,41 @@ describe("App", () => {
     }
   });
 
+  it("does not show a rounded zero offline reward", () => {
+    const storage = createMemoryStorage();
+    const now = Date.now();
+    storage.setItem(
+      "stardust-workshop-save-v1",
+      serializeGameState({
+        ...createGameState(now),
+        lastUpdatedAt: now - 20,
+        autoCollectors: 3,
+        dustPerSecond: 0.66,
+        nextAutoCollectorCost: 34,
+        autoCollectorEfficiencyLevel: 1,
+        autoCollectorEfficiencyMultiplier: 1.1,
+        nextEfficiencyUpgradeCost: 45,
+      }),
+    );
+    const globalWithWindow = globalThis as typeof globalThis & { window?: Window };
+    const originalWindow = globalWithWindow.window;
+    Object.defineProperty(globalThis, "window", {
+      configurable: true,
+      value: { localStorage: storage },
+    });
+
+    try {
+      const html = renderToStaticMarkup(<App />);
+
+      expect(html).not.toContain("离线获得 0 星尘");
+    } finally {
+      Object.defineProperty(globalThis, "window", {
+        configurable: true,
+        value: originalWindow,
+      });
+    }
+  });
+
   it("formats the next goal from the current upgrade depth", () => {
     expect(formatGoalHint(0, 0)).toBe("目标：攒够星尘，购买第一个自动采集器");
     expect(formatGoalHint(2, 0)).toBe(
@@ -102,6 +138,11 @@ describe("App", () => {
     expect(formatGoalHint(3, 1)).toBe(
       "目标：扩建或调校，让每秒星尘继续提高",
     );
+  });
+
+  it("uses the displayed offline reward threshold for visibility and metrics", () => {
+    expect(shouldShowOfflineDust(0.09)).toBe(false);
+    expect(shouldShowOfflineDust(0.1)).toBe(true);
   });
 
   it("formats a lightweight auto collector purchase confirmation", () => {

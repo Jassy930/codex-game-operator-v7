@@ -27,6 +27,7 @@ export function App() {
   const [loadedGame] = useState<HydratedGameState>(() => loadGame());
   const [state, setState] = useState<GameState>(loadedGame.state);
   const [offlineDust] = useState(loadedGame.offlineDust);
+  const showOfflineDust = shouldShowOfflineDust(offlineDust);
   const [collectMessage, setCollectMessage] = useState("");
   const [purchaseMessage, setPurchaseMessage] = useState("");
   const collectMessageTimer = useRef<number | null>(null);
@@ -71,11 +72,11 @@ export function App() {
       if (loadedGame.saveLoaded) {
         recordSaveLoaded(window.localStorage);
       }
-      if (offlineDust > 0) {
+      if (showOfflineDust) {
         recordOfflineRewardClaimed(window.localStorage, offlineDust);
       }
     }
-  }, [offlineDust]);
+  }, [offlineDust, showOfflineDust]);
 
   useEffect(() => {
     function handlePageHide() {
@@ -189,7 +190,7 @@ export function App() {
         </div>
 
         <div className="event-stack" aria-live="polite">
-          {offlineDust > 0 ? (
+          {showOfflineDust ? (
             <p className="offline-gain">离线获得 {formatNumber(offlineDust)} 星尘</p>
           ) : null}
 
@@ -292,6 +293,10 @@ export function formatGoalHint(
   }
 
   return "目标：扩建或调校，让每秒星尘继续提高";
+}
+
+export function shouldShowOfflineDust(offlineDust: number): boolean {
+  return offlineDust >= 0.1;
 }
 
 export function formatCollectFeedbackMessage(dustPerClick: number): string {
