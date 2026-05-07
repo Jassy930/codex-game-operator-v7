@@ -2,14 +2,15 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动和三个节点的基础价值反馈已经收敛。当前最大问题不是继续扩展更多系统，而是缺少新的真实反馈或可读取的本机指标样本来证明下一个玩法 gap；在证据不足时继续增加共鸣节点、prestige 或任务系统会破坏复杂度预算。
+v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动和三个节点的基础价值反馈已经收敛。当前最大问题不是继续扩展更多系统，而是把已存在的共鸣闭环状态表达清楚：首个共鸣已经领取并消耗后，矩阵进度仍显示满门槛但不说明该门槛已领取，容易让玩家误以为还有一次可领取动作。
 
 ## Evidence
 
-- 2026-05-08 v0.3 共鸣闭环 stage review：`gh issue list` 和 `gh issue view 1/2` 仍无法连接 `api.github.com`，本轮无法确认远端是否有新玩家补充。
+- 2026-05-08 本轮 `gh issue list` CLI 仍无法连接 `api.github.com`；GitHub connector 成功读取 Issue #1/#2 和评论，确认两条 issue 都没有新的玩家补充，且此前都已回复一次。
 - `data/metrics/events.jsonl` 当前为 0 行；共鸣指标仍只存在于浏览器 `localStorage`，当前没有可用本机样本可解释新问题。
 - `回访线圈`、`调校刻印` 和 `稳定回路` 的节点生效反馈都已通过同一阶段目标行或同一事件反馈区收敛。
-- 本轮决策是 no-change：在没有新 issue、真实 localStorage 样本或新 self-playtest gap 前，不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或新资源。
+- self-playtest 构造已领取并已消耗首个共鸣的状态时，`共鸣矩阵` 仍显示“共鸣门槛：自动采集器 20/20，调校 12/12”，但没有说明首个共鸣已经领取。
+- 本轮只允许补现有共鸣进度行的领取状态，不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或新资源。
 - BOOTSTRAP commit `7b30c9d` added a playable local MVP.
 - FEEDBACK_INFRA commit `8cf6f39` added an in-game feedback path.
 - GitHub Pages workflow run `25421769909` completed successfully.
@@ -176,9 +177,9 @@ v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-stable-circuit-feedback`
+Decision Anchor: `DECISION:2026-05-08-claimed-resonance-progress`
 
-如果玩家已启动 `稳定回路`，并继续购买自动采集器，现有事件反馈区必须承认这是稳定回路共振后的自动采集产出。本切片只补节点生效后的购买反馈文案，不改节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
+如果玩家已经领取首个共鸣，现有 `共鸣矩阵` 的门槛进度行必须显示“首个共鸣已领取”，避免满进度看起来像还有一次可领取动作。本切片只补同一进度行文案，不改共鸣门槛、奖励、节点效果、共鸣成本、存档字段、指标字段、面板数量或资源数量；prestige、任务系统、多地图、多生产线、多个新面板、外部 analytics 和 telemetry 上传继续禁止。
 
 ## Implementation Record
 
@@ -245,6 +246,13 @@ Decision Anchor: `DECISION:2026-05-08-stable-circuit-feedback`
 - Added a `稳定回路`-specific auto collector purchase message in the existing event feedback area.
 - When the node is active, auto collector purchases now show resonance-powered passive production feedback.
 - Added a behavior test for the stable-circuit purchase confirmation.
+- Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
+
+2026-05-08 CLAIMED_RESONANCE_PROGRESS executed:
+
+- Added claimed-milestone copy to the existing `共鸣矩阵` progress line.
+- After the first resonance milestone has been claimed, the progress line reads `首个共鸣已领取` before the 20/20 and 12/12 progress values.
+- Added a rendering test for the claimed-and-spent first resonance state.
 - Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
 
 2026-05-06 FEEDBACK_INFRA selected:

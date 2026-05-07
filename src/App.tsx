@@ -87,6 +87,8 @@ export function App() {
     state.autoCollectorEfficiencyLevel,
   );
   const resonanceProgress = getResonanceMilestoneProgress(state);
+  const hasClaimedCurrentResonanceMilestone =
+    state.earnedResonanceMilestones.includes(resonanceProgress.id);
   const showResonanceMatrix = workshopStage.name === "星尘引擎室";
   const showResonanceChoiceHint =
     state.resonance > 0 && state.unlockedResonanceNodes.length === 0;
@@ -358,9 +360,10 @@ export function App() {
               ) : null}
             </div>
             <p className="resonance-progress">
-              共鸣门槛：自动采集器 {resonanceProgress.autoCollectors.current}/
-              {resonanceProgress.autoCollectors.target}，调校{" "}
-              {resonanceProgress.tuning.current}/{resonanceProgress.tuning.target}
+              {formatResonanceProgressMessage(
+                resonanceProgress,
+                hasClaimedCurrentResonanceMilestone,
+              )}
             </p>
             {showResonanceChoiceHint ? (
               <p className="resonance-choice-hint">
@@ -452,6 +455,15 @@ function formatResonanceNodeDescription(
   }
 
   return description;
+}
+
+function formatResonanceProgressMessage(
+  resonanceProgress: ReturnType<typeof getResonanceMilestoneProgress>,
+  hasClaimedMilestone: boolean,
+): string {
+  const claimedPrefix = hasClaimedMilestone ? "首个共鸣已领取 · " : "";
+
+  return `共鸣门槛：${claimedPrefix}自动采集器 ${resonanceProgress.autoCollectors.current}/${resonanceProgress.autoCollectors.target}，调校 ${resonanceProgress.tuning.current}/${resonanceProgress.tuning.target}`;
 }
 
 function loadGame(): HydratedGameState {

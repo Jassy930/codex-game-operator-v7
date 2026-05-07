@@ -38,6 +38,12 @@
 
 ## 最新阶段复核
 
+`DECISION:2026-05-08-claimed-resonance-progress`
+
+v0.3 首个共鸣已领取后的矩阵状态已补清楚：当玩家已经领取首个共鸣后，`共鸣矩阵` 的同一进度行会显示“首个共鸣已领取”，再保留自动采集器 20/20 和调校 12/12 的门槛进度。该切片不新增节点、不改数值、不新增面板，也不进入 prestige 或任务系统。
+
+## 上一阶段复核
+
 `DECISION:2026-05-08-v03-resonance-stage-review-no-change`
 
 v0.3 共鸣系统第一版的三个节点基础反馈已收敛。本轮读取反馈和指标证据时，远端 issue 查询仍无法连接 `api.github.com`，仓库内 `data/metrics/events.jsonl` 为空，浏览器 localStorage 中的共鸣指标没有可用样本。因此本轮不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或新资源。下一步必须来自新玩家反馈、可读 local-only 指标样本、明确 self-playtest gap 或 research-backed 决策。

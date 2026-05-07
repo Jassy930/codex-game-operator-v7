@@ -280,6 +280,24 @@ describe("App", () => {
     expect(html).toContain("本轮已选择其他节点 · 调校倍率 +0.05");
   });
 
+  it("marks the first resonance milestone as claimed after spending the node choice", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 9.68,
+      nextAutoCollectorCost: 33253,
+      nextEfficiencyUpgradeCost: 28922,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+    });
+
+    expect(html).toContain(
+      "共鸣门槛：首个共鸣已领取 · 自动采集器 20/20，调校 12/12",
+    );
+  });
+
   it("points the stage goal at the selected resonance node value", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
