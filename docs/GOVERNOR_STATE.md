@@ -185,3 +185,5 @@ SELF_PLAYTEST
 2026-05-07: 阶段进度文案切片本地验证通过：`bun test` 48 pass，`bun run test` 48 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。本地提交已创建；推送因当前环境无法解析 `github.com` 受阻，工作区状态为 `main...origin/main [ahead 1]`。
 
 2026-05-07: 继续 SELF_PLAYTEST；15-60 分钟模拟显示第 15/30/60 分钟分别为 11/13/15 台自动采集器，调校 6/8/9，仍有升级推进。30 分钟回访会产生约 10260 星尘离线收益，现有 `星尘引擎室` 回访目标可解释该结果。本轮 no-change，不新增玩法或 UI。
+
+2026-05-07: 15-60 分钟 self-playtest no-change 已由 commit `fce5b54` 推送到 `origin/main`。本地验证通过；`gh run list` 连接 `api.github.com` 失败，暂未验证 Pages workflow run。
