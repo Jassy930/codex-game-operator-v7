@@ -437,6 +437,12 @@ Decision Anchor: `DECISION:2026-05-07-research-soft-automation`
 - Economy check: 每秒点击一次并优先购买自动采集器时，调校工具在第 55 秒才出现，不破坏第一台自动采集器目标。
 - 约束：不新增第二资源、prestige、多 generator 分类、任务系统、成就或新面板。
 
+2026-05-07 SELF_PLAYTEST soft automation prerequisite copy:
+
+- Gap: 0 台自动采集器时调校工具禁用，但显示成本会暗示攒够 25 星尘即可购买。
+- Decision: 无自动采集器时显示“需要先购买自动采集器”，有自动采集器后显示效率提升和星尘成本。
+- 约束：只改文案；不改变经济数值、资源、面板或反馈渠道。
+
 ## Input Source
 
 Roadmap gap + research question.

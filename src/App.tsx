@@ -49,6 +49,12 @@ export function App() {
   const canBuyAutoCollector = state.dust >= state.nextAutoCollectorCost;
   const canBuyEfficiencyUpgrade =
     state.autoCollectors > 0 && state.dust >= state.nextEfficiencyUpgradeCost;
+  const efficiencyUpgradeLabel =
+    state.autoCollectors === 0
+      ? "调校工具 · 需要先购买自动采集器"
+      : `调校工具 · 自动采集效率 +10% · 需要 ${formatNumber(
+          state.nextEfficiencyUpgradeCost,
+        )} 星尘`;
   const progressToUpgrade = useMemo(() => {
     return Math.min(100, (state.dust / state.nextAutoCollectorCost) * 100);
   }, [state.dust, state.nextAutoCollectorCost]);
@@ -208,8 +214,7 @@ export function App() {
             disabled={!canBuyEfficiencyUpgrade}
             onClick={handleEfficiencyUpgradeClick}
           >
-            调校工具 · 自动采集效率 +10% · 需要{" "}
-            {formatNumber(state.nextEfficiencyUpgradeCost)} 星尘
+            {efficiencyUpgradeLabel}
           </button>
         </div>
 
