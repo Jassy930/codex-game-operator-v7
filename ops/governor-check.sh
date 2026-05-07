@@ -17,6 +17,7 @@ required=(
   "docs/RESPONSE_BUDGET.md"
   "docs/COMPLEXITY_BUDGET.md"
   "docs/REVIEW_PROTOCOL.md"
+  "docs/ASSET_WORKFLOW.md"
   "docs/DECISION.md"
   "docs/RELEASE_LOG.md"
   "docs/ISSUE_LEDGER.md"

@@ -23,6 +23,7 @@ Defines identity, direction, and non-negotiable priorities.
 - `docs/RESPONSE_BUDGET.md`
 - `docs/COMPLEXITY_BUDGET.md`
 - `docs/REVIEW_PROTOCOL.md`
+- `docs/ASSET_WORKFLOW.md`
 
 Defines what the operator may do now.
 

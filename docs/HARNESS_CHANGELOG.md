@@ -169,6 +169,40 @@ Use `METRICS_INFRA` only when local measurement directly supports self-playtest 
 
 继续把 `data/feedback/github-feedback.md` 当作原始反馈快照处理；真实产品决策仍必须经过 ledger、cluster 和 `DECISION.md`。
 
+## 2026-05-07 - Asset Workflow
+
+### Files Changed
+
+- `docs/ASSET_WORKFLOW.md`
+- `docs/HARNESS.md`
+- `docs/REVIEW_PROTOCOL.md`
+- `ops/governor-check.sh`
+- `src/ops-scripts.test.ts`
+- `docs/DECISION.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `docs/RELEASE_LOG.md`
+
+### Failure Mode
+
+游戏生成机制缺少资产工作流。未来需要图片、sprite、背景或视觉素材时，operator 可能不会显式评估 `imagegen`，也不会记录不使用它的理由。
+
+### Evidence
+
+用户指出当前机制似乎不会使用 `imagegen` 生成需要的图片；`rg` 未发现仓库内已有 `imagegen` 或 asset workflow 规则。
+
+### Change
+
+新增 `docs/ASSET_WORKFLOW.md`，定义素材需求、`imagegen` 使用规则、资产规格、实施流程和验证清单。将该文档挂入 `docs/HARNESS.md` 和 `docs/REVIEW_PROTOCOL.md`，并纳入 `ops/governor-check.sh` 必需文档检查。
+
+### Why This Does Not Weaken Constraints
+
+该变更只新增素材决策闸门，不强制生成装饰图，不新增玩法、反馈渠道或 telemetry，也不放宽 issue routing、response budget、complexity budget 或 review protocol。
+
+### Follow-up
+
+未来涉及视觉素材的 `DECISION.md` 记录必须说明使用 `imagegen`，或说明为什么 CSS、现有图标、文字反馈或不做更合适。
+
 ## Template
 
 ```md

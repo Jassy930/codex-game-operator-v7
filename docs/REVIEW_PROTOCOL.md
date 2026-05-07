@@ -10,6 +10,7 @@ Check:
 - Does it improve the first 60 seconds or current roadmap milestone?
 - Is this based on feedback, self-playtest, metrics, research, or roadmap gap?
 - Is `DECISION.md` updated?
+- If visual assets are involved, does this follow `ASSET_WORKFLOW.md`?
 
 ## Governor Reviewer
 
@@ -19,6 +20,7 @@ Check:
 - Is this issue-driven thrashing?
 - Is this repeated work on one issue?
 - Is the selected operating mode correct?
+- If an image asset was needed, was `imagegen` considered or explicitly declined in `DECISION.md`?
 
 ## Engineering Reviewer
 
@@ -28,6 +30,7 @@ Check:
 - Do tests pass?
 - Is save compatibility preserved?
 - Are dependencies justified?
+- Do assets have stable paths, responsive constraints, and no remote hotlinks?
 
 ## Release Reviewer
 
