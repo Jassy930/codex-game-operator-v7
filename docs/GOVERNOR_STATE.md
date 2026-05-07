@@ -2,18 +2,18 @@
 
 ## Selected Mode
 
-RELEASE
+RESEARCH
 
 ## Reason
 
-`调校工具` 已完成实现、经济复核、文案修正、提交、推送和 GitHub Pages 发布。本轮只做发布后的治理状态收口和回顾记录，不继续新增玩法。
+Soft Automation 已发布并收口；Issue #1 截至 2026-05-07 没有玩家新补充。下一步产品问题是：调校工具发布后，应该等待真实反馈、做一次 no-change self-playtest，还是研究一个更小的下一内容切片。
 
 ## Allowed Actions
 
-- 记录 `调校工具` 发布证据。
-- 补充 retrospective，说明研究、实现、经济复核和前置条件文案修正的结果。
-- 运行治理检查和必要的低成本验证。
-- 提交并推送文档收口。
+- 复核当前游戏、复杂度预算、roadmap gap、self-playtest gap 和 issue 状态。
+- 研究调校工具发布后的下一步运营判断。
+- 产出一个不直接实现代码的候选方向或 no-change 决策。
+- 必要时更新 `docs/RESEARCH.md`、`docs/DECISION.md` 或 `docs/SELF_PLAYTEST.md`。
 
 ## Forbidden Actions
 
@@ -22,17 +22,18 @@ RELEASE
 - 不新增 prestige、多 generator 分类、任务系统、成就或复杂 lore。
 - 不上传 telemetry、不新增 analytics SDK、不收集个人数据。
 - 不在本轮继续实现第三种升级或调整经济数值。
+- 未形成 decision 前，不实现新玩法代码。
 
 ## Exit Criteria
 
-- `docs/GOVERNOR_STATE.md` 记录最新发布状态。
-- `docs/RETROSPECTIVE.md` 覆盖 Soft Automation 周期。
+- 确认 Issue #1 没有新玩家补充，且没有新 issue。
+- 明确下一步是等待反馈、self-playtest no-change，还是进入一个具体 research-backed 设计方向。
 - `./ops/governor-check.sh` 通过。
-- 周期结束后工作区干净，`main` 与 `origin/main` 同步。
+- 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。`调校工具` 仍保持 primary resource 1、upgrade types 2、visible panels 不增加，反馈渠道和 telemetry 边界不变。Issue #1 截至 2026-05-07 仍 open，但没有玩家新补充；不重复回复。
+未发现玩法漂移。`调校工具` 仍保持 primary resource 1、upgrade types 2、visible panels 不增加，反馈渠道和 telemetry 边界不变。当前动作区已有三个按钮，后续要优先避免继续扩张首屏控件。
 
 ## Last Updated
 
@@ -105,3 +106,5 @@ RELEASE
 2026-05-07: 切换到 SELF_PLAYTEST 实施切片；按 TDD 实现 `调校工具` 候选。
 
 2026-05-07: Soft Automation 周期已发布并收口；commit `7a15e5d` 已推送，Pages workflow `25474199644` 成功，公开预览 HTTP 200。Issue #1 无新玩家补充，本轮不回复 issue，不继续加玩法。
+
+2026-05-07: 切换到 RESEARCH；调校工具发布后的下一步问题是是否等待真实反馈、做 no-change self-playtest，或研究一个不增加资源/面板的更小内容切片。
