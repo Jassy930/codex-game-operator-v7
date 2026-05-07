@@ -62,18 +62,14 @@ export function buyAutoCollector(state: GameState): GameState {
 
   const autoCollectors = state.autoCollectors + 1;
 
-  return {
+  return recalculateProduction({
     ...state,
     dust: state.dust - state.nextAutoCollectorCost,
     autoCollectors,
-    dustPerSecond: calculateDustPerSecond(
-      autoCollectors,
-      state.autoCollectorEfficiencyMultiplier,
-    ),
     nextAutoCollectorCost: Math.ceil(
       AUTO_COLLECTOR_BASE_COST * AUTO_COLLECTOR_GROWTH ** autoCollectors,
     ),
-  };
+  });
 }
 
 export function buyEfficiencyUpgrade(state: GameState): GameState {
@@ -86,19 +82,15 @@ export function buyEfficiencyUpgrade(state: GameState): GameState {
     autoCollectorEfficiencyLevel,
   );
 
-  return {
+  return recalculateProduction({
     ...state,
     dust: state.dust - state.nextEfficiencyUpgradeCost,
     autoCollectorEfficiencyLevel,
     autoCollectorEfficiencyMultiplier,
-    dustPerSecond: calculateDustPerSecond(
-      state.autoCollectors,
-      autoCollectorEfficiencyMultiplier,
-    ),
     nextEfficiencyUpgradeCost: Math.ceil(
       EFFICIENCY_BASE_COST * EFFICIENCY_GROWTH ** autoCollectorEfficiencyLevel,
     ),
-  };
+  });
 }
 
 export function tickGame(state: GameState, now = Date.now()): GameState {
@@ -152,14 +144,11 @@ export function hydrateGameStateWithReport(
       autoCollectorEfficiencyLevel,
     );
     const state = tickGame(
-      {
+      recalculateProduction({
         version: SAVE_VERSION,
         dust: dustBeforeOffline,
         dustPerClick: numberOr(parsed.dustPerClick, 1),
-        dustPerSecond: calculateDustPerSecond(
-          autoCollectors,
-          autoCollectorEfficiencyMultiplier,
-        ),
+        dustPerSecond: 0,
         autoCollectors,
         nextAutoCollectorCost: numberOr(
           parsed.nextAutoCollectorCost,
@@ -178,7 +167,7 @@ export function hydrateGameStateWithReport(
         ),
         unlockedResonanceNodes: stringArrayOr(parsed.unlockedResonanceNodes, []),
         lastUpdatedAt: numberOr(parsed.lastUpdatedAt, now),
-      },
+      }),
       now,
     );
 
@@ -194,6 +183,24 @@ export function hydrateGameStateWithReport(
       saveLoaded: false,
     };
   }
+}
+
+export function recalculateProduction(state: GameState): GameState {
+  const stableCircuitMultiplier = state.unlockedResonanceNodes.includes(
+    "stable-circuit",
+  )
+    ? 1.1
+    : 1;
+
+  return {
+    ...state,
+    dustPerSecond: round(
+      calculateDustPerSecond(
+        state.autoCollectors,
+        state.autoCollectorEfficiencyMultiplier,
+      ) * stableCircuitMultiplier,
+    ),
+  };
 }
 
 function numberOr(value: unknown, fallback: number): number {

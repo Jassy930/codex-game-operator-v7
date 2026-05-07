@@ -5,6 +5,7 @@ import {
   createGameState,
   hydrateGameState,
   hydrateGameStateWithReport,
+  recalculateProduction,
   serializeGameState,
   tickGame,
 } from "./game";
@@ -71,6 +72,18 @@ describe("core idle loop", () => {
     expect(next.autoCollectorEfficiencyMultiplier).toBe(1.1);
     expect(next.dustPerSecond).toBe(0.44);
     expect(next.nextEfficiencyUpgradeCost).toBe(45);
+  });
+
+  it("applies stable circuit resonance to passive production", () => {
+    const state = {
+      ...createGameState(1_000),
+      autoCollectors: 10,
+      autoCollectorEfficiencyLevel: 10,
+      autoCollectorEfficiencyMultiplier: 2,
+      unlockedResonanceNodes: ["stable-circuit"],
+    };
+
+    expect(recalculateProduction(state).dustPerSecond).toBe(4.4);
   });
 
   it("does not buy an efficiency upgrade when dust is insufficient", () => {
