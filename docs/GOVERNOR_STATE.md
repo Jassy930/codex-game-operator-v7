@@ -6,38 +6,38 @@ SELF_PLAYTEST
 
 ## Reason
 
-用户确认进入下一步。本轮将阶段焦点从“前 60 秒清晰度”切换到“3-5 分钟参与度”，用 SELF_PLAYTEST 建立新阶段的检查口径；前 60 秒保留为回归护栏，不直接新增系统。
+用户明确要求使用 imagegen 优化当前画面表现。本轮按 `docs/ASSET_WORKFLOW.md` 生成并接入一个低噪音背景资产，只改善视觉氛围和首屏观感，不新增玩法系统。
 
 ## Allowed Actions
 
-- 更新 `docs/NORTH_STAR.md`，将当前阶段设为 3-5 分钟参与度。
-- 更新 `docs/ROADMAP.md`，明确下一道闸门和允许的小切片。
-- 增加阶段推进节奏，防止同一时间窗反复 no-change。
-- 更新 `docs/DECISION.md` 和 `docs/SELF_PLAYTEST.md`，记录阶段切换和检查项。
-- 运行治理检查和低成本验证。
+- 使用 imagegen 生成一个项目内 raster 背景资产。
+- 将最终图片复制到 `src/assets/`。
+- 用 CSS 接入背景，同时保持 UI 文本和控件可读。
+- 更新 `docs/DECISION.md` 和 `docs/RELEASE_LOG.md`。
+- 运行测试、构建、governor check 和视觉/资产验证。
 
 ## Forbidden Actions
 
-- 不因阶段切换直接新增第三种升级、第二资源、任务系统、prestige、复杂 lore 或新面板。
-- 不新增反馈渠道、图片资产、analytics SDK、上传 telemetry 或个人数据收集。
-- 不改变游戏代码、经济、UI、指标字段或 localStorage key。
-- 不把阶段切换直接当实现授权。
+- 不新增第三种升级、第二资源、任务系统、prestige、复杂 lore 或新面板。
+- 不新增反馈渠道、analytics SDK、上传 telemetry 或个人数据收集。
+- 不用图片替代应该清楚的 UI 文案、数值或交互。
+- 不引入远程热链、不明授权素材或真实人物/品牌。
 - 不重复回复 Issue #1 或 Issue #2。
 - 不重复回复 Issue #1 或 Issue #2，除非玩家提供新的实质信息。
 
 ## Exit Criteria
 
-- `docs/NORTH_STAR.md` 和 `docs/ROADMAP.md` 明确当前阶段已进入 3-5 分钟体验。
-- 文档明确同一阶段连续 no-change 后必须扩大时间窗、定义内容弧线或等待真实反馈。
-- `docs/DECISION.md` 记录阶段切换不是新增系统授权。
-- `docs/SELF_PLAYTEST.md` 增加 3-5 分钟阶段检查口径。
-- governor check 和 diff check 通过。
+- 背景资产在 `src/assets/` 中，CSS 只引用项目内路径。
+- 面板文字、按钮、进度条和反馈入口不被图片遮挡。
+- `docs/DECISION.md` 记录 Asset Workflow 决策。
+- `docs/RELEASE_LOG.md` 记录素材变化。
+- `bun test`、`bun run build`、governor check 和 diff check 通过。
 - `./ops/governor-check.sh` 通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现玩法漂移。本轮只切换阶段焦点和检查口径，不新增系统、不改变经济、不扩张 UI。
+未发现玩法漂移。本轮只新增一个背景视觉资产，不新增系统、不改变经济、不扩张玩法 UI。
 
 ## Last Updated
 
@@ -156,3 +156,5 @@ SELF_PLAYTEST
 2026-05-07: 切换到 SELF_PLAYTEST；用户确认进入下一步，当前阶段焦点改为 3-5 分钟参与度，前 60 秒作为回归护栏保留。
 
 2026-05-07: 补阶段推进节奏；同一时间窗连续 no-change 后必须 stage review，避免卡在单一阶段反复打磨。
+
+2026-05-07: 用户明确要求使用 imagegen 优化画面表现；生成并接入 `src/assets/stardust-workshop-bg.webp` 作为低噪音背景，保持现有主屏和玩法不变。

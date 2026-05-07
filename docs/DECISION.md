@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-前 60 秒已经有真实反馈修复、self-playtest no-change 和持续回归检查。用户确认进入下一步；当前最大问题是把阶段焦点切到 3-5 分钟参与度，同时避免把阶段切换误解为新增系统授权。
+用户明确要求使用 imagegen 优化当前画面表现。当前最大问题是按 Asset Workflow 增加视觉氛围，同时避免图片变成复杂 lore、新玩法或首屏噪音。
 
 ## Evidence
 
@@ -114,14 +114,15 @@
 - 多轮 self-playtest 记录显示 60-300 秒内升级事件持续出现：第 10、23、39、55、76、100、126、160、194、238、290 秒。
 - 用户明确同意进入下一步；这应更新阶段焦点，而不是直接授权新系统。
 - 用户强调不要卡在一个阶段太长时间。
+- 用户明确要求“使用imggen图像优化一下现在的画面表现”。
+- `docs/ASSET_WORKFLOW.md` 允许游戏背景、资源/建筑/升级插图、纹理、透明背景 cutout 等 raster asset，前提是改善当前体验且不增加噪音或额外面板。
+- 生成资产派生为项目内 WebP 文件 `src/assets/stardust-workshop-bg.webp`，不是远程热链；原始 PNG 生成图保留在 `/Users/jassy/.codex/generated_images/...`。
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-07-stage-shift-3-5-minute`
+Decision Anchor: `DECISION:2026-05-07-asset-background-imagegen`
 
-将当前阶段从“前 60 秒清晰度”切换为“3-5 分钟参与度”。前 60 秒继续作为回归护栏；下一步只允许通过 self-playtest、local-only metrics、真实反馈或 research-backed decision 形成小切片。不因阶段切换直接实现第三种升级、第二资源、新面板、prestige、任务系统或图片资产。
-
-阶段推进规则：同一时间窗连续两轮 no-change 后，必须进行 stage review，并选择扩大时间窗、定义内容弧线或明确等待真实反馈；不得继续反复产出同一阶段的 no-change 文档。
+使用 imagegen 生成一张低噪音“星尘工坊”背景图，并作为 `.app-shell` 背景接入。该素材只改善视觉氛围和公开预览观感，不新增玩法、资源、面板、按钮、指标或反馈渠道；白色主面板继续承担文本和交互可读性。
 
 ## Implementation Record
 
@@ -574,9 +575,17 @@ Decision Anchor: `DECISION:2026-05-07-stage-shift-3-5-minute`
 - Stage cadence: 同一阶段连续两轮 no-change 后，必须扩大时间窗、定义内容弧线或明确等待真实反馈。
 - 约束：阶段切换不是新增系统授权；任何玩法实现仍需新的 `DECISION.md` 锚点、复杂度预算复核、测试和发布证据。
 
+2026-05-07 SELF_PLAYTEST imagegen background:
+
+- Decision Anchor: `DECISION:2026-05-07-asset-background-imagegen`
+- User request: 使用 imagegen 优化当前画面表现。
+- Asset: `src/assets/stardust-workshop-bg.webp`
+- Decision: 使用 imagegen 生成一张无文字、无人物、低噪音的星尘工坊背景，压缩为 WebP 后通过 CSS 作为全屏背景接入；主游戏面板仍保持现有结构和白色可读背景。
+- 约束：不新增玩法、资源、面板、按钮、复杂 lore、远程热链、analytics 或反馈渠道。
+
 ## Input Source
 
-User-approved stage transition.
+User request: 使用 imagegen 优化当前画面表现。
 
 ## Linked Signals
 

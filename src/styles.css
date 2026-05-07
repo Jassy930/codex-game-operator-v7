@@ -28,6 +28,8 @@ button {
   place-items: center;
   padding: 24px;
   background:
+    linear-gradient(rgba(233, 237, 242, 0.2), rgba(233, 237, 242, 0.52)),
+    url("./assets/stardust-workshop-bg.webp") center / cover no-repeat,
     linear-gradient(135deg, rgba(41, 91, 82, 0.16), transparent 35%),
     linear-gradient(315deg, rgba(176, 108, 58, 0.16), transparent 30%),
     #e9edf2;

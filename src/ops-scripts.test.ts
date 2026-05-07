@@ -2,6 +2,7 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } f
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { execFileSync, spawnSync } from "node:child_process";
+import styles from "./styles.css?raw";
 
 describe("ops scripts", () => {
   it("fails governor check when an accepted issue is not clustered", () => {
@@ -79,6 +80,12 @@ exit 1
     expect(output).toContain("我不知道为何要采集");
     expect(output).toContain("采集反馈不明显");
     expect(output).toContain("Ledger Draft");
+  });
+});
+
+describe("visual assets", () => {
+  it("uses the generated stardust workshop background from project assets", () => {
+    expect(styles).toContain("./assets/stardust-workshop-bg.webp");
   });
 });
 
