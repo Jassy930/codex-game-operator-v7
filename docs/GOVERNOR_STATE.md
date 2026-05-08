@@ -48,6 +48,8 @@ SELF_PLAYTEST
 
 2026-05-08: 切换到 SELF_PLAYTEST；上一轮已补齐本地指标快照入口，但远端反馈仍不可刷新，仓库内反馈快照没有新玩家补充。本轮只允许在现有 `回访计划读回` 阶段目标行里补大致等待时间，不新增资源、按钮、面板、存档字段、指标字段或数值系统。
 
+2026-05-08: 回访计划等待时间读回切片已由 commit `68225a7` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 72 pass，`bun run test` 72 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --repo Jassy930/codex-game-operator-v7 --limit 3` 仍无法连接 `api.github.com`，`curl -I --max-time 15 https://jassy930.github.io/codex-game-operator-v7/` 仍无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
+
 2026-05-06: RELEASE_INFRA 收尾完成；workflow run `25430225912` 成功，公开预览 HTTP 200，工作区检查无未提交变更。切换到 SELF_PLAYTEST。
 
 2026-05-06: SELF_PLAYTEST 只读检查完成；未发现足够具体的新增改动 gap。记录 no-change 决策，避免为了迭代而增加首屏提示或玩法系统。
