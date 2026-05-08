@@ -38,6 +38,8 @@ v0.4 第二共鸣门槛、第二个现有节点选择、双节点回访计划、
 
 ## Last Updated
 
+2026-05-08: v0.4 20 小时巡航读回切片已由 commit `83e34ea` 推送到 `origin/main`。新增测试先按预期失败，随后本地验证通过：`bun test src/App.test.tsx -t "frames the dual-node endgame wait"` 先失败，修复后 `bun test src/App.test.tsx -t "frames the dual-node endgame wait|reads back both active resonance nodes"` 2 pass，完整 `bun test` 82 pass，`bun run test` 82 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。远端验证缺口：`gh run list --repo Jassy930/codex-game-operator-v7 --limit 5` 无法连接 `api.github.com`，`curl -I --max-time 20 https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名。
+
 2026-05-08: 继续 SELF_PLAYTEST；复核第二共鸣节点全部消耗并接近 20 小时时的阶段目标。本轮只允许在现有 `星尘引擎室` 阶段目标行补 `20 小时巡航` 读回，不新增第三共鸣门槛、新节点、资源、面板、存档字段、指标字段、prestige、任务系统或多生产线。
 
 2026-05-08: v0.4 共鸣选择上限读回切片已由 commit `1c36f9b` 推送到 `origin/main`。新增测试先按预期失败，随后本地验证通过：`bun test src/App.test.tsx -t "shows the resonance choice cap"` 1 pass，回归测试 `bun test src/App.test.tsx -t "reads back both active resonance nodes|shows the resonance choice cap"` 2 pass，完整 `bun test` 81 pass，`bun run test` 81 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。远端验证缺口：`gh issue list` 和 `gh run list` 无法连接 `api.github.com`，`curl -I --max-time 20 https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名。
