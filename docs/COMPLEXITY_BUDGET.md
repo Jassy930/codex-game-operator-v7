@@ -68,6 +68,36 @@ v0.3 仍然禁止：
 - 多个新面板
 - 外部 analytics SDK 或上传 telemetry
 
+## v0.4 20-Hour Resonance Budget
+
+目标：把 v0.3 的首个回访后策略层延长到约 20 小时目标，同时避免把游戏扩成任务系统、prestige 或多面板管理。
+
+- Primary resource: 1
+- Secondary resources: max 1
+- Main actions: max 2
+- Upgrade types: max 4
+- Visible panels: max 5
+- First 60 seconds mechanics: max 3
+- First 60 seconds text: under 300 Chinese characters or 180 English words
+- Resonance resource: allowed
+- Resonance matrix panel: max 1
+- Resonance milestones: max 2
+- Unlockable resonance nodes: max 2 of the existing 3 nodes
+- Save format versions: max 2
+- Local-only resonance metric fields: max 3
+- Feedback channels shown in UI: max 1 primary, 1 secondary
+
+v0.4 仍然禁止：
+
+- prestige
+- 任务系统
+- 复杂地图
+- 多生产线
+- 多个新面板
+- 新资源
+- 新共鸣节点
+- 外部 analytics SDK 或上传 telemetry
+
 ## Rule
 
 Every new mechanic must pass:

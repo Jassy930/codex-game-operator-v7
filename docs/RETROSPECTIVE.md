@@ -667,6 +667,48 @@ Asset Workflow 收口后，若无新玩家反馈，回到 `SELF_PLAYTEST` 或 `R
 
 下一轮优先 `SELF_PLAYTEST` 或 `METRICS_INFRA` readback。不得直接进入 prestige、任务系统、多生产线、第二个共鸣面板或更多节点。
 
+## 2026-05-08 Retrospective 16
+
+### Window
+
+从 `回访计划读回`、local metrics snapshot 读回和远端验证恢复，到用户明确提出 20 小时目标后的 v0.4 第二共鸣门槛。
+
+### What Changed
+
+- 远端 issue / Pages 验证恢复后，确认 Issue #1/#2 没有新补充。
+- 本地 metrics 快照可以读回活跃 session 时长，后续 self-playtest 证据更容易采集。
+- 新增 v0.4 20-hour resonance budget，允许最多 2 个共鸣里程碑和 2 个已启动节点。
+- 第二共鸣门槛复用现有 `共鸣矩阵`，目标为 25 台自动采集器和 15 次调校。
+
+### What Improved
+
+- 20 小时目标有了第一个可玩落点，而不是停在文档愿景。
+- 扩展仍复用现有资源、面板和节点，没有引入 prestige、任务系统、多生产线或新面板。
+- 第二共鸣逻辑、第二节点上限和 UI 文案都有测试覆盖。
+
+### What Got Worse
+
+- v0.4 已经放宽了共鸣上限，下一轮必须避免继续顺手加第三里程碑或新节点。
+- 文档体量继续增长，后续应优先做高信号收口，不要为每个微文案扩写长段落。
+
+### Drift Check
+
+- repeated issue replies: 无。Issue #1/#2 没有新补充，本轮不回复。
+- issue-driven thrashing: 无。本轮来自用户明确 owner signal 和 20 小时阶段目标。
+- feature bloat: 受控。只把现有共鸣矩阵从 1 次选择扩展到 2 次选择。
+- lack of tests: 无。共鸣逻辑和 UI 渲染均有新增测试。
+- unclear North Star: 无。v0.4 仍围绕离开、回访和长期策略选择。
+- harness friction: 可控。先升级复杂度预算，再实现小切片。
+
+### Harness Lessons
+
+- 用户要求更长游戏时间时，先找能复用现有系统的最小长期目标，不要直接新增任务系统或 prestige。
+- “更多内容”可以表现为第二次有意义选择；如果还能复用现有面板，就优先避免新增管理界面。
+
+### Next Operating Mode
+
+下一轮优先 `SELF_PLAYTEST` 复核第二节点选择后的目标/反馈，或等待真实反馈。不得直接进入第三共鸣门槛、新节点、prestige、任务系统或多生产线。
+
 ## Template
 
 ```md

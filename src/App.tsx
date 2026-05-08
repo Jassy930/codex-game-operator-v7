@@ -30,6 +30,7 @@ import {
   type WorkshopStage,
 } from "./milestones";
 import {
+  MAX_UNLOCKED_RESONANCE_NODES,
   claimResonanceMilestones,
   getResonanceMilestoneProgress,
   unlockResonanceNode,
@@ -99,7 +100,8 @@ export function App() {
     state.earnedResonanceMilestones.includes(resonanceProgress.id);
   const showResonanceMatrix = workshopStage.name === "星尘引擎室";
   const showResonanceChoiceHint =
-    state.resonance > 0 && state.unlockedResonanceNodes.length === 0;
+    state.resonance > 0 &&
+    state.unlockedResonanceNodes.length < MAX_UNLOCKED_RESONANCE_NODES;
   const stageNextRequirement = formatWorkshopStageNextRequirement(
     workshopStage,
     showOfflineDust,
@@ -107,6 +109,7 @@ export function App() {
     resonanceProgress.canClaim,
     state.unlockedResonanceNodes,
     nextUpgradeTarget,
+    resonanceProgress.id,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -381,7 +384,7 @@ export function App() {
             </p>
             {showResonanceChoiceHint ? (
               <p className="resonance-choice-hint">
-                选择 1 个永久节点，本轮只能启动一个
+                {formatResonanceChoiceHint(state.unlockedResonanceNodes.length)}
               </p>
             ) : null}
             <div className="resonance-nodes">
@@ -389,13 +392,16 @@ export function App() {
                 const isUnlocked = state.unlockedResonanceNodes.includes(node.id);
                 const hasUsedResonanceChoice =
                   state.unlockedResonanceNodes.length >= 1;
+                const hasFilledResonanceChoices =
+                  state.unlockedResonanceNodes.length >=
+                  MAX_UNLOCKED_RESONANCE_NODES;
                 return (
                   <button
                     className="resonance-node"
                     disabled={
                       isUnlocked ||
                       state.resonance < 1 ||
-                      state.unlockedResonanceNodes.length >= 1
+                      hasFilledResonanceChoices
                     }
                     key={node.id}
                     onClick={() => handleUnlockResonanceNodeClick(node.id)}
@@ -406,6 +412,8 @@ export function App() {
                         node.description,
                         isUnlocked,
                         hasUsedResonanceChoice,
+                        state.resonance > 0,
+                        hasFilledResonanceChoices,
                       )}
                     </small>
                   </button>
@@ -459,9 +467,19 @@ function formatResonanceNodeDescription(
   description: string,
   isUnlocked: boolean,
   hasUsedResonanceChoice: boolean,
+  hasAvailableResonance = false,
+  hasFilledResonanceChoices = false,
 ): string {
   if (isUnlocked) {
     return `已启动 · ${description}`;
+  }
+
+  if (hasFilledResonanceChoices) {
+    return `共鸣选择已满 · ${description}`;
+  }
+
+  if (hasAvailableResonance) {
+    return description;
   }
 
   if (hasUsedResonanceChoice) {
@@ -471,13 +489,35 @@ function formatResonanceNodeDescription(
   return description;
 }
 
+function formatResonanceChoiceHint(unlockedNodeCount: number): string {
+  if (unlockedNodeCount === 0) {
+    return "选择 1 个永久节点，本轮只能启动一个";
+  }
+
+  return "选择第 2 个永久节点，最多启动 2 个";
+}
+
 function formatResonanceProgressMessage(
   resonanceProgress: ReturnType<typeof getResonanceMilestoneProgress>,
   hasClaimedMilestone: boolean,
 ): string {
-  const claimedPrefix = hasClaimedMilestone ? "首个共鸣已领取 · " : "";
+  if (resonanceProgress.id === "second-resonance" && !hasClaimedMilestone) {
+    return `共鸣门槛：首个共鸣已领取 · 下一共鸣：自动采集器 ${resonanceProgress.autoCollectors.current}/${resonanceProgress.autoCollectors.target}，调校 ${resonanceProgress.tuning.current}/${resonanceProgress.tuning.target}`;
+  }
+
+  const claimedPrefix = hasClaimedMilestone
+    ? `${formatResonanceMilestoneLabel(resonanceProgress.id)}已领取 · `
+    : "";
 
   return `共鸣门槛：${claimedPrefix}自动采集器 ${resonanceProgress.autoCollectors.current}/${resonanceProgress.autoCollectors.target}，调校 ${resonanceProgress.tuning.current}/${resonanceProgress.tuning.target}`;
+}
+
+function formatResonanceMilestoneLabel(milestoneId: string): string {
+  if (milestoneId === "second-resonance") {
+    return "第二共鸣";
+  }
+
+  return "首个共鸣";
 }
 
 function loadGame(): HydratedGameState {
@@ -556,8 +596,13 @@ export function formatWorkshopStageNextRequirement(
   canClaimResonance = false,
   unlockedResonanceNodes: string[] = [],
   nextUpgradeTarget?: { label: string; cost: number },
+  claimableResonanceMilestoneId = "first-resonance",
 ): string {
   if (canClaimResonance && workshopStage.name === "星尘引擎室") {
+    if (claimableResonanceMilestoneId === "second-resonance") {
+      return "共鸣目标：领取第 2 点共鸣，再选择第 2 个永久节点";
+    }
+
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
   }
 

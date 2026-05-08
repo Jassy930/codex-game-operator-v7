@@ -20,32 +20,46 @@ const FIRST_RESONANCE_MILESTONE_ID = "first-resonance";
 const FIRST_RESONANCE_AUTO_COLLECTORS = 20;
 const FIRST_RESONANCE_TUNING = 12;
 const FIRST_RESONANCE_REWARD = 1;
-const V03_MAX_UNLOCKED_RESONANCE_NODES = 1;
+export const MAX_UNLOCKED_RESONANCE_NODES = 2;
+
+const RESONANCE_MILESTONES = [
+  {
+    id: FIRST_RESONANCE_MILESTONE_ID,
+    autoCollectors: FIRST_RESONANCE_AUTO_COLLECTORS,
+    tuning: FIRST_RESONANCE_TUNING,
+    resonanceReward: FIRST_RESONANCE_REWARD,
+  },
+  {
+    id: "second-resonance",
+    autoCollectors: 25,
+    tuning: 15,
+    resonanceReward: 1,
+  },
+] as const;
 
 export function getResonanceMilestoneProgress(
   state: GameState,
 ): ResonanceMilestoneProgress {
   const autoCollectors = Math.max(0, Math.floor(state.autoCollectors));
   const tuning = Math.max(0, Math.floor(state.autoCollectorEfficiencyLevel));
-  const alreadyClaimed = state.earnedResonanceMilestones.includes(
-    FIRST_RESONANCE_MILESTONE_ID,
-  );
+  const milestone = getCurrentResonanceMilestone(state.earnedResonanceMilestones);
+  const alreadyClaimed = state.earnedResonanceMilestones.includes(milestone.id);
 
   return {
-    id: FIRST_RESONANCE_MILESTONE_ID,
-    resonanceReward: FIRST_RESONANCE_REWARD,
+    id: milestone.id,
+    resonanceReward: milestone.resonanceReward,
     autoCollectors: {
-      current: Math.min(autoCollectors, FIRST_RESONANCE_AUTO_COLLECTORS),
-      target: FIRST_RESONANCE_AUTO_COLLECTORS,
+      current: Math.min(autoCollectors, milestone.autoCollectors),
+      target: milestone.autoCollectors,
     },
     tuning: {
-      current: Math.min(tuning, FIRST_RESONANCE_TUNING),
-      target: FIRST_RESONANCE_TUNING,
+      current: Math.min(tuning, milestone.tuning),
+      target: milestone.tuning,
     },
     canClaim:
       !alreadyClaimed &&
-      autoCollectors >= FIRST_RESONANCE_AUTO_COLLECTORS &&
-      tuning >= FIRST_RESONANCE_TUNING,
+      autoCollectors >= milestone.autoCollectors &&
+      tuning >= milestone.tuning,
   };
 }
 
@@ -73,7 +87,7 @@ export function unlockResonanceNode(
   if (
     state.resonance < 1 ||
     state.unlockedResonanceNodes.includes(nodeId) ||
-    state.unlockedResonanceNodes.length >= V03_MAX_UNLOCKED_RESONANCE_NODES
+    state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES
   ) {
     return state;
   }
@@ -83,4 +97,12 @@ export function unlockResonanceNode(
     resonance: state.resonance - 1,
     unlockedResonanceNodes: [...state.unlockedResonanceNodes, nodeId],
   };
+}
+
+function getCurrentResonanceMilestone(earnedResonanceMilestones: string[]) {
+  return (
+    RESONANCE_MILESTONES.find(
+      (milestone) => !earnedResonanceMilestones.includes(milestone.id),
+    ) ?? RESONANCE_MILESTONES[RESONANCE_MILESTONES.length - 1]
+  );
 }

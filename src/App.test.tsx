@@ -226,6 +226,20 @@ describe("App", () => {
     expect(html).not.toContain("长期目标：离开一会儿再回来");
   });
 
+  it("points the stage goal at the second resonance claim when the long-horizon milestone is ready", () => {
+    expect(
+      formatWorkshopStageNextRequirement(
+        getWorkshopStage(25, 15),
+        false,
+        false,
+        true,
+        ["stable-circuit"],
+        undefined,
+        "second-resonance",
+      ),
+    ).toBe("共鸣目标：领取第 2 点共鸣，再选择第 2 个永久节点");
+  });
+
   it("shows unlockable resonance nodes when resonance is available", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
@@ -294,8 +308,31 @@ describe("App", () => {
     });
 
     expect(html).toContain(
-      "共鸣门槛：首个共鸣已领取 · 自动采集器 20/20，调校 12/12",
+      "共鸣门槛：首个共鸣已领取 · 下一共鸣：自动采集器 20/25，调校 12/15",
     );
+  });
+
+  it("shows the second resonance milestone and second node choice after the first node is active", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      dustPerSecond: 13.75,
+      nextAutoCollectorCost: 252512,
+      nextEfficiencyUpgradeCost: 168667,
+      resonance: 1,
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+    });
+
+    expect(html).toContain(
+      "共鸣门槛：第二共鸣已领取 · 自动采集器 25/25，调校 15/15",
+    );
+    expect(html).toContain("选择第 2 个永久节点，最多启动 2 个");
+    expect(html).toContain("已启动 · 自动采集产出 +10%");
+    expect(html).toContain("离线收益 +10%");
+    expect(html).not.toContain("本轮已选择其他节点 · 离线收益 +10%");
   });
 
   it("points the stage goal at the selected resonance node value", () => {

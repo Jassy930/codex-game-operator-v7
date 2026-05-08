@@ -100,3 +100,6 @@
 - 活跃 session 时长快照读回切片已推送为 commit `f31038f`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
 - 远端验证恢复：最近 5 次 `Deploy Pages` workflow 均 completed/success，最新 run `25534948014` 对应 commit `412686e`；公开预览返回 HTTP 200。
 - 真实浏览器 metrics 快照读回通过：headless Chrome 页面中 `window.stardustWorkshopMetricsSnapshot()` 可用，点击 2 次后返回 `clickCount=2`、`sessionDurationMs=null`、`activeSessionDurationMs=16870`。Issue #1/#2 无新补充，本轮不回复 issue、不新增玩法。
+- 进入 v0.4 / 20 小时共鸣延展：新增 v0.4 复杂度预算，允许最多 2 个共鸣里程碑、最多启动现有 3 个共鸣节点中的 2 个；仍禁止新资源、新面板、新节点、prestige、任务系统和多生产线。
+- 第二共鸣门槛已接入现有 `共鸣矩阵`：首个共鸣领取后会显示“下一共鸣：自动采集器 20/25，调校 12/15”，达到 25 台自动采集器和 15 次调校后可领取第 2 点共鸣。
+- 第二点共鸣可用于启动第 2 个现有永久节点，矩阵提示“选择第 2 个永久节点，最多启动 2 个”；不新增存档版本、指标字段、面板或节点。

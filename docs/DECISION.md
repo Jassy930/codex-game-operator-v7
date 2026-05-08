@@ -2,10 +2,15 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照入口已经发布。当前最大问题不是缺少更多按钮、节点或面板，而是需要确认最近几轮因网络失败留下的运营验证缺口是否已经恢复，并判断是否存在新的真实反馈信号。当前远端验证已恢复，但 Issue #1/#2 没有新实质补充，因此不应新增玩法或重复回复 issue。
+v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照入口已经发布。用户本轮明确把前期目标推进为“先做到 20 小时的游戏时间”，这构成新的 owner product signal。当前最大问题不是继续打磨首个共鸣状态，也不是新增独立系统，而是要在复杂度可控的前提下，把现有共鸣层延长到 8-20 小时时间窗。
 
 ## Evidence
 
+- 2026-05-08 用户明确要求继续作为独立开发运营游戏，并提出“前期游戏内容不多需要积极做游戏玩法和内容的扩展，目标先做到20小时的游戏时间”。
+- 当前 v0.3 约束已经收敛了首个共鸣闭环：首个共鸣门槛、领取、已领取状态、三选一说明、首个节点价值反馈和回访计划读回都已覆盖；继续只做 no-change 会卡在同一阶段。
+- 主动模拟显示：每秒点击一次并优先购买当前更便宜升级，首个共鸣约第 13,513 秒达成；选择 `稳定回路` 后继续到 20 小时，约第 60,928 秒达到 25 台自动采集器和 15 次调校，20 小时时状态为 25 台自动采集器、15 次调校、每秒 +13.75 星尘。
+- Decision: 本轮记录 `DECISION:2026-05-08-v04-second-resonance-milestone`。新增 v0.4 20-hour resonance budget，允许最多 2 个共鸣里程碑、最多启动现有 3 个节点中的 2 个；不新增资源、面板、节点、存档版本、指标字段、prestige、任务系统或多生产线。
+- 第一版实现第二共鸣门槛 `25 台自动采集器 + 15 次调校`，奖励 1 点 `共鸣`；首个共鸣已领取后，矩阵进度行推进为“首个共鸣已领取 · 下一共鸣”；第二共鸣领取后提示选择第 2 个永久节点。
 - 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels,body` 成功返回 Issue #1/#2；两条 issue 仍为既有反馈，各 1 条已预算回复，`updatedAt` 均为 2026-05-07T09:39:29Z，没有新玩家补充。
 - `./ops/collect-feedback.sh` 已刷新 `data/feedback/github-feedback.md`，只更新时间戳和同一批 Issue #1/#2 证据。
 - `gh run list --repo Jassy930/codex-game-operator-v7 --limit 5` 成功返回最近 5 次 `Deploy Pages`，均为 `completed/success`；最新 run `25534948014` 对应 `412686e docs: record metrics duration release status`。
@@ -205,9 +210,9 @@ v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-operate-remote-and-metrics-readback-no-change`
+Decision Anchor: `DECISION:2026-05-08-v04-second-resonance-milestone`
 
-远端反馈读取、Pages workflow 和公开预览验证已经恢复；真实浏览器 metrics 快照也能读回活跃 session 时长。Issue #1/#2 没有新实质补充，当前没有新的 gameplay、metrics 或 harness gap。本轮只记录 no-change 运营复核：不新增采集事件、localStorage key、上传路径、外部 analytics、UI 面板、资源、第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源，也不重复回复 issue。
+为响应 20 小时游戏时间目标，本轮进入 v0.4 的最小扩展：复用现有 `共鸣` 资源和 `共鸣矩阵` 面板，新增第二共鸣门槛 `25 台自动采集器 + 15 次调校`，并允许玩家用第二点共鸣启动第 2 个现有永久节点。该切片不新增资源、面板、节点、升级类型、存档版本、指标字段、反馈渠道、prestige、任务系统或多生产线。
 
 ## Implementation Record
 
@@ -303,6 +308,14 @@ Decision Anchor: `DECISION:2026-05-08-operate-remote-and-metrics-readback-no-cha
 - Exposed the same readback in the browser as `window.stardustWorkshopMetricsSnapshot()` for operator self-playtest evidence capture.
 - Added a metrics test for the snapshot path.
 - Did not add metric fields, upload paths, external analytics, personal data, UI panels, save migration or gameplay systems.
+
+2026-05-08 V04_SECOND_RESONANCE_MILESTONE executed:
+
+- Added v0.4 20-hour resonance budget for a second milestone inside the existing resonance system.
+- Added the second resonance milestone at 25 auto collectors and 15 tuning levels.
+- Increased the resonance matrix cap from 1 to 2 unlocked nodes, using the existing three-node choice space.
+- Updated the matrix progress and choice copy so the first claimed milestone leads into the next resonance target, and the second claimed milestone enables the second permanent node.
+- Did not add resources, panels, new nodes, save versions, metric fields, prestige, task systems or production lines.
 
 2026-05-06 FEEDBACK_INFRA selected:
 

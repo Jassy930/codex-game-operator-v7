@@ -6,37 +6,40 @@ OPERATE
 
 ## Reason
 
-远端访问已恢复，本轮可以直接读取 GitHub Issues、Pages workflow 和公开预览。Issue #1/#2 仍只有既有反馈和各一次已预算回复，没有新玩家补充；最新 Pages workflow 均为 success，公开预览返回 HTTP 200。上一轮 `activeSessionDurationMs` 也已通过真实 headless Chrome 页面读回验证。因此本轮进入 OPERATE，刷新反馈快照并记录无新信号状态；不回复 issue，不新增玩法。
+用户本轮提供新的 owner product signal：前期内容不多，需要积极扩展玩法和内容，目标先做到 20 小时游戏时间。v0.3 首个共鸣闭环和回访计划读回已经收敛，继续只做同一阶段 no-change 会卡住。进入 OPERATE，用 v0.4 复杂度预算把现有共鸣层延长到第二个长期门槛；本轮只复用现有 `共鸣` 资源、`共鸣矩阵` 面板和三个节点，不新增 prestige、任务系统、多生产线、新资源、新节点或新面板。
 
 ## Allowed Actions
 
-- 刷新 `data/feedback/github-feedback.md`，确认 Issue #1/#2 是否有新信息。
-- 记录 Pages workflow / 公开预览恢复状态。
-- 记录真实浏览器 `window.stardustWorkshopMetricsSnapshot()` 读回样本。
-- 更新 `docs/DECISION.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
+- 更新 `docs/COMPLEXITY_BUDGET.md`，新增 v0.4 20 小时共鸣预算。
+- 在现有共鸣系统中新增第二共鸣门槛：25 台自动采集器和 15 次调校。
+- 允许最多启动现有 3 个共鸣节点中的 2 个。
+- 更新现有 `共鸣矩阵` 的进度、领取目标和第二节点选择文案。
+- 更新 `docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/SELF_PLAYTEST.md`、`docs/RELEASE_LOG.md`、`docs/GOVERNOR_STATE.md` 和必要的 retrospective。
 - 运行本地验证，至少包括 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 不新增 UI 面板、按钮、资源、存档字段、采集字段或数值系统。
+- 不新增 UI 面板、按钮、资源、存档字段、采集字段或独立数值系统。
 - 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
-- 不新增 prestige、任务系统、复杂地图、多生产线、第二个共鸣面板或更多共鸣节点。
+- 不新增 prestige、任务系统、复杂地图、多生产线、第二个共鸣面板、更多共鸣节点或第三个共鸣里程碑。
 - 不修改或新增 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- 反馈快照已刷新，Issue #1/#2 没有新实质补充。
-- Pages workflow 和公开预览状态已记录。
-- 真实浏览器 metrics 快照样本已记录。
+- v0.4 预算明确允许第二共鸣门槛和第二节点选择，并保留新系统禁令。
+- 第二共鸣门槛和第二节点选择有行为测试与渲染测试覆盖。
+- 相关治理文档和 release log 已同步。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现治理漂移。v0.3 已按预算新增 1 个第二资源和 1 个面板，但没有引入 prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。本轮只允许本地指标读回，不新增玩法复杂度。
+未发现治理漂移。v0.4 只提高现有共鸣层上限：最多 2 个共鸣里程碑、最多启动现有 3 个节点中的 2 个，仍保持 1 个第二资源、1 个共鸣矩阵面板、v2 存档和最多 3 个 local-only 共鸣指标字段。不引入 prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。
 
 ## Last Updated
+
+2026-05-08: 切换到 OPERATE；依据用户 20 小时目标信号，进入 v0.4 最小内容扩展。本轮只允许复用现有共鸣系统实现第二共鸣门槛和第二个现有节点选择，不新增资源、面板、节点、存档版本、指标字段、prestige、任务系统或多生产线。
 
 2026-05-08: 切换到 OPERATE；远端 GitHub API 和 Pages DNS 已恢复。本轮只刷新反馈快照、记录 Pages/公开预览恢复状态，并用真实 headless Chrome 页面读回 `window.stardustWorkshopMetricsSnapshot()` 样本；不回复 Issue #1/#2，不新增玩法或指标字段。
 

@@ -304,6 +304,40 @@ v0.2 预算把第二资源、新面板、存档字段和本地指标字段全部
 
 v0.3 实现应按 `docs/plans/2026-05-07-resonance-system.md` 分切片执行。第一版只实现共鸣资源、首个共鸣里程碑、一个紧凑共鸣矩阵、v2 存档迁移和 local-only 指标，不同时引入 prestige 或任务系统。
 
+## 2026-05-08 - v0.4 20-Hour Resonance Budget
+
+### Files Changed
+
+- `docs/COMPLEXITY_BUDGET.md`
+- `docs/HARNESS_CHANGELOG.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/DECISION.md`
+- `docs/CONTENT_ARC.md`
+- `docs/ROADMAP.md`
+- `docs/SELF_PLAYTEST.md`
+- `docs/RELEASE_LOG.md`
+- `docs/RETROSPECTIVE.md`
+
+### Failure Mode
+
+v0.3 已把首个共鸣闭环收敛，但后续继续 no-change 或只打磨同一文案，会与用户明确提出的 20 小时内容目标冲突。直接新增 prestige、任务系统、多生产线或新面板又会越过当前复杂度边界。
+
+### Evidence
+
+用户本轮明确要求：“前期游戏内容不多需要积极做游戏玩法和内容的扩展，目标先做到20小时的游戏时间”。主动模拟显示首个共鸣后继续到约第 60,928 秒会达到 25 台自动采集器和 15 次调校，适合作为第二长期门槛。
+
+### Change
+
+新增 v0.4 20-Hour Resonance Budget：继续保持 1 个主资源、1 个第二资源和 1 个共鸣矩阵面板；允许最多 2 个共鸣里程碑，并允许启动现有 3 个共鸣节点中的 2 个。v0.4 仍禁止 prestige、任务系统、复杂地图、多生产线、多个新面板、新资源、新共鸣节点、外部 analytics SDK 和 telemetry 上传。
+
+### Why This Does Not Weaken Constraints
+
+该变更没有移除复杂度预算，而是用更窄的版本预算承接 20 小时目标。North Star、issue routing、response budget、review protocol、测试要求和部署要求保持不变；v0.1 前 60 秒预算继续作为回归护栏。
+
+### Follow-up
+
+下一轮只允许复核第二节点选择后的目标/反馈或等待真实反馈。不得直接新增第三共鸣门槛、新节点、prestige、任务系统或多生产线。
+
 ## Template
 
 ```md
