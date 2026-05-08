@@ -377,6 +377,26 @@ describe("App", () => {
     expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
   });
 
+  it("frames the dual-node endgame wait as a 20 hour cruise plan", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 163313.57,
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      dustPerSecond: 13.75,
+      nextAutoCollectorCost: 252512,
+      nextEfficiencyUpgradeCost: 168667,
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+    });
+
+    expect(html).toContain(
+      "20 小时巡航：稳定回路放大自动采集，回访线圈放大离线收益，约 6 分钟后可购买调校工具",
+    );
+    expect(html).not.toContain("回访计划：稳定回路放大自动采集");
+  });
+
   it("shows the resonance choice cap after two permanent nodes are active", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),

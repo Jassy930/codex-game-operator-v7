@@ -6,13 +6,13 @@ SELF_PLAYTEST
 
 ## Reason
 
-v0.4 第二共鸣门槛、第二个现有节点选择、双节点回访计划、未消费第二共鸣目标和第二节点启动效果反馈都已经发布。下一步复核第二点共鸣消耗完以后，`共鸣矩阵` 是否明确告诉玩家当前版本的长期选择已经达到 `2/2`，避免玩家在 16-20 小时窗口继续误找第三个节点或第三个共鸣门槛。本轮只允许在现有 `共鸣矩阵` 文案中补 2/2 读回，不新增第三共鸣门槛、新节点、资源、面板、存档字段或指标字段。
+v0.4 第二共鸣门槛、第二个现有节点选择、双节点回访计划、未消费第二共鸣目标、第二节点启动效果反馈和 `2/2` 选择上限都已经发布。下一步复核第二点共鸣消耗完并接近 20 小时时，阶段目标是否能把双节点状态读成当前版本的长期巡航收口，而不是普通回访计划。本轮只允许在现有 `星尘引擎室` 阶段目标行补 20 小时巡航读回，不新增第三共鸣门槛、新节点、资源、面板、存档字段或指标字段。
 
 ## Allowed Actions
 
-- 构造已领取第二共鸣、已启动 2 个现有节点、可用共鸣为 0 的 self-playtest 状态。
-- 复核现有 `共鸣矩阵` 是否清楚说明 `2/2` 个永久节点已启动。
-- 在现有 `共鸣矩阵` 文案中补最小选择上限读回。
+- 构造已领取第二共鸣、已启动 2 个现有节点、可用共鸣为 0、接近 20 小时的 self-playtest 状态。
+- 复核现有阶段目标是否清楚说明双节点状态已经进入 20 小时巡航。
+- 在现有 `星尘引擎室` 阶段目标行中补最小巡航读回。
 - 更新 `docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/SELF_PLAYTEST.md`、`docs/RELEASE_LOG.md`、`docs/GOVERNOR_STATE.md` 和必要的 retrospective。
 - 运行本地验证，至少包括 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
@@ -26,17 +26,19 @@ v0.4 第二共鸣门槛、第二个现有节点选择、双节点回访计划、
 
 ## Exit Criteria
 
-- 第二共鸣节点全部消耗后的矩阵上限读回有单元测试覆盖。
-- 启动 2 个现有永久节点后，`共鸣矩阵` 明确显示 2/2 个永久节点已启动，并保留现有节点效果、选择已满状态与双节点回访计划行为。
+- 第二共鸣节点全部消耗且接近 20 小时后的巡航读回有单元测试覆盖。
+- 启动 2 个现有永久节点且下一升级接近完成时，`星尘引擎室` 阶段目标明确显示 20 小时巡航，并保留较早双节点回访计划、节点效果、选择已满状态与 2/2 矩阵读回。
 - 相关治理文档和 release log 已同步。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现治理漂移。本轮只复核 v0.4 已允许的 2 个现有共鸣节点全部启动后的矩阵读回，并把选择上限接入现有 `共鸣矩阵` 文案。仍保持 1 个第二资源、1 个共鸣矩阵面板、最多 2 个共鸣里程碑、最多 2 个已启动节点、v2 存档和最多 3 个 local-only 共鸣指标字段。不引入第三共鸣门槛、新节点、prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。
+未发现治理漂移。本轮只复核 v0.4 已允许的 2 个现有共鸣节点全部启动后、接近 20 小时的阶段目标读回，并把巡航收口接入现有 `星尘引擎室` 文案。仍保持 1 个第二资源、1 个共鸣矩阵面板、最多 2 个共鸣里程碑、最多 2 个已启动节点、v2 存档和最多 3 个 local-only 共鸣指标字段。不引入第三共鸣门槛、新节点、prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。
 
 ## Last Updated
+
+2026-05-08: 继续 SELF_PLAYTEST；复核第二共鸣节点全部消耗并接近 20 小时时的阶段目标。本轮只允许在现有 `星尘引擎室` 阶段目标行补 `20 小时巡航` 读回，不新增第三共鸣门槛、新节点、资源、面板、存档字段、指标字段、prestige、任务系统或多生产线。
 
 2026-05-08: v0.4 共鸣选择上限读回切片已由 commit `1c36f9b` 推送到 `origin/main`。新增测试先按预期失败，随后本地验证通过：`bun test src/App.test.tsx -t "shows the resonance choice cap"` 1 pass，回归测试 `bun test src/App.test.tsx -t "reads back both active resonance nodes|shows the resonance choice cap"` 2 pass，完整 `bun test` 81 pass，`bun run test` 81 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。远端验证缺口：`gh issue list` 和 `gh run list` 无法连接 `api.github.com`，`curl -I --max-time 20 https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名。
 

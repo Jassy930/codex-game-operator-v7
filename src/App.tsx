@@ -680,7 +680,13 @@ export function formatWorkshopStageNextRequirement(
 function formatReturnPlanningReadback(
   unlockedResonanceNodes: string[],
   canSpendNextUpgrade: boolean,
-  nextUpgradeTarget?: { label: string; cost: number; dust?: number; dustPerSecond?: number },
+  nextUpgradeTarget?: {
+    label: string;
+    cost: number;
+    dust?: number;
+    dustPerSecond?: number;
+    progressPercent?: number;
+  },
 ): string {
   if (canSpendNextUpgrade || !nextUpgradeTarget) {
     return "";
@@ -695,7 +701,11 @@ function formatReturnPlanningReadback(
       .filter(Boolean);
 
     if (activeNodeCopies.length >= 2) {
-      return `回访计划：${activeNodeCopies.join("，")}，${nextUpgradeCopy}`;
+      const planPrefix =
+        (nextUpgradeTarget.progressPercent ?? 0) >= 90
+          ? "20 小时巡航"
+          : "回访计划";
+      return `${planPrefix}：${activeNodeCopies.join("，")}，${nextUpgradeCopy}`;
     }
   }
 
