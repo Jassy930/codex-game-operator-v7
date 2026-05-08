@@ -41,6 +41,8 @@ OPERATE
 
 2026-05-08: 切换到 OPERATE；依据用户 20 小时目标信号，进入 v0.4 最小内容扩展。本轮只允许复用现有共鸣系统实现第二共鸣门槛和第二个现有节点选择，不新增资源、面板、节点、存档版本、指标字段、prestige、任务系统或多生产线。
 
+2026-05-08: v0.4 第二共鸣切片已由 commit `986a06d` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 77 pass，`bun run test` 77 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。远端验证缺口：`gh run list --repo Jassy930/codex-game-operator-v7 --limit 5` 无法连接 `api.github.com`，`curl -I --max-time 20 https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名。
+
 2026-05-08: 切换到 OPERATE；远端 GitHub API 和 Pages DNS 已恢复。本轮只刷新反馈快照、记录 Pages/公开预览恢复状态，并用真实 headless Chrome 页面读回 `window.stardustWorkshopMetricsSnapshot()` 样本；不回复 Issue #1/#2，不新增玩法或指标字段。
 
 2026-05-08: OPERATE 复核结果：`gh issue list` 显示 Issue #1/#2 仍为旧反馈且各 1 条已预算回复；`gh run list --repo Jassy930/codex-game-operator-v7 --limit 5` 显示最近 5 次 `Deploy Pages` 均 completed/success，最新 run `25534948014` 对应 `412686e`；公开预览 `https://jassy930.github.io/codex-game-operator-v7/` 返回 HTTP 200。真实 headless Chrome 样本显示 `window.stardustWorkshopMetricsSnapshot()` 存在，点击 2 次后 `clickCount=2`、`sessionDurationMs=null`、`activeSessionDurationMs=16870`，证明上一轮活跃时长读回可用于当前页面。
