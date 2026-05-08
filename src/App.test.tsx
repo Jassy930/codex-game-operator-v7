@@ -462,6 +462,9 @@ describe("App", () => {
     expect(html).toContain("归航航线");
     expect(html).toContain("航线 2/3 · 稳航校准");
     expect(html).toContain(
+      "当前收益：余辉开局已稳定，重复归航会继续压缩重建时间",
+    );
+    expect(html).toContain(
       "下一段：累计 6 次归航，并保留 4 点额外共鸣",
     );
     expect(html).toContain("距下一段还差 3 次归航、2 点额外共鸣");

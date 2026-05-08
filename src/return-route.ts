@@ -4,6 +4,7 @@ import { MAX_UNLOCKED_RESONANCE_NODES } from "./resonance";
 export type ReturnRouteReadback = {
   current: string;
   description: string;
+  currentPayoff: string;
   nextRequirement: string;
   progressSummary: string;
   actionHint: string;
@@ -30,6 +31,8 @@ export function getReturnRouteReadback(
     return {
       current: "深空归航",
       description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
+      currentPayoff:
+        "当前收益：三段航线已贯通，额外共鸣会作为后续版本储备",
       nextRequirement: "航线已贯通：继续归航，为后续版本储备共鸣",
       progressSummary: "航线已贯通：后续归航都会成为长期储备",
       actionHint: "下一步：继续归航，把额外共鸣留作后续版本储备",
@@ -43,6 +46,8 @@ export function getReturnRouteReadback(
     return {
       current: "稳航校准",
       description: "余辉已经能重建开局采集器，继续归航会把路线推向深空段。",
+      currentPayoff:
+        "当前收益：余辉开局已稳定，重复归航会继续压缩重建时间",
       nextRequirement: "下一段：累计 6 次归航，并保留 4 点额外共鸣",
       progressSummary: formatRouteProgressGap(state, 6, 4),
       actionHint: formatRouteActionHint(state, 6, 4),
@@ -55,6 +60,7 @@ export function getReturnRouteReadback(
   return {
     current: "余辉起航",
     description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
+    currentPayoff: "当前收益：额外共鸣已能转成下一轮起步星尘",
     nextRequirement: "下一段：累计 3 次归航，并保留 2 点额外共鸣",
     progressSummary: formatRouteProgressGap(state, 3, 2),
     actionHint: formatRouteActionHint(state, 3, 2),
