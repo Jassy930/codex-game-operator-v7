@@ -2,7 +2,61 @@
 
 ## Current Research
 
-2026-05-07 - 首次回访后的下一阶段内容方向。
+2026-05-08 - 首个共鸣闭环后的下一阶段方向。
+
+## 2026-05-08 - 首个共鸣闭环后的下一阶段方向
+
+### Question
+
+v0.3 首个共鸣闭环已经解释了门槛、领取、三选一、已领取状态和三个节点的基础价值。首个共鸣后 8 小时主动节奏仍有升级推进，但没有新的 UI/玩法 gap。下一阶段应如何继续丰富内容，同时不把游戏直接扩成 prestige、任务系统、多生产线、更多共鸣节点或第二个共鸣面板？
+
+### Sources / Observations
+
+- 本地 stage review 显示：首个共鸣后仍在第 16221、19211、23500、27792 秒出现升级；当前不是升级完全停滞。
+- `data/metrics/events.jsonl` 为 0 行，当前没有可读真实玩家指标样本；GitHub CLI 仍无法连接 `api.github.com`，仓库内反馈快照没有新玩家补充。
+- Alharthi 等人的 CHI 2018 taxonomy 研究基于 66 个 idle games，强调 idle games 会把玩家从 playing 推向 planning，并把等待、资源和玩家注意力作为设计对象。
+- Spiel 等人的 CHI PLAY 2019 设计访谈研究把 active withdrawal 视为 idle gameplay 的一部分；这支持把“离开和回来”的计划感做清楚，而不是把在线操作堆满。
+- Cutting 等人的 Neko Atsume 研究显示 idle engagement 更像跨 session 的 habit 和 checking frequency；因此回访动机、回访时机和回访后读回，比单次长在线 session 更重要。
+
+Sources:
+
+- https://research.monash.edu/en/publications/playing-to-wait-a-taxonomy-of-idle-games/
+- https://research.monash.edu/en/publications/it-started-as-a-joke-on-the-design-of-idle-games/
+- https://www.sciencedirect.com/science/article/abs/pii/S1071581918305251
+
+### Candidate Directions
+
+1. 推荐：`Return Planning Readback / 回访计划读回`
+   - 在现有阶段目标或事件反馈区里，把“这次回访带来了什么、下一次大约等什么”说清楚。
+   - 第一版只使用现有状态：当前星尘、每秒星尘、下一次自动采集器成本、下一次调校成本、离线收益提示和已选共鸣节点。
+   - 不新增资源、节点、面板、存档字段、指标字段或 feedback channel。
+
+2. 候选：`Resonance Value Rebalance / 共鸣节点数值微调`
+   - 如果 self-playtest 证明三个节点价值差异过大，可以只调一个节点的数值。
+   - 风险是当前缺少真实选择样本；没有指标或玩家反馈前不应先动平衡。
+
+3. 延后：第二个共鸣里程碑、更多节点或 prestige
+   - 这些能提供长期目标，但会提高复杂度，并且当前 8 小时时间窗仍有升级推进。
+   - 没有真实反馈、可读指标或明确新版本预算前，不进入实现。
+
+### General Principles
+
+- 下一步应强化“我为何离开、何时回来、回来后先做什么”的 planning loop。
+- 优先复用现有阶段目标、事件反馈和共鸣矩阵已有状态，不新增面板。
+- 回访计划读回只能是提示层，不承诺精确倒计时；离线收益上限、关闭页面和不同节奏都会影响实际结果。
+- 不把 planning loop 伪装成任务系统，不添加每日任务、奖励清单、打卡、成就或外部提醒。
+- 如果实现，必须 TDD 先覆盖目标文案或反馈文案，再做最小代码切片。
+
+### Decision Impact
+
+下一步 research-backed 决策是：把 `Return Planning Readback / 回访计划读回` 作为 v0.3 后的下一道低复杂度候选。实现前需要在 `docs/DECISION.md` 中确认具体触发状态，优先从首次共鸣后已选节点且当前暂时买不起下一升级的状态切入。该方向不授权新增第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
+
+### What Not To Copy
+
+- 不复制每日任务、成就列表、battle pass、付费加速、广告奖励或登录奖励。
+- 不把 checking frequency 解释成需要站外提醒、推送通知或 analytics 上传。
+- 不新增外部账户、玩家身份、跨设备追踪或 telemetry。
+- 不为了制造长期目标而立即加入第二个共鸣里程碑或 prestige。
 
 ## 2026-05-07 - 首次回访后的下一阶段内容方向
 

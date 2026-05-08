@@ -2,16 +2,19 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动、三个节点的基础价值反馈和已领取状态都已经收敛。本轮把 self-playtest 推进到首个共鸣后 8 小时主动节奏，结果显示仍有升级推进，但没有新的可复现 UI/玩法 gap。当前最大问题仍是缺少新的玩家反馈、可读 local-only 指标样本或 research-backed 决策来支撑下一次内容扩张。
+v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点选择、节点启动、三个节点的基础价值反馈、已领取状态和首个共鸣后 8 小时时间窗都已经收敛。当前最大问题不是缺少更多按钮或节点，而是缺少下一阶段的研究边界：玩家已经能完成首个长期选择，但回访后的 planning loop 还没有被定义为下一步可执行方向。
 
 ## Evidence
 
-- 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20` 仍无法连接 `api.github.com`，不能刷新远端 issue 状态。
+- 2026-05-08 上一轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20` 仍无法连接 `api.github.com`，不能刷新远端 issue 状态。
 - `data/feedback/github-feedback.md` 最近一次生成于 2026-05-07，仍只包含 Issue #1/#2 的旧信号和已回复记录，没有仓库内新反馈证据。
 - `data/metrics/events.jsonl` 当前为 0 行；本轮没有可读取的浏览器 `localStorage` 共鸣指标样本。
 - 8 小时主动模拟显示：首个共鸣约第 13513 秒触发，选择 `稳定回路` 后仍在第 16221、19211、23500、27792 秒出现升级；8 小时状态为 22 台自动采集器、14 次调校、每秒 +11.62 星尘。
 - v0.3 第一版的已知闭环状态已经覆盖：共鸣可领取目标、选择前约束、选择后节点状态、已选节点后续目标、`回访线圈` 回访目标、`调校刻印` 调校反馈、`稳定回路` 自动采集反馈、首个共鸣已领取进度。
-- Decision: 本轮记录 `DECISION:2026-05-08-v03-post-node-long-horizon-no-change`。没有新证据前不新增玩法系统；下一步应优先等待真实玩家反馈、恢复远端反馈读取、获取可读 local-only 指标样本，或通过 research-backed 决策定义下一版本预算。
+- CHI 2018 idle game taxonomy 指出 idle games 会把玩家从 playing 推向 planning；这支持下一步聚焦计划和等待，而不是新增更多即时按钮。
+- CHI PLAY 2019 idle game 设计访谈把 active withdrawal 视为玩法本身；这支持把离开和回来后的状态读回做成产品方向。
+- Neko Atsume 研究把 idle engagement 解释为跨 session 的 habit 和 checking frequency；这支持下一步改善回访计划感，而不是强迫长在线。
+- Decision: 本轮记录 `DECISION:2026-05-08-return-planning-readback-research`。下一步候选是 `Return Planning Readback / 回访计划读回`，优先复用现有阶段目标或事件反馈区，不新增资源、节点、面板、存档字段、指标字段或反馈渠道。
 - BOOTSTRAP commit `7b30c9d` added a playable local MVP.
 - FEEDBACK_INFRA commit `8cf6f39` added an in-game feedback path.
 - GitHub Pages workflow run `25421769909` completed successfully.
@@ -178,9 +181,9 @@ v0.3 共鸣系统第一版已经发布，且首个共鸣门槛、领取、节点
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-v03-post-node-long-horizon-no-change`
+Decision Anchor: `DECISION:2026-05-08-return-planning-readback-research`
 
-首个共鸣后 8 小时主动节奏仍有升级推进，但没有新的可复现 UI/玩法 gap。当前不新增第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。下一步必须来自新玩家反馈、可读 local-only 指标样本、明确 self-playtest gap，或 research-backed 的下一版本预算决策。
+首个共鸣后 8 小时主动节奏仍有升级推进，但没有新的可复现 UI/玩法 gap。研究结论支持下一步先强化 idle 的 planning loop：让玩家在回访后更清楚这次离线生产带来了什么、下一次大约等什么、已选共鸣节点如何影响回访计划。下一轮若没有新反馈，允许的最小实现候选是 `回访计划读回`，并且必须复用现有阶段目标或事件反馈区。当前仍不新增第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
 
 ## Implementation Record
 
@@ -255,6 +258,13 @@ Decision Anchor: `DECISION:2026-05-08-v03-post-node-long-horizon-no-change`
 - After the first resonance milestone has been claimed, the progress line reads `首个共鸣已领取` before the 20/20 and 12/12 progress values.
 - Added a rendering test for the claimed-and-spent first resonance state.
 - Did not change resonance math, node effects, save shape, metrics, panel count or resource count.
+
+2026-05-08 RETURN_PLANNING_READBACK_RESEARCH executed:
+
+- Researched idle / incremental game planning, active withdrawal and checking-frequency engagement after the v0.3 resonance closed loop.
+- Selected `Return Planning Readback / 回访计划读回` as the next low-complexity candidate direction.
+- The next candidate must reuse existing stage target or event feedback space and existing state only.
+- Did not implement gameplay code, save migration, metric fields, new resources, new panels, additional resonance nodes, prestige, task systems or multi-line production.
 
 2026-05-06 FEEDBACK_INFRA selected:
 
