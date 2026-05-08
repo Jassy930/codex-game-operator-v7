@@ -40,6 +40,8 @@ SELF_PLAYTEST
 
 2026-05-08: 切换到 SELF_PLAYTEST；上一轮 research-backed 方向 `回访计划读回` 已进入实现切片。本轮只允许复用现有阶段目标读回已选共鸣节点和下一升级等待目标，不新增资源、按钮、面板、存档字段或指标字段。
 
+2026-05-08: 回访计划读回切片已由 commit `add78fd` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 70 pass，`bun run test` 70 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list` 仍无法连接 `api.github.com`，`curl -I https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
+
 2026-05-06: RELEASE_INFRA 收尾完成；workflow run `25430225912` 成功，公开预览 HTTP 200，工作区检查无未提交变更。切换到 SELF_PLAYTEST。
 
 2026-05-06: SELF_PLAYTEST 只读检查完成；未发现足够具体的新增改动 gap。记录 no-change 决策，避免为了迭代而增加首屏提示或玩法系统。
