@@ -335,6 +335,25 @@ describe("App", () => {
     expect(html).not.toContain("本轮已选择其他节点 · 离线收益 +10%");
   });
 
+  it("points the stage goal at spending the second resonance before waiting again", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 50000,
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      dustPerSecond: 13.75,
+      nextAutoCollectorCost: 252512,
+      nextEfficiencyUpgradeCost: 168667,
+      resonance: 1,
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+    });
+
+    expect(html).toContain("共鸣目标：选择第 2 个永久节点，最多启动 2 个");
+    expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
+  });
+
   it("reads back both active resonance nodes after the second choice is spent", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
