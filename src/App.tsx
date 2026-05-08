@@ -85,6 +85,7 @@ export function App() {
   }, [
     state.autoCollectors,
     state.dust,
+    state.dustPerSecond,
     state.nextAutoCollectorCost,
     state.nextEfficiencyUpgradeCost,
   ]);
@@ -598,14 +599,14 @@ export function formatWorkshopStageNextRequirement(
 function formatReturnPlanningReadback(
   unlockedResonanceNodes: string[],
   canSpendNextUpgrade: boolean,
-  nextUpgradeTarget?: { label: string; cost: number },
+  nextUpgradeTarget?: { label: string; cost: number; dust?: number; dustPerSecond?: number },
 ): string {
   if (canSpendNextUpgrade || !nextUpgradeTarget) {
     return "";
   }
 
   const selectedNode = unlockedResonanceNodes[0];
-  const nextUpgradeCopy = `攒到 ${formatNumber(nextUpgradeTarget.cost)} 星尘再购买${nextUpgradeTarget.label}`;
+  const nextUpgradeCopy = formatReturnPlanNextUpgradeCopy(nextUpgradeTarget);
 
   if (selectedNode === "stable-circuit") {
     return `回访计划：稳定回路正在放大自动采集，${nextUpgradeCopy}`;
@@ -620,6 +621,37 @@ function formatReturnPlanningReadback(
   }
 
   return "";
+}
+
+function formatReturnPlanNextUpgradeCopy(nextUpgradeTarget: {
+  label: string;
+  cost: number;
+  dust?: number;
+  dustPerSecond?: number;
+}): string {
+  const dust = nextUpgradeTarget.dust ?? 0;
+  const dustPerSecond = nextUpgradeTarget.dustPerSecond ?? 0;
+  const remainingDust = nextUpgradeTarget.cost - dust;
+
+  if (remainingDust > 0 && dustPerSecond > 0) {
+    return `${formatWaitTime(remainingDust / dustPerSecond)}后可购买${nextUpgradeTarget.label}`;
+  }
+
+  return `攒到 ${formatNumber(nextUpgradeTarget.cost)} 星尘再购买${nextUpgradeTarget.label}`;
+}
+
+function formatWaitTime(seconds: number): string {
+  if (seconds < 60) {
+    return "不到 1 分钟";
+  }
+
+  const minutes = Math.max(1, Math.round(seconds / 60));
+  if (minutes < 60) {
+    return `约 ${minutes} 分钟`;
+  }
+
+  const hours = Math.round((minutes / 60) * 10) / 10;
+  return `约 ${formatNumber(hours)} 小时`;
 }
 
 function formatSelectedResonanceGoal(unlockedResonanceNodes: string[]): string {
@@ -643,6 +675,7 @@ function formatSelectedResonanceGoal(unlockedResonanceNodes: string[]): string {
 export type NextUpgradeTarget = {
   autoCollectors: number;
   dust: number;
+  dustPerSecond?: number;
   nextAutoCollectorCost: number;
   nextEfficiencyUpgradeCost: number;
 };
@@ -661,6 +694,8 @@ export function getNextUpgradeTarget(target: NextUpgradeTarget) {
   return {
     label,
     cost,
+    dust: target.dust,
+    dustPerSecond: target.dustPerSecond ?? 0,
     progressPercent: Math.min(100, Math.floor((target.dust / cost) * 100)),
   };
 }

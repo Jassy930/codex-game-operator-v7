@@ -4,6 +4,18 @@
 
 ## 最新结果
 
+2026-05-08 `回访计划读回` 等待时间复核。这不是真实玩家反馈；触发信号来自上一轮 `METRICS_INFRA` 已补齐快照入口后，远端反馈仍不可刷新，且仓库内反馈快照没有新玩家补充。
+
+- 反馈读取：`gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels` 仍无法连接 `api.github.com`，本轮不能确认远端是否有新 issue 或补充。
+- 指标读取：`data/metrics/events.jsonl` 当前为 0 行；上一轮已提供 `window.stardustWorkshopMetricsSnapshot()`，但本轮没有可用浏览器样本可作为真实玩家证据。
+- 复核范围：已领取首个共鸣、已启动 `稳定回路`、当前 12,000 星尘低于下一次调校 28,922 星尘和下一台自动采集器 33,253 星尘。
+- 已知状态：`回访计划读回` 第一版会提示“攒到 28,922 星尘再购买调校工具”，但没有把当前每秒 +9.68 星尘转成等待时长。
+- Gap：idle / incremental 的 planning loop 需要玩家知道大概要等多久；只显示目标成本仍要求玩家自己换算，回访计划读回不够完整。
+- 切片：同一 `星尘引擎室` 阶段目标行改为“约 29 分钟后可购买调校工具”；无法计算每秒产出时仍回退到目标成本文案。
+- 复杂度复核：不改数值、资源、节点效果、面板数量、存档字段、指标字段或反馈渠道；不引入 prestige、任务系统、多生产线、更多节点或第二个共鸣面板。
+
+Gap: 已用同一阶段目标行处理。下一轮应优先等待真实反馈、读取可用 local-only 指标样本，或恢复远端 Pages / issue 验证；不得直接扩展 prestige、任务系统、多生产线或更多共鸣节点。
+
 2026-05-08 v0.3 首个共鸣后 8 小时时间窗 stage review。这不是真实玩家反馈；触发信号来自上一轮共鸣闭环 no-change 后的更长时间窗复核要求。
 
 - 反馈读取：`gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels` 仍无法连接 `api.github.com`，本轮不能刷新远端 issue 状态。

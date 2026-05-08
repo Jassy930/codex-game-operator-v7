@@ -2,18 +2,18 @@
 
 ## Selected Mode
 
-METRICS_INFRA
+SELF_PLAYTEST
 
 ## Reason
 
-上一轮 `回访计划读回` 第一版已经落地，继续重复共鸣文案会卡在同一方向。当前 `gh issue list` 仍无法连接 `api.github.com`，`data/metrics/events.jsonl` 为空，且多轮自动化都记录“没有可读浏览器 localStorage 共鸣指标样本”。因此本轮切换到 METRICS_INFRA，补一个本地指标快照入口，让 operator 可以一次性读取当前 session、最近 session history 和反馈点击计数。
+上一轮 `METRICS_INFRA` 已补齐 `window.stardustWorkshopMetricsSnapshot()`，但当前 `gh issue list` 仍无法连接 `api.github.com`，仓库内反馈快照也没有新玩家补充。因此本轮切回 SELF_PLAYTEST，复核已发布的 `回访计划读回`：现有目标只说明攒到多少星尘，却没有按当前每秒产出告诉玩家大约等多久。这个 gap 可以在同一阶段目标行里修复，不需要扩展共鸣系统。
 
 ## Allowed Actions
 
-- 只读汇总已有 local-only metrics、session history 和 feedback click queue。
-- 用 TDD 覆盖一个具体的本地指标快照读回行为。
-- 把快照入口挂到浏览器 `window.stardustWorkshopMetricsSnapshot()`，便于 self-playtest 后复制证据。
-- 更新 `docs/METRICS.md`、`docs/DECISION.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md`。
+- 复核 `回访计划读回` 第一版在首个共鸣节点启动后、当前买不起下一升级时的目标表达。
+- 用 TDD 覆盖一个具体的等待时间读回行为。
+- 只复用现有 `星尘引擎室` 阶段目标行，不新增面板、按钮、资源、存档字段或指标字段。
+- 更新 `docs/SELF_PLAYTEST.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md`。
 - 运行完整本地验证：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
@@ -26,9 +26,9 @@ METRICS_INFRA
 
 ## Exit Criteria
 
-- 一个具体本地指标读回 gap 已记录到 `docs/DECISION.md`。
-- 实现只汇总已有本地指标，不新增采集字段或上传路径。
-- `docs/METRICS.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md` 已同步当前状态。
+- 一个具体 self-playtest gap 已记录到 `docs/DECISION.md`。
+- 回访计划目标能在当前买不起下一升级时读回大致等待时间。
+- `docs/SELF_PLAYTEST.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md` 已同步当前状态。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
@@ -45,6 +45,8 @@ METRICS_INFRA
 2026-05-08: 切换到 METRICS_INFRA；多轮记录显示 operator 无法读取浏览器 localStorage 共鸣指标样本，本轮只允许为已有 local-only 指标补统一快照入口，不新增指标字段、上传路径、UI 面板、资源或玩法系统。
 
 2026-05-08: 本地指标快照读回切片已由 commit `a13759a` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 71 pass，`bun run test` 71 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --repo Jassy930/codex-game-operator-v7 --limit 3` 仍无法连接 `api.github.com`，`curl -I https://jassy930.github.io/codex-game-operator-v7/` 仍无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
+
+2026-05-08: 切换到 SELF_PLAYTEST；上一轮已补齐本地指标快照入口，但远端反馈仍不可刷新，仓库内反馈快照没有新玩家补充。本轮只允许在现有 `回访计划读回` 阶段目标行里补大致等待时间，不新增资源、按钮、面板、存档字段、指标字段或数值系统。
 
 2026-05-06: RELEASE_INFRA 收尾完成；workflow run `25430225912` 成功，公开预览 HTTP 200，工作区检查无未提交变更。切换到 SELF_PLAYTEST。
 

@@ -333,11 +333,31 @@ describe("App", () => {
     });
 
     expect(html).toContain(
-      "回访计划：稳定回路正在放大自动采集，攒到 28,922 星尘再购买调校工具",
+      "回访计划：稳定回路正在放大自动采集，约 29 分钟后可购买调校工具",
     );
     expect(html).not.toContain(
       "共鸣目标：稳定回路已启动，继续扩建自动采集器放大产出",
     );
+  });
+
+  it("reads back the approximate wait time for the next return plan", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 12000,
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 9.68,
+      nextAutoCollectorCost: 33253,
+      nextEfficiencyUpgradeCost: 28922,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+    });
+
+    expect(html).toContain(
+      "回访计划：稳定回路正在放大自动采集，约 29 分钟后可购买调校工具",
+    );
+    expect(html).not.toContain("攒到 28,922 星尘再购买调校工具");
   });
 
   it("credits return coil when offline resonance rewards are visible", () => {
@@ -383,6 +403,8 @@ describe("App", () => {
     ).toEqual({
       label: "自动采集器",
       cost: 10,
+      dust: 5,
+      dustPerSecond: 0,
       progressPercent: 50,
     });
 
@@ -396,6 +418,8 @@ describe("App", () => {
     ).toEqual({
       label: "调校工具",
       cost: 146,
+      dust: 100,
+      dustPerSecond: 0,
       progressPercent: 68,
     });
   });
