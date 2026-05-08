@@ -387,6 +387,25 @@ describe("App", () => {
     expect(html).toContain("归航目标：用共鸣启动永久节点，再推进下一轮工坊");
   });
 
+  it("parks extra return resonance after the permanent node cap is filled", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      resonance: 1,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 2,
+    });
+
+    expect(html).toContain("工坊阶段：火花工作台");
+    expect(html).toContain("共鸣矩阵");
+    expect(html).toContain("可用共鸣：1");
+    expect(html).toContain(
+      "共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本",
+    );
+    expect(html).toContain("归航目标：额外共鸣已暂存，等待后续版本扩展用途");
+    expect(html).not.toContain("选择第 2 个永久节点");
+  });
+
   it("points the full-node state at repeat stardust returns", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),

@@ -111,6 +111,9 @@ export function App() {
   const canChooseResonanceNode =
     state.resonance > 0 &&
     state.unlockedResonanceNodes.length < MAX_UNLOCKED_RESONANCE_NODES;
+  const hasParkedReturnResonance =
+    state.resonance > 0 &&
+    state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES;
   const showResonanceChoiceStatus =
     canChooseResonanceNode ||
     state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES;
@@ -124,6 +127,7 @@ export function App() {
     resonanceProgress.id,
     canChooseResonanceNode,
     canReturn,
+    hasParkedReturnResonance,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -428,6 +432,11 @@ export function App() {
                 {formatResonanceChoiceHint(state.unlockedResonanceNodes.length)}
               </p>
             ) : null}
+            {hasParkedReturnResonance ? (
+              <p className="resonance-choice-hint">
+                共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本
+              </p>
+            ) : null}
             <div className="resonance-nodes">
               {RESONANCE_NODES.map((node) => {
                 const isUnlocked = state.unlockedResonanceNodes.includes(node.id);
@@ -663,6 +672,7 @@ export function formatWorkshopStageNextRequirement(
   claimableResonanceMilestoneId = "first-resonance",
   canChooseResonanceNode = false,
   canReturn = false,
+  hasParkedReturnResonance = false,
 ): string {
   if (canClaimResonance && workshopStage.name === "星尘引擎室") {
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
@@ -674,6 +684,10 @@ export function formatWorkshopStageNextRequirement(
     }
 
     return "共鸣目标：选择 1 个永久节点，本轮只能启动一个";
+  }
+
+  if (hasParkedReturnResonance) {
+    return "归航目标：额外共鸣已暂存，等待后续版本扩展用途";
   }
 
   if (canReturn && workshopStage.name === "星尘引擎室") {

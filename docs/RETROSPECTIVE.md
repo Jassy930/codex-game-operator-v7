@@ -19,6 +19,7 @@
 
 ## Product Learning
 
+- 满节点后继续归航不能只显示资源数字；即使暂不扩新机制，也需要说明额外共鸣会保留到后续版本。
 - v0.5 `星尘归航` 是当前 20 小时目标的主线；星图巡航和节点等级树都必须延后。
 - 第一版归航奖励固定为 `1 共鸣`，优先验证第二轮读回和消费目标，而不是增加奖励公式。
 - 视觉 polish 可以提升早期操作节奏，但不能替代可玩内容推进。
@@ -31,4 +32,4 @@
 
 ## Next Retrospective Trigger
 
-每 10 个 commit 或每 5 条 release-log 高信号条目做一次轻量 retrospective。下一次重点检查：可玩内容推进是否被治理维护或视觉 polish 挤占。
+每 10 个 commit 或每 5 条 release-log 高信号条目做一次轻量 retrospective。下一次重点检查：v0.6 复杂度提升是否有足够内容收益，或是否应先做文档 Garbage Collection。
