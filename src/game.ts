@@ -1,5 +1,5 @@
 export type GameState = {
-  version: 2;
+  version: 3;
   dust: number;
   dustPerClick: number;
   dustPerSecond: number;
@@ -11,6 +11,7 @@ export type GameState = {
   resonance: number;
   earnedResonanceMilestones: string[];
   unlockedResonanceNodes: string[];
+  returnCount: number;
   lastUpdatedAt: number;
 };
 
@@ -20,8 +21,9 @@ export type HydratedGameState = {
   saveLoaded: boolean;
 };
 
-const SAVE_VERSION = 2;
+const SAVE_VERSION = 3;
 const LEGACY_SAVE_VERSION = 1;
+const RESONANCE_SAVE_VERSION = 2;
 const AUTO_COLLECTOR_BASE_COST = 10;
 const AUTO_COLLECTOR_GROWTH = 1.5;
 const DUST_PER_AUTO_COLLECTOR = 0.2;
@@ -44,6 +46,7 @@ export function createGameState(now = Date.now()): GameState {
     resonance: 0,
     earnedResonanceMilestones: [],
     unlockedResonanceNodes: [],
+    returnCount: 0,
     lastUpdatedAt: now,
   };
 }
@@ -126,7 +129,11 @@ export function hydrateGameStateWithReport(
 
   try {
     const parsed = JSON.parse(saved) as Partial<GameState> & { version?: number };
-    if (parsed.version !== SAVE_VERSION && parsed.version !== LEGACY_SAVE_VERSION) {
+    if (
+      parsed.version !== SAVE_VERSION &&
+      parsed.version !== RESONANCE_SAVE_VERSION &&
+      parsed.version !== LEGACY_SAVE_VERSION
+    ) {
       return {
         state: createGameState(now),
         offlineDust: 0,
@@ -166,6 +173,7 @@ export function hydrateGameStateWithReport(
           [],
         ),
         unlockedResonanceNodes: stringArrayOr(parsed.unlockedResonanceNodes, []),
+        returnCount: numberOr(parsed.returnCount, 0),
         lastUpdatedAt: numberOr(parsed.lastUpdatedAt, now),
       }),
       now,

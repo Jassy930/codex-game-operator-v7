@@ -2,23 +2,22 @@
 
 ## Selected Mode
 
-META_IMPROVE
+OPERATE
 
 ## Reason
 
-v0.4 已把第二共鸣门槛、第 2 个现有节点选择、双节点组合读回和当前版本完成读回收口，但 20 小时后仍缺少可重复长线循环。用户明确希望 prestige 成为主机制，并倾向复用现有第二资源 `共鸣` 作为奖励资源。当前复杂度预算仍禁止 prestige，因此本轮必须先通过 META_IMPROVE 定义 v0.5 `星尘归航` 预算和决策锚点，再进入玩法实现。
+v0.5 `星尘归航` 预算和决策锚点已经通过 meta-governance 落地。用户明确希望用 prestige 支撑长线主循环，且现有第二资源 `共鸣` 已被授权为归航奖励资源。本轮进入 v0.5 第一刀实现：只做 `returnCount` 存档迁移，为后续归航条件、奖励和本轮重置做准备。
 
 ## Allowed Actions
 
-- 更新 `docs/COMPLEXITY_BUDGET.md`，新增 v0.5 `星尘归航` 预算。
-- 更新 `docs/HARNESS_CHANGELOG.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md`、`docs/GOVERNOR_STATE.md` 和 v0.5 计划文档。
-- 更新 `ops/governor-check.sh` 和脚本测试，让 v0.5 预算可机器校验。
-- 只在预算和治理锚点验证通过后，进入下一轮 TDD 玩法实现。
-- 运行本地验证，至少包括 `bun test src/ops-scripts.test.ts`、`./ops/governor-check.sh` 和 `git diff --check`。
+- 按 TDD 增加 v3 存档字段 `returnCount`。
+- 迁移 v1 / v2 旧存档，缺失或无效 `returnCount` 时补 `0`。
+- 更新 `docs/DECISION.md`、`docs/RELEASE_LOG.md`、`docs/GOVERNOR_STATE.md` 和自动化记忆。
+- 运行本地验证，至少包括 `bun test src/game.test.ts`、完整测试、构建、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 在 v0.5 预算提交前，不实现归航按钮、归航奖励、存档迁移或重置逻辑。
+- 本轮不实现归航按钮、归航奖励或本轮重置逻辑。
 - 不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点或节点等级树。
 - 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
 - 不修改或新增 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
@@ -26,19 +25,22 @@ v0.4 已把第二共鸣门槛、第 2 个现有节点选择、双节点组合读
 
 ## Exit Criteria
 
-- v0.5 复杂度预算明确允许一个受限 `星尘归航` prestige loop，并保留全部禁止项。
-- `governor-check` 能校验 v0.5 预算存在和关键约束。
-- 决策、roadmap、内容弧线、release log、计划文档和 harness changelog 已同步。
-- 本轮治理验证通过。
+- 新游戏状态为 v3，并包含 `returnCount: 0`。
+- v1 / v2 旧存档加载后迁移为 v3，并补 `returnCount: 0`。
+- 相关测试、完整验证和文档同步完成。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现治理漂移，但 v0.4 预算已不足以承接用户明确要求的 prestige 长线循环。本轮只允许通过 meta-governance 提升到 v0.5：仍保持 1 个主资源、最多 1 个第二资源、1 个共鸣矩阵面板、最多 5 个可见面板，并禁止第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点、节点等级树、外部 analytics、telemetry 上传、反馈渠道扩张或重复 issue 回复。
+未发现治理漂移。本轮只新增一个持久化字段，不新增 UI、按钮、资源、面板、节点、节点等级、任务系统、多生产线、外部 analytics、telemetry 上传、反馈渠道扩张或重复 issue 回复。
 
 ## Last Updated
 
+2026-05-08: v0.5 预算提交 `ef5fed8` 已创建，切换到 OPERATE 执行 `星尘归航` 第一刀存档准备。本轮只允许新增 v3 `returnCount` 存档迁移，不实现归航按钮、奖励或重置逻辑。
+
 2026-05-08: 切换到 META_IMPROVE；定义 v0.5 `星尘归航` 预算和决策锚点。目标是把 v0.4 的 20 小时骨架升级为受限 prestige loop：归航重启本轮工坊并奖励 `共鸣`。本轮只允许预算、治理和计划文档，以及 `governor-check` 预算校验；玩法实现必须等预算验证通过后按 TDD 进入下一切片。
+
+2026-05-08: v0.5 存档准备切片已完成本地 TDD 验证。新增 v3 存档字段 `returnCount`，新状态默认为 `0`，v1/v2 旧存档加载时补默认值。本轮仍未实现归航按钮、奖励或重置逻辑，下一切片应进入纯归航条件/奖励/重置逻辑。
 
 2026-05-08: v0.4 当前版本共鸣完成读回切片已由 commit `5dbfd88` 推送到 `origin/main`。新增测试先按预期失败，随后本地验证通过：`bun test src/App.test.tsx -t "full v0.4 resonance goal"` 1 pass，完整 `bun test` 84 pass，`bun run test` 84 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。远端验证缺口：`gh issue list` 和 `gh run list` 无法连接 `api.github.com`，`curl -I --max-time 20 https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名。
 

@@ -15,7 +15,9 @@
 - `共鸣` 是归航奖励资源，不新增第三资源。
 - 第一版只新增 `returnCount` 存档字段。
 - 第一版归航奖励固定为 `1 共鸣`。
-- 归航重置本轮星尘、自动采集器和调校工具，保留共鸣和永久节点。
+- 归航重置本轮星尘、自动采集器和调校工具，保留共鸣、永久节点和已领取共鸣里程碑。
+- `first-resonance` 是一次性的共鸣教学入口，归航后不能重复领取。
+- v0.5 后停止生成新的 `second-resonance` 领取入口；旧存档中的 `second-resonance` 只作为历史兼容保留。
 - 第二共鸣门槛语义改为归航条件，不新增第三共鸣门槛。
 - 星图巡航暂缓，后续可作为归航后的本轮策略辅助。
 
@@ -199,6 +201,8 @@ git commit -m "feat: add stardust return save state"
 - Create: `src/return.test.ts`
 - Modify: `src/game.ts`
 - Modify: `src/game.test.ts`
+- Modify: `src/resonance.ts`
+- Modify: `src/resonance.test.ts`
 
 **Step 1: Write failing tests**
 
@@ -213,9 +217,21 @@ it("unlocks stardust return at the long horizon threshold", () => {
     ...createGameState(0),
     autoCollectors: 25,
     autoCollectorEfficiencyLevel: 15,
+    earnedResonanceMilestones: ["first-resonance"],
   };
 
   expect(canStardustReturn(state)).toBe(true);
+});
+
+it("does not unlock stardust return before first resonance is claimed", () => {
+  const state = {
+    ...createGameState(0),
+    autoCollectors: 25,
+    autoCollectorEfficiencyLevel: 15,
+    earnedResonanceMilestones: [],
+  };
+
+  expect(canStardustReturn(state)).toBe(false);
 });
 
 it("does not unlock stardust return before the threshold", () => {
@@ -223,6 +239,7 @@ it("does not unlock stardust return before the threshold", () => {
     ...createGameState(0),
     autoCollectors: 24,
     autoCollectorEfficiencyLevel: 15,
+    earnedResonanceMilestones: ["first-resonance"],
   };
 
   expect(canStardustReturn(state)).toBe(false);
@@ -235,6 +252,7 @@ it("returns the workshop for one resonance and preserves permanent nodes", () =>
     autoCollectors: 25,
     autoCollectorEfficiencyLevel: 15,
     resonance: 0,
+    earnedResonanceMilestones: ["first-resonance"],
     unlockedResonanceNodes: ["stable-circuit"],
   };
 
@@ -242,6 +260,7 @@ it("returns the workshop for one resonance and preserves permanent nodes", () =>
 
   expect(next.resonance).toBe(1);
   expect(next.returnCount).toBe(1);
+  expect(next.earnedResonanceMilestones).toEqual(["first-resonance"]);
   expect(next.unlockedResonanceNodes).toEqual(["stable-circuit"]);
   expect(next.dust).toBe(0);
   expect(next.autoCollectors).toBe(0);
@@ -272,6 +291,7 @@ const RETURN_RESONANCE_REWARD = 1;
 
 export function canStardustReturn(state: GameState): boolean {
   return (
+    state.earnedResonanceMilestones.includes("first-resonance") &&
     state.autoCollectors >= RETURN_AUTO_COLLECTOR_REQUIREMENT &&
     state.autoCollectorEfficiencyLevel >= RETURN_TUNING_REQUIREMENT
   );
@@ -288,10 +308,36 @@ export function performStardustReturn(
   return recalculateProduction({
     ...createGameState(now),
     resonance: state.resonance + RETURN_RESONANCE_REWARD,
+    earnedResonanceMilestones: state.earnedResonanceMilestones,
     unlockedResonanceNodes: state.unlockedResonanceNodes,
     returnCount: state.returnCount + 1,
   });
 }
+```
+
+**Step 3b: Move repeat resonance from milestones to return**
+
+Modify `src/resonance.ts` and `src/resonance.test.ts`:
+
+- Keep `first-resonance` claimable at `20 自动采集器 / 12 调校`.
+- Do not expose `second-resonance` as a new claimable milestone once v0.5 is active.
+- Preserve old saves that already contain `second-resonance`; do not remove the string or revoke resonance.
+
+Add a test:
+
+```ts
+it("does not offer second resonance once stardust return owns the long loop", () => {
+  const state = {
+    ...createGameState(0),
+    autoCollectors: 25,
+    autoCollectorEfficiencyLevel: 15,
+    earnedResonanceMilestones: ["first-resonance"],
+  };
+
+  expect(getClaimableResonanceMilestones(state)).not.toContainEqual(
+    expect.objectContaining({ id: "second-resonance" }),
+  );
+});
 ```
 
 **Step 4: Run tests**
@@ -299,7 +345,7 @@ export function performStardustReturn(
 Run:
 
 ```bash
-bun test src/return.test.ts src/game.test.ts
+bun test src/return.test.ts src/game.test.ts src/resonance.test.ts
 ```
 
 Expected: pass.
@@ -307,7 +353,7 @@ Expected: pass.
 **Step 5: Commit**
 
 ```bash
-git add src/return.ts src/return.test.ts src/game.ts src/game.test.ts
+git add src/return.ts src/return.test.ts src/game.ts src/game.test.ts src/resonance.ts src/resonance.test.ts
 git commit -m "feat: add stardust return logic"
 ```
 
@@ -371,6 +417,7 @@ In `src/App.tsx`:
 - Show `星尘归航 +1 共鸣` button in the resonance panel when return is available.
 - Hide second-resonance claim behavior in this state.
 - On click, call `performStardustReturn`.
+- If all first-version resonance nodes are already unlocked, keep showing accumulated共鸣 with a clear next-goal readback instead of implying an error.
 - Show purchase/event feedback:
 
 ```text
@@ -411,6 +458,9 @@ Record:
 - `DECISION:2026-05-08-v05-stardust-return`
 - v0.5 content arc row.
 - self-playtest gap: v0.4 cannot support 20 hours without repeatable long-loop.
+- first resonance is a one-time entry into the resonance matrix; repeat resonance comes from stardust return.
+- `second-resonance` is historical compatibility only after v0.5.
+- if nodes are full and resonance accumulates, UI should say it is waiting for future node levels rather than treating it as broken.
 - release log entry.
 - governor state completion.
 - note that `星图巡航` is deferred auxiliary content.

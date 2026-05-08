@@ -25,7 +25,15 @@ describe("core idle loop", () => {
     expect(state.resonance).toBe(0);
     expect(state.earnedResonanceMilestones).toEqual([]);
     expect(state.unlockedResonanceNodes).toEqual([]);
+    expect(state.returnCount).toBe(0);
     expect(state.lastUpdatedAt).toBe(1_000);
+  });
+
+  it("creates v3 state with return count", () => {
+    const state = createGameState(1_000);
+
+    expect(state.version).toBe(3);
+    expect(state.returnCount).toBe(0);
   });
 
   it("adds dust from the primary player action", () => {
@@ -159,14 +167,38 @@ describe("core idle loop", () => {
 
     const loaded = hydrateGameState(saved, now);
 
-    expect(loaded.version).toBe(2);
+    expect(loaded.version).toBe(3);
     expect(loaded.autoCollectorEfficiencyLevel).toBe(0);
     expect(loaded.autoCollectorEfficiencyMultiplier).toBe(1);
     expect(loaded.nextEfficiencyUpgradeCost).toBe(25);
     expect(loaded.resonance).toBe(0);
     expect(loaded.earnedResonanceMilestones).toEqual([]);
     expect(loaded.unlockedResonanceNodes).toEqual([]);
+    expect(loaded.returnCount).toBe(0);
     expect(loaded.dustPerSecond).toBe(0.2);
+  });
+
+  it("hydrates older saves with return defaults", () => {
+    const saved = JSON.stringify({
+      version: 2,
+      dust: 10,
+      dustPerClick: 1,
+      dustPerSecond: 0.2,
+      autoCollectors: 1,
+      nextAutoCollectorCost: 15,
+      autoCollectorEfficiencyLevel: 0,
+      autoCollectorEfficiencyMultiplier: 1,
+      nextEfficiencyUpgradeCost: 25,
+      resonance: 0,
+      earnedResonanceMilestones: [],
+      unlockedResonanceNodes: [],
+      lastUpdatedAt: 0,
+    });
+
+    const loaded = hydrateGameState(saved, 0);
+
+    expect(loaded.version).toBe(3);
+    expect(loaded.returnCount).toBe(0);
   });
 
   it("reports how much dust was earned offline", () => {

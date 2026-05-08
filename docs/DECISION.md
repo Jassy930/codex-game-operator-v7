@@ -245,6 +245,12 @@ Decision Anchor: `DECISION:2026-05-08-v05-stardust-return`
 
 ## Implementation Record
 
+2026-05-08 V05_RETURN_SAVE_STATE 已执行：
+
+- 新增 v3 存档状态字段 `returnCount`，新游戏默认为 `0`。
+- v1 / v2 旧存档加载时会迁移为 v3，并补 `returnCount: 0`。
+- 该切片只做归航循环的持久化准备；未新增归航按钮、归航奖励、重置逻辑、第三普通资源、节点等级树、任务系统、多生产线或外部 telemetry。
+
 2026-05-08 V05_STARDUST_RETURN_BUDGET 已执行：
 
 - 新增 v0.5 Stardust Return Budget，允许 `星尘归航` 作为受限 prestige loop，并把 `共鸣` 作为 prestige reward resource。

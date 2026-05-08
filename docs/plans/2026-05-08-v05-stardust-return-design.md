@@ -298,6 +298,18 @@ bestReturnTimeMs: number
 - `second-resonance` 不再作为新版本的可领取目标生成。
 - 如果旧存档已领取 `second-resonance` 且拥有额外共鸣，保留该共鸣。
 
+## 实施影响
+
+第一版应把归航做成一条清晰的主路径，而不是和现有第二共鸣入口并存：
+
+- `src/game.ts`：存档版本升到 3，新增 `returnCount`，旧存档默认补 `0`。
+- `src/resonance.ts`：保留 `first-resonance` 作为一次性教学里程碑，停止为新版本生成新的 `second-resonance` 领取入口。
+- `src/return.ts`：新增纯逻辑模块，归航条件为已领取首个共鸣且达到 `25 自动采集器 / 15 调校`。
+- `src/App.tsx`：在共鸣矩阵中显示归航准备、可归航按钮和归航后读回，不新增页面级面板。
+- 测试：必须覆盖旧存档兼容、首个共鸣一次性、第二共鸣入口隐藏、归航保留长期状态、归航重置本轮工坊。
+
+这里最重要的防线是：`earnedResonanceMilestones` 必须被归航保留。否则玩家每轮都会重新领取首个共鸣，导致共鸣奖励膨胀，并让 prestige 资源来源变得不可解释。
+
 ## 指标边界
 
 第一版可以新增 local-only 指标，但不强制。
