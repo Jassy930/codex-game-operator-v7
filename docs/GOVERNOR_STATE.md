@@ -2,23 +2,22 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+METRICS_INFRA
 
 ## Reason
 
-上一轮 `METRICS_INFRA` 已补齐 `window.stardustWorkshopMetricsSnapshot()`，但当前 `gh issue list` 仍无法连接 `api.github.com`，仓库内反馈快照也没有新玩家补充。因此本轮切回 SELF_PLAYTEST，复核已发布的 `回访计划读回`：现有目标只说明攒到多少星尘，却没有按当前每秒产出告诉玩家大约等多久。这个 gap 可以在同一阶段目标行里修复，不需要扩展共鸣系统。
+上一轮 release recovery 已把本地文档提交 `7257098` 推送到 `origin/main`。当前 `gh issue list` 仍无法连接 `api.github.com`，GitHub connector 可见 Issue #1/#2 没有新实质补充，`data/metrics/events.jsonl` 仍为空。上一轮补齐的 `window.stardustWorkshopMetricsSnapshot()` 已能读取 current/history，但活跃 session 在 `pagehide` 前 `sessionDurationMs` 仍为 `null`，operator 不能直接读回当前本机 self-playtest 已持续多久。因此本轮进入 METRICS_INFRA，只补一个派生活跃时长读回，不新增采集或玩法。
 
 ## Allowed Actions
 
-- 复核 `回访计划读回` 第一版在首个共鸣节点启动后、当前买不起下一升级时的目标表达。
-- 用 TDD 覆盖一个具体的等待时间读回行为。
-- 只复用现有 `星尘引擎室` 阶段目标行，不新增面板、按钮、资源、存档字段或指标字段。
-- 更新 `docs/SELF_PLAYTEST.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md`。
+- 用 TDD 覆盖 `window.stardustWorkshopMetricsSnapshot()` / `createLocalMetricsSnapshot()` 在活跃 session 中派生当前已持续时长。
+- 只改本地快照返回结构和文档说明，不新增 localStorage key、不新增采集事件、不上传 telemetry。
+- 更新 `docs/METRICS.md`、`docs/DECISION.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
 - 运行完整本地验证：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 不新增 UI 面板、按钮、资源、存档字段、指标字段或数值系统。
+- 不新增 UI 面板、按钮、资源、存档字段、采集字段或数值系统。
 - 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
 - 不新增 prestige、任务系统、复杂地图、多生产线、第二个共鸣面板或更多共鸣节点。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
@@ -26,9 +25,9 @@ SELF_PLAYTEST
 
 ## Exit Criteria
 
-- 一个具体 self-playtest gap 已记录到 `docs/DECISION.md`。
-- 回访计划目标能在当前买不起下一升级时读回大致等待时间。
-- `docs/SELF_PLAYTEST.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md` 已同步当前状态。
+- 一个具体 metrics readback gap 已记录到 `docs/DECISION.md`。
+- 本地指标快照能在页面仍打开时直接显示活跃 session 已持续多久。
+- `docs/METRICS.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md` 已同步当前状态。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
@@ -38,7 +37,7 @@ SELF_PLAYTEST
 
 ## Last Updated
 
-2026-05-08: 切换到 SELF_PLAYTEST；上一轮 research-backed 方向 `回访计划读回` 已进入实现切片。本轮只允许复用现有阶段目标读回已选共鸣节点和下一升级等待目标，不新增资源、按钮、面板、存档字段或指标字段。
+2026-05-08: 切换到 METRICS_INFRA；上一轮 release recovery 已把 `7257098` 推送到 `origin/main`。本轮只允许补 `window.stardustWorkshopMetricsSnapshot()` 的活跃 session 时长读回，不新增采集字段、上传路径、玩法系统或 UI。
 
 2026-05-08: 回访计划读回切片已由 commit `add78fd` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 70 pass，`bun run test` 70 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list` 仍无法连接 `api.github.com`，`curl -I https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
 

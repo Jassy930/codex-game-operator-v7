@@ -2,10 +2,16 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照入口已经发布。当前最大问题不是缺少更多按钮、节点或面板，而是已选共鸣节点后的回访计划只显示下一升级成本，没有按当前每秒产出读回大致等待时间。玩家仍需要自己把“还差多少星尘”换算成“多久回来”。
+v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照入口已经发布。当前最大问题不是缺少更多按钮、节点或面板，而是本地指标快照仍不够适合活跃 self-playtest：页面尚未触发 `pagehide` 时，`current.sessionDurationMs` 仍是 `null`，operator 需要自行用 `generatedAt - sessionStartedAt` 换算当前本机游玩时长。
 
 ## Evidence
 
+- 2026-05-08 release recovery 已把本地 `7257098 docs: record wait time release status` 推送到 `origin/main`。
+- 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels` 仍无法连接 `api.github.com`，不能通过 CLI 刷新远端 issue 状态；GitHub connector 的 recent issues 结果显示 Issue #1/#2 仍只有各 1 条评论，没有新实质补充。
+- `data/metrics/events.jsonl` 当前为 0 行；本轮输入优先级转向 local-only metrics 快照可用性。
+- Gap: `window.stardustWorkshopMetricsSnapshot()` 返回 current/history/storage keys/feedback count，但活跃 session 在页面仍打开时 `current.sessionDurationMs` 为 `null`，operator 不能直接读回当前 self-playtest 持续时长。
+- Decision: 本轮记录 `DECISION:2026-05-08-active-session-duration-snapshot`。在快照中增加派生字段 `activeSessionDurationMs`；它不写入 localStorage，不新增采集事件，不上传 telemetry，只用 `sessionStartedAt`、`sessionEndedAt`、`sessionDurationMs` 和快照生成时间计算读回值。
+- 约束：不新增资源、节点、面板、按钮、存档字段、上传路径、外部 analytics、个人数据、玩法系统、prestige、任务系统或多生产线。
 - 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels` 仍无法连接 `api.github.com`，不能刷新远端 issue 状态。
 - `data/feedback/github-feedback.md` 仍只有 2026-05-07 的 Issue #1/#2 快照和已回复记录，没有仓库内新玩家补充。
 - 构造状态：已领取首个共鸣、已启动 `稳定回路`、工坊处于 `星尘引擎室`，当前 12,000 星尘低于下一次调校工具 28,922 星尘和下一台自动采集器 33,253 星尘，每秒产出为 9.68 星尘。
@@ -193,9 +199,9 @@ v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-return-plan-wait-time-readback`
+Decision Anchor: `DECISION:2026-05-08-active-session-duration-snapshot`
 
-回访计划读回第一版已经落地，但只显示目标成本仍不够贴近 idle planning loop。下一步只在同一阶段目标行补大致等待时间：例如当前 12,000 星尘、每秒 +9.68、下一次调校 28,922 星尘时，显示“约 29 分钟后可购买调校工具”。当前仍不新增指标字段、上传路径、外部 analytics、UI 面板、资源、第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
+本地指标快照入口已经落地，但活跃 session 的当前持续时长仍需要人工换算。本轮只给 `window.stardustWorkshopMetricsSnapshot()` 增加 `activeSessionDurationMs` 派生字段，让 operator 在页面仍打开时直接读回本机 self-playtest 持续多久。当前仍不新增采集事件、localStorage key、上传路径、外部 analytics、UI 面板、资源、第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
 
 ## Implementation Record
 

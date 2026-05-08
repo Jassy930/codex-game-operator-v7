@@ -36,6 +36,7 @@ export type LocalMetricsSessionSummary = {
 
 export type LocalMetricsSnapshot = {
   generatedAt: number;
+  activeSessionDurationMs: number | null;
   keys: {
     current: typeof METRICS_KEY;
     history: typeof METRICS_HISTORY_KEY;
@@ -196,14 +197,17 @@ export function createLocalMetricsSnapshot(
   storage: Storage,
   now = Date.now(),
 ): LocalMetricsSnapshot {
+  const current = readMetrics(storage);
+
   return {
     generatedAt: now,
+    activeSessionDurationMs: calculateActiveSessionDuration(current, now),
     keys: {
       current: METRICS_KEY,
       history: METRICS_HISTORY_KEY,
       feedbackEvents: FEEDBACK_EVENTS_KEY,
     },
-    current: readMetrics(storage),
+    current,
     history: readMetricsHistory(storage),
     feedbackClickedCount: readFeedbackClickedCount(storage),
   };
@@ -261,6 +265,21 @@ function calculateFirstUpgradeTime(metrics: LocalMetrics, now: number): number |
 function calculateElapsedTime(metrics: LocalMetrics, now: number): number | null {
   if (metrics.sessionStartedAt === null) {
     return null;
+  }
+
+  return Math.max(0, now - metrics.sessionStartedAt);
+}
+
+function calculateActiveSessionDuration(
+  metrics: LocalMetrics,
+  now: number,
+): number | null {
+  if (metrics.sessionStartedAt === null) {
+    return null;
+  }
+
+  if (metrics.sessionEndedAt !== null && metrics.sessionDurationMs !== null) {
+    return metrics.sessionDurationMs;
   }
 
   return Math.max(0, now - metrics.sessionStartedAt);

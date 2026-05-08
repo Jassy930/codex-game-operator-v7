@@ -223,6 +223,7 @@ describe("local metrics", () => {
 
     expect(createLocalMetricsSnapshot(storage, 20_000)).toEqual({
       generatedAt: 20_000,
+      activeSessionDurationMs: 15_000,
       keys: {
         current: "stardust-workshop-metrics-v1",
         history: "stardust-workshop-metrics-history-v1",
@@ -258,6 +259,22 @@ describe("local metrics", () => {
         },
       ],
       feedbackClickedCount: 1,
+    });
+  });
+
+  it("derives active session duration in the local metrics snapshot", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+    recordPlayerClick(storage);
+
+    expect(createLocalMetricsSnapshot(storage, 91_000)).toMatchObject({
+      activeSessionDurationMs: 90_000,
+      current: {
+        sessionStartedAt: 1_000,
+        sessionEndedAt: null,
+        sessionDurationMs: null,
+        clickCount: 1,
+      },
     });
   });
 
