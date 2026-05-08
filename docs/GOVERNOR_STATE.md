@@ -44,6 +44,8 @@ METRICS_INFRA
 
 2026-05-08: 切换到 METRICS_INFRA；多轮记录显示 operator 无法读取浏览器 localStorage 共鸣指标样本，本轮只允许为已有 local-only 指标补统一快照入口，不新增指标字段、上传路径、UI 面板、资源或玩法系统。
 
+2026-05-08: 本地指标快照读回切片已由 commit `a13759a` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 71 pass，`bun run test` 71 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --repo Jassy930/codex-game-operator-v7 --limit 3` 仍无法连接 `api.github.com`，`curl -I https://jassy930.github.io/codex-game-operator-v7/` 仍无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
+
 2026-05-06: RELEASE_INFRA 收尾完成；workflow run `25430225912` 成功，公开预览 HTTP 200，工作区检查无未提交变更。切换到 SELF_PLAYTEST。
 
 2026-05-06: SELF_PLAYTEST 只读检查完成；未发现足够具体的新增改动 gap。记录 no-change 决策，避免为了迭代而增加首屏提示或玩法系统。

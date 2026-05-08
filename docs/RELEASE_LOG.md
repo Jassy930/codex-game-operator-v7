@@ -92,3 +92,4 @@
 - 回访计划读回第一版复用现有阶段目标行：首个共鸣节点已启动且当前买不起下一升级时，会说明已选节点正在产生的价值，并读回攒到哪项升级；不新增资源、按钮、面板、存档字段或指标字段。
 - 回访计划读回切片已推送为 commit `add78fd`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
 - 新增 local-only 指标快照读回：`window.stardustWorkshopMetricsSnapshot()` 会一次性返回当前 session、最近 session history、storage key 和反馈点击计数，方便 operator 记录共鸣触达证据；不新增指标字段、上传路径、UI 面板或玩法系统。
+- 本地指标快照读回切片已推送为 commit `a13759a`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
