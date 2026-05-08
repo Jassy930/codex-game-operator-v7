@@ -488,6 +488,7 @@ export function App() {
                 <p>{returnRouteReadback.nextRequirement}</p>
                 <p>{returnRouteReadback.progressSummary}</p>
                 <p>{returnRouteReadback.actionHint}</p>
+                <p>{returnRouteReadback.nextPreview}</p>
               </div>
             ) : null}
             <div className="resonance-nodes">

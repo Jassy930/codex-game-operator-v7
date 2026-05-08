@@ -7,6 +7,7 @@ export type ReturnRouteReadback = {
   nextRequirement: string;
   progressSummary: string;
   actionHint: string;
+  nextPreview: string;
   completedMilestones: number;
   totalMilestones: 3;
 };
@@ -32,6 +33,7 @@ export function getReturnRouteReadback(
       nextRequirement: "航线已贯通：继续归航，为后续版本储备共鸣",
       progressSummary: "航线已贯通：后续归航都会成为长期储备",
       actionHint: "下一步：继续归航，把额外共鸣留作后续版本储备",
+      nextPreview: "航线已贯通：没有下一段，继续储备后续版本",
       completedMilestones: 3,
       totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
     };
@@ -44,6 +46,7 @@ export function getReturnRouteReadback(
       nextRequirement: "下一段：累计 6 次归航，并保留 4 点额外共鸣",
       progressSummary: formatRouteProgressGap(state, 6, 4),
       actionHint: formatRouteActionHint(state, 6, 4),
+      nextPreview: "达成后进入深空归航：后续归航会转为长期储备",
       completedMilestones: 2,
       totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
     };
@@ -55,6 +58,7 @@ export function getReturnRouteReadback(
     nextRequirement: "下一段：累计 3 次归航，并保留 2 点额外共鸣",
     progressSummary: formatRouteProgressGap(state, 3, 2),
     actionHint: formatRouteActionHint(state, 3, 2),
+    nextPreview: "达成后进入稳航校准：余辉重建节奏会稳定成长期航标",
     completedMilestones: 1,
     totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
   };
