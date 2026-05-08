@@ -10,6 +10,14 @@
 
 ---
 
+## Design Constraints
+
+- 路线来自已启动的两个共鸣节点，不显示与未启动节点无关的路线。
+- 第一版只保存 `activeCruiseRoute`，不新增 `cruiseStage` 或路线等级。
+- 第一版路线效果弱于对应共鸣节点效果：采集 +5%、回访 +5%、调校 +0.03。
+- 星图巡航嵌入现有 `共鸣矩阵`，不新增页面级面板。
+- 后续内容优先扩航段目标和回访事件，不用第三共鸣门槛冒充新内容。
+
 ### Task 1: 定义 v0.5 预算和决策锚点
 
 **Files:**
@@ -146,6 +154,24 @@ it("stores one active cruise route", () => {
 
   expect(next.activeCruiseRoute).toBe("return-route");
 });
+
+it("only offers routes backed by the active node pair", () => {
+  expect(
+    getAvailableCruiseRoutes({
+      ...createGameState(0),
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "tuning-engraving"],
+    }).map((route) => route.id),
+  ).toEqual(["collection-route", "tuning-route"]);
+
+  expect(
+    getAvailableCruiseRoutes({
+      ...createGameState(0),
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["return-coil", "tuning-engraving"],
+    }).map((route) => route.id),
+  ).toEqual(["return-route", "tuning-route"]);
+});
 ```
 
 Add `src/game.test.ts` coverage:
@@ -259,6 +285,7 @@ Modify `src/game.ts`:
 - Add `activeCruiseRoute: CruiseRouteId | null`.
 - Hydrate missing value as `null`.
 - Keep v1/v2 saves compatible.
+- Treat unknown route ids as `null` during hydration.
 
 **Step 4: Run tests**
 
@@ -423,6 +450,12 @@ In `src/App.tsx`:
 - Show buttons only when `canChooseCruiseRoute(state)` is true.
 - Show selected route readback when `activeCruiseRoute` is not null.
 - Add click handler that sets state via `chooseCruiseRoute`.
+- Use this locked-state copy:
+
+```text
+星图巡航：回访航线已设定
+离线收益 +5% · 回访线圈会把离线收益带回下一次扩建
+```
 
 Do not create a new top-level panel.
 
@@ -506,6 +539,7 @@ Record:
 - self-playtest gap: v0.4 cannot support 20 hours with content depth.
 - release log entry.
 - governor state completion status.
+- follow-up sequence: route choice first, then航段目标, then回访事件; do not jump to route levels or third resonance.
 
 **Step 5: Run full validation**
 
