@@ -653,6 +653,16 @@ function formatReturnPlanningReadback(
   const selectedNode = unlockedResonanceNodes[0];
   const nextUpgradeCopy = formatReturnPlanNextUpgradeCopy(nextUpgradeTarget);
 
+  if (unlockedResonanceNodes.length >= 2) {
+    const activeNodeCopies = unlockedResonanceNodes
+      .map(formatResonancePlanValue)
+      .filter(Boolean);
+
+    if (activeNodeCopies.length >= 2) {
+      return `回访计划：${activeNodeCopies.join("，")}，${nextUpgradeCopy}`;
+    }
+  }
+
   if (selectedNode === "stable-circuit") {
     return `回访计划：稳定回路正在放大自动采集，${nextUpgradeCopy}`;
   }
@@ -663,6 +673,22 @@ function formatReturnPlanningReadback(
 
   if (selectedNode === "tuning-engraving") {
     return `回访计划：调校刻印已提高调校价值，${nextUpgradeCopy}`;
+  }
+
+  return "";
+}
+
+function formatResonancePlanValue(nodeId: string): string {
+  if (nodeId === "stable-circuit") {
+    return "稳定回路放大自动采集";
+  }
+
+  if (nodeId === "return-coil") {
+    return "回访线圈放大离线收益";
+  }
+
+  if (nodeId === "tuning-engraving") {
+    return "调校刻印提高调校价值";
   }
 
   return "";

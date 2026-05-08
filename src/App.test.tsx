@@ -335,6 +335,28 @@ describe("App", () => {
     expect(html).not.toContain("本轮已选择其他节点 · 离线收益 +10%");
   });
 
+  it("reads back both active resonance nodes after the second choice is spent", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 50000,
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      dustPerSecond: 13.75,
+      nextAutoCollectorCost: 252512,
+      nextEfficiencyUpgradeCost: 168667,
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+    });
+
+    expect(html).toContain(
+      "回访计划：稳定回路放大自动采集，回访线圈放大离线收益，约 2.4 小时后可购买调校工具",
+    );
+    expect(html).toContain("已启动 · 自动采集产出 +10%");
+    expect(html).toContain("已启动 · 离线收益 +10%");
+    expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
+  });
+
   it("points the stage goal at the selected resonance node value", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),

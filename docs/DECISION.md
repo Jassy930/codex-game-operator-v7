@@ -2,7 +2,7 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照入口已经发布。用户本轮明确把前期目标推进为“先做到 20 小时的游戏时间”，这构成新的 owner product signal。当前最大问题不是继续打磨首个共鸣状态，也不是新增独立系统，而是要在复杂度可控的前提下，把现有共鸣层延长到 8-20 小时时间窗。
+v0.4 已把现有共鸣层延长到第二共鸣门槛和第 2 个现有节点选择。当前最大问题不是继续追加第三里程碑或新节点，而是确保玩家在 20 小时时间窗做完第二次选择后，能在同一阶段目标里读懂两个永久节点如何共同影响下一次回访计划。
 
 ## Evidence
 
@@ -11,6 +11,10 @@ v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照
 - 主动模拟显示：每秒点击一次并优先购买当前更便宜升级，首个共鸣约第 13,513 秒达成；选择 `稳定回路` 后继续到 20 小时，约第 60,928 秒达到 25 台自动采集器和 15 次调校，20 小时时状态为 25 台自动采集器、15 次调校、每秒 +13.75 星尘。
 - Decision: 本轮记录 `DECISION:2026-05-08-v04-second-resonance-milestone`。新增 v0.4 20-hour resonance budget，允许最多 2 个共鸣里程碑、最多启动现有 3 个节点中的 2 个；不新增资源、面板、节点、存档版本、指标字段、prestige、任务系统或多生产线。
 - 第一版实现第二共鸣门槛 `25 台自动采集器 + 15 次调校`，奖励 1 点 `共鸣`；首个共鸣已领取后，矩阵进度行推进为“首个共鸣已领取 · 下一共鸣”；第二共鸣领取后提示选择第 2 个永久节点。
+- 2026-05-08 self-playtest 构造状态：已领取首个和第二共鸣，已启动 `稳定回路` + `回访线圈`，25 台自动采集器、15 次调校、50,000 星尘、每秒 +13.75 星尘；下一次调校 168,667 星尘，下一台自动采集器 252,512 星尘。
+- 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json ...` 无法连接 `api.github.com`；`data/metrics/events.jsonl` 为 0 行，不能把真实反馈或指标作为本次改动依据。
+- Gap: `共鸣矩阵` 已显示两个节点都“已启动”，但旧阶段目标仍只读取第一个节点，回访计划只说稳定回路，没说回访线圈会放大下一次离线收益。
+- Decision: 本轮记录 `DECISION:2026-05-08-v04-dual-node-return-plan`。双节点状态下，复用同一 `星尘引擎室` 阶段目标行同时读回两个已启动节点价值，并继续显示下一次升级的大致等待时间；不新增第三共鸣门槛、新节点、面板、存档字段或指标字段。
 - 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels,body` 成功返回 Issue #1/#2；两条 issue 仍为既有反馈，各 1 条已预算回复，`updatedAt` 均为 2026-05-07T09:39:29Z，没有新玩家补充。
 - `./ops/collect-feedback.sh` 已刷新 `data/feedback/github-feedback.md`，只更新时间戳和同一批 Issue #1/#2 证据。
 - `gh run list --repo Jassy930/codex-game-operator-v7 --limit 5` 成功返回最近 5 次 `Deploy Pages`，均为 `completed/success`；最新 run `25534948014` 对应 `412686e docs: record metrics duration release status`。
@@ -210,11 +214,18 @@ v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-v04-second-resonance-milestone`
+Decision Anchor: `DECISION:2026-05-08-v04-dual-node-return-plan`
 
-为响应 20 小时游戏时间目标，本轮进入 v0.4 的最小扩展：复用现有 `共鸣` 资源和 `共鸣矩阵` 面板，新增第二共鸣门槛 `25 台自动采集器 + 15 次调校`，并允许玩家用第二点共鸣启动第 2 个现有永久节点。该切片不新增资源、面板、节点、升级类型、存档版本、指标字段、反馈渠道、prestige、任务系统或多生产线。
+复核 v0.4 第二节点选择后的读回状态：当玩家已启动 2 个现有共鸣节点且当前买不起下一升级时，同一 `星尘引擎室` 阶段目标行会同时说明两个节点价值，并保留下一次升级的大致等待时间。该切片只改提示层，不新增资源、面板、节点、升级类型、存档版本、指标字段、反馈渠道、prestige、任务系统或多生产线。
 
 ## Implementation Record
+
+2026-05-08 V04_DUAL_NODE_RETURN_PLAN 已执行：
+
+- 新增第二次共鸣选择已消费后的渲染测试。
+- 更新回访计划读回，让两个已启动共鸣节点一起出现在现有 `星尘引擎室` 阶段目标行。
+- 保留单节点读回行为不变。
+- 不新增第三共鸣门槛、新节点、新面板、存档字段、指标字段、prestige、任务系统或多生产线。
 
 2026-05-06 BOOTSTRAP executed:
 
