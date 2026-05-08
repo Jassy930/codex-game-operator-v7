@@ -52,8 +52,13 @@ export function getReturnRouteReadback(
   }
 
   if (state.returnCount >= 3 && parkedResonance >= 2) {
-    const progressSummary = formatRouteProgressGap(state, 6, 4);
-    const cadenceForecast = formatRouteCadenceForecast(state, 6, 4);
+    const progressSummary = formatRouteProgressGap(state, 6, 4, "深空归航");
+    const cadenceForecast = formatRouteCadenceForecast(
+      state,
+      6,
+      4,
+      "深空归航",
+    );
     const payoffSummary = formatRoutePayoffSummary(state);
 
     return {
@@ -81,8 +86,13 @@ export function getReturnRouteReadback(
     };
   }
 
-  const progressSummary = formatRouteProgressGap(state, 3, 2);
-  const cadenceForecast = formatRouteCadenceForecast(state, 3, 2);
+  const progressSummary = formatRouteProgressGap(state, 3, 2, "稳航校准");
+  const cadenceForecast = formatRouteCadenceForecast(
+    state,
+    3,
+    2,
+    "稳航校准",
+  );
   const payoffSummary = formatRoutePayoffSummary(state);
 
   return {
@@ -155,6 +165,7 @@ function formatRouteProgressGap(
   state: GameState,
   targetReturnCount: number,
   targetParkedResonance: number,
+  targetRouteName: "稳航校准" | "深空归航",
 ): string {
   const remainingReturns = Math.max(0, targetReturnCount - state.returnCount);
   const remainingResonance = Math.max(0, targetParkedResonance - state.resonance);
@@ -169,10 +180,10 @@ function formatRouteProgressGap(
   }
 
   if (parts.length === 0) {
-    return "距下一段已满足条件，继续归航刷新航线";
+    return `${targetRouteName}条件已满足，继续归航刷新航线`;
   }
 
-  return `距下一段还差 ${parts.join("、")}`;
+  return `距${targetRouteName}还差 ${parts.join("、")}`;
 }
 
 function formatRouteActionHint(
@@ -202,6 +213,7 @@ function formatRouteCadenceForecast(
   state: GameState,
   targetReturnCount: number,
   targetParkedResonance: number,
+  targetRouteName: "稳航校准" | "深空归航",
 ): string {
   const remainingReturns = Math.max(0, targetReturnCount - state.returnCount);
   const projectedResonance = state.resonance + remainingReturns;
@@ -215,18 +227,18 @@ function formatRouteCadenceForecast(
   );
 
   if (remainingReturns > 0 && remainingProjectedResonance === 0) {
-    return `节奏预判：按当前路线再归航 ${remainingReturns} 次即可进入下一段`;
+    return `节奏预判：按当前路线再归航 ${remainingReturns} 次即可进入${targetRouteName}`;
   }
 
   if (remainingReturns > 0) {
-    return `节奏预判：再归航 ${remainingReturns} 次后，还需保留 ${remainingProjectedResonance} 点额外共鸣`;
+    return `节奏预判：再归航 ${remainingReturns} 次后，还需保留 ${remainingProjectedResonance} 点额外共鸣才能进入${targetRouteName}`;
   }
 
   if (currentRemainingResonance > 0) {
-    return `节奏预判：归航次数已达标，只差 ${currentRemainingResonance} 点额外共鸣`;
+    return `节奏预判：归航次数已达标，只差 ${currentRemainingResonance} 点额外共鸣即可进入${targetRouteName}`;
   }
 
-  return "节奏预判：条件已满足，执行下一次归航刷新航线";
+  return `节奏预判：条件已满足，执行下一次归航进入${targetRouteName}`;
 }
 
 function formatRouteMap(current: "余辉起航" | "稳航校准"): string {

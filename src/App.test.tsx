@@ -463,7 +463,7 @@ describe("App", () => {
     expect(html).toContain("归航航线");
     expect(html).toContain("航线 2/3 · 稳航校准");
     expect(html).toContain(
-      "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 1 台自动采集器；距下一段还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入下一段",
+      "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 1 台自动采集器；距深空归航还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入深空归航",
     );
     expect(html).toContain(
       "当前收益：余辉开局已稳定，下轮起步可立即重建 1 台自动采集器",
@@ -471,12 +471,12 @@ describe("App", () => {
     expect(html).toContain(
       "下一段：累计 6 次归航，并保留 4 点额外共鸣",
     );
-    expect(html).toContain("距下一段还差 3 次归航、2 点额外共鸣");
+    expect(html).toContain("距深空归航还差 3 次归航、2 点额外共鸣");
     expect(html).toContain(
       "下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
     );
     expect(html).toContain(
-      "节奏预判：按当前路线再归航 3 次即可进入下一段",
+      "节奏预判：按当前路线再归航 3 次即可进入深空归航",
     );
     expect(html).toContain(
       "航线图：余辉起航 -&gt; 稳航校准 -&gt; 深空归航；当前位于稳航校准",

@@ -25,14 +25,14 @@ describe("return route readback", () => {
       current: "余辉起航",
       description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
       routeSummary:
-        "航线摘要：1/3 余辉起航；当前收益：下轮起步可重建 1 台自动采集器；距下一段还差 1 次归航、1 点额外共鸣；按当前路线再归航 1 次即可进入下一段",
+        "航线摘要：1/3 余辉起航；当前收益：下轮起步可重建 1 台自动采集器；距稳航校准还差 1 次归航、1 点额外共鸣；按当前路线再归航 1 次即可进入稳航校准",
       currentPayoff:
         "当前收益：额外共鸣会转成下一轮起步星尘，可立即重建 1 台自动采集器",
       nextRequirement: "下一段：累计 3 次归航，并保留 2 点额外共鸣",
-      progressSummary: "距下一段还差 1 次归航、1 点额外共鸣",
+      progressSummary: "距稳航校准还差 1 次归航、1 点额外共鸣",
       actionHint:
         "下一步：继续重建工坊并执行 1 次星尘归航，同时保留 1 点额外共鸣",
-      cadenceForecast: "节奏预判：按当前路线再归航 1 次即可进入下一段",
+      cadenceForecast: "节奏预判：按当前路线再归航 1 次即可进入稳航校准",
       routeMap:
         "航线图：余辉起航 -> 稳航校准 -> 深空归航；当前位于余辉起航",
       nextPreview:
@@ -53,13 +53,13 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
       routeSummary:
-        "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 1 台自动采集器；距下一段还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入下一段",
+        "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 1 台自动采集器；距深空归航还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入深空归航",
       currentPayoff:
         "当前收益：余辉开局已稳定，下轮起步可立即重建 1 台自动采集器",
-      progressSummary: "距下一段还差 3 次归航、2 点额外共鸣",
+      progressSummary: "距深空归航还差 3 次归航、2 点额外共鸣",
       actionHint:
         "下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
-      cadenceForecast: "节奏预判：按当前路线再归航 3 次即可进入下一段",
+      cadenceForecast: "节奏预判：按当前路线再归航 3 次即可进入深空归航",
       routeMap:
         "航线图：余辉起航 -> 稳航校准 -> 深空归航；当前位于稳航校准",
       nextPreview: "达成后进入深空归航：后续归航会转为长期储备",
@@ -76,11 +76,11 @@ describe("return route readback", () => {
 
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
-      progressSummary: "距下一段还差 1 次归航、2 点额外共鸣",
+      progressSummary: "距深空归航还差 1 次归航、2 点额外共鸣",
       actionHint:
         "下一步：继续重建工坊并执行 1 次星尘归航，同时保留 2 点额外共鸣",
       cadenceForecast:
-        "节奏预判：再归航 1 次后，还需保留 1 点额外共鸣",
+        "节奏预判：再归航 1 次后，还需保留 1 点额外共鸣才能进入深空归航",
     });
   });
 
@@ -95,7 +95,7 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
       routeSummary:
-        "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 3 台自动采集器；距下一段还差 3 次归航；按当前路线再归航 3 次即可进入下一段",
+        "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 3 台自动采集器；距深空归航还差 3 次归航；按当前路线再归航 3 次即可进入深空归航",
       currentPayoff:
         "当前收益：余辉开局已稳定，下轮起步可立即重建 3 台自动采集器",
     });
@@ -111,9 +111,9 @@ describe("return route readback", () => {
 
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
-      progressSummary: "距下一段还差 2 次归航",
+      progressSummary: "距深空归航还差 2 次归航",
       actionHint: "下一步：额外共鸣已够，继续执行 2 次星尘归航",
-      cadenceForecast: "节奏预判：按当前路线再归航 2 次即可进入下一段",
+      cadenceForecast: "节奏预判：按当前路线再归航 2 次即可进入深空归航",
     });
   });
 
@@ -127,9 +127,9 @@ describe("return route readback", () => {
 
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
-      progressSummary: "距下一段还差 1 点额外共鸣",
+      progressSummary: "距深空归航还差 1 点额外共鸣",
       actionHint: "下一步：归航次数已够，继续归航补足 1 点额外共鸣",
-      cadenceForecast: "节奏预判：归航次数已达标，只差 1 点额外共鸣",
+      cadenceForecast: "节奏预判：归航次数已达标，只差 1 点额外共鸣即可进入深空归航",
     });
   });
 
