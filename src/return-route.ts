@@ -5,6 +5,7 @@ import { calculateReturnAfterglowDust } from "./return";
 export type ReturnRouteReadback = {
   current: string;
   description: string;
+  routeProgress: string;
   routeSummary: string;
   currentPayoff: string;
   nextRequirement: string;
@@ -35,6 +36,7 @@ export function getReturnRouteReadback(
     return {
       current: "深空归航",
       description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
+      routeProgress: `本段进度：航线 ${TOTAL_RETURN_ROUTE_MILESTONES}/${TOTAL_RETURN_ROUTE_MILESTONES} 已贯通`,
       routeSummary:
         "航线摘要：3/3 深空归航；航线已贯通，后续归航都会成为长期储备",
       currentPayoff:
@@ -64,6 +66,7 @@ export function getReturnRouteReadback(
     return {
       current: "稳航校准",
       description: "余辉已经能重建开局采集器，继续归航会把路线推向深空段。",
+      routeProgress: formatRouteProgress(state, 6, 4),
       routeSummary: formatRouteSummary(
         2,
         "稳航校准",
@@ -98,6 +101,7 @@ export function getReturnRouteReadback(
   return {
     current: "余辉起航",
     description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
+    routeProgress: formatRouteProgress(state, 3, 2),
     routeSummary: formatRouteSummary(
       1,
       "余辉起航",
@@ -127,6 +131,20 @@ function formatRoutePayoffSummary(state: GameState): string {
   }
 
   return `下轮起步可重建 ${rebuildCount} 台自动采集器`;
+}
+
+function formatRouteProgress(
+  state: GameState,
+  targetReturnCount: number,
+  targetParkedResonance: number,
+): string {
+  const currentReturnCount = Math.min(state.returnCount, targetReturnCount);
+  const currentParkedResonance = Math.min(
+    Math.max(0, state.resonance),
+    targetParkedResonance,
+  );
+
+  return `本段进度：归航 ${currentReturnCount}/${targetReturnCount} · 额外共鸣 ${currentParkedResonance}/${targetParkedResonance}`;
 }
 
 function formatRoutePayoffImmediate(

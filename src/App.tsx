@@ -493,6 +493,7 @@ export function App() {
                   </strong>
                 </div>
                 <p>{returnRouteReadback.description}</p>
+                <p>{returnRouteReadback.routeProgress}</p>
                 <p>{returnRouteReadback.routeSummary}</p>
                 <p>{returnRouteReadback.currentPayoff}</p>
                 <p>{returnRouteReadback.nextRequirement}</p>

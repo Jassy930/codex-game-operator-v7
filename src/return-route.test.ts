@@ -24,6 +24,7 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toEqual({
       current: "余辉起航",
       description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
+      routeProgress: "本段进度：归航 2/3 · 额外共鸣 1/2",
       routeSummary:
         "航线摘要：1/3 余辉起航；当前收益：下轮起步可重建 1 台自动采集器；距稳航校准还差 1 次归航、1 点额外共鸣；按当前路线再归航 1 次即可进入稳航校准",
       currentPayoff:
@@ -52,6 +53,7 @@ describe("return route readback", () => {
 
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
+      routeProgress: "本段进度：归航 3/6 · 额外共鸣 2/4",
       routeSummary:
         "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 1 台自动采集器；距深空归航还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入深空归航",
       currentPayoff:
@@ -144,6 +146,7 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toEqual({
       current: "深空归航",
       description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
+      routeProgress: "本段进度：航线 3/3 已贯通",
       routeSummary: "航线摘要：3/3 深空归航；航线已贯通，后续归航都会成为长期储备",
       currentPayoff:
         "当前收益：三段航线已贯通，额外共鸣会作为后续版本储备",
