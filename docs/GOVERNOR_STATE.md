@@ -39,6 +39,8 @@ METRICS_INFRA
 
 2026-05-08: 切换到 METRICS_INFRA；上一轮 release recovery 已把 `7257098` 推送到 `origin/main`。本轮只允许补 `window.stardustWorkshopMetricsSnapshot()` 的活跃 session 时长读回，不新增采集字段、上传路径、玩法系统或 UI。
 
+2026-05-08: 活跃 session 时长快照读回切片已由 commit `f31038f` 推送到 `origin/main`。新增测试先按预期失败，随后本地验证通过：`bun test` 73 pass，`bun run test` 73 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --repo Jassy930/codex-game-operator-v7 --limit 3` 仍无法连接 `api.github.com`，`curl -I --max-time 15 https://jassy930.github.io/codex-game-operator-v7/` 仍无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
+
 2026-05-08: 回访计划读回切片已由 commit `add78fd` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 70 pass，`bun run test` 70 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list` 仍无法连接 `api.github.com`，`curl -I https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
 
 2026-05-08: 切换到 METRICS_INFRA；多轮记录显示 operator 无法读取浏览器 localStorage 共鸣指标样本，本轮只允许为已有 local-only 指标补统一快照入口，不新增指标字段、上传路径、UI 面板、资源或玩法系统。

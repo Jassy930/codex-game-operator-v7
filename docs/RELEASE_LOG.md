@@ -97,3 +97,4 @@
 - 回访计划等待时间读回切片已推送为 commit `68225a7`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
 - Release recovery：上一轮本地文档状态提交 `7257098 docs: record wait time release status` 已推送到 `origin/main`。
 - 本地指标快照新增 `activeSessionDurationMs` 派生读回字段；页面仍打开、session 尚未结束时，operator 可直接读取当前本机 self-playtest 持续时长。不新增 localStorage key、采集事件、上传路径、UI 或玩法系统。
+- 活跃 session 时长快照读回切片已推送为 commit `f31038f`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
