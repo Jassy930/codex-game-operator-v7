@@ -69,6 +69,11 @@ check_complexity_budget() {
     fail=1
   fi
 
+  if ! grep -F "v0.7 Return Route Budget" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget missing v0.7 return route budget."
+    fail=1
+  fi
+
   if ! grep -F "Upgrade types: max 4" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
     echo "Complexity budget v0.2 must keep upgrade types max 4."
     fail=1
@@ -106,6 +111,16 @@ check_complexity_budget() {
 
   if ! grep -F "Afterglow starting dust bonus: max 50 星尘" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
     echo "Complexity budget v0.6 must cap the afterglow starting dust bonus."
+    fail=1
+  fi
+
+  if ! grep -F "Return route plan: allowed" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.7 must explicitly allow only a bounded return route plan."
+    fail=1
+  fi
+
+  if ! grep -F "Return route milestones: max 3" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.7 must cap return route milestones."
     fail=1
   fi
 

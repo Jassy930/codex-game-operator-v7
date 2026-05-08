@@ -4,31 +4,31 @@
 
 ## Selected Mode
 
-OPERATE
+SELF_PLAYTEST
 
 ## Iteration Track
 
-CONTENT_REVIEW
+CONTENT_PLANNING
 
 ## Cycle Bet
 
-目标：复核 v0.6 `归航余辉` 是否让重复归航后的新一轮更可感知。
-Appetite：1 个读回切片。
-包括：把余辉起步星尘换算成“可立即重建几台自动采集器”，并在现有 `共鸣矩阵` 与阶段目标读回。
-不包括：不改变余辉公式、不提高上限、不新增资源、节点、节点等级、任务系统、多生产线、额外面板、存档字段、视觉资产或 telemetry。
-完成定义：玩家在归航余辉点亮的新一轮能直接看懂这次起步助推对应的自动采集器重建进度。
+目标：规划 v0.7 的 20 小时后长期目标，让重复归航不只是累积余辉。
+Appetite：1 个规划切片。
+包括：定义 `归航航线` 的复杂度预算、内容弧线和下一轮实现边界。
+不包括：本轮不实现新玩法，不新增第三资源、节点、节点等级树、任务系统、多生产线、额外面板、存档字段、视觉资产或 telemetry。
+完成定义：下一轮可以直接用 TDD 实现一个航线读回切片，而不会突破当前预算。
 
 ## Expected Content Advance
 
-让 `归航余辉` 的价值从“少量星尘起步”变成可操作的节奏读回：当前余辉足以立刻重建多少台自动采集器。
+把 20 小时后的下一目标定义为 v0.7 `归航航线`：最多 3 个长期航线里程碑，复用现有 `共鸣矩阵` 和阶段目标读回。
 
 ## Evidence Source
 
-`docs/QUALITY_SCORE.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md` 和上一轮自动化记忆都指向下一步应先复核余辉是否可感知；当前数值 50 星尘足以重建前 3 台自动采集器，但 UI 只读回星尘数。
+`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md` 和自动化记忆都指向：v0.6 余辉读回已完成，下一步应先规划 v0.7 的 20 小时后目标和复杂度预算。
 
 ## Required Artifact
 
-更新 `src/game.test.ts`、`src/App.test.tsx`、`src/game.ts`、`src/App.tsx`、`src/styles.css`、`docs/plans/2026-05-08-return-afterglow-readout-visual-design.md`、`docs/plans/2026-05-08-return-afterglow-readout-visual.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/QUALITY_SCORE.md`、`docs/RELEASE_LOG.md` 和本文件。
+更新 `src/ops-scripts.test.ts`、`ops/governor-check.sh`、`docs/plans/2026-05-08-v07-return-route-design.md`、`docs/COMPLEXITY_BUDGET.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/QUALITY_SCORE.md`、`docs/RELEASE_LOG.md` 和本文件。
 
 ## Cycle Status
 
@@ -36,37 +36,36 @@ completed
 
 ## Reason
 
-余辉数值本身已经产生起步价值，但“从 50 星尘起步”不如“可立即重建 3 台自动采集器”可操作。先补清楚读回，比提高上限或新增系统更符合 v0.6 预算。
+直接增加节点、等级树或任务会突破当前复杂度边界。先把 v0.7 限制成 `归航航线` 读回和最多 3 个里程碑，能为 20 小时目标提供方向感，同时保留后续可玩切片空间。
 
 ## Allowed Actions
 
-- 用 TDD 增加余辉重建台数的逻辑和 UI 读回测试。
-- 复用现有 `共鸣`、`共鸣矩阵`、归航按钮和阶段目标。
-- 允许把已存在的 capped 开局星尘换算成自动采集器重建台数。
-- 同步玩法文档、release 记录、governor state 和自动化记忆。
+- 用 TDD 增加 v0.7 预算检查。
+- 更新复杂度预算、内容弧线、roadmap、decision、release 记录和计划文档。
+- 明确下一轮 `PLAYABLE_CONTENT` 的可实现边界。
 
 ## Forbidden Actions
 
-- 不修改余辉公式或 50 星尘上限。
-- 不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点、节点等级树、存档字段、指标字段、图片素材或 telemetry。
+- 不实现本轮新玩法。
+- 不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点、节点等级树、节点等级、存档字段、指标字段、图片素材或 telemetry。
 - 不削弱 issue routing、response budget、complexity budget、review protocol、测试或部署要求。
 - 不回复 Issue #1/#2，除非玩家提供新实质信息。
 
 ## Exit Criteria
 
-- 现有 `共鸣矩阵` 说明当前余辉可立即重建的自动采集器台数。
-- 阶段目标提示余辉重建节奏，而不是只说“点亮新一轮”。
-- 新玩家首屏仍不显示 `共鸣矩阵`。
+- `v0.7 Return Route Budget` 存在，并被 `governor-check` 机器校验。
+- `归航航线` 计划说明下一轮只做现有矩阵内的航线读回。
+- 相关运行态文档同步当前方向。
 - 完整验证通过。
 
 ## Next Candidate Mode / Track
 
-下一轮优先 `CONTENT_PLANNING`：规划 v0.7 的 20 小时后目标和复杂度预算；不要直接增加节点等级树。
+下一轮优先 `PLAYABLE_CONTENT`：用 TDD 实现 v0.7 `归航航线` 第一段读回，不新增节点、等级树或新面板。
 
 ## Drift Status
 
-本轮复用现有 `共鸣矩阵`、`共鸣`、归航循环和 capped 余辉公式；只增强读回，不扩大为等级树或新节点。
+本轮只增加预算闸门和规划文档，不改变运行时玩法；v0.7 被限制为现有 `共鸣矩阵` 内的航线目标读回。
 
 ## Last Updated
 
-2026-05-08: 本轮完成 v0.6 `归航余辉`节奏读回复核。50 星尘上限可重建前 3 台自动采集器，现已在 `共鸣矩阵` 中用结构化读回块展示“起步星尘”和“可重建”，阶段目标也读回可重建台数。验证通过：`bun test` 108 pass，`bun run test` 108 pass，`bun run build` 成功。
+2026-05-08: 本轮完成 v0.7 `归航航线`规划。新增 `v0.7 Return Route Budget`、计划文档和 `governor-check` 机器闸门；红灯测试确认旧检查不会阻止缺失 v0.7 预算，补齐后转绿。验证通过：`bun test` 109 pass，`bun run test` 109 pass，`bun run build` 成功，`./ops/governor-check.sh` 成功，`git diff --check` 成功。

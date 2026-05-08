@@ -14,13 +14,13 @@ Score: 4
 
 Score: 4
 
-v0.6 `归航余辉` 已把满节点后的额外共鸣转成 capped 新一轮起步星尘，并读回为可立即重建的自动采集器数量。50 星尘上限对应前 3 台自动采集器，重复归航不再只是库存增加。下一步内容深度压力转向 20 小时后是否需要 v0.7 弧线。
+v0.6 `归航余辉` 已把满节点后的额外共鸣转成 capped 新一轮起步星尘，并读回为可立即重建的自动采集器数量。v0.7 已规划为 `归航航线`：最多 3 个长期航线里程碑，复用现有矩阵和阶段目标。下一步内容深度压力转向可玩实现，而不是继续规划。
 
 ## Mechanical Checks
 
 Score: 4
 
-`governor-check` 已覆盖 issue ledger、复杂度预算、迭代字段、cycle status、运行态文档行数和大小预算。本轮新增 scorecard 结构检查，确保 harness engineering 反思不会只停留在文字。
+`governor-check` 已覆盖 issue ledger、复杂度预算、迭代字段、cycle status、运行态文档行数和大小预算。本轮新增 v0.7 预算闸门，确保 20 小时后扩展不会绕过复杂度边界。
 
 ## Garbage Collection
 
@@ -30,4 +30,4 @@ Score: 3
 
 ## Next Lowest-Score Bet
 
-优先选择 `CONTENT_PLANNING` 或 `HARNESS_MAINTENANCE`：若继续玩法，先规划 v0.7 的 20 小时后目标；若转向治理，优先处理 `Garbage Collection` 的过期计划和文档真实性检查。
+优先选择 `PLAYABLE_CONTENT` 或 `HARNESS_MAINTENANCE`：若继续玩法，实现 v0.7 `归航航线` 第一段读回；若转向治理，处理 `Garbage Collection` 的过期计划和文档真实性检查。

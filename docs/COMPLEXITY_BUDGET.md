@@ -163,6 +163,40 @@ v0.6 仍然禁止：
 - 节点等级
 - 外部 analytics SDK 或上传 telemetry
 
+## v0.7 Return Route Budget
+
+目标：把 20 小时后的重复归航组织成清楚的长期航线目标，而不是新增资源、节点等级树或任务系统。
+
+- Primary resource: 1
+- Secondary resources: max 1
+- Main actions: max 2
+- Upgrade types: max 4
+- Visible panels: max 5
+- First 60 seconds mechanics: max 3
+- First 60 seconds text: under 300 Chinese characters or 180 English words
+- Prestige loop: allowed as `星尘归航`
+- Prestige reward resource: `共鸣`
+- Parked resonance afterglow: allowed
+- Afterglow starting dust bonus: max 50 星尘
+- Return route plan: allowed
+- Return route milestones: max 3
+- Return route readback: reuse existing `共鸣矩阵` and stage target
+- Save format versions: max 3
+- Feedback channels shown in UI: max 1 primary, 1 secondary
+
+v0.7 仍然禁止：
+
+- 第三普通资源
+- 任务系统
+- 复杂地图
+- 多生产线
+- 多个新面板
+- 第三共鸣门槛
+- 新共鸣节点
+- 节点等级树
+- 节点等级
+- 外部 analytics SDK 或上传 telemetry
+
 ## Rule
 
 Every new mechanic must pass:
@@ -172,7 +206,7 @@ Every new mechanic must pass:
 3. Complexity budget
 4. Decision authorization
 
-进入 v0.2、v0.3、v0.4 或 v0.5 不自动授权任何具体功能。每个新机制仍必须在 `docs/DECISION.md` 中说明它使用哪个版本预算，以及为什么没有破坏 v0.1 的前 60 秒回归护栏。
+进入 v0.2、v0.3、v0.4、v0.5、v0.6 或 v0.7 不自动授权任何具体功能。每个新机制仍必须在 `docs/DECISION.md` 中说明它使用哪个版本预算，以及为什么没有破坏 v0.1 的前 60 秒回归护栏。
 
 ## If Over Budget
 
