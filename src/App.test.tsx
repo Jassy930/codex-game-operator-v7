@@ -387,7 +387,7 @@ describe("App", () => {
     expect(html).toContain("归航目标：用共鸣启动永久节点，再推进下一轮工坊");
   });
 
-  it("parks extra return resonance after the permanent node cap is filled", () => {
+  it("keeps afterglow visible after starting dust is spent", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       resonance: 1,
@@ -400,12 +400,13 @@ describe("App", () => {
     expect(html).toContain("共鸣矩阵");
     expect(html).toContain("可用共鸣：1");
     expect(html).toContain(
-      "共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本",
+      "共鸣余辉：本轮起步获得 10 星尘；若已花掉，表示余辉已投入重建节奏，可支撑前 1 台自动采集器",
     );
     expect(html).toContain(
       "归航目标：航线 1/3 余辉起航，下一步：继续重建工坊并执行 1 次星尘归航，同时保留 1 点额外共鸣",
     );
     expect(html).not.toContain("选择第 2 个永久节点");
+    expect(html).not.toContain("等待后续版本扩展用途");
   });
 
   it("explains afterglow when parked resonance can speed up the next loop", () => {

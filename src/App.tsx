@@ -126,10 +126,10 @@ export function App() {
   const returnAfterglowDust = calculateReturnAfterglowDust(state);
   const returnAfterglowRebuildCount =
     calculateAffordableAutoCollectors(returnAfterglowDust);
+  const hasReturnAfterglowReadout =
+    hasParkedReturnResonance && returnAfterglowDust > 0;
   const hasActiveReturnAfterglow =
-    hasParkedReturnResonance &&
-    returnAfterglowDust > 0 &&
-    state.dust >= returnAfterglowDust;
+    hasReturnAfterglowReadout && state.dust >= returnAfterglowDust;
   const returnRouteReadback = getReturnRouteReadback(state);
   const showResonanceChoiceStatus =
     canChooseResonanceNode ||
@@ -452,7 +452,7 @@ export function App() {
                 {formatResonanceChoiceHint(state.unlockedResonanceNodes.length)}
               </p>
             ) : null}
-            {hasActiveReturnAfterglow ? (
+            {hasReturnAfterglowReadout ? (
               <div className="return-afterglow-readout" aria-label="归航余辉读回">
                 <div className="return-afterglow-stats">
                   <div>
@@ -464,10 +464,18 @@ export function App() {
                     <strong>{returnAfterglowRebuildCount} 台</strong>
                   </div>
                 </div>
-                <p>
-                  共鸣余辉：额外共鸣让新一轮从 {formatNumber(returnAfterglowDust)}{" "}
-                  星尘起步，可立即重建 {returnAfterglowRebuildCount} 台自动采集器
-                </p>
+                {hasActiveReturnAfterglow ? (
+                  <p>
+                    共鸣余辉：额外共鸣让新一轮从 {formatNumber(returnAfterglowDust)}{" "}
+                    星尘起步，可立即重建 {returnAfterglowRebuildCount} 台自动采集器
+                  </p>
+                ) : (
+                  <p>
+                    共鸣余辉：本轮起步获得 {formatNumber(returnAfterglowDust)}{" "}
+                    星尘；若已花掉，表示余辉已投入重建节奏，可支撑前{" "}
+                    {returnAfterglowRebuildCount} 台自动采集器
+                  </p>
+                )}
               </div>
             ) : hasParkedReturnResonance ? (
               <p className="resonance-choice-hint">
