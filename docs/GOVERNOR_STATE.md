@@ -245,3 +245,5 @@ v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束
 2026-05-08: 首个共鸣后 8 小时时间窗 stage review 已由 commit `85b7ecc` 推送到 `origin/main`。本地验证通过：`bun test` 69 pass，`bun run test` 69 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --limit 3` 仍无法连接 `api.github.com`，暂未验证 Pages workflow run。
 
 2026-05-08: 切换到 RESEARCH；v0.3 首个共鸣闭环和 8 小时时间窗已收敛，下一步需要 research-backed 方向，避免继续重复同一阶段 no-change。
+
+2026-05-08: 回访计划读回 research-backed 决策已由 commit `bb1953e` 推送到 `origin/main`。本地验证通过：`bun test` 69 pass，`bun run test` 69 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh issue list` 和 `gh run list --repo Jassy930/codex-game-operator-v7 --limit 3` 仍无法连接 `api.github.com`；`curl -I --max-time 15 https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名，暂未验证 Pages workflow run 或公开预览 HTTP 状态。

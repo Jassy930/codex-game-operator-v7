@@ -88,3 +88,4 @@
 - 记录首个共鸣后 8 小时时间窗 stage review：主动模拟仍有升级推进，但没有新的可复现 UI/玩法 gap；继续等待真实反馈、可读 local-only 指标样本或 research-backed 下一版本决策。
 - 首个共鸣后 8 小时时间窗 stage review 已推送为 commit `85b7ecc`；本地验证通过，Pages workflow 状态仍待远端 API 恢复后确认。
 - 研究首个共鸣闭环后的下一阶段方向：下一步候选收敛为 `回访计划读回`，优先解释离开、回访和下一次等待目标；仍不新增第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
+- 回访计划读回研究决策已推送为 commit `bb1953e`；本地验证通过，Pages workflow / 公开预览状态仍待远端 API 和 DNS 恢复后确认。
