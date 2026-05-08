@@ -2,10 +2,14 @@
 
 ## Current Biggest Problem
 
-当前最大治理问题是每轮虽然都有小切片和验证，但不总是先声明“本轮推进哪类内容”。这会让持续运营退化为寻找局部小改，而不是围绕游戏调研、玩家反馈、内容规划、内容 review、bugfix、视觉表现或可玩内容推进来组织迭代。
+当前最大产品问题是 v0.4 的 20 小时目标仍停留在一次性第二共鸣门槛。v0.5 已完成预算和存档准备，本轮必须把 `星尘归航` 做成可测试、可点击的第一版长线循环，避免 `second-resonance` 与归航奖励共鸣并存。
 
 ## Evidence
 
+- 2026-05-08 v0.5 存档准备已完成：存档版本升级到 v3，新增 `returnCount`，但上一轮仍未实现归航条件、奖励、本轮重置或 UI 按钮。
+- v0.5 设计要求：首个共鸣继续作为一次性教学入口，归航条件复用 25 台自动采集器 / 15 次调校，奖励固定 `1 共鸣`，保留 `earnedResonanceMilestones` 和已启动永久节点，停止为新状态生成新的 `second-resonance` 可领取入口。
+- Decision: 本轮继续执行 `DECISION:2026-05-08-v05-stardust-return`。新增 `src/return.ts` 纯逻辑和现有 `共鸣矩阵` 内的 `星尘归航 +1 共鸣` 按钮；归航后本轮工坊回到新一轮火花工作台，可用共鸣增加 1，归航次数增加 1。
+- 约束：不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、新共鸣节点、节点等级树、外部 analytics SDK 或 telemetry 上传；不改变自动采集器或调校工具经济曲线。
 - 2026-05-08 用户明确要求每次迭代有明确内容推进，而不是随便找个地方“改一点点”。用户给出的有效推进类型包括游戏调研、网络调研或用户反馈、下一部分游戏规划、当前游戏内容 review 和整理、当前内容 bug 修复、当前游戏图像表现整理优化等。
 - Decision: 本轮记录 `DECISION:2026-05-08-meaningful-iteration-gate`。新增 Meaningful Iteration Gate：每轮必须在 `docs/GOVERNOR_STATE.md` 声明 `Iteration Track`、`Expected Content Advance`、`Evidence Source` 和 `Required Artifact`。允许轨道包括 `GAME_RESEARCH`、`PLAYER_FEEDBACK`、`CONTENT_PLANNING`、`CONTENT_REVIEW`、`BUGFIX`、`VISUAL_POLISH`、`PLAYABLE_CONTENT` 和 `HARNESS_MAINTENANCE`。`ops/governor-check.sh` 负责阻止缺少这些字段或使用空泛推进说明的 governor state。
 - 约束：这不是强迫每轮都加玩法，而是要求每轮有明确产出主题。调研、反馈处理、规划、review、bugfix、视觉整理和 harness 维护仍然是有效迭代；issue routing、response budget、complexity budget、review protocol 和测试要求不放宽。
@@ -247,6 +251,14 @@ Decision Anchor: `DECISION:2026-05-08-v05-stardust-return`
 进入 v0.5 `星尘归航`：把现有第二资源 `共鸣` 定义为归航奖励资源，用一个受限 prestige loop 承接 20 小时后的长线循环。第一阶段先通过 meta-governance 更新 v0.5 复杂度预算、内容弧线、roadmap 和实施计划；玩法实现必须在预算落地后按 TDD 分切片推进。
 
 ## Implementation Record
+
+2026-05-08 V05_STARDUST_RETURN_LOGIC_UI 已执行：
+
+- 新增 `canStardustReturn` 和 `performStardustReturn`：已领取首个共鸣且达到 25 台自动采集器 / 15 次调校后可归航。
+- 归航奖励固定为 `1 共鸣`，会重置本轮星尘、自动采集器、调校等级、升级成本和每秒产出，并保留共鸣、已领取共鸣里程碑、已启动永久节点和归航次数。
+- `resonance.ts` 不再为新状态暴露 `second-resonance` 可领取入口；旧存档中已有的 `second-resonance` 字符串保留兼容，不回滚历史进度。
+- `共鸣矩阵` 在达成长期门槛后显示 `星尘归航 +1 共鸣`，并显示“归航准备 / 归航准备完成”；阶段目标会从旧第二共鸣领取切换为归航目标。
+- 该切片未新增第三普通资源、新节点、节点等级树、任务系统、多生产线、额外面板或 telemetry。
 
 2026-05-08 V05_RETURN_SAVE_STATE 已执行：
 

@@ -1,6 +1,7 @@
 import { createGameState } from "./game";
 import {
   claimResonanceMilestones,
+  getClaimableResonanceMilestones,
   getResonanceMilestoneProgress,
   unlockResonanceNode,
 } from "./resonance";
@@ -31,7 +32,7 @@ describe("resonance milestones", () => {
     expect(claimedAgain.resonance).toBe(1);
   });
 
-  it("moves to a second long-horizon resonance milestone after the first is claimed", () => {
+  it("does not offer second resonance once stardust return owns the long loop", () => {
     const state = {
       ...createGameState(0),
       autoCollectors: 25,
@@ -39,21 +40,33 @@ describe("resonance milestones", () => {
       earnedResonanceMilestones: ["first-resonance"],
     };
 
-    expect(getResonanceMilestoneProgress(state)).toEqual({
-      id: "second-resonance",
-      resonanceReward: 1,
-      autoCollectors: { current: 25, target: 25 },
-      tuning: { current: 15, target: 15 },
-      canClaim: true,
-    });
+    expect(getClaimableResonanceMilestones(state)).not.toContainEqual(
+      expect.objectContaining({ id: "second-resonance" }),
+    );
 
     const claimed = claimResonanceMilestones(state);
 
-    expect(claimed.resonance).toBe(1);
-    expect(claimed.earnedResonanceMilestones).toEqual([
-      "first-resonance",
-      "second-resonance",
-    ]);
+    expect(claimed.resonance).toBe(0);
+    expect(claimed.earnedResonanceMilestones).toEqual(["first-resonance"]);
+  });
+
+  it("preserves historical second resonance saves without offering a new claim", () => {
+    const state = {
+      ...createGameState(0),
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      resonance: 1,
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+    };
+
+    expect(getResonanceMilestoneProgress(state)).toEqual({
+      id: "first-resonance",
+      resonanceReward: 1,
+      autoCollectors: { current: 20, target: 20 },
+      tuning: { current: 12, target: 12 },
+      canClaim: false,
+    });
+    expect(claimResonanceMilestones(state)).toEqual(state);
   });
 });
 

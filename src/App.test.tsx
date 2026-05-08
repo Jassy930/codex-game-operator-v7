@@ -227,18 +227,20 @@ describe("App", () => {
     expect(html).not.toContain("长期目标：离开一会儿再回来");
   });
 
-  it("points the stage goal at the second resonance claim when the long-horizon milestone is ready", () => {
+  it("points the stage goal at stardust return when the long-horizon threshold is ready", () => {
     expect(
       formatWorkshopStageNextRequirement(
         getWorkshopStage(25, 15),
         false,
         false,
-        true,
+        false,
         ["stable-circuit"],
         undefined,
-        "second-resonance",
+        "first-resonance",
+        false,
+        true,
       ),
-    ).toBe("共鸣目标：领取第 2 点共鸣，再选择第 2 个永久节点");
+    ).toBe("归航目标：星尘归航，获得 1 共鸣并开启下一轮");
   });
 
   it("shows unlockable resonance nodes when resonance is available", () => {
@@ -308,12 +310,10 @@ describe("App", () => {
       unlockedResonanceNodes: ["stable-circuit"],
     });
 
-    expect(html).toContain(
-      "共鸣门槛：首个共鸣已领取 · 下一共鸣：自动采集器 20/25，调校 12/15",
-    );
+    expect(html).toContain("归航准备：自动采集器 20/25，调校 12/15");
   });
 
-  it("shows the second resonance milestone and second node choice after the first node is active", () => {
+  it("offers stardust return at the long horizon threshold", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       autoCollectors: 25,
@@ -322,21 +322,36 @@ describe("App", () => {
       dustPerSecond: 13.75,
       nextAutoCollectorCost: 252512,
       nextEfficiencyUpgradeCost: 168667,
-      resonance: 1,
-      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      earnedResonanceMilestones: ["first-resonance"],
       unlockedResonanceNodes: ["stable-circuit"],
     });
 
-    expect(html).toContain(
-      "共鸣门槛：第二共鸣已领取 · 自动采集器 25/25，调校 15/15",
-    );
-    expect(html).toContain("选择第 2 个永久节点，最多启动 2 个");
+    expect(html).toContain("星尘归航 +1 共鸣");
+    expect(html).toContain("重启本轮工坊，保留共鸣和永久节点");
+    expect(html).toContain("归航准备完成：自动采集器 25/25，调校 15/15");
     expect(html).toContain("已启动 · 自动采集产出 +10%");
-    expect(html).toContain("离线收益 +10%");
-    expect(html).not.toContain("本轮已选择其他节点 · 离线收益 +10%");
+    expect(html).not.toContain("领取第 2 点共鸣");
   });
 
-  it("points the stage goal at spending the second resonance before waiting again", () => {
+  it("shows the stardust return goal before returning", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 50000,
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      dustPerSecond: 13.75,
+      nextAutoCollectorCost: 252512,
+      nextEfficiencyUpgradeCost: 168667,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+    });
+
+    expect(html).toContain("归航目标：星尘归航，获得 1 共鸣并开启下一轮");
+    expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
+  });
+
+  it("points the stage goal at spending available resonance before returning again", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       dust: 50000,
@@ -347,15 +362,16 @@ describe("App", () => {
       nextAutoCollectorCost: 252512,
       nextEfficiencyUpgradeCost: 168667,
       resonance: 1,
-      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      earnedResonanceMilestones: ["first-resonance"],
       unlockedResonanceNodes: ["stable-circuit"],
+      returnCount: 1,
     });
 
-    expect(html).toContain("共鸣目标：选择第 2 个永久节点，最多启动 2 个");
+    expect(html).toContain("归航目标：用共鸣启动永久节点，再推进下一轮工坊");
     expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
   });
 
-  it("reads back both active resonance nodes after the second choice is spent", () => {
+  it("points the full-node state at repeat stardust returns", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       dust: 50000,
@@ -369,15 +385,13 @@ describe("App", () => {
       unlockedResonanceNodes: ["stable-circuit", "return-coil"],
     });
 
-    expect(html).toContain(
-      "回访计划：采集回访组合 · 稳定回路放大自动采集，回访线圈放大离线收益，约 2.4 小时后可购买调校工具",
-    );
+    expect(html).toContain("归航目标：永久节点已形成，继续归航积累共鸣");
     expect(html).toContain("已启动 · 自动采集产出 +10%");
     expect(html).toContain("已启动 · 离线收益 +10%");
     expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
   });
 
-  it("frames the dual-node endgame wait as a 20 hour cruise plan", () => {
+  it("keeps the near-threshold full-node state pointed at repeat returns", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       dust: 163313.57,
@@ -391,13 +405,11 @@ describe("App", () => {
       unlockedResonanceNodes: ["stable-circuit", "return-coil"],
     });
 
-    expect(html).toContain(
-      "20 小时巡航：采集回访组合 · 稳定回路放大自动采集，回访线圈放大离线收益，约 6 分钟后可购买调校工具",
-    );
+    expect(html).toContain("归航目标：永久节点已形成，继续归航积累共鸣");
     expect(html).not.toContain("回访计划：稳定回路放大自动采集");
   });
 
-  it("names the active dual-node cruise combination near the 20 hour goal", () => {
+  it("does not leak inactive dual-node copy in the full-node return goal", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       dust: 163313.57,
@@ -411,9 +423,7 @@ describe("App", () => {
       unlockedResonanceNodes: ["stable-circuit", "tuning-engraving"],
     });
 
-    expect(html).toContain(
-      "20 小时巡航：采集调校组合 · 稳定回路放大自动采集，调校刻印提高调校价值，约 6 分钟后可购买调校工具",
-    );
+    expect(html).toContain("归航目标：永久节点已形成，继续归航积累共鸣");
     expect(html).not.toContain("回访线圈放大离线收益");
   });
 
@@ -435,7 +445,7 @@ describe("App", () => {
     expect(html).toContain("共鸣选择已满 · 调校倍率 +0.05");
   });
 
-  it("reads the full v0.4 resonance goal as complete after two nodes are active", () => {
+  it("shows stardust return preparation as complete after two nodes are active", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       dust: 50000,
@@ -449,9 +459,7 @@ describe("App", () => {
       unlockedResonanceNodes: ["stable-circuit", "return-coil"],
     });
 
-    expect(html).toContain(
-      "共鸣门槛：当前版本共鸣目标已完成 · 自动采集器 25/25，调校 15/15",
-    );
+    expect(html).toContain("归航准备完成：自动采集器 25/25，调校 15/15");
     expect(html).not.toContain("共鸣门槛：第二共鸣已领取 ·");
   });
 

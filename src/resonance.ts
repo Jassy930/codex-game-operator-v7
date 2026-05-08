@@ -29,12 +29,6 @@ const RESONANCE_MILESTONES = [
     tuning: FIRST_RESONANCE_TUNING,
     resonanceReward: FIRST_RESONANCE_REWARD,
   },
-  {
-    id: "second-resonance",
-    autoCollectors: 25,
-    tuning: 15,
-    resonanceReward: 1,
-  },
 ] as const;
 
 export function getResonanceMilestoneProgress(
@@ -78,6 +72,14 @@ export function claimResonanceMilestones(state: GameState): GameState {
       progress.id,
     ],
   };
+}
+
+export function getClaimableResonanceMilestones(
+  state: GameState,
+): ResonanceMilestoneProgress[] {
+  const progress = getResonanceMilestoneProgress(state);
+
+  return progress.canClaim ? [progress] : [];
 }
 
 export function unlockResonanceNode(

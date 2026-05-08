@@ -36,6 +36,7 @@ import {
   unlockResonanceNode,
   type ResonanceNodeId,
 } from "./resonance";
+import { canStardustReturn, performStardustReturn } from "./return";
 import autoCollectorArt from "./assets/auto-collector.webp";
 import stardustCrystalArt from "./assets/stardust-crystal.webp";
 import tuningToolArt from "./assets/tuning-tool.webp";
@@ -96,6 +97,9 @@ export function App() {
     state.autoCollectorEfficiencyLevel,
   );
   const resonanceProgress = getResonanceMilestoneProgress(state);
+  const canReturn = canStardustReturn(state);
+  const showStardustReturnProgress =
+    state.earnedResonanceMilestones.includes("first-resonance");
   const hasClaimedCurrentResonanceMilestone =
     state.earnedResonanceMilestones.includes(resonanceProgress.id);
   const showResonanceMatrix = workshopStage.name === "星尘引擎室";
@@ -114,6 +118,7 @@ export function App() {
     nextUpgradeTarget,
     resonanceProgress.id,
     canChooseResonanceNode,
+    canReturn,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -263,6 +268,19 @@ export function App() {
     });
   }
 
+  function handleStardustReturnClick() {
+    setState((current) => {
+      const next = performStardustReturn(current);
+      if (next !== current) {
+        showPurchaseMessage(
+          "星尘归航完成：获得 1 共鸣，工坊回到新一轮火花工作台",
+        );
+      }
+
+      return next;
+    });
+  }
+
   function handleUnlockResonanceNodeClick(nodeId: ResonanceNodeId) {
     setState((current) => {
       const unlocked = unlockResonanceNode(current, nodeId);
@@ -377,19 +395,29 @@ export function App() {
                 <h2 id="resonance-title">共鸣矩阵</h2>
                 <p>可用共鸣：{state.resonance}</p>
               </div>
-              {resonanceProgress.canClaim ? (
+              {canReturn && !canChooseResonanceNode ? (
+                <button className="resonance-claim" onClick={handleStardustReturnClick}>
+                  星尘归航 +1 共鸣
+                </button>
+              ) : resonanceProgress.canClaim ? (
                 <button className="resonance-claim" onClick={handleClaimResonanceClick}>
                   领取共鸣 +{resonanceProgress.resonanceReward}
                 </button>
               ) : null}
             </div>
             <p className="resonance-progress">
-              {formatResonanceProgressMessage(
-                resonanceProgress,
-                hasClaimedCurrentResonanceMilestone,
-                state.unlockedResonanceNodes.length,
-              )}
+              {showStardustReturnProgress
+                ? formatStardustReturnProgressMessage(state, canReturn)
+                : formatResonanceProgressMessage(
+                    resonanceProgress,
+                    hasClaimedCurrentResonanceMilestone,
+                  )}
             </p>
+            {showStardustReturnProgress ? (
+              <p className="return-description">
+                重启本轮工坊，保留共鸣和永久节点
+              </p>
+            ) : null}
             {showResonanceChoiceStatus ? (
               <p className="resonance-choice-hint">
                 {formatResonanceChoiceHint(state.unlockedResonanceNodes.length)}
@@ -528,20 +556,7 @@ function formatResonanceChoiceHint(unlockedNodeCount: number): string {
 function formatResonanceProgressMessage(
   resonanceProgress: ReturnType<typeof getResonanceMilestoneProgress>,
   hasClaimedMilestone: boolean,
-  unlockedNodeCount = 0,
 ): string {
-  if (
-    resonanceProgress.id === "second-resonance" &&
-    hasClaimedMilestone &&
-    unlockedNodeCount >= MAX_UNLOCKED_RESONANCE_NODES
-  ) {
-    return `共鸣门槛：当前版本共鸣目标已完成 · 自动采集器 ${resonanceProgress.autoCollectors.current}/${resonanceProgress.autoCollectors.target}，调校 ${resonanceProgress.tuning.current}/${resonanceProgress.tuning.target}`;
-  }
-
-  if (resonanceProgress.id === "second-resonance" && !hasClaimedMilestone) {
-    return `共鸣门槛：首个共鸣已领取 · 下一共鸣：自动采集器 ${resonanceProgress.autoCollectors.current}/${resonanceProgress.autoCollectors.target}，调校 ${resonanceProgress.tuning.current}/${resonanceProgress.tuning.target}`;
-  }
-
   const claimedPrefix = hasClaimedMilestone
     ? `${formatResonanceMilestoneLabel(resonanceProgress.id)}已领取 · `
     : "";
@@ -550,11 +565,18 @@ function formatResonanceProgressMessage(
 }
 
 function formatResonanceMilestoneLabel(milestoneId: string): string {
-  if (milestoneId === "second-resonance") {
-    return "第二共鸣";
-  }
-
   return "首个共鸣";
+}
+
+function formatStardustReturnProgressMessage(
+  state: GameState,
+  canReturn: boolean,
+): string {
+  const autoCollectors = Math.min(Math.max(0, state.autoCollectors), 25);
+  const tuning = Math.min(Math.max(0, state.autoCollectorEfficiencyLevel), 15);
+  const prefix = canReturn ? "归航准备完成" : "归航准备";
+
+  return `${prefix}：自动采集器 ${autoCollectors}/25，调校 ${tuning}/15`;
 }
 
 function loadGame(): HydratedGameState {
@@ -635,21 +657,26 @@ export function formatWorkshopStageNextRequirement(
   nextUpgradeTarget?: { label: string; cost: number },
   claimableResonanceMilestoneId = "first-resonance",
   canChooseResonanceNode = false,
+  canReturn = false,
 ): string {
   if (canClaimResonance && workshopStage.name === "星尘引擎室") {
-    if (claimableResonanceMilestoneId === "second-resonance") {
-      return "共鸣目标：领取第 2 点共鸣，再选择第 2 个永久节点";
-    }
-
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
   }
 
   if (canChooseResonanceNode && workshopStage.name === "星尘引擎室") {
     if (unlockedResonanceNodes.length >= 1) {
-      return "共鸣目标：选择第 2 个永久节点，最多启动 2 个";
+      return "归航目标：用共鸣启动永久节点，再推进下一轮工坊";
     }
 
     return "共鸣目标：选择 1 个永久节点，本轮只能启动一个";
+  }
+
+  if (canReturn && workshopStage.name === "星尘引擎室") {
+    if (unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES) {
+      return "归航目标：永久节点已形成，继续归航积累共鸣";
+    }
+
+    return "归航目标：星尘归航，获得 1 共鸣并开启下一轮";
   }
 
   if (hasVisibleOfflineReward && workshopStage.name === "星尘引擎室") {

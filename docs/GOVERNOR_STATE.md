@@ -2,56 +2,57 @@
 
 ## Selected Mode
 
-META_IMPROVE
+OPERATE
 
 ## Iteration Track
 
-HARNESS_MAINTENANCE
+PLAYABLE_CONTENT
 
 ## Expected Content Advance
 
-新增 Meaningful Iteration Gate，让每轮迭代必须声明内容推进轨道、证据来源和必需产出，避免无主题地挑一个小文案或小状态改动。
+实现 v0.5 `星尘归航` 的纯逻辑切片：达到 25 台自动采集器和 15 次调校后，玩家可把本轮工坊重启为下一轮，并获得固定 `1 共鸣`。
 
 ## Evidence Source
 
-用户明确要求每次迭代有明确内容推进，可以是游戏调研、用户反馈、下一部分规划、当前内容 review、bug 修复或图像表现优化，而不是随便找个地方改一点点。
+用户明确要求前期积极扩展玩法内容、目标先做到 20 小时；v0.5 设计和实施计划已将 `星尘归航` 作为 20 小时后的长线主循环，上一轮已完成 v3 `returnCount` 存档准备。
 
 ## Required Artifact
 
-更新 `prompts/goal.md`、`docs/OPERATING_MODES.md`、`docs/HARNESS.md`、`docs/GOVERNOR_STATE.md` 和 `ops/governor-check.sh`；补充脚本测试、计划文档、harness changelog、decision 和 release log。
+新增 `src/return.ts` / `src/return.test.ts`，更新 `src/resonance.ts` / `src/resonance.test.ts`，接入 `src/App.tsx` / `src/App.test.tsx` 的现有矩阵归航 UI，并记录 v0.5 归航逻辑的 decision、self-playtest、release log 和 governor state。
 
 ## Reason
 
-当前 harness 能限制复杂度和阶段漂移，但没有强制每轮说明“本轮到底推进哪类内容”。这会让 operator 在没有明确主题时倾向于选择局部小文案、小状态读回或重复 no-change。该问题属于治理机制缺口，应通过 `META_IMPROVE` 收紧。
+v0.4 的第二共鸣门槛已经能把目标拉到 16-20 小时，但它仍是一次性门槛。v0.5 需要先建立可测试的归航条件、奖励和本轮重置规则，再接 UI 按钮，避免继续把 `second-resonance` 当成新的长期奖励入口。
 
 ## Allowed Actions
 
-- 定义 iteration track 列表和 Meaningful Iteration Gate。
-- 更新当前 governor state 结构，加入 `Iteration Track`、`Expected Content Advance`、`Evidence Source` 和 `Required Artifact`。
-- 用 TDD 扩展 `ops/governor-check.sh`，校验当前 governor state 是否包含合格迭代字段。
-- 同步 `docs/DECISION.md`、`docs/RELEASE_LOG.md`、`docs/HARNESS_CHANGELOG.md` 和计划文档。
-- 运行本地验证，至少包括 `bun test src/ops-scripts.test.ts`、完整测试、构建、`./ops/governor-check.sh` 和 `git diff --check`。
+- 用 TDD 新增纯归航逻辑：门槛、奖励、本轮重置、长期状态保留和无效状态 no-op。
+- 保留 `first-resonance` 作为一次性教学入口。
+- 停止为新状态暴露新的 `second-resonance` 可领取入口；旧存档中的 `second-resonance` 字符串只保留兼容。
+- 同步 `docs/DECISION.md`、`docs/SELF_PLAYTEST.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
+- 运行本地验证，至少包括聚焦测试、完整测试、构建、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 本轮不实现新的游戏玩法、数值、按钮或视觉资产。
-- 不削弱 issue routing、response budget、complexity budget、review protocol、测试或部署要求。
-- 不把所有迭代都强制成可玩功能，保留调研、反馈、规划、review、bugfix 和视觉整理作为有效内容推进。
+- 本轮不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、新共鸣节点或节点等级树。
+- 不改变现有自动采集器或调校工具经济曲线。
 - 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
-- 不修改或新增 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
+- 不回复 Issue #1/#2，除非玩家提供新实质信息。
 
 ## Exit Criteria
 
-- `docs/GOVERNOR_STATE.md` 包含 meaningful iteration 字段。
-- `ops/governor-check.sh` 会阻止缺少 iteration track 或产出说明的 governor state。
-- 相关测试、完整验证和文档同步完成。
-- 周期结束后工作区状态已记录。
+- `canStardustReturn` 和 `performStardustReturn` 有测试覆盖。
+- 归航会奖励固定 `1 共鸣`，保留共鸣里程碑、已启动节点和归航次数，并重置本轮星尘、自动采集器与调校进度。
+- 新状态不再暴露 `second-resonance` 可领取入口。
+- 文档、完整验证和工作区状态已收口。
 
 ## Drift Status
 
-已发现轻微治理漂移风险：持续运营可能退化为“找局部小点改一点”。本轮不新增玩法，而是收紧迭代入口，要求每轮先声明内容推进类型和产出物。
+未发现需要进入 SIMPLIFY 的复杂度超预算。当前风险是 v0.5 归航入口和 v0.4 第二共鸣入口并存，本轮通过纯逻辑迁移先消除奖励来源分裂。
 
 ## Last Updated
+
+2026-05-08: v0.5 `星尘归航` 第一版完成。新增纯归航逻辑和现有 `共鸣矩阵` 内按钮：首个共鸣已领取且达到 25 台自动采集器 / 15 次调校后，可执行 `星尘归航 +1 共鸣`；归航会重启本轮工坊，保留共鸣里程碑、已启动永久节点和归航次数，并停止为新状态暴露 `second-resonance` 可领取入口。本轮仍未新增第三普通资源、新节点、节点等级树、任务系统、多生产线、额外面板或 telemetry。
 
 2026-05-08: Meaningful Iteration Gate 本地验证完成：先用 TDD 看到 `bun test src/ops-scripts.test.ts -t "meaningful iteration"` 红灯，再实现 `governor-check` 字段校验并通过聚焦测试。完整验证通过：`bun test src/ops-scripts.test.ts` 9 pass，`bun test` 88 pass，`bun run test` 88 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。
 
