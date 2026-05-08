@@ -18,6 +18,7 @@ Defines identity, direction, and non-negotiable priorities.
 ### Layer 2: Governance
 
 - `docs/OPERATING_MODES.md`
+- `docs/ITERATION_POLICY.md`
 - `docs/GOVERNOR_STATE.md`
 - `docs/SIGNAL_ROUTING.md`
 - `docs/RESPONSE_BUDGET.md`
@@ -56,6 +57,7 @@ Allows learning and harness evolution.
 ```text
 Select Operating Mode
 → Select Iteration Track
+→ Declare Cycle Bet
 → Gather inputs allowed by that mode
 → Update runtime docs
 → Make one decision
@@ -63,6 +65,7 @@ Select Operating Mode
 → Run checks
 → Review with roles
 → Commit / deploy / reply only if allowed
+→ Mark cycle completed and record next candidate track
 → Update retrospective/meta if needed
 ```
 

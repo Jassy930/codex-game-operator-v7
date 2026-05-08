@@ -10,6 +10,40 @@ Records all harness rule changes.
 - Added self-playtest as non-issue input source.
 - Renamed ideas to idea parking lot to avoid backlog behavior.
 
+## 2026-05-08 - Iteration Policy Hardening
+
+### Files Changed
+
+- `docs/ITERATION_POLICY.md`
+- `prompts/goal.md`
+- `docs/HARNESS.md`
+- `docs/OPERATING_MODES.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/DECISION.md`
+- `docs/RELEASE_LOG.md`
+- `ops/governor-check.sh`
+- `src/ops-scripts.test.ts`
+
+### Failure Mode
+
+Meaningful Iteration Gate required a track and artifact, but it did not require a cycle-level bet, an explicit cycle status, or a next-track summary. The operator could still finish a cycle and remain parked on the completed target.
+
+### Evidence
+
+用户追问每次迭代是否会总结并更新机制，以避免停滞在某个地方。Current governor state showed a completed v0.5 playable slice, which makes explicit cycle completion and next-candidate routing necessary.
+
+### Change
+
+Added `docs/ITERATION_POLICY.md`, required `Cycle Bet` and `Cycle Status` in `docs/GOVERNOR_STATE.md`, and extended `governor-check` so missing cycle bet, empty evidence/artifact, or invalid cycle status fails the check.
+
+### Why This Does Not Weaken Constraints
+
+This strengthens the iteration harness without forcing every cycle to add gameplay. It keeps research, feedback, planning, review, bugfix, visual polish, playable content, and harness maintenance as valid work while requiring explicit summary and forward motion.
+
+### Follow-up
+
+Next product cycle should use this policy to pick a new active bet instead of continuing to maintain the harness.
+
 ## 2026-05-08 - Meaningful Iteration Gate
 
 ### Files Changed

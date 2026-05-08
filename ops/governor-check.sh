@@ -18,6 +18,7 @@ required=(
   "docs/COMPLEXITY_BUDGET.md"
   "docs/REVIEW_PROTOCOL.md"
   "docs/ASSET_WORKFLOW.md"
+  "docs/ITERATION_POLICY.md"
   "docs/DECISION.md"
   "docs/RELEASE_LOG.md"
   "docs/ISSUE_LEDGER.md"
@@ -222,9 +223,11 @@ check_meaningful_iteration_gate() {
 
   required_iteration_fields=(
     "Iteration Track"
+    "Cycle Bet"
     "Expected Content Advance"
     "Evidence Source"
     "Required Artifact"
+    "Cycle Status"
   )
 
   for field in "${required_iteration_fields[@]}"; do
@@ -250,6 +253,38 @@ check_meaningful_iteration_gate() {
   case "$expected_advance" in
     ""|"none"|"no-change"|"minor copy")
       echo "Governor state expected content advance must describe a concrete artifact or review outcome."
+      fail=1
+      ;;
+  esac
+
+  cycle_bet="$(trim "$(section_value "Cycle Bet" docs/GOVERNOR_STATE.md)")"
+  case "$cycle_bet" in
+    ""|"none"|"no-change"|"minor copy")
+      echo "Governor state cycle bet must describe the current stage bet."
+      fail=1
+      ;;
+  esac
+
+  evidence_source="$(trim "$(section_value "Evidence Source" docs/GOVERNOR_STATE.md)")"
+  if [ -z "$evidence_source" ] || [ "$evidence_source" = "none" ]; then
+    echo "Governor state evidence source must describe the input signal."
+    fail=1
+  fi
+
+  required_artifact="$(trim "$(section_value "Required Artifact" docs/GOVERNOR_STATE.md)")"
+  if [ -z "$required_artifact" ] || [ "$required_artifact" = "none" ]; then
+    echo "Governor state required artifact must describe the cycle output."
+    fail=1
+  fi
+
+  cycle_status="$(trim "$(section_value "Cycle Status" docs/GOVERNOR_STATE.md)")"
+  case "$cycle_status" in
+    active|completed)
+      ;;
+    "")
+      ;;
+    *)
+      echo "Governor state has invalid cycle status: $cycle_status"
       fail=1
       ;;
   esac

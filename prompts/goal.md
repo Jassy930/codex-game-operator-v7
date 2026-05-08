@@ -36,9 +36,11 @@ At the beginning of each autonomous cycle:
 3. Update `docs/GOVERNOR_STATE.md` with:
    - selected mode
    - iteration track
+   - cycle bet
    - expected content advance
    - evidence source
    - required artifact
+   - cycle status
    - reason
    - allowed actions
    - forbidden actions
@@ -46,6 +48,7 @@ At the beginning of each autonomous cycle:
 4. Execute only actions allowed by that mode and justified by that iteration track.
 5. Run the review protocol before committing.
 6. End by updating `docs/DECISION.md`, `docs/RELEASE_LOG.md`, `docs/SELF_PLAYTEST.md`, `docs/ISSUE_LEDGER.md`, or `docs/RETROSPECTIVE.md` as appropriate.
+7. Mark the cycle status as `completed`, summarize the mechanism/learning update, and record the next candidate mode/track unless the user explicitly pauses.
 
 Default posture:
 

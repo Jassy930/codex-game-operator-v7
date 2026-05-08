@@ -119,4 +119,6 @@
 - `governor-check` 现在校验 v0.5 预算存在、归航 loop 明确受限、奖励资源保持为 `共鸣`、存档版本上限为 3，并显式禁止第三普通资源。
 - 存档版本升级到 v3，并新增 `returnCount` 字段；新游戏默认为 `0`，v1/v2 旧存档加载时自动补默认值。该切片只做 `星尘归航` 的持久化准备，不新增归航按钮或重置逻辑。
 - 新增 Meaningful Iteration Gate：每轮必须在 governor state 中声明 iteration track、expected content advance、evidence source 和 required artifact；`governor-check` 会阻止无主题的小改动式迭代。本地验证通过：`bun test` 88 pass，`bun run test` 88 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0。
+- 新增 Iteration Policy：每轮必须记录 `Cycle Bet` 和 `Cycle Status`，完成后总结机制/学习更新并写出下一候选 mode/track；`governor-check` 会阻止缺少 cycle bet、空 evidence/artifact 或非法 cycle status 的迭代状态。
 - 实现 v0.5 `星尘归航` 第一版：达到 25 台自动采集器和 15 次调校后，现有 `共鸣矩阵` 会显示 `星尘归航 +1 共鸣`；归航重启本轮工坊，奖励固定 `1 共鸣`，保留共鸣里程碑、已启动永久节点和归航次数，并停止为新状态暴露 `second-resonance` 可领取入口。
+- 优化移动端操作按钮视觉：窄屏纵向堆叠时不再被 `flex-basis: 180px` 拉高，升级按钮图标和禁用态更紧凑清晰；不新增图片、玩法、资源、按钮或面板。

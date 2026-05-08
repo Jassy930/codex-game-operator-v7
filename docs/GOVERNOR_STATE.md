@@ -2,55 +2,73 @@
 
 ## Selected Mode
 
-OPERATE
+META_IMPROVE
 
 ## Iteration Track
 
-PLAYABLE_CONTENT
+HARNESS_MAINTENANCE
+
+## Cycle Bet
+
+目标：强化当前迭代机制，让每轮不仅声明 track，还必须写明 cycle bet、cycle status、必需产出和下一轮候选轨道。
+Appetite：1 个治理切片。
+包括：新增 `docs/ITERATION_POLICY.md`、更新 governor state 模板、扩展 `governor-check` 字段检查、同步决策和 release 记录。
+不包括：不新增玩法、数值、视觉资产或外部 telemetry。
+完成定义：脚本能阻止缺少 cycle bet/status 的迭代状态，完整验证通过并记录下一步候选轨道。
 
 ## Expected Content Advance
 
-实现 v0.5 `星尘归航` 的纯逻辑切片：达到 25 台自动采集器和 15 次调校后，玩家可把本轮工坊重启为下一轮，并获得固定 `1 共鸣`。
+新增迭代策略硬化：每轮必须写 `Cycle Bet` 和 `Cycle Status`，结束时总结本轮机制/学习更新并记录下一轮候选 mode/track，避免停在已完成阶段或持续重复同类小改。
 
 ## Evidence Source
 
-用户明确要求前期积极扩展玩法内容、目标先做到 20 小时；v0.5 设计和实施计划已将 `星尘归航` 作为 20 小时后的长线主循环，上一轮已完成 v3 `returnCount` 存档准备。
+用户追问“每次迭代的时候会总结并更新这些机制吗，避免停止在某个地方停滞不前”。当前 Meaningful Iteration Gate 已经要求 track，但还没有强制 cycle bet/status 和每轮收口后的下一步候选轨道。
 
 ## Required Artifact
 
-新增 `src/return.ts` / `src/return.test.ts`，更新 `src/resonance.ts` / `src/resonance.test.ts`，接入 `src/App.tsx` / `src/App.test.tsx` 的现有矩阵归航 UI，并记录 v0.5 归航逻辑的 decision、self-playtest、release log 和 governor state。
+新增 `docs/ITERATION_POLICY.md`；更新 `prompts/goal.md`、`docs/HARNESS.md`、`docs/OPERATING_MODES.md`、`docs/GOVERNOR_STATE.md`、`docs/HARNESS_CHANGELOG.md`、`docs/DECISION.md`、`docs/RELEASE_LOG.md`；扩展 `ops/governor-check.sh` 和 `src/ops-scripts.test.ts`。
+
+## Cycle Status
+
+completed
 
 ## Reason
 
-v0.4 的第二共鸣门槛已经能把目标拉到 16-20 小时，但它仍是一次性门槛。v0.5 需要先建立可测试的归航条件、奖励和本轮重置规则，再接 UI 按钮，避免继续把 `second-resonance` 当成新的长期奖励入口。
+当前机制已经能阻止无主题小改，但还需要防止“完成后不切换”和“连续同类迭代停滞”。Cycle Bet 让多个小切片服务于同一阶段目标；Cycle Status 和下一轮候选轨道让每轮必须收口并推动后续选择。
 
 ## Allowed Actions
 
-- 用 TDD 新增纯归航逻辑：门槛、奖励、本轮重置、长期状态保留和无效状态 no-op。
-- 保留 `first-resonance` 作为一次性教学入口。
-- 停止为新状态暴露新的 `second-resonance` 可领取入口；旧存档中的 `second-resonance` 字符串只保留兼容。
-- 同步 `docs/DECISION.md`、`docs/SELF_PLAYTEST.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
+- 定义 iteration policy、cycle bet、cycle status、track 必需产出和 mix review。
+- 用 TDD 扩展 `governor-check`，校验 `Cycle Bet`、`Cycle Status`、`Evidence Source` 和 `Required Artifact`。
+- 同步 `docs/DECISION.md`、`docs/RELEASE_LOG.md`、`docs/HARNESS_CHANGELOG.md` 和计划文档。
 - 运行本地验证，至少包括聚焦测试、完整测试、构建、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 本轮不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、新共鸣节点或节点等级树。
-- 不改变现有自动采集器或调校工具经济曲线。
+- 本轮不实现新的游戏玩法、数值、按钮或视觉资产。
+- 不削弱 issue routing、response budget、complexity budget、review protocol、测试或部署要求。
 - 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
 - 不回复 Issue #1/#2，除非玩家提供新实质信息。
 
 ## Exit Criteria
 
-- `canStardustReturn` 和 `performStardustReturn` 有测试覆盖。
-- 归航会奖励固定 `1 共鸣`，保留共鸣里程碑、已启动节点和归航次数，并重置本轮星尘、自动采集器与调校进度。
-- 新状态不再暴露 `second-resonance` 可领取入口。
+- `docs/ITERATION_POLICY.md` 记录每轮总结、机制更新和停滞规避规则。
+- `ops/governor-check.sh` 会阻止缺少 `Cycle Bet` 或非法 `Cycle Status` 的 governor state。
 - 文档、完整验证和工作区状态已收口。
+
+## Next Candidate Mode / Track
+
+下一轮优先回到 `OPERATE / PLAYABLE_CONTENT` 或 `SELF_PLAYTEST / CONTENT_REVIEW`：如果 v0.5 归航第一版已经可玩，应复核归航后的下一轮体验；如果需要继续扩内容，应为下一个玩家可感知目标先写新的 Cycle Bet。不要继续停留在 harness 维护，除非本轮检查失败或用户再次要求治理改进。
 
 ## Drift Status
 
-未发现需要进入 SIMPLIFY 的复杂度超预算。当前风险是 v0.5 归航入口和 v0.4 第二共鸣入口并存，本轮通过纯逻辑迁移先消除奖励来源分裂。
+已发现治理层停滞风险：如果只要求 track，不要求 cycle bet/status 和下一步候选轨道，operator 仍可能停在已完成目标或连续做同类小改。本轮通过迭代策略和脚本检查收紧。
 
 ## Last Updated
+
+2026-05-08: Iteration Policy 硬化完成；新增 `Cycle Bet`、`Cycle Status`、每轮收口和下一候选轨道规则。聚焦 TDD 验证通过：`bun test src/ops-scripts.test.ts -t "cycle bet|cycle status|meaningful iteration|governor check"` 7 pass。本轮 cycle status 已标记为 `completed`，下一轮候选为回到游戏内容推进或内容 review。
+
+2026-05-08: 切换到 META_IMPROVE / HARNESS_MAINTENANCE；硬化迭代机制，新增 `docs/ITERATION_POLICY.md`、`Cycle Bet`、`Cycle Status` 和每轮收口后的下一候选轨道要求。目标是让每次迭代都会总结机制/学习更新，并明确下一步方向，避免停止在某个阶段。
 
 2026-05-08: v0.5 `星尘归航` 第一版完成。新增纯归航逻辑和现有 `共鸣矩阵` 内按钮：首个共鸣已领取且达到 25 台自动采集器 / 15 次调校后，可执行 `星尘归航 +1 共鸣`；归航会重启本轮工坊，保留共鸣里程碑、已启动永久节点和归航次数，并停止为新状态暴露 `second-resonance` 可领取入口。本轮仍未新增第三普通资源、新节点、节点等级树、任务系统、多生产线、额外面板或 telemetry。
 

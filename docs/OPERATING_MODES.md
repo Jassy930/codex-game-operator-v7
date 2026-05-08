@@ -4,6 +4,8 @@ Codex must choose exactly one operating mode before acting. The chosen mode must
 
 Codex must also choose exactly one iteration track before acting. The track defines what kind of content advance the cycle is expected to produce. A small implementation slice is allowed only when it serves the selected track.
 
+Detailed cycle-bet, cycle-status, required-artifact, and mix-review rules are defined in `docs/ITERATION_POLICY.md`.
+
 ## Mode Selection Priority
 
 1. If project cannot run: `BOOTSTRAP`
@@ -33,6 +35,8 @@ Record one of these in `docs/GOVERNOR_STATE.md` under `Iteration Track`:
 - `HARNESS_MAINTENANCE`: 治理系统维护，产出为更强检查、更清晰规则或流程修复。
 
 `Expected Content Advance` must describe the concrete artifact or review outcome for the cycle. It must not be a vague placeholder such as `none`, `no-change`, or `minor copy`. If a cycle records no gameplay change, it must still complete a meaningful track such as `CONTENT_REVIEW`, `GAME_RESEARCH`, `VISUAL_POLISH`, or `HARNESS_MAINTENANCE`.
+
+Each cycle must also record a `Cycle Bet` and `Cycle Status`. `Cycle Status` is `active` while work is in progress and `completed` after validation, documentation, and workspace status have been recorded.
 
 ## BOOTSTRAP
 

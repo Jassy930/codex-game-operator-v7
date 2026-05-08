@@ -125,6 +125,98 @@ SELF_PLAYTEST
     expect(result.output).toContain("Governor state missing meaningful iteration field: Iteration Track");
   });
 
+  it("fails governor check when cycle bet is missing", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(
+      join(workspace, "docs/GOVERNOR_STATE.md"),
+      `# Governor State
+
+## Selected Mode
+
+OPERATE
+
+## Iteration Track
+
+PLAYABLE_CONTENT
+
+## Expected Content Advance
+
+Implement one supported change tied to the current decision.
+
+## Evidence Source
+
+Test fixture.
+
+## Required Artifact
+
+Tests and release note.
+
+## Cycle Status
+
+active
+`,
+    );
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Governor state missing meaningful iteration field: Cycle Bet");
+  });
+
+  it("fails governor check when cycle status is invalid", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(
+      join(workspace, "docs/GOVERNOR_STATE.md"),
+      `# Governor State
+
+## Selected Mode
+
+OPERATE
+
+## Iteration Track
+
+PLAYABLE_CONTENT
+
+## Cycle Bet
+
+Ship one visible playable change within the current budget.
+
+## Expected Content Advance
+
+Implement one supported change tied to the current decision.
+
+## Evidence Source
+
+Test fixture.
+
+## Required Artifact
+
+Tests and release note.
+
+## Cycle Status
+
+stalled
+`,
+    );
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Governor state has invalid cycle status: stalled");
+  });
+
   it("collects issue body and comments for routing evidence", () => {
     const workspace = createCollectorWorkspace();
     const binDir = join(workspace, "bin");
@@ -274,6 +366,10 @@ OPERATE
 
 PLAYABLE_CONTENT
 
+## Cycle Bet
+
+Ship one visible playable change within the current budget.
+
 ## Expected Content Advance
 
 Implement one supported change tied to the current decision.
@@ -285,6 +381,10 @@ Test fixture.
 ## Required Artifact
 
 Tests and release note.
+
+## Cycle Status
+
+active
 `,
   );
 
@@ -361,6 +461,7 @@ const REQUIRED_HARNESS_FILES = [
   "docs/COMPLEXITY_BUDGET.md",
   "docs/REVIEW_PROTOCOL.md",
   "docs/ASSET_WORKFLOW.md",
+  "docs/ITERATION_POLICY.md",
   "docs/DECISION.md",
   "docs/RELEASE_LOG.md",
   "docs/ISSUE_LEDGER.md",

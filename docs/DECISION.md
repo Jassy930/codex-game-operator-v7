@@ -2,10 +2,14 @@
 
 ## Current Biggest Problem
 
-当前最大产品问题是 v0.4 的 20 小时目标仍停留在一次性第二共鸣门槛。v0.5 已完成预算和存档准备，本轮必须把 `星尘归航` 做成可测试、可点击的第一版长线循环，避免 `second-resonance` 与归航奖励共鸣并存。
+当前最大治理问题是 Meaningful Iteration Gate 已能要求每轮声明 track，但还没有要求 cycle-level bet、cycle status 和下一轮候选轨道。这样仍可能在一个已完成阶段停住，或连续做同类小改。
 
 ## Evidence
 
+- 2026-05-08 用户追问每次迭代是否会总结并更新机制，以避免停止在某个地方停滞不前。
+- 当前 governor state 已记录 v0.5 `星尘归航` 第一版完成，说明完成状态需要被显式收口，并推动下一候选 mode/track。
+- Decision: 本轮记录 `DECISION:2026-05-08-iteration-policy-hardening`。新增 `docs/ITERATION_POLICY.md`，要求每轮记录 `Cycle Bet` 和 `Cycle Status`；每轮结束时将 cycle 标为 `completed`，总结本轮机制/学习更新，并记录下一轮候选 mode/track。`governor-check` 校验 `Cycle Bet`、`Cycle Status`、`Evidence Source` 和 `Required Artifact`。
+- 约束：不新增玩法、数值、按钮、视觉资产或 telemetry；本轮只强化迭代机制，不放宽 issue routing、response budget、complexity budget、review protocol 或测试要求。
 - 2026-05-08 v0.5 存档准备已完成：存档版本升级到 v3，新增 `returnCount`，但上一轮仍未实现归航条件、奖励、本轮重置或 UI 按钮。
 - v0.5 设计要求：首个共鸣继续作为一次性教学入口，归航条件复用 25 台自动采集器 / 15 次调校，奖励固定 `1 共鸣`，保留 `earnedResonanceMilestones` 和已启动永久节点，停止为新状态生成新的 `second-resonance` 可领取入口。
 - Decision: 本轮继续执行 `DECISION:2026-05-08-v05-stardust-return`。新增 `src/return.ts` 纯逻辑和现有 `共鸣矩阵` 内的 `星尘归航 +1 共鸣` 按钮；归航后本轮工坊回到新一轮火花工作台，可用共鸣增加 1，归航次数增加 1。
@@ -914,6 +918,13 @@ Decision Anchor: `DECISION:2026-05-08-v05-stardust-return`
 - Decision: 将最终阶段后续目标改为“长期目标：离开一会儿再回来，查看引擎室积累的离线星尘”。
 - v0.2 budget use: 使用 `Delayed unlock copy` 和首次回访内容弧线，复用现有阶段行，不使用第 4 种升级类型。
 - v0.1 guardrail: 前 60 秒目标、购买进度、阶段预告和事件反馈保持不变；不新增资源、按钮、面板、存档字段、指标字段、反馈渠道或 issue 回复。
+
+2026-05-08 SELF_PLAYTEST mobile button visual polish:
+
+- Decision Anchor: `DECISION:2026-05-08-mobile-button-visual-polish`
+- Gap: 视觉检查发现移动端操作按钮纵向堆叠时仍继承 `flex: 1 1 180px`，导致按钮异常占高，首屏节奏被按钮区域压缩。
+- Decision: 只通过 CSS 覆盖移动端按钮 `flex-basis`、尺寸和对齐方式，并轻度区分 disabled 升级图标状态。
+- 约束：不生成新图片、不新增玩法、资源、按钮、面板、存档字段、指标字段或反馈渠道；桌面端结构保持不变。
 
 ## Input Source
 
