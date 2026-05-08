@@ -2,10 +2,16 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照入口已经发布。当前最大问题不是缺少更多按钮、节点或面板，而是本地指标快照仍不够适合活跃 self-playtest：页面尚未触发 `pagehide` 时，`current.sessionDurationMs` 仍是 `null`，operator 需要自行用 `generatedAt - sessionStartedAt` 换算当前本机游玩时长。
+v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照入口已经发布。当前最大问题不是缺少更多按钮、节点或面板，而是需要确认最近几轮因网络失败留下的运营验证缺口是否已经恢复，并判断是否存在新的真实反馈信号。当前远端验证已恢复，但 Issue #1/#2 没有新实质补充，因此不应新增玩法或重复回复 issue。
 
 ## Evidence
 
+- 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels,body` 成功返回 Issue #1/#2；两条 issue 仍为既有反馈，各 1 条已预算回复，`updatedAt` 均为 2026-05-07T09:39:29Z，没有新玩家补充。
+- `./ops/collect-feedback.sh` 已刷新 `data/feedback/github-feedback.md`，只更新时间戳和同一批 Issue #1/#2 证据。
+- `gh run list --repo Jassy930/codex-game-operator-v7 --limit 5` 成功返回最近 5 次 `Deploy Pages`，均为 `completed/success`；最新 run `25534948014` 对应 `412686e docs: record metrics duration release status`。
+- `curl -I --max-time 20 https://jassy930.github.io/codex-game-operator-v7/` 返回 HTTP 200，`last-modified` 为 2026-05-08 03:27:14 GMT。
+- 真实 headless Chrome 读回样本：页面标题为 `星尘工坊`，`window.stardustWorkshopMetricsSnapshot` 存在；点击 2 次后快照为 `clickCount=2`、`sessionDurationMs=null`、`activeSessionDurationMs=16870`、`historyLength=0`、`feedbackClickedCount=0`，证明上一轮派生活跃时长可以在运行页面中使用。
+- Decision: 本轮记录 `DECISION:2026-05-08-operate-remote-and-metrics-readback-no-change`。远端反馈、部署和本地 metrics 读回都已恢复，但没有新反馈或新 self-playtest gap；不新增玩法、不扩 metrics 字段、不回复 Issue #1/#2。
 - 2026-05-08 release recovery 已把本地 `7257098 docs: record wait time release status` 推送到 `origin/main`。
 - 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels` 仍无法连接 `api.github.com`，不能通过 CLI 刷新远端 issue 状态；GitHub connector 的 recent issues 结果显示 Issue #1/#2 仍只有各 1 条评论，没有新实质补充。
 - `data/metrics/events.jsonl` 当前为 0 行；本轮输入优先级转向 local-only metrics 快照可用性。
@@ -199,9 +205,9 @@ v0.3 共鸣系统第一版、`回访计划读回` 第一版和本地指标快照
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-active-session-duration-snapshot`
+Decision Anchor: `DECISION:2026-05-08-operate-remote-and-metrics-readback-no-change`
 
-本地指标快照入口已经落地，但活跃 session 的当前持续时长仍需要人工换算。本轮只给 `window.stardustWorkshopMetricsSnapshot()` 增加 `activeSessionDurationMs` 派生字段，让 operator 在页面仍打开时直接读回本机 self-playtest 持续多久。当前仍不新增采集事件、localStorage key、上传路径、外部 analytics、UI 面板、资源、第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
+远端反馈读取、Pages workflow 和公开预览验证已经恢复；真实浏览器 metrics 快照也能读回活跃 session 时长。Issue #1/#2 没有新实质补充，当前没有新的 gameplay、metrics 或 harness gap。本轮只记录 no-change 运营复核：不新增采集事件、localStorage key、上传路径、外部 analytics、UI 面板、资源、第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源，也不重复回复 issue。
 
 ## Implementation Record
 

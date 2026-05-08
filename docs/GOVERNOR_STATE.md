@@ -2,32 +2,33 @@
 
 ## Selected Mode
 
-METRICS_INFRA
+OPERATE
 
 ## Reason
 
-上一轮 release recovery 已把本地文档提交 `7257098` 推送到 `origin/main`。当前 `gh issue list` 仍无法连接 `api.github.com`，GitHub connector 可见 Issue #1/#2 没有新实质补充，`data/metrics/events.jsonl` 仍为空。上一轮补齐的 `window.stardustWorkshopMetricsSnapshot()` 已能读取 current/history，但活跃 session 在 `pagehide` 前 `sessionDurationMs` 仍为 `null`，operator 不能直接读回当前本机 self-playtest 已持续多久。因此本轮进入 METRICS_INFRA，只补一个派生活跃时长读回，不新增采集或玩法。
+远端访问已恢复，本轮可以直接读取 GitHub Issues、Pages workflow 和公开预览。Issue #1/#2 仍只有既有反馈和各一次已预算回复，没有新玩家补充；最新 Pages workflow 均为 success，公开预览返回 HTTP 200。上一轮 `activeSessionDurationMs` 也已通过真实 headless Chrome 页面读回验证。因此本轮进入 OPERATE，刷新反馈快照并记录无新信号状态；不回复 issue，不新增玩法。
 
 ## Allowed Actions
 
-- 用 TDD 覆盖 `window.stardustWorkshopMetricsSnapshot()` / `createLocalMetricsSnapshot()` 在活跃 session 中派生当前已持续时长。
-- 只改本地快照返回结构和文档说明，不新增 localStorage key、不新增采集事件、不上传 telemetry。
-- 更新 `docs/METRICS.md`、`docs/DECISION.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
-- 运行完整本地验证：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
+- 刷新 `data/feedback/github-feedback.md`，确认 Issue #1/#2 是否有新信息。
+- 记录 Pages workflow / 公开预览恢复状态。
+- 记录真实浏览器 `window.stardustWorkshopMetricsSnapshot()` 读回样本。
+- 更新 `docs/DECISION.md`、`docs/RELEASE_LOG.md` 和 `docs/GOVERNOR_STATE.md`。
+- 运行本地验证，至少包括 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
 - 不新增 UI 面板、按钮、资源、存档字段、采集字段或数值系统。
 - 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
 - 不新增 prestige、任务系统、复杂地图、多生产线、第二个共鸣面板或更多共鸣节点。
-- 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
+- 不修改或新增 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- 一个具体 metrics readback gap 已记录到 `docs/DECISION.md`。
-- 本地指标快照能在页面仍打开时直接显示活跃 session 已持续多久。
-- `docs/METRICS.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md` 已同步当前状态。
+- 反馈快照已刷新，Issue #1/#2 没有新实质补充。
+- Pages workflow 和公开预览状态已记录。
+- 真实浏览器 metrics 快照样本已记录。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
@@ -37,7 +38,9 @@ METRICS_INFRA
 
 ## Last Updated
 
-2026-05-08: 切换到 METRICS_INFRA；上一轮 release recovery 已把 `7257098` 推送到 `origin/main`。本轮只允许补 `window.stardustWorkshopMetricsSnapshot()` 的活跃 session 时长读回，不新增采集字段、上传路径、玩法系统或 UI。
+2026-05-08: 切换到 OPERATE；远端 GitHub API 和 Pages DNS 已恢复。本轮只刷新反馈快照、记录 Pages/公开预览恢复状态，并用真实 headless Chrome 页面读回 `window.stardustWorkshopMetricsSnapshot()` 样本；不回复 Issue #1/#2，不新增玩法或指标字段。
+
+2026-05-08: OPERATE 复核结果：`gh issue list` 显示 Issue #1/#2 仍为旧反馈且各 1 条已预算回复；`gh run list --repo Jassy930/codex-game-operator-v7 --limit 5` 显示最近 5 次 `Deploy Pages` 均 completed/success，最新 run `25534948014` 对应 `412686e`；公开预览 `https://jassy930.github.io/codex-game-operator-v7/` 返回 HTTP 200。真实 headless Chrome 样本显示 `window.stardustWorkshopMetricsSnapshot()` 存在，点击 2 次后 `clickCount=2`、`sessionDurationMs=null`、`activeSessionDurationMs=16870`，证明上一轮活跃时长读回可用于当前页面。
 
 2026-05-08: 活跃 session 时长快照读回切片已由 commit `f31038f` 推送到 `origin/main`。新增测试先按预期失败，随后本地验证通过：`bun test` 73 pass，`bun run test` 73 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list --repo Jassy930/codex-game-operator-v7 --limit 3` 仍无法连接 `api.github.com`，`curl -I --max-time 15 https://jassy930.github.io/codex-game-operator-v7/` 仍无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
 
