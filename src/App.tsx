@@ -42,6 +42,10 @@ import {
   canStardustReturn,
   performStardustReturn,
 } from "./return";
+import {
+  getReturnRouteReadback,
+  type ReturnRouteReadback,
+} from "./return-route";
 import autoCollectorArt from "./assets/auto-collector.webp";
 import stardustCrystalArt from "./assets/stardust-crystal.webp";
 import tuningToolArt from "./assets/tuning-tool.webp";
@@ -126,6 +130,7 @@ export function App() {
     hasParkedReturnResonance &&
     returnAfterglowDust > 0 &&
     state.dust >= returnAfterglowDust;
+  const returnRouteReadback = getReturnRouteReadback(state);
   const showResonanceChoiceStatus =
     canChooseResonanceNode ||
     state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES;
@@ -142,6 +147,7 @@ export function App() {
     hasParkedReturnResonance,
     hasActiveReturnAfterglow,
     returnAfterglowRebuildCount,
+    returnRouteReadback,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -468,6 +474,20 @@ export function App() {
                 共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本
               </p>
             ) : null}
+            {returnRouteReadback ? (
+              <div className="return-route-readout" aria-label="归航航线读回">
+                <div className="return-route-heading">
+                  <span>归航航线</span>
+                  <strong>
+                    航线 {returnRouteReadback.completedMilestones}/
+                    {returnRouteReadback.totalMilestones} ·{" "}
+                    {returnRouteReadback.current}
+                  </strong>
+                </div>
+                <p>{returnRouteReadback.description}</p>
+                <p>{returnRouteReadback.nextRequirement}</p>
+              </div>
+            ) : null}
             <div className="resonance-nodes">
               {RESONANCE_NODES.map((node) => {
                 const isUnlocked = state.unlockedResonanceNodes.includes(node.id);
@@ -706,6 +726,7 @@ export function formatWorkshopStageNextRequirement(
   hasParkedReturnResonance = false,
   hasActiveReturnAfterglow = false,
   returnAfterglowRebuildCount = 0,
+  returnRouteReadback: ReturnRouteReadback | null = null,
 ): string {
   if (canClaimResonance && workshopStage.name === "星尘引擎室") {
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
@@ -717,6 +738,10 @@ export function formatWorkshopStageNextRequirement(
     }
 
     return "共鸣目标：选择 1 个永久节点，本轮只能启动一个";
+  }
+
+  if (returnRouteReadback) {
+    return formatReturnRouteStageGoal(returnRouteReadback);
   }
 
   if (hasActiveReturnAfterglow) {
@@ -768,6 +793,14 @@ export function formatWorkshopStageNextRequirement(
   }
 
   return workshopStage.nextRequirement;
+}
+
+function formatReturnRouteStageGoal(readback: ReturnRouteReadback): string {
+  const nextRequirement = readback.nextRequirement.replace(
+    /^(下一段|航线已贯通)：/,
+    "",
+  );
+  return `归航目标：航线 ${readback.completedMilestones}/${readback.totalMilestones} ${readback.current}，${nextRequirement}`;
 }
 
 function formatReturnPlanningReadback(

@@ -402,7 +402,9 @@ describe("App", () => {
     expect(html).toContain(
       "共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本",
     );
-    expect(html).toContain("归航目标：额外共鸣已暂存，等待后续版本扩展用途");
+    expect(html).toContain(
+      "归航目标：航线 1/3 余辉起航，累计 3 次归航，并保留 2 点额外共鸣",
+    );
     expect(html).not.toContain("选择第 2 个永久节点");
   });
 
@@ -423,7 +425,7 @@ describe("App", () => {
     expect(html).toContain("起步星尘");
     expect(html).toContain("可重建");
     expect(html).toContain(
-      "归航目标：余辉可重建前 1 台自动采集器，继续扩建到下一次归航",
+      "归航目标：航线 2/3 稳航校准，累计 6 次归航，并保留 4 点额外共鸣",
     );
     expect(html).not.toContain("等待后续版本扩展用途");
   });
@@ -442,7 +444,27 @@ describe("App", () => {
       "共鸣余辉：额外共鸣让新一轮从 50 星尘起步，可立即重建 3 台自动采集器",
     );
     expect(html).toContain(
-      "归航目标：余辉可重建前 3 台自动采集器，继续扩建到下一次归航",
+      "归航目标：航线 3/3 深空归航，继续归航，为后续版本储备共鸣",
+    );
+  });
+
+  it("shows the active return route inside the resonance matrix", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 20,
+      resonance: 2,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 3,
+    });
+
+    expect(html).toContain("归航航线");
+    expect(html).toContain("航线 2/3 · 稳航校准");
+    expect(html).toContain(
+      "下一段：累计 6 次归航，并保留 4 点额外共鸣",
+    );
+    expect(html).toContain(
+      "归航目标：航线 2/3 稳航校准，累计 6 次归航，并保留 4 点额外共鸣",
     );
   });
 

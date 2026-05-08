@@ -267,7 +267,8 @@ h1 {
 .resonance-header p,
 .resonance-choice-hint,
 .resonance-progress,
-.return-description {
+.return-description,
+.return-route-readout p {
   margin: 0;
 }
 
@@ -281,6 +282,7 @@ h1 {
 .resonance-progress,
 .return-description,
 .return-afterglow-readout p,
+.return-route-readout p,
 .resonance-node small {
   color: #5f6f68;
   font-size: 0.85rem;
@@ -333,8 +335,34 @@ h1 {
   background: #fff7e8;
 }
 
+.return-route-readout {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid rgba(41, 91, 82, 0.24);
+  border-radius: 8px;
+  background: #eef8f2;
+}
+
 .return-afterglow-readout p {
   margin: 0;
+}
+
+.return-route-heading {
+  display: grid;
+  gap: 3px;
+}
+
+.return-route-heading span {
+  color: #295b52;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.return-route-heading strong {
+  color: #17211b;
+  font-size: 1rem;
+  line-height: 1.2;
 }
 
 .return-afterglow-stats {

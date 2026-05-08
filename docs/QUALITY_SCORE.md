@@ -14,7 +14,7 @@ Score: 4
 
 Score: 4
 
-v0.6 `归航余辉` 已把满节点后的额外共鸣转成 capped 新一轮起步星尘，并读回为可立即重建的自动采集器数量。v0.7 已规划为 `归航航线`：最多 3 个长期航线里程碑，复用现有矩阵和阶段目标。下一步内容深度压力转向可玩实现，而不是继续规划。
+v0.6 `归航余辉` 已把满节点后的额外共鸣转成 capped 新一轮起步星尘，并读回为可立即重建的自动采集器数量。v0.7 `归航航线` 第一段已可玩：最多 3 个长期航线里程碑，复用现有矩阵和阶段目标。下一步内容深度压力转向可读性复核，而不是继续规划。
 
 ## Mechanical Checks
 
@@ -30,4 +30,4 @@ Score: 3
 
 ## Next Lowest-Score Bet
 
-优先选择 `PLAYABLE_CONTENT` 或 `HARNESS_MAINTENANCE`：若继续玩法，实现 v0.7 `归航航线` 第一段读回；若转向治理，处理 `Garbage Collection` 的过期计划和文档真实性检查。
+优先选择 `CONTENT_REVIEW` 或 `HARNESS_MAINTENANCE`：若继续玩法，复核 v0.7 `归航航线` 的可读性；若转向治理，处理 `Garbage Collection` 的过期计划和文档真实性检查。
