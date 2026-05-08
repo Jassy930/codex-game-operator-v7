@@ -255,6 +255,23 @@ stalled
     expect(result.output).toContain("Runtime doc exceeds size budget: docs/RELEASE_LOG.md");
   });
 
+  it("fails governor check when the harness engineering scorecard is incomplete", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(join(workspace, "docs/QUALITY_SCORE.md"), "# Quality Score\n\n## Agent Readability\n");
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Quality score missing required section: Content Depth");
+    expect(result.output).toContain("Quality score missing required section: Garbage Collection");
+  });
+
   it("collects issue body and comments for routing evidence", () => {
     const workspace = createCollectorWorkspace();
     const binDir = join(workspace, "bin");
@@ -507,6 +524,7 @@ const REQUIRED_HARNESS_FILES = [
   "docs/ASSET_WORKFLOW.md",
   "docs/ITERATION_POLICY.md",
   "docs/DOCUMENTATION_POLICY.md",
+  "docs/QUALITY_SCORE.md",
   "docs/DECISION.md",
   "docs/RELEASE_LOG.md",
   "docs/ISSUE_LEDGER.md",

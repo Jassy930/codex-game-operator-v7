@@ -2,6 +2,27 @@
 
 历史 harness changelog 已归档到 `docs/archive/2026-05-08-runtime-docs/HARNESS_CHANGELOG.md`。本文件只保留当前治理规则变化。
 
+## 2026-05-08 - Harness Engineering Scorecard
+
+### Files Changed
+
+- `docs/QUALITY_SCORE.md`
+- `docs/HARNESS.md`
+- `docs/ITERATION_POLICY.md`
+- `docs/DOCUMENTATION_POLICY.md`
+- `docs/DECISION.md`
+- `docs/GOVERNOR_STATE.md`
+- `ops/governor-check.sh`
+- `src/ops-scripts.test.ts`
+
+### Change
+
+新增 harness engineering scorecard，把 agent readability、content depth、mechanical checks 和 garbage collection 变成每轮可读的质量信号。`governor-check` 会阻止缺少核心 scorecard section 的状态漂移。
+
+### Why This Does Not Weaken Constraints
+
+这只提高下一轮选题质量和治理可读性，不放宽 North Star、复杂度预算、issue routing、response budget、测试或部署要求。
+
 ## 2026-05-08 - Runtime Documentation Budget
 
 ### Files Changed

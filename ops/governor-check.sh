@@ -20,6 +20,7 @@ required=(
   "docs/ASSET_WORKFLOW.md"
   "docs/ITERATION_POLICY.md"
   "docs/DOCUMENTATION_POLICY.md"
+  "docs/QUALITY_SCORE.md"
   "docs/DECISION.md"
   "docs/RELEASE_LOG.md"
   "docs/ISSUE_LEDGER.md"
@@ -301,6 +302,7 @@ check_runtime_doc_budgets() {
     "docs/CONTENT_ARC.md:220:14000"
     "docs/RESEARCH.md:320:16000"
     "docs/RELEASE_LOG.md:220:16000"
+    "docs/QUALITY_SCORE.md:180:12000"
   )
 
   for entry in "${runtime_doc_budgets[@]}"; do
@@ -327,9 +329,42 @@ check_runtime_doc_budgets() {
   done
 }
 
+check_quality_score() {
+  if [ ! -f docs/QUALITY_SCORE.md ]; then
+    return
+  fi
+
+  required_score_sections=(
+    "Agent Readability"
+    "Content Depth"
+    "Mechanical Checks"
+    "Garbage Collection"
+    "Next Lowest-Score Bet"
+  )
+
+  for section in "${required_score_sections[@]}"; do
+    if ! grep -F "## $section" docs/QUALITY_SCORE.md >/dev/null 2>&1; then
+      echo "Quality score missing required section: $section"
+      fail=1
+    fi
+  done
+
+  next_bet="$(trim "$(section_value "Next Lowest-Score Bet" docs/QUALITY_SCORE.md)")"
+  if [ -z "$next_bet" ] || [ "$next_bet" = "none" ]; then
+    echo "Quality score must name the next lowest-score bet."
+    fail=1
+  fi
+
+  if ! grep -F "docs/QUALITY_SCORE.md" docs/HARNESS.md >/dev/null 2>&1; then
+    echo "Harness map must link docs/QUALITY_SCORE.md."
+    fail=1
+  fi
+}
+
 check_complexity_budget
 check_issue_ledger
 check_meaningful_iteration_gate
 check_runtime_doc_budgets
+check_quality_score
 
 exit "$fail"

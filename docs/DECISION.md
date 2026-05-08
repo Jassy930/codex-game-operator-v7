@@ -8,6 +8,12 @@
 
 ## Active Decisions
 
+### `DECISION:2026-05-08-harness-engineering-scorecard`
+
+基于 OpenAI Harness Engineering 博文，把“仓库是记录系统、agent readability、机械化约束、反馈回路、垃圾收集”转成 `docs/QUALITY_SCORE.md`。每轮没有更强信号时，下一步应优先处理最低分维度；`governor-check` 强制 scorecard 结构存在。
+
+约束：不新增玩法、数值、资源、按钮、面板、存档字段或 telemetry。本轮只加强选题和治理反馈机制。
+
 ### `DECISION:2026-05-08-mobile-button-visual-polish`
 
 移动端 560px 以下主操作和升级按钮改用稳定宽度、紧凑高度和 `flex-basis: auto`，禁用升级按钮插图轻度降饱和。不新增玩法、资源、按钮、面板、素材、存档字段、指标字段或 telemetry。

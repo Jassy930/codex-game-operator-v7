@@ -26,6 +26,7 @@ Defines identity, direction, and non-negotiable priorities.
 - `docs/REVIEW_PROTOCOL.md`
 - `docs/ASSET_WORKFLOW.md`
 - `docs/DOCUMENTATION_POLICY.md`
+- `docs/QUALITY_SCORE.md`
 
 Defines what the operator may do now.
 
@@ -64,6 +65,7 @@ Select Operating Mode
 → Make one decision
 → Produce the required artifact for that track
 → Run checks
+→ Update quality score / garbage collection signals when needed
 → Review with roles
 → Commit / deploy / reply only if allowed
 → Mark cycle completed and record next candidate track

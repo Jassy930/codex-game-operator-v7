@@ -4,6 +4,12 @@
 
 ## Latest Review
 
+2026-05-08 harness engineering scorecard。
+
+- 观察：博文强调不要把仓库做成巨型手册，而要做成 agent-readable 的记录系统，并把主观品味转成机械规则。
+- 应用：新增 `docs/QUALITY_SCORE.md`，把 agent readability、content depth、mechanical checks、garbage collection 变成每轮可见信号。
+- 后续：如果没有更强玩家信号，下一轮应优先补最低分的 `Content Depth`，不要继续停留在 harness 维护。
+
 2026-05-08 runtime 文档预算恢复。
 
 - 观察：`DECISION`、`GOVERNOR_STATE`、`SELF_PLAYTEST`、`RETROSPECTIVE`、`HARNESS_CHANGELOG`、`CONTENT_ARC`、`RESEARCH` 都累积了过多历史细节。

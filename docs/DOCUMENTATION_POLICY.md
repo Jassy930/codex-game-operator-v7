@@ -16,6 +16,7 @@
 - `docs/CONTENT_ARC.md`
 - `docs/RESEARCH.md`
 - `docs/RELEASE_LOG.md`
+- `docs/QUALITY_SCORE.md`
 
 这些文件不应继续累积完整历史流水。新增长记录时，先归档，再在 runtime doc 中写一段高信号摘要和归档路径。
 
@@ -33,6 +34,7 @@
 | `docs/CONTENT_ARC.md` | 220 | 14000 |
 | `docs/RESEARCH.md` | 320 | 16000 |
 | `docs/RELEASE_LOG.md` | 220 | 16000 |
+| `docs/QUALITY_SCORE.md` | 180 | 12000 |
 
 ## Archive Docs
 

@@ -6,6 +6,7 @@
 
 - 新增 runtime 文档预算政策并压缩当前运行态文档；历史细节归档到 `docs/archive/2026-05-08-runtime-docs/`，保留 Issue #1/#2 decision anchors 和当前 v0.5 归航方向。
 - `governor-check` 对运行态文档同时检查行数和文件大小，避免超长单行继续制造文档膨胀。
+- 新增 harness engineering scorecard：用 `docs/QUALITY_SCORE.md` 记录 agent readability、content depth、mechanical checks 和 garbage collection，并由 `governor-check` 校验结构。
 
 ## Current Playable State
 

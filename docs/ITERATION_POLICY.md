@@ -47,6 +47,17 @@ Appetite：最多 3 个小切片。
 - `PLAYABLE_CONTENT`: 产出玩家可感知变化、测试、decision 和 release 记录。
 - `HARNESS_MAINTENANCE`: 产出更强检查、更清晰规则或流程修复，并记录 harness changelog。
 
+## Harness Engineering Scorecard
+
+`docs/QUALITY_SCORE.md` 是迭代选题的二级信号。没有更强的用户指令、真实玩家反馈或明显 bug 时，下一轮应优先选择分数最低的维度，避免持续停在同类小切片。
+
+必须评分的维度：
+
+- `Agent Readability`: 新 operator 能否从仓库地图快速找到当前事实。
+- `Content Depth`: 游戏内容是否继续推进，而不是只做治理和文档。
+- `Mechanical Checks`: 规则是否已经进入测试、脚本或 CI，而不是只停在文字。
+- `Garbage Collection`: 是否主动清理过时文档、重复规则、漂移模式和低价值记录。
+
 ## 每轮收口
 
 每轮结束时必须：
@@ -55,7 +66,8 @@ Appetite：最多 3 个小切片。
 2. 在 `docs/GOVERNOR_STATE.md` 的 `Last Updated` 记录本轮验证结果。
 3. 写出下一轮候选 mode/track，除非用户明确暂停。
 4. 按 `docs/DOCUMENTATION_POLICY.md` 检查运行态文档；如果接近预算，先归档和压缩，再继续追加记录。
-5. 如果连续多轮没有玩家可感知变化，优先选择 `CONTENT_REVIEW`、`GAME_RESEARCH`、`PLAYER_FEEDBACK` 或 `PLAYABLE_CONTENT`，不要继续只做文档或 harness。
+5. 如果本轮改变了 harness、文档结构、验证链路或内容方向，同步更新 `docs/QUALITY_SCORE.md`。
+6. 如果连续多轮没有玩家可感知变化，优先选择 `CONTENT_REVIEW`、`GAME_RESEARCH`、`PLAYER_FEEDBACK` 或 `PLAYABLE_CONTENT`，不要继续只做文档或 harness。
 
 ## Mix Review
 
