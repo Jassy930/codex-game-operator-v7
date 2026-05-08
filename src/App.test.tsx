@@ -403,7 +403,7 @@ describe("App", () => {
       "共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本",
     );
     expect(html).toContain(
-      "归航目标：航线 1/3 余辉起航，距下一段还差 1 次归航、1 点额外共鸣",
+      "归航目标：航线 1/3 余辉起航，下一步：继续重建工坊并执行 1 次星尘归航，同时保留 1 点额外共鸣",
     );
     expect(html).not.toContain("选择第 2 个永久节点");
   });
@@ -425,7 +425,7 @@ describe("App", () => {
     expect(html).toContain("起步星尘");
     expect(html).toContain("可重建");
     expect(html).toContain(
-      "归航目标：航线 2/3 稳航校准，距下一段还差 3 次归航、2 点额外共鸣",
+      "归航目标：航线 2/3 稳航校准，下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
     );
     expect(html).not.toContain("等待后续版本扩展用途");
   });
@@ -446,6 +446,7 @@ describe("App", () => {
     expect(html).toContain(
       "归航目标：航线 3/3 深空归航，继续归航，为后续版本储备共鸣",
     );
+    expect(html).toContain("下一步：继续归航，把额外共鸣留作后续版本储备");
   });
 
   it("shows the active return route inside the resonance matrix", () => {
@@ -465,7 +466,10 @@ describe("App", () => {
     );
     expect(html).toContain("距下一段还差 3 次归航、2 点额外共鸣");
     expect(html).toContain(
-      "归航目标：航线 2/3 稳航校准，距下一段还差 3 次归航、2 点额外共鸣",
+      "下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
+    );
+    expect(html).toContain(
+      "归航目标：航线 2/3 稳航校准，下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
     );
   });
 

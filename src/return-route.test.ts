@@ -26,6 +26,8 @@ describe("return route readback", () => {
       description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
       nextRequirement: "下一段：累计 3 次归航，并保留 2 点额外共鸣",
       progressSummary: "距下一段还差 1 次归航、1 点额外共鸣",
+      actionHint:
+        "下一步：继续重建工坊并执行 1 次星尘归航，同时保留 1 点额外共鸣",
       completedMilestones: 1,
       totalMilestones: 3,
     });
@@ -42,6 +44,38 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
       progressSummary: "距下一段还差 3 次归航、2 点额外共鸣",
+      actionHint:
+        "下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
+    });
+  });
+
+  it("points at return count when parked resonance is already enough", () => {
+    const state = {
+      ...createGameState(0),
+      resonance: 4,
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 4,
+    };
+
+    expect(getReturnRouteReadback(state)).toMatchObject({
+      current: "稳航校准",
+      progressSummary: "距下一段还差 2 次归航",
+      actionHint: "下一步：额外共鸣已够，继续执行 2 次星尘归航",
+    });
+  });
+
+  it("points at parked resonance when return count is already enough", () => {
+    const state = {
+      ...createGameState(0),
+      resonance: 3,
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 6,
+    };
+
+    expect(getReturnRouteReadback(state)).toMatchObject({
+      current: "稳航校准",
+      progressSummary: "距下一段还差 1 点额外共鸣",
+      actionHint: "下一步：归航次数已够，继续归航补足 1 点额外共鸣",
     });
   });
 
@@ -58,6 +92,7 @@ describe("return route readback", () => {
       description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
       nextRequirement: "航线已贯通：继续归航，为后续版本储备共鸣",
       progressSummary: "航线已贯通：后续归航都会成为长期储备",
+      actionHint: "下一步：继续归航，把额外共鸣留作后续版本储备",
       completedMilestones: 3,
       totalMilestones: 3,
     });
