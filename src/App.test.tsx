@@ -435,6 +435,26 @@ describe("App", () => {
     expect(html).toContain("共鸣选择已满 · 调校倍率 +0.05");
   });
 
+  it("reads the full v0.4 resonance goal as complete after two nodes are active", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 50000,
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      dustPerSecond: 13.75,
+      nextAutoCollectorCost: 252512,
+      nextEfficiencyUpgradeCost: 168667,
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+    });
+
+    expect(html).toContain(
+      "共鸣门槛：当前版本共鸣目标已完成 · 自动采集器 25/25，调校 15/15",
+    );
+    expect(html).not.toContain("共鸣门槛：第二共鸣已领取 ·");
+  });
+
   it("credits the second resonance node effect when it starts", () => {
     expect(formatResonanceNodeUnlockMessage("return-coil", 2)).toBe(
       "第 2 个共鸣节点启动：回访线圈 · 离线收益 +10%",

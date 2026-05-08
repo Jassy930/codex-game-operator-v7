@@ -387,6 +387,7 @@ export function App() {
               {formatResonanceProgressMessage(
                 resonanceProgress,
                 hasClaimedCurrentResonanceMilestone,
+                state.unlockedResonanceNodes.length,
               )}
             </p>
             {showResonanceChoiceStatus ? (
@@ -527,7 +528,16 @@ function formatResonanceChoiceHint(unlockedNodeCount: number): string {
 function formatResonanceProgressMessage(
   resonanceProgress: ReturnType<typeof getResonanceMilestoneProgress>,
   hasClaimedMilestone: boolean,
+  unlockedNodeCount = 0,
 ): string {
+  if (
+    resonanceProgress.id === "second-resonance" &&
+    hasClaimedMilestone &&
+    unlockedNodeCount >= MAX_UNLOCKED_RESONANCE_NODES
+  ) {
+    return `共鸣门槛：当前版本共鸣目标已完成 · 自动采集器 ${resonanceProgress.autoCollectors.current}/${resonanceProgress.autoCollectors.target}，调校 ${resonanceProgress.tuning.current}/${resonanceProgress.tuning.target}`;
+  }
+
   if (resonanceProgress.id === "second-resonance" && !hasClaimedMilestone) {
     return `共鸣门槛：首个共鸣已领取 · 下一共鸣：自动采集器 ${resonanceProgress.autoCollectors.current}/${resonanceProgress.autoCollectors.target}，调校 ${resonanceProgress.tuning.current}/${resonanceProgress.tuning.target}`;
   }
