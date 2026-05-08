@@ -269,7 +269,10 @@ export function App() {
           recordResonanceNodeUnlocked(window.localStorage);
         }
         showPurchaseMessage(
-          `共鸣节点启动：${formatResonanceNodeName(nodeId)}`,
+          formatResonanceNodeUnlockMessage(
+            nodeId,
+            next.unlockedResonanceNodes.length,
+          ),
         );
         return next;
       }
@@ -464,6 +467,16 @@ function formatResonanceNodeName(nodeId: ResonanceNodeId): string {
   return RESONANCE_NODES.find((node) => node.id === nodeId)?.name ?? nodeId;
 }
 
+export function formatResonanceNodeUnlockMessage(
+  nodeId: ResonanceNodeId,
+  unlockedNodeCount: number,
+): string {
+  const prefix =
+    unlockedNodeCount >= 2 ? "第 2 个共鸣节点启动" : "共鸣节点启动";
+
+  return `${prefix}：${formatResonanceNodeName(nodeId)} · ${formatResonanceNodeEffect(nodeId)}`;
+}
+
 function formatResonanceNodeDescription(
   description: string,
   isUnlocked: boolean,
@@ -488,6 +501,12 @@ function formatResonanceNodeDescription(
   }
 
   return description;
+}
+
+function formatResonanceNodeEffect(nodeId: ResonanceNodeId): string {
+  const node = RESONANCE_NODES.find((item) => item.id === nodeId);
+
+  return node?.description ?? "永久效果已启动";
 }
 
 function formatResonanceChoiceHint(unlockedNodeCount: number): string {

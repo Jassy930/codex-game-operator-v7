@@ -4,6 +4,7 @@ import {
   formatAutoCollectorPurchaseMessage,
   formatCollectFeedbackMessage,
   formatEfficiencyUpgradeMessage,
+  formatResonanceNodeUnlockMessage,
   formatWorkshopStageNextRequirement,
   formatPurchaseFeedbackMessage,
   formatGoalHint,
@@ -374,6 +375,12 @@ describe("App", () => {
     expect(html).toContain("已启动 · 自动采集产出 +10%");
     expect(html).toContain("已启动 · 离线收益 +10%");
     expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
+  });
+
+  it("credits the second resonance node effect when it starts", () => {
+    expect(formatResonanceNodeUnlockMessage("return-coil", 2)).toBe(
+      "第 2 个共鸣节点启动：回访线圈 · 离线收益 +10%",
+    );
   });
 
   it("points the stage goal at the selected resonance node value", () => {
