@@ -1,5 +1,7 @@
 # v0.5 Star Chart Cruise Implementation Plan
 
+> **Status:** Deferred auxiliary plan. v0.5 mainline is now `星尘归航 / Stardust Return`; see `docs/plans/2026-05-08-v05-stardust-return-design.md` and `docs/plans/2026-05-08-v05-stardust-return.md`.
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** 实现 v0.5 `星图巡航` 第一版，让第二共鸣和 2/2 永久节点后的玩家获得一个新的长期路线选择，而不是只继续等待下一次普通升级。
