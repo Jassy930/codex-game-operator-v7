@@ -13,6 +13,7 @@
 这些指标只存在于当前浏览器的 `localStorage`。operator 做 self-playtest 或本机复核时，可以在浏览器控制台读取：
 
 ```js
+window.stardustWorkshopMetricsSnapshot()
 JSON.parse(localStorage.getItem("stardust-workshop-metrics-v1") ?? "null")
 JSON.parse(localStorage.getItem("stardust-workshop-metrics-history-v1") ?? "[]")
 JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
@@ -20,6 +21,7 @@ JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
 
 解释方式：
 
+- `window.stardustWorkshopMetricsSnapshot()` 是首选读回入口；它一次性返回当前 session、最近 session history、对应 storage key 和 `feedback_clicked` 计数，便于把 self-playtest 证据写入文档。
 - 当前 session 用于查看本轮点击数、升级购买数、首次升级时间、是否看到离线收益提示、是否获得共鸣和是否解锁共鸣节点。
 - `offline_reward_claimed` 只表示玩家看到了本地离线收益提示；低于 `0.1` 星尘的离线收益不会展示，也不会计入该指标，避免出现或记录“离线获得 0 星尘”。
 - `resonance_earned` 和 `resonance_node_unlocked` 只记录本机 session 中共鸣系统是否被触达，不上传、不跨设备，也不记录玩家身份。
@@ -41,6 +43,7 @@ JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
 - first_resonance_time
 - feedback_clicked
 - session_history
+- local_metrics_snapshot
 
 ## 延后指标
 
@@ -49,6 +52,8 @@ JSON.parse(localStorage.getItem("stardust-workshop-feedback-events-v1") ?? "[]")
 ## 指标缺口
 
 指标仍只保存在本地，不上传。历史 session 汇总只保留最近 10 条，且只包含 session 时间、时长、点击数、升级购买数、首次升级时间、有效存档加载次数、离线收益提示次数、共鸣获得次数、共鸣节点解锁次数和首次共鸣时间。存档加载指标只记录有效本地存档被加载，离线收益指标只记录达到展示阈值并实际展示的本地返回提示。
+
+`local_metrics_snapshot` 不新增采集字段，只是把已有 current metrics、history 和 feedback click 计数打包为一次本地读回。它只能在当前浏览器上下文中读取，不能代表真实玩家整体行为，也不会上传。
 
 ## 当前决策
 

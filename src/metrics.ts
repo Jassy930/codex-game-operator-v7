@@ -1,3 +1,5 @@
+import { FEEDBACK_EVENTS_KEY } from "./feedback";
+
 export const METRICS_KEY = "stardust-workshop-metrics-v1";
 export const METRICS_HISTORY_KEY = "stardust-workshop-metrics-history-v1";
 
@@ -30,6 +32,18 @@ export type LocalMetricsSessionSummary = {
   resonanceEarnedCount: number;
   resonanceNodeUnlockedCount: number;
   firstResonanceTimeMs: number | null;
+};
+
+export type LocalMetricsSnapshot = {
+  generatedAt: number;
+  keys: {
+    current: typeof METRICS_KEY;
+    history: typeof METRICS_HISTORY_KEY;
+    feedbackEvents: typeof FEEDBACK_EVENTS_KEY;
+  };
+  current: LocalMetrics;
+  history: LocalMetricsSessionSummary[];
+  feedbackClickedCount: number;
 };
 
 const EMPTY_METRICS: LocalMetrics = {
@@ -178,6 +192,23 @@ export function readMetricsHistory(storage: Storage): LocalMetricsSessionSummary
   }
 }
 
+export function createLocalMetricsSnapshot(
+  storage: Storage,
+  now = Date.now(),
+): LocalMetricsSnapshot {
+  return {
+    generatedAt: now,
+    keys: {
+      current: METRICS_KEY,
+      history: METRICS_HISTORY_KEY,
+      feedbackEvents: FEEDBACK_EVENTS_KEY,
+    },
+    current: readMetrics(storage),
+    history: readMetricsHistory(storage),
+    feedbackClickedCount: readFeedbackClickedCount(storage),
+  };
+}
+
 function writeMetrics(storage: Storage, metrics: LocalMetrics): void {
   storage.setItem(METRICS_KEY, JSON.stringify(metrics));
 }
@@ -241,6 +272,35 @@ function numberOr(value: unknown, fallback: number): number {
 
 function numberOrNull(value: unknown): number | null {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function readFeedbackClickedCount(storage: Storage): number {
+  try {
+    const raw = storage.getItem(FEEDBACK_EVENTS_KEY);
+    if (!raw) {
+      return 0;
+    }
+
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      return 0;
+    }
+
+    return parsed.filter((event) => {
+      if (!event || typeof event !== "object") {
+        return false;
+      }
+
+      const candidate = event as { type?: unknown; createdAt?: unknown };
+      return (
+        candidate.type === "feedback_clicked" &&
+        typeof candidate.createdAt === "number" &&
+        Number.isFinite(candidate.createdAt)
+      );
+    }).length;
+  } catch {
+    return 0;
+  }
 }
 
 function isSessionSummary(value: unknown): value is LocalMetricsSessionSummary {

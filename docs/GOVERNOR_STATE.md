@@ -2,45 +2,47 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+METRICS_INFRA
 
 ## Reason
 
-上一轮 RESEARCH 已把下一道低复杂度方向收敛为 `回访计划读回`。当前 `gh issue list` 仍无法连接 `api.github.com`，本地反馈快照只有旧 Issue #1/#2，`data/metrics/events.jsonl` 为空，没有新真实反馈或可读指标样本。因此本轮切换到 SELF_PLAYTEST，从“首个共鸣节点已启动且当前暂时买不起下一升级”的状态切入，验证现有阶段目标是否能解释下一次离开/回访等待目标。
+上一轮 `回访计划读回` 第一版已经落地，继续重复共鸣文案会卡在同一方向。当前 `gh issue list` 仍无法连接 `api.github.com`，`data/metrics/events.jsonl` 为空，且多轮自动化都记录“没有可读浏览器 localStorage 共鸣指标样本”。因此本轮切换到 METRICS_INFRA，补一个本地指标快照入口，让 operator 可以一次性读取当前 session、最近 session history 和反馈点击计数。
 
 ## Allowed Actions
 
-- 复用现有阶段目标或事件反馈区，实现一个 `回访计划读回` 小切片。
-- 只使用当前星尘、每秒星尘、下一次自动采集器成本、下一次调校成本和已选共鸣节点。
-- 用 TDD 覆盖一个具体 self-playtest 状态。
-- 更新 `docs/SELF_PLAYTEST.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md`。
+- 只读汇总已有 local-only metrics、session history 和 feedback click queue。
+- 用 TDD 覆盖一个具体的本地指标快照读回行为。
+- 把快照入口挂到浏览器 `window.stardustWorkshopMetricsSnapshot()`，便于 self-playtest 后复制证据。
+- 更新 `docs/METRICS.md`、`docs/DECISION.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md`。
 - 运行完整本地验证：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
 - 不新增 UI 面板、按钮、资源、存档字段、指标字段或数值系统。
+- 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
 - 不新增 prestige、任务系统、复杂地图、多生产线、第二个共鸣面板或更多共鸣节点。
-- 不新增反馈渠道、analytics SDK、上传 telemetry 或个人数据收集。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- 一个具体 `回访计划读回` gap 已记录到 `docs/SELF_PLAYTEST.md` 和 `docs/DECISION.md`。
-- 实现仅复用现有阶段目标/进度信息，不增加复杂度预算项。
-- `docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md` 已同步当前状态。
+- 一个具体本地指标读回 gap 已记录到 `docs/DECISION.md`。
+- 实现只汇总已有本地指标，不新增采集字段或上传路径。
+- `docs/METRICS.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md` 已同步当前状态。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现治理漂移。v0.3 已按预算新增 1 个第二资源和 1 个面板，但没有引入 prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。本轮只允许提示层读回，不新增玩法复杂度。
+未发现治理漂移。v0.3 已按预算新增 1 个第二资源和 1 个面板，但没有引入 prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。本轮只允许本地指标读回，不新增玩法复杂度。
 
 ## Last Updated
 
 2026-05-08: 切换到 SELF_PLAYTEST；上一轮 research-backed 方向 `回访计划读回` 已进入实现切片。本轮只允许复用现有阶段目标读回已选共鸣节点和下一升级等待目标，不新增资源、按钮、面板、存档字段或指标字段。
 
 2026-05-08: 回访计划读回切片已由 commit `add78fd` 推送到 `origin/main`。本地验证通过：新增测试先按预期失败，随后 `bun test` 70 pass，`bun run test` 70 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。`gh run list` 仍无法连接 `api.github.com`，`curl -I https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名，暂未验证 Pages workflow 或公开预览 HTTP 状态。
+
+2026-05-08: 切换到 METRICS_INFRA；多轮记录显示 operator 无法读取浏览器 localStorage 共鸣指标样本，本轮只允许为已有 local-only 指标补统一快照入口，不新增指标字段、上传路径、UI 面板、资源或玩法系统。
 
 2026-05-06: RELEASE_INFRA 收尾完成；workflow run `25430225912` 成功，公开预览 HTTP 200，工作区检查无未提交变更。切换到 SELF_PLAYTEST。
 

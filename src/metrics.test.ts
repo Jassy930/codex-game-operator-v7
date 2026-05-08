@@ -3,6 +3,7 @@ import {
   METRICS_KEY,
   readMetricsHistory,
   readMetrics,
+  createLocalMetricsSnapshot,
   recordResonanceEarned,
   recordResonanceNodeUnlocked,
   recordOfflineRewardClaimed,
@@ -205,6 +206,59 @@ describe("local metrics", () => {
     recordResonanceNodeUnlocked(storage);
 
     expect(readMetrics(storage).resonanceNodeUnlockedCount).toBe(2);
+  });
+
+  it("creates one local-only metrics snapshot for operator readback", () => {
+    const storage = createMemoryStorage();
+    startMetricsSession(storage, 1_000);
+    recordPlayerClick(storage);
+    recordUpgradePurchase(storage, 6_000);
+    recordResonanceEarned(storage, 7_000);
+    recordResonanceNodeUnlocked(storage);
+    recordSessionEnd(storage, 16_000);
+    storage.setItem(
+      "stardust-workshop-feedback-events-v1",
+      JSON.stringify([{ type: "feedback_clicked", createdAt: 8_000 }]),
+    );
+
+    expect(createLocalMetricsSnapshot(storage, 20_000)).toEqual({
+      generatedAt: 20_000,
+      keys: {
+        current: "stardust-workshop-metrics-v1",
+        history: "stardust-workshop-metrics-history-v1",
+        feedbackEvents: "stardust-workshop-feedback-events-v1",
+      },
+      current: {
+        sessionStartedAt: 1_000,
+        sessionEndedAt: 16_000,
+        sessionDurationMs: 15_000,
+        clickCount: 1,
+        upgradePurchaseCount: 1,
+        firstUpgradeTimeMs: 5_000,
+        saveLoadedCount: 0,
+        offlineRewardClaimedCount: 0,
+        lastOfflineRewardDust: null,
+        resonanceEarnedCount: 1,
+        resonanceNodeUnlockedCount: 1,
+        firstResonanceTimeMs: 6_000,
+      },
+      history: [
+        {
+          sessionStartedAt: 1_000,
+          sessionEndedAt: 16_000,
+          sessionDurationMs: 15_000,
+          clickCount: 1,
+          upgradePurchaseCount: 1,
+          firstUpgradeTimeMs: 5_000,
+          saveLoadedCount: 0,
+          offlineRewardClaimedCount: 0,
+          resonanceEarnedCount: 1,
+          resonanceNodeUnlockedCount: 1,
+          firstResonanceTimeMs: 6_000,
+        },
+      ],
+      feedbackClickedCount: 1,
+    });
   });
 
   it("recovers from malformed local metrics", () => {

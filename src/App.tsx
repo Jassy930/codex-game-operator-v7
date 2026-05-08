@@ -14,6 +14,7 @@ import {
   type HydratedGameState,
 } from "./game";
 import {
+  createLocalMetricsSnapshot,
   recordOfflineRewardClaimed,
   recordPlayerClick,
   recordResonanceEarned,
@@ -39,6 +40,12 @@ import stardustCrystalArt from "./assets/stardust-crystal.webp";
 import tuningToolArt from "./assets/tuning-tool.webp";
 
 const SAVE_KEY = "stardust-workshop-save-v1";
+
+declare global {
+  interface Window {
+    stardustWorkshopMetricsSnapshot?: () => ReturnType<typeof createLocalMetricsSnapshot>;
+  }
+}
 
 export function App() {
   const [loadedGame] = useState<HydratedGameState>(() => loadGame());
@@ -109,6 +116,8 @@ export function App() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       startMetricsSession(window.localStorage);
+      window.stardustWorkshopMetricsSnapshot = () =>
+        createLocalMetricsSnapshot(window.localStorage);
       if (loadedGame.saveLoaded) {
         recordSaveLoaded(window.localStorage);
       }
@@ -124,7 +133,10 @@ export function App() {
     }
 
     window.addEventListener("pagehide", handlePageHide);
-    return () => window.removeEventListener("pagehide", handlePageHide);
+    return () => {
+      window.removeEventListener("pagehide", handlePageHide);
+      delete window.stardustWorkshopMetricsSnapshot;
+    };
   }, []);
 
   useEffect(() => {

@@ -2,13 +2,15 @@
 
 ## Current Biggest Problem
 
-v0.3 共鸣系统第一版已经发布，且上一轮研究已经把下一道低复杂度方向收敛为 `回访计划读回`。当前最大问题不是缺少更多按钮或节点，而是首个共鸣节点已启动后，如果玩家暂时买不起下一升级，现有阶段目标只说明节点价值，没有读回“离开/等待后回来要攒到哪项升级”。
+v0.3 共鸣系统第一版和 `回访计划读回` 第一版已经发布。当前最大问题不是缺少更多按钮或节点，而是 operator 多轮无法读取浏览器 localStorage 中的共鸣触达指标样本，导致后续只能反复做 self-playtest/no-change，而缺少可审计的本机指标读回证据。
 
 ## Evidence
 
-- 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20` 仍无法连接 `api.github.com`，不能刷新远端 issue 状态。
+- 2026-05-08 本轮 `gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json number,title,state,updatedAt,comments,labels` 仍无法连接 `api.github.com`，不能刷新远端 issue 状态。
 - `data/feedback/github-feedback.md` 最近一次生成于 2026-05-07，仍只包含 Issue #1/#2 的旧信号和已回复记录，没有仓库内新反馈证据。
-- `data/metrics/events.jsonl` 当前为 0 行；本轮没有可读取的浏览器 `localStorage` 共鸣指标样本。
+- `data/metrics/events.jsonl` 当前为 0 行；多轮自动化记录都显示没有可读取的浏览器 `localStorage` 共鸣指标样本。
+- 现有 `docs/METRICS.md` 只给出三条分散的 localStorage console 读取命令；operator 无法一次性拿到当前 session、最近 session history、storage key 和 feedback click 计数。
+- Decision: 本轮记录 `DECISION:2026-05-08-local-metrics-snapshot-readback`。新增一个只读本地快照 API，并挂到浏览器 `window.stardustWorkshopMetricsSnapshot()`；快照只汇总已有 local-only 指标，不新增采集字段、上传路径、外部 analytics、个人数据、UI 面板或玩法系统。
 - 构造状态：已领取首个共鸣、已启动 `稳定回路`、工坊处于 `星尘引擎室`，当前 12,000 星尘低于下一次调校工具 28,922 星尘和下一台自动采集器 33,253 星尘。
 - Gap: 旧阶段目标显示“稳定回路已启动，继续扩建自动采集器放大产出”，但没有把当前买不起升级时的等待目标读回出来。
 - Decision: 本轮记录 `DECISION:2026-05-08-return-planning-readback-slice`。当首个共鸣节点已启动、没有可见离线收益、且当前买不起下一升级时，复用同一阶段目标行显示“回访计划”，说明已选节点正在产生的价值，以及下一步攒到哪项升级。
@@ -185,9 +187,9 @@ v0.3 共鸣系统第一版已经发布，且上一轮研究已经把下一道低
 
 ## Current Decision
 
-Decision Anchor: `DECISION:2026-05-08-return-planning-readback-research`
+Decision Anchor: `DECISION:2026-05-08-local-metrics-snapshot-readback`
 
-首个共鸣后 8 小时主动节奏仍有升级推进，但没有新的可复现 UI/玩法 gap。研究结论支持下一步先强化 idle 的 planning loop：让玩家在回访后更清楚这次离线生产带来了什么、下一次大约等什么、已选共鸣节点如何影响回访计划。下一轮若没有新反馈，允许的最小实现候选是 `回访计划读回`，并且必须复用现有阶段目标或事件反馈区。当前仍不新增第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
+回访计划读回第一版已经落地，继续做同类文案会重复同一方向。下一步先修复证据缺口：提供 `createLocalMetricsSnapshot(storage)` 和浏览器 `window.stardustWorkshopMetricsSnapshot()`，让 operator 能一次性读取当前 session、最近 session history、storage key 和反馈点击计数。当前仍不新增指标字段、上传路径、外部 analytics、UI 面板、资源、第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
 
 ## Implementation Record
 
@@ -269,6 +271,13 @@ Decision Anchor: `DECISION:2026-05-08-return-planning-readback-research`
 - Selected `Return Planning Readback / 回访计划读回` as the next low-complexity candidate direction.
 - The next candidate must reuse existing stage target or event feedback space and existing state only.
 - Did not implement gameplay code, save migration, metric fields, new resources, new panels, additional resonance nodes, prestige, task systems or multi-line production.
+
+2026-05-08 LOCAL_METRICS_SNAPSHOT_READBACK executed:
+
+- Added a local-only `createLocalMetricsSnapshot(storage)` helper that returns current metrics, recent session history, storage keys and feedback click count in one object.
+- Exposed the same readback in the browser as `window.stardustWorkshopMetricsSnapshot()` for operator self-playtest evidence capture.
+- Added a metrics test for the snapshot path.
+- Did not add metric fields, upload paths, external analytics, personal data, UI panels, save migration or gameplay systems.
 
 2026-05-06 FEEDBACK_INFRA selected:
 
