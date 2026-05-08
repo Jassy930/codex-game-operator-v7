@@ -403,7 +403,7 @@ describe("App", () => {
       "共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本",
     );
     expect(html).toContain(
-      "归航目标：航线 1/3 余辉起航，累计 3 次归航，并保留 2 点额外共鸣",
+      "归航目标：航线 1/3 余辉起航，距下一段还差 1 次归航、1 点额外共鸣",
     );
     expect(html).not.toContain("选择第 2 个永久节点");
   });
@@ -425,7 +425,7 @@ describe("App", () => {
     expect(html).toContain("起步星尘");
     expect(html).toContain("可重建");
     expect(html).toContain(
-      "归航目标：航线 2/3 稳航校准，累计 6 次归航，并保留 4 点额外共鸣",
+      "归航目标：航线 2/3 稳航校准，距下一段还差 3 次归航、2 点额外共鸣",
     );
     expect(html).not.toContain("等待后续版本扩展用途");
   });
@@ -463,8 +463,9 @@ describe("App", () => {
     expect(html).toContain(
       "下一段：累计 6 次归航，并保留 4 点额外共鸣",
     );
+    expect(html).toContain("距下一段还差 3 次归航、2 点额外共鸣");
     expect(html).toContain(
-      "归航目标：航线 2/3 稳航校准，累计 6 次归航，并保留 4 点额外共鸣",
+      "归航目标：航线 2/3 稳航校准，距下一段还差 3 次归航、2 点额外共鸣",
     );
   });
 

@@ -12,23 +12,23 @@ PLAYABLE_CONTENT
 
 ## Cycle Bet
 
-目标：实现 v0.7 `归航航线` 第一段可玩读回，让重复归航后的 20 小时目标可见。
-Appetite：1 个运行时读回切片。
-包括：航线段推导、现有 `共鸣矩阵` 内读回、阶段目标读回、测试和运行态文档同步。
+目标：给 v0.7 `归航航线` 补动态差距读回，让玩家知道离下一段还差几次归航和几点额外共鸣。
+Appetite：1 个派生读回切片。
+包括：航线差距推导、现有 `共鸣矩阵` 内读回、阶段目标读回、测试和运行态文档同步。
 不包括：新增第三资源、节点、节点等级树、任务系统、多生产线、额外面板、存档字段、视觉资产或 telemetry。
-完成定义：已有归航历史且两个永久节点已启动后，玩家能看到当前航线、下一段门槛和继续归航意义。
+完成定义：未贯通航线时，玩家能看到距下一段还差多少归航次数和额外共鸣；已贯通时，读回明确转为储备后续版本。
 
 ## Expected Content Advance
 
-把 v0.7 `归航航线` 第一段做成可玩读回：最多 3 个长期航线里程碑，复用现有 `共鸣矩阵` 和阶段目标。
+把 v0.7 `归航航线` 从静态门槛读回推进为动态差距读回：复用现有 `共鸣矩阵` 和阶段目标，显示距下一段还差多少。
 
 ## Evidence Source
 
-`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md` 和自动化记忆都指向：v0.7 预算和设计已完成，下一步应先实现现有矩阵内的航线读回。
+`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md` 和自动化记忆都指向：v0.7 第一段已完成，下一步应复核航线可读性，并只做文案、门槛或读回优先级微调。
 
 ## Required Artifact
 
-更新 `src/return-route.ts`、`src/return-route.test.ts`、`src/App.tsx`、`src/App.test.tsx`、`src/styles.css`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/QUALITY_SCORE.md`、`docs/RELEASE_LOG.md` 和本文件。
+更新 `src/return-route.ts`、`src/return-route.test.ts`、`src/App.tsx`、`src/App.test.tsx`、`docs/plans/2026-05-08-v07-route-progress-design.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和本文件。
 
 ## Cycle Status
 
@@ -36,12 +36,12 @@ completed
 
 ## Reason
 
-直接增加节点、等级树或任务会突破当前复杂度边界。先把已规划的 v0.7 `归航航线` 落成既有矩阵内读回，能提升 20 小时后目标感，同时保留后续可玩切片空间。
+静态“下一段门槛”能说明规则，但不能直接告诉玩家当前差多少。动态差距读回能提升 20 小时后目标感，同时仍保持在 v0.7 的纯派生读回预算内。
 
 ## Allowed Actions
 
-- 用 TDD 增加 `归航航线` 推导和 UI 读回测试。
-- 复用现有 `共鸣矩阵` 和阶段目标显示航线段。
+- 用 TDD 增加 `归航航线` 差距推导和 UI 读回测试。
+- 复用现有 `共鸣矩阵` 和阶段目标显示航线差距。
 - 更新内容弧线、roadmap、decision、release、自测记录和 governor 状态。
 
 ## Forbidden Actions
@@ -52,20 +52,20 @@ completed
 
 ## Exit Criteria
 
-- `归航航线` 推导最多 3 段，并只从现有状态派生。
-- `共鸣矩阵` 显示当前航线段、描述和下一段门槛。
-- 阶段目标优先读回当前航线。
+- `归航航线` 仍最多 3 段，并只从现有状态派生。
+- `共鸣矩阵` 显示当前航线段、描述、下一段门槛和距下一段差距。
+- 阶段目标优先读回当前航线差距。
 - 相关运行态文档同步当前方向。
 - 完整验证通过。
 
 ## Next Candidate Mode / Track
 
-下一轮优先 `CONTENT_REVIEW`：复核 `归航航线` 是否让重复归航后的长期目标更清楚；若继续扩展，只做航线文案或节奏微调，不新增系统。
+下一轮优先 `CONTENT_REVIEW`：复核动态差距读回是否让重复归航后的长期目标更清楚；若继续扩展，只做航线文案或节奏微调，不新增系统。
 
 ## Drift Status
 
-本轮只增加派生读回和样式，不改变存档、资源、节点、归航奖励或余辉公式；v0.7 仍限制为现有 `共鸣矩阵` 内的航线目标读回。
+本轮只增加派生差距读回，不改变存档、资源、节点、归航奖励或余辉公式；v0.7 仍限制为现有 `共鸣矩阵` 内的航线目标读回。
 
 ## Last Updated
 
-2026-05-08: 本轮完成 v0.7 `归航航线` 第一段读回。新增 `getReturnRouteReadback`，从 `returnCount`、额外共鸣和已启动永久节点推导最多 3 段航线；现有 `共鸣矩阵` 显示当前航线、说明和下一段门槛，阶段目标优先读回当前航线。红灯测试先失败于缺少航线模块和 UI 读回，补实现后转绿。验证通过：`bun test` 113 pass，`bun run test` 113 pass，`bun run build` 成功，`./ops/governor-check.sh` 成功，`git diff --check` 成功。Browser 预览连接两次超时，`curl` 也无法连到本地 dev server 端口；视觉冒烟以 SSR UI 测试和生产构建替代。
+2026-05-08: 本轮完成 v0.7 `归航航线` 动态差距读回。`getReturnRouteReadback` 新增 `progressSummary`，未贯通航线时显示距下一段还差几次归航、几点额外共鸣；三段贯通后读回转为长期储备。现有 `共鸣矩阵` 和阶段目标复用该差距读回，不改变存档、资源、节点、归航奖励或余辉公式。红灯测试先失败于缺少差距字段和 UI 读回，补实现后转绿。验证通过：`bun test` 114 pass，`bun run test` 114 pass，`bun run build` 成功，`./ops/governor-check.sh` 成功，`git diff --check` 成功。

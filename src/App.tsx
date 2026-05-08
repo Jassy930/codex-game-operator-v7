@@ -486,6 +486,7 @@ export function App() {
                 </div>
                 <p>{returnRouteReadback.description}</p>
                 <p>{returnRouteReadback.nextRequirement}</p>
+                <p>{returnRouteReadback.progressSummary}</p>
               </div>
             ) : null}
             <div className="resonance-nodes">
@@ -796,6 +797,10 @@ export function formatWorkshopStageNextRequirement(
 }
 
 function formatReturnRouteStageGoal(readback: ReturnRouteReadback): string {
+  if (readback.completedMilestones < readback.totalMilestones) {
+    return `归航目标：航线 ${readback.completedMilestones}/${readback.totalMilestones} ${readback.current}，${readback.progressSummary}`;
+  }
+
   const nextRequirement = readback.nextRequirement.replace(
     /^(下一段|航线已贯通)：/,
     "",
