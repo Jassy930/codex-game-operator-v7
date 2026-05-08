@@ -9,6 +9,7 @@ export type ReturnRouteReadback = {
   progressSummary: string;
   actionHint: string;
   cadenceForecast: string;
+  routeMap: string;
   nextPreview: string;
   completedMilestones: number;
   totalMilestones: 3;
@@ -38,6 +39,8 @@ export function getReturnRouteReadback(
       progressSummary: "航线已贯通：后续归航都会成为长期储备",
       actionHint: "下一步：继续归航，把额外共鸣留作后续版本储备",
       cadenceForecast: "节奏预判：航线已贯通，后续归航进入长期储备",
+      routeMap:
+        "航线图：余辉起航 -> 稳航校准 -> 深空归航已贯通；后续归航进入长期储备",
       nextPreview: "航线已贯通：没有下一段，继续储备后续版本",
       completedMilestones: 3,
       totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
@@ -54,6 +57,7 @@ export function getReturnRouteReadback(
       progressSummary: formatRouteProgressGap(state, 6, 4),
       actionHint: formatRouteActionHint(state, 6, 4),
       cadenceForecast: formatRouteCadenceForecast(state, 6, 4),
+      routeMap: formatRouteMap("稳航校准"),
       nextPreview: "达成后进入深空归航：后续归航会转为长期储备",
       completedMilestones: 2,
       totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
@@ -68,6 +72,7 @@ export function getReturnRouteReadback(
     progressSummary: formatRouteProgressGap(state, 3, 2),
     actionHint: formatRouteActionHint(state, 3, 2),
     cadenceForecast: formatRouteCadenceForecast(state, 3, 2),
+    routeMap: formatRouteMap("余辉起航"),
     nextPreview: "达成后进入稳航校准：余辉重建节奏会稳定成长期航标",
     completedMilestones: 1,
     totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
@@ -150,4 +155,8 @@ function formatRouteCadenceForecast(
   }
 
   return "节奏预判：条件已满足，执行下一次归航刷新航线";
+}
+
+function formatRouteMap(current: "余辉起航" | "稳航校准"): string {
+  return `航线图：余辉起航 -> 稳航校准 -> 深空归航；当前位于${current}`;
 }

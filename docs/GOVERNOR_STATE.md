@@ -12,23 +12,23 @@ CONTENT_REVIEW
 
 ## Cycle Bet
 
-目标：复核 v0.7 `归航航线` 的行动提示，把“再归航会自然补足额外共鸣”的节奏读出来。
+目标：复核 v0.7 `归航航线` 的下一段预览，把三段长期路径一次读出来。
 Appetite：1 个派生 UI 读回切片。
-包括：节奏预判文案、现有 `共鸣矩阵` 展示、SSR/单元测试和运行态文档同步。
+包括：航线图文案、现有 `共鸣矩阵` 展示、SSR/单元测试和运行态文档同步。
 不包括：新增第三资源、节点、节点等级树、任务系统、多生产线、额外面板、存档字段、视觉资产、余辉公式、归航奖励或 telemetry。
-完成定义：玩家在看见下一段门槛时，能读懂还需要几次归航，以及这些归航是否已经足以带来所需额外共鸣。
+完成定义：玩家在看见当前航线时，能同时读懂当前段、下一段和完整三段终点，而不是只知道下一段名称。
 
 ## Expected Content Advance
 
-把 v0.7 `归航航线` 的行动提示补成节奏预判：复用现有 `共鸣矩阵`，说明按当前路线再归航几次是否可直接进入下一段，或归航次数达标后还差几点额外共鸣。
+把 v0.7 `归航航线` 的下一段预览补成航线图：复用现有 `共鸣矩阵`，显示 `余辉起航 -> 稳航校准 -> 深空归航` 的完整路径和当前所在段。
 
 ## Evidence Source
 
-`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md` 和上一轮自动化记忆都指向：v0.7 已补齐余辉已投入读回，下一步应复核航线行动提示是否减少迷失感，并只做航线文案、门槛或读回优先级微调。代码阅读显示：当前 `actionHint` 会同时列出归航次数与额外共鸣，但没有说明归航本身会继续产出共鸣。
+`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md` 和长期记忆都指向：v0.7 已补齐差距、行动提示、下一段预览、当前收益和节奏预判，下一步应复核航线是否减少迷失感，并只做航线文案、门槛或读回优先级微调。代码阅读显示：当前 `nextPreview` 只说明达成后进入哪一段，缺少完整三段路径读回。
 
 ## Required Artifact
 
-更新 `src/return-route.ts`、`src/return-route.test.ts`、`src/App.tsx`、`src/App.test.tsx`、`docs/plans/2026-05-09-v07-route-cadence-forecast-design.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/QUALITY_SCORE.md`、`docs/RELEASE_LOG.md` 和本文件。
+更新 `src/return-route.ts`、`src/return-route.test.ts`、`src/App.tsx`、`src/App.test.tsx`、`docs/plans/2026-05-09-v07-route-map-readback-design.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/QUALITY_SCORE.md`、`docs/RELEASE_LOG.md` 和本文件。
 
 ## Cycle Status
 
@@ -36,12 +36,12 @@ completed
 
 ## Reason
 
-`归航航线` 已经给出下一段门槛和下一步行动，但重复归航同时会增加 `returnCount` 和额外共鸣。若只列出两项差距，玩家可能误读成“先做 N 次归航，再另外补 M 点共鸣”。这轮只补预判文案，让长期目标更可执行。
+`归航航线` 已经给出当前段、差距、行动提示、下一段预览、当前收益和节奏预判，但下一段预览仍是局部信息。若玩家只看到“达成后进入稳航校准/深空归航”，还要自己拼出完整三段长期路径。这轮只补航线图，让 20 小时后的目标结构更可扫读。
 
 ## Allowed Actions
 
-- 用 TDD 增加航线节奏预判的单元测试和 SSR 读回测试。
-- 复用现有 `共鸣矩阵` 显示节奏预判。
+- 用 TDD 增加航线图的单元测试和 SSR 读回测试。
+- 复用现有 `共鸣矩阵` 显示航线图。
 - 更新内容弧线、roadmap、decision、release、自测记录和 governor 状态。
 
 ## Forbidden Actions
@@ -54,14 +54,15 @@ completed
 ## Exit Criteria
 
 - 节奏预判只从现有 `returnCount`、额外共鸣和目标门槛派生。
-- `共鸣矩阵` 在未贯通航线时说明再归航几次能否直接进入下一段。
+- 航线图只从现有航线段派生，不新增存档字段。
+- `共鸣矩阵` 在航线出现时说明完整三段路径和当前所在段。
 - `归航航线` 仍最多 3 段，并只从现有状态派生。
 - 相关运行态文档同步当前方向。
 - 完整验证通过或明确记录验证缺口。
 
 ## Next Candidate Mode / Track
 
-下一轮优先 `CONTENT_REVIEW`：复核节奏预判是否让重复归航后的长期目标更清楚；若继续扩展，只做航线文案或节奏微调，不新增系统。
+下一轮优先 `CONTENT_REVIEW`：复核航线图是否让重复归航后的长期目标更清楚；若继续扩展，只做航线文案或节奏微调，不新增系统。
 
 ## Drift Status
 
@@ -69,4 +70,4 @@ completed
 
 ## Last Updated
 
-2026-05-09: 本轮完成 v0.7 `归航航线` 节奏预判复核。`ReturnRouteReadback` 新增 `cadenceForecast`，现有 `共鸣矩阵` 会显示按当前路线再归航几次是否即可进入下一段，或归航次数达标后还差几点额外共鸣；三段贯通后转为长期储备预判。阶段目标仍保持短行动提示。不改变存档、资源、节点、归航奖励或余辉公式。红灯测试先失败于缺少 `cadenceForecast` 字段和 UI 读回，补实现后转绿。验证通过：`bun test` 117 pass，`bun run test` 117 pass，`bun run build` 成功。浏览器冒烟缺口：本地 Vite 可启动在 `http://127.0.0.1:5174/`，但 in-app Browser 返回无可用窗格。
+2026-05-09: 本轮完成 v0.7 `归航航线` 航线图读回复核。`ReturnRouteReadback` 新增 `routeMap`，现有 `共鸣矩阵` 会显示 `余辉起航 -> 稳航校准 -> 深空归航` 的完整三段路径和当前所在段；三段贯通后转为长期储备读回。阶段目标仍保持短行动提示。不改变存档、资源、节点、归航奖励或余辉公式。红灯测试先失败于缺少 `routeMap` 字段和 UI 读回，补实现后转绿。标准验证结果记录在本轮最终回复。

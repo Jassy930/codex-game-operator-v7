@@ -476,6 +476,9 @@ describe("App", () => {
       "节奏预判：按当前路线再归航 3 次即可进入下一段",
     );
     expect(html).toContain(
+      "航线图：余辉起航 -&gt; 稳航校准 -&gt; 深空归航；当前位于稳航校准",
+    );
+    expect(html).toContain(
       "达成后进入深空归航：后续归航会转为长期储备",
     );
     expect(html).toContain(

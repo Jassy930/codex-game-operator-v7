@@ -30,6 +30,8 @@ describe("return route readback", () => {
       actionHint:
         "下一步：继续重建工坊并执行 1 次星尘归航，同时保留 1 点额外共鸣",
       cadenceForecast: "节奏预判：按当前路线再归航 1 次即可进入下一段",
+      routeMap:
+        "航线图：余辉起航 -> 稳航校准 -> 深空归航；当前位于余辉起航",
       nextPreview:
         "达成后进入稳航校准：余辉重建节奏会稳定成长期航标",
       completedMilestones: 1,
@@ -53,6 +55,8 @@ describe("return route readback", () => {
       actionHint:
         "下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
       cadenceForecast: "节奏预判：按当前路线再归航 3 次即可进入下一段",
+      routeMap:
+        "航线图：余辉起航 -> 稳航校准 -> 深空归航；当前位于稳航校准",
       nextPreview: "达成后进入深空归航：后续归航会转为长期储备",
     });
   });
@@ -124,6 +128,8 @@ describe("return route readback", () => {
       progressSummary: "航线已贯通：后续归航都会成为长期储备",
       actionHint: "下一步：继续归航，把额外共鸣留作后续版本储备",
       cadenceForecast: "节奏预判：航线已贯通，后续归航进入长期储备",
+      routeMap:
+        "航线图：余辉起航 -> 稳航校准 -> 深空归航已贯通；后续归航进入长期储备",
       nextPreview: "航线已贯通：没有下一段，继续储备后续版本",
       completedMilestones: 3,
       totalMilestones: 3,
