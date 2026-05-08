@@ -38,7 +38,7 @@ v0.4 第二共鸣门槛、第二个现有节点选择、双节点回访计划、
 
 ## Last Updated
 
-2026-05-08: v0.4 双节点组合读回切片已由 commit `47c5fab` 推送到 `origin/main`。新增测试先按预期失败，随后本地验证通过：`bun test src/App.test.tsx -t "names the active dual-node cruise combination"` 1 pass，回归测试 `bun test src/App.test.tsx -t "dual-node|choice cap"` 3 pass，`bun test src/App.test.tsx` 33 pass，完整 `bun test` 83 pass，`bun run test` 83 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。远端 issue 刷新缺口：`gh issue list --repo Jassy930/codex-game-operator-v7 --state open --limit 20 --json ...` 无法连接 `api.github.com`。
+2026-05-08: v0.4 双节点组合读回切片已由 commit `47c5fab` 推送到 `origin/main`，release 状态已同步记录。新增测试先按预期失败，随后本地验证通过：`bun test src/App.test.tsx -t "names the active dual-node cruise combination"` 1 pass，回归测试 `bun test src/App.test.tsx -t "dual-node|choice cap"` 3 pass，`bun test src/App.test.tsx` 33 pass，完整 `bun test` 83 pass，`bun run test` 83 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。远端验证缺口：`gh issue list` 和 `gh run list` 无法连接 `api.github.com`，`curl -I --max-time 20 https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名。
 
 2026-05-08: 继续 SELF_PLAYTEST；复核第二共鸣节点全部消耗并接近 20 小时时，不同双节点选择是否能读成明确巡航组合。本轮只允许在现有 `星尘引擎室` 阶段目标行补 `采集回访组合 / 采集调校组合 / 回访调校组合`，不新增第三共鸣门槛、新节点、资源、面板、存档字段、指标字段、prestige、任务系统或多生产线。
 
