@@ -4,6 +4,7 @@
 
 ## Unreleased
 
+- 归航后第 2 轮开局现在会在已有可用共鸣、永久节点或归航历史时继续显示现有 `共鸣矩阵`，并优先提示用共鸣启动永久节点。
 - 新增 runtime 文档预算政策并压缩当前运行态文档；历史细节归档到 `docs/archive/2026-05-08-runtime-docs/`，保留 Issue #1/#2 decision anchors 和当前 v0.5 归航方向。
 - `governor-check` 对运行态文档同时检查行数和文件大小，避免超长单行继续制造文档膨胀。
 - 新增 harness engineering scorecard：用 `docs/QUALITY_SCORE.md` 记录 agent readability、content depth、mechanical checks 和 garbage collection，并由 `governor-check` 校验结构。
@@ -12,7 +13,7 @@
 
 - v0.5 `星尘归航` 第一版已实现：达到 25 台自动采集器和 15 次调校后，现有 `共鸣矩阵` 显示 `星尘归航 +1 共鸣`。
 - 归航重启本轮工坊，奖励固定 `1 共鸣`，保留共鸣、已启动永久节点、已领取共鸣里程碑和归航次数。
-- 归航后有可用共鸣时，阶段目标优先提示用共鸣启动永久节点；两个永久节点已满后，目标提示继续归航积累共鸣。
+- 归航后有可用共鸣时，新一轮开局继续显示现有 `共鸣矩阵`，阶段目标优先提示用共鸣启动永久节点；两个永久节点已满后，目标提示继续归航积累共鸣。
 - `共鸣矩阵` 仍保持最多 2 个永久节点，不新增第三共鸣门槛、新节点、节点等级树、任务系统、多生产线或额外面板。
 
 ## Recent Released Anchors

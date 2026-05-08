@@ -102,7 +102,12 @@ export function App() {
     state.earnedResonanceMilestones.includes("first-resonance");
   const hasClaimedCurrentResonanceMilestone =
     state.earnedResonanceMilestones.includes(resonanceProgress.id);
-  const showResonanceMatrix = workshopStage.name === "星尘引擎室";
+  const hasLongTermResonanceState =
+    state.resonance > 0 ||
+    state.unlockedResonanceNodes.length > 0 ||
+    state.returnCount > 0;
+  const showResonanceMatrix =
+    workshopStage.name === "星尘引擎室" || hasLongTermResonanceState;
   const canChooseResonanceNode =
     state.resonance > 0 &&
     state.unlockedResonanceNodes.length < MAX_UNLOCKED_RESONANCE_NODES;
@@ -663,7 +668,7 @@ export function formatWorkshopStageNextRequirement(
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
   }
 
-  if (canChooseResonanceNode && workshopStage.name === "星尘引擎室") {
+  if (canChooseResonanceNode) {
     if (unlockedResonanceNodes.length >= 1) {
       return "归航目标：用共鸣启动永久节点，再推进下一轮工坊";
     }

@@ -12,9 +12,9 @@ Score: 4
 
 ## Content Depth
 
-Score: 3
+Score: 4
 
-v0.5 `星尘归航` 已形成 20 小时方向，但最近多轮偏治理、文档和视觉收口。下一轮应回到 `CONTENT_REVIEW` 或 `PLAYABLE_CONTENT`，复核归航后的第 2 轮体验、共鸣消费优先级和重复归航目标。
+v0.5 `星尘归航` 已形成 20 小时方向，并补齐归航后第 2 轮开局的可用共鸣读回。下一步内容深度压力转向重复归航和满节点后额外共鸣的后续价值说明。
 
 ## Mechanical Checks
 
@@ -30,4 +30,4 @@ Score: 3
 
 ## Next Lowest-Score Bet
 
-优先选择 `CONTENT_REVIEW / PLAYABLE_CONTENT`：复核 v0.5 归航第二轮是否清楚，并只在发现明确 gap 时推进一个玩家可感知的小切片。若下一轮仍做 harness，必须先说明为什么低分的 `Content Depth` 不应优先。
+优先选择 `CONTENT_REVIEW / PLAYABLE_CONTENT` 或 `HARNESS_MAINTENANCE`：若继续玩法，复核满节点后额外共鸣是否需要暂存说明；若转向治理，优先处理 `Garbage Collection` 的过期计划和文档真实性检查。

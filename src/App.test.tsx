@@ -371,6 +371,22 @@ describe("App", () => {
     expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
   });
 
+  it("keeps available return resonance spendable at the start of the next loop", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      resonance: 1,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+      returnCount: 1,
+    });
+
+    expect(html).toContain("工坊阶段：火花工作台");
+    expect(html).toContain("共鸣矩阵");
+    expect(html).toContain("可用共鸣：1");
+    expect(html).toContain("选择第 2 个永久节点，最多启动 2 个");
+    expect(html).toContain("归航目标：用共鸣启动永久节点，再推进下一轮工坊");
+  });
+
   it("points the full-node state at repeat stardust returns", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
