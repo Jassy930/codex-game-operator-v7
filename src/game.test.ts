@@ -1,6 +1,7 @@
 import {
   buyAutoCollector,
   buyEfficiencyUpgrade,
+  calculateAffordableAutoCollectors,
   clickForDust,
   createGameState,
   hydrateGameState,
@@ -54,6 +55,12 @@ describe("core idle loop", () => {
     expect(next.autoCollectors).toBe(1);
     expect(next.dustPerSecond).toBe(0.2);
     expect(next.nextAutoCollectorCost).toBe(15);
+  });
+
+  it("calculates how many early auto collectors a dust budget can rebuild", () => {
+    expect(calculateAffordableAutoCollectors(0)).toBe(0);
+    expect(calculateAffordableAutoCollectors(20)).toBe(1);
+    expect(calculateAffordableAutoCollectors(50)).toBe(3);
   });
 
   it("does not buy an auto collector when dust is insufficient", () => {

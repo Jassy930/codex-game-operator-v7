@@ -14,7 +14,7 @@ Score: 4
 
 Score: 4
 
-v0.6 `归航余辉` 已把满节点后的额外共鸣转成 capped 新一轮起步星尘，重复归航不再只是库存增加。下一步内容深度压力转向余辉是否足够可感知，以及是否需要只调整上限或读回。
+v0.6 `归航余辉` 已把满节点后的额外共鸣转成 capped 新一轮起步星尘，并读回为可立即重建的自动采集器数量。50 星尘上限对应前 3 台自动采集器，重复归航不再只是库存增加。下一步内容深度压力转向 20 小时后是否需要 v0.7 弧线。
 
 ## Mechanical Checks
 
@@ -30,4 +30,4 @@ Score: 3
 
 ## Next Lowest-Score Bet
 
-优先选择 `CONTENT_REVIEW` 或 `HARNESS_MAINTENANCE`：若继续玩法，复核 `归航余辉` 的重复归航节奏；若转向治理，优先处理 `Garbage Collection` 的过期计划和文档真实性检查。
+优先选择 `CONTENT_PLANNING` 或 `HARNESS_MAINTENANCE`：若继续玩法，先规划 v0.7 的 20 小时后目标；若转向治理，优先处理 `Garbage Collection` 的过期计划和文档真实性检查。

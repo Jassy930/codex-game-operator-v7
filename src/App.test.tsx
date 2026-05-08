@@ -416,9 +416,34 @@ describe("App", () => {
       returnCount: 3,
     });
 
-    expect(html).toContain("共鸣余辉：额外共鸣让新一轮从 20 星尘起步");
-    expect(html).toContain("归航目标：余辉已点亮新一轮，继续扩建到下一次归航");
+    expect(html).toContain(
+      "共鸣余辉：额外共鸣让新一轮从 20 星尘起步，可立即重建 1 台自动采集器",
+    );
+    expect(html).toContain('class="return-afterglow-readout"');
+    expect(html).toContain("起步星尘");
+    expect(html).toContain("可重建");
+    expect(html).toContain(
+      "归航目标：余辉可重建前 1 台自动采集器，继续扩建到下一次归航",
+    );
     expect(html).not.toContain("等待后续版本扩展用途");
+  });
+
+  it("reads back the capped afterglow as the first three rebuilt collectors", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 50,
+      resonance: 5,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 6,
+    });
+
+    expect(html).toContain(
+      "共鸣余辉：额外共鸣让新一轮从 50 星尘起步，可立即重建 3 台自动采集器",
+    );
+    expect(html).toContain(
+      "归航目标：余辉可重建前 3 台自动采集器，继续扩建到下一次归航",
+    );
   });
 
   it("points the full-node state at repeat stardust returns", () => {

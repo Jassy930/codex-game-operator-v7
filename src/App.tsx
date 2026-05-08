@@ -3,6 +3,7 @@ import { createFeedbackIssueUrl, recordFeedbackClick } from "./feedback";
 import {
   buyAutoCollector,
   buyEfficiencyUpgrade,
+  calculateAffordableAutoCollectors,
   clickForDust,
   createGameState,
   getEffectiveAutoCollectorEfficiencyMultiplier,
@@ -119,6 +120,8 @@ export function App() {
     state.resonance > 0 &&
     state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES;
   const returnAfterglowDust = calculateReturnAfterglowDust(state);
+  const returnAfterglowRebuildCount =
+    calculateAffordableAutoCollectors(returnAfterglowDust);
   const hasActiveReturnAfterglow =
     hasParkedReturnResonance &&
     returnAfterglowDust > 0 &&
@@ -138,6 +141,7 @@ export function App() {
     canReturn,
     hasParkedReturnResonance,
     hasActiveReturnAfterglow,
+    returnAfterglowRebuildCount,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -443,10 +447,22 @@ export function App() {
               </p>
             ) : null}
             {hasActiveReturnAfterglow ? (
-              <p className="resonance-choice-hint">
-                共鸣余辉：额外共鸣让新一轮从 {formatNumber(returnAfterglowDust)}{" "}
-                星尘起步
-              </p>
+              <div className="return-afterglow-readout" aria-label="归航余辉读回">
+                <div className="return-afterglow-stats">
+                  <div>
+                    <span>起步星尘</span>
+                    <strong>{formatNumber(returnAfterglowDust)}</strong>
+                  </div>
+                  <div>
+                    <span>可重建</span>
+                    <strong>{returnAfterglowRebuildCount} 台</strong>
+                  </div>
+                </div>
+                <p>
+                  共鸣余辉：额外共鸣让新一轮从 {formatNumber(returnAfterglowDust)}{" "}
+                  星尘起步，可立即重建 {returnAfterglowRebuildCount} 台自动采集器
+                </p>
+              </div>
             ) : hasParkedReturnResonance ? (
               <p className="resonance-choice-hint">
                 共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本
@@ -689,6 +705,7 @@ export function formatWorkshopStageNextRequirement(
   canReturn = false,
   hasParkedReturnResonance = false,
   hasActiveReturnAfterglow = false,
+  returnAfterglowRebuildCount = 0,
 ): string {
   if (canClaimResonance && workshopStage.name === "星尘引擎室") {
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
@@ -703,7 +720,7 @@ export function formatWorkshopStageNextRequirement(
   }
 
   if (hasActiveReturnAfterglow) {
-    return "归航目标：余辉已点亮新一轮，继续扩建到下一次归航";
+    return `归航目标：余辉可重建前 ${returnAfterglowRebuildCount} 台自动采集器，继续扩建到下一次归航`;
   }
 
   if (hasParkedReturnResonance) {

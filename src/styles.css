@@ -280,6 +280,7 @@ h1 {
 .resonance-choice-hint,
 .resonance-progress,
 .return-description,
+.return-afterglow-readout p,
 .resonance-node small {
   color: #5f6f68;
   font-size: 0.85rem;
@@ -321,6 +322,45 @@ h1 {
   cursor: not-allowed;
   color: #6b746f;
   background: #d8ded9;
+}
+
+.return-afterglow-readout {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(176, 108, 58, 0.24);
+  border-radius: 8px;
+  background: #fff7e8;
+}
+
+.return-afterglow-readout p {
+  margin: 0;
+}
+
+.return-afterglow-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.return-afterglow-stats div {
+  display: grid;
+  gap: 2px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.return-afterglow-stats span {
+  color: #5b351d;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.return-afterglow-stats strong {
+  color: #17211b;
+  font-size: 1.25rem;
+  line-height: 1.1;
 }
 
 .feedback-link {

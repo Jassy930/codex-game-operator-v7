@@ -75,6 +75,22 @@ export function buyAutoCollector(state: GameState): GameState {
   });
 }
 
+export function calculateAffordableAutoCollectors(dust: number): number {
+  let remainingDust = Math.max(0, dust);
+  let autoCollectors = 0;
+  let nextCost = AUTO_COLLECTOR_BASE_COST;
+
+  while (remainingDust >= nextCost) {
+    remainingDust -= nextCost;
+    autoCollectors += 1;
+    nextCost = Math.ceil(
+      AUTO_COLLECTOR_BASE_COST * AUTO_COLLECTOR_GROWTH ** autoCollectors,
+    );
+  }
+
+  return autoCollectors;
+}
+
 export function buyEfficiencyUpgrade(state: GameState): GameState {
   if (state.autoCollectors === 0 || state.dust < state.nextEfficiencyUpgradeCost) {
     return state;
