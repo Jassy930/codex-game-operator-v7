@@ -701,11 +701,13 @@ function formatReturnPlanningReadback(
       .filter(Boolean);
 
     if (activeNodeCopies.length >= 2) {
+      const combinationName = formatResonanceCombinationName(unlockedResonanceNodes);
       const planPrefix =
         (nextUpgradeTarget.progressPercent ?? 0) >= 90
           ? "20 小时巡航"
           : "回访计划";
-      return `${planPrefix}：${activeNodeCopies.join("，")}，${nextUpgradeCopy}`;
+      const combinationPrefix = combinationName ? `${combinationName} · ` : "";
+      return `${planPrefix}：${combinationPrefix}${activeNodeCopies.join("，")}，${nextUpgradeCopy}`;
     }
   }
 
@@ -735,6 +737,24 @@ function formatResonancePlanValue(nodeId: string): string {
 
   if (nodeId === "tuning-engraving") {
     return "调校刻印提高调校价值";
+  }
+
+  return "";
+}
+
+function formatResonanceCombinationName(nodeIds: string[]): string {
+  const nodeSet = new Set(nodeIds);
+
+  if (nodeSet.has("stable-circuit") && nodeSet.has("return-coil")) {
+    return "采集回访组合";
+  }
+
+  if (nodeSet.has("stable-circuit") && nodeSet.has("tuning-engraving")) {
+    return "采集调校组合";
+  }
+
+  if (nodeSet.has("return-coil") && nodeSet.has("tuning-engraving")) {
+    return "回访调校组合";
   }
 
   return "";

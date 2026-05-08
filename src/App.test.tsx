@@ -370,7 +370,7 @@ describe("App", () => {
     });
 
     expect(html).toContain(
-      "回访计划：稳定回路放大自动采集，回访线圈放大离线收益，约 2.4 小时后可购买调校工具",
+      "回访计划：采集回访组合 · 稳定回路放大自动采集，回访线圈放大离线收益，约 2.4 小时后可购买调校工具",
     );
     expect(html).toContain("已启动 · 自动采集产出 +10%");
     expect(html).toContain("已启动 · 离线收益 +10%");
@@ -392,9 +392,29 @@ describe("App", () => {
     });
 
     expect(html).toContain(
-      "20 小时巡航：稳定回路放大自动采集，回访线圈放大离线收益，约 6 分钟后可购买调校工具",
+      "20 小时巡航：采集回访组合 · 稳定回路放大自动采集，回访线圈放大离线收益，约 6 分钟后可购买调校工具",
     );
     expect(html).not.toContain("回访计划：稳定回路放大自动采集");
+  });
+
+  it("names the active dual-node cruise combination near the 20 hour goal", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 163313.57,
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      dustPerSecond: 14,
+      nextAutoCollectorCost: 252512,
+      nextEfficiencyUpgradeCost: 168667,
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "tuning-engraving"],
+    });
+
+    expect(html).toContain(
+      "20 小时巡航：采集调校组合 · 稳定回路放大自动采集，调校刻印提高调校价值，约 6 分钟后可购买调校工具",
+    );
+    expect(html).not.toContain("回访线圈放大离线收益");
   });
 
   it("shows the resonance choice cap after two permanent nodes are active", () => {
