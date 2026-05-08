@@ -204,7 +204,59 @@ check_issue_ledger() {
   done < docs/ISSUE_LEDGER.md
 }
 
+section_value() {
+  local heading="$1"
+  local file="$2"
+
+  awk -v heading="## $heading" '
+    $0 == heading { in_section = 1; next }
+    in_section && /^## / { exit }
+    in_section && NF { print; exit }
+  ' "$file"
+}
+
+check_meaningful_iteration_gate() {
+  if [ ! -f docs/GOVERNOR_STATE.md ]; then
+    return
+  fi
+
+  required_iteration_fields=(
+    "Iteration Track"
+    "Expected Content Advance"
+    "Evidence Source"
+    "Required Artifact"
+  )
+
+  for field in "${required_iteration_fields[@]}"; do
+    if ! grep -F "## $field" docs/GOVERNOR_STATE.md >/dev/null 2>&1; then
+      echo "Governor state missing meaningful iteration field: $field"
+      fail=1
+    fi
+  done
+
+  track="$(trim "$(section_value "Iteration Track" docs/GOVERNOR_STATE.md)")"
+  if [ -n "$track" ]; then
+    case "$track" in
+      GAME_RESEARCH|PLAYER_FEEDBACK|CONTENT_PLANNING|CONTENT_REVIEW|BUGFIX|VISUAL_POLISH|PLAYABLE_CONTENT|HARNESS_MAINTENANCE)
+        ;;
+      *)
+        echo "Governor state has invalid iteration track: $track"
+        fail=1
+        ;;
+    esac
+  fi
+
+  expected_advance="$(trim "$(section_value "Expected Content Advance" docs/GOVERNOR_STATE.md)")"
+  case "$expected_advance" in
+    ""|"none"|"no-change"|"minor copy")
+      echo "Governor state expected content advance must describe a concrete artifact or review outcome."
+      fail=1
+      ;;
+  esac
+}
+
 check_complexity_budget
 check_issue_ledger
+check_meaningful_iteration_gate
 
 exit "$fail"

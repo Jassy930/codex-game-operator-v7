@@ -32,14 +32,18 @@ You must follow this repository harness:
 At the beginning of each autonomous cycle:
 
 1. Read `docs/OPERATING_MODES.md`.
-2. Select exactly one operating mode.
+2. Select exactly one operating mode and one iteration track.
 3. Update `docs/GOVERNOR_STATE.md` with:
    - selected mode
+   - iteration track
+   - expected content advance
+   - evidence source
+   - required artifact
    - reason
    - allowed actions
    - forbidden actions
    - exit criteria
-4. Execute only actions allowed by that mode.
+4. Execute only actions allowed by that mode and justified by that iteration track.
 5. Run the review protocol before committing.
 6. End by updating `docs/DECISION.md`, `docs/RELEASE_LOG.md`, `docs/SELF_PLAYTEST.md`, `docs/ISSUE_LEDGER.md`, or `docs/RETROSPECTIVE.md` as appropriate.
 
@@ -49,7 +53,7 @@ Default posture:
 - Then add feedback and deployment infrastructure.
 - Then route feedback into clusters.
 - Then make product decisions based on North Star + clusters + metrics.
-- Then implement one minimal change at a time.
+- Then implement one meaningful content advance at a time.
 - If drift is detected, stop adding features and simplify.
 - If harness friction repeatedly blocks valid work, propose a harness improvement through `META_GOVERNANCE.md`.
 

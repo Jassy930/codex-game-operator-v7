@@ -10,6 +10,39 @@ Records all harness rule changes.
 - Added self-playtest as non-issue input source.
 - Renamed ideas to idea parking lot to avoid backlog behavior.
 
+## 2026-05-08 - Meaningful Iteration Gate
+
+### Files Changed
+
+- `prompts/goal.md`
+- `docs/OPERATING_MODES.md`
+- `docs/HARNESS.md`
+- `docs/GOVERNOR_STATE.md`
+- `docs/DECISION.md`
+- `docs/RELEASE_LOG.md`
+- `ops/governor-check.sh`
+- `src/ops-scripts.test.ts`
+
+### Failure Mode
+
+The harness required small, testable changes, but it did not require each cycle to name a meaningful content-advance theme. This allowed the operator to choose very small local copy or state readback changes without first explaining whether the cycle was research, feedback processing, planning, content review, bug fixing, visual polish, playable content, or harness maintenance.
+
+### Evidence
+
+用户明确要求每次迭代有明确内容推进，而不是随便找个地方“改一点点”。有效推进可以是游戏调研、用户反馈、下一部分游戏规划、当前游戏内容 review 和整理、bug 修复、图像表现整理优化等。
+
+### Change
+
+Added a Meaningful Iteration Gate. Each cycle must now record an `Iteration Track`, `Expected Content Advance`, `Evidence Source`, and `Required Artifact` in `docs/GOVERNOR_STATE.md`. `ops/governor-check.sh` validates that these fields exist, that the track is one of the allowed track names, and that the expected advance is not an empty placeholder.
+
+### Why This Does Not Weaken Constraints
+
+This tightens the harness without forcing every cycle to add gameplay. It preserves research, feedback, planning, content review, bugfix, visual polish, playable content, and harness maintenance as valid tracks while continuing to preserve North Star alignment, issue routing, response budget, complexity budget, review protocol, tests, and deployment checks.
+
+### Follow-up
+
+Future cycles should choose the track before implementation. Small code changes remain valid only when they are the required artifact for the selected track.
+
 ## 2026-05-06 - Tooling Policy Alignment
 
 ### Files Changed

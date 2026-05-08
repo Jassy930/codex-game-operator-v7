@@ -101,6 +101,30 @@ describe("ops scripts", () => {
     expect(result.output).toContain("Complexity budget missing v0.5 stardust return budget");
   });
 
+  it("fails governor check when meaningful iteration fields are missing", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(
+      join(workspace, "docs/GOVERNOR_STATE.md"),
+      `# Governor State
+
+## Selected Mode
+
+SELF_PLAYTEST
+`,
+    );
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Governor state missing meaningful iteration field: Iteration Track");
+  });
+
   it("collects issue body and comments for routing evidence", () => {
     const workspace = createCollectorWorkspace();
     const binDir = join(workspace, "bin");
@@ -237,6 +261,32 @@ function createHarnessWorkspace(files: {
   for (const file of REQUIRED_HARNESS_FILES) {
     writeFileSync(join(workspace, file), `# ${file}\n`);
   }
+
+  writeFileSync(
+    join(workspace, "docs/GOVERNOR_STATE.md"),
+    `# Governor State
+
+## Selected Mode
+
+OPERATE
+
+## Iteration Track
+
+PLAYABLE_CONTENT
+
+## Expected Content Advance
+
+Implement one supported change tied to the current decision.
+
+## Evidence Source
+
+Test fixture.
+
+## Required Artifact
+
+Tests and release note.
+`,
+  );
 
   writeFileSync(
     join(workspace, "docs/COMPLEXITY_BUDGET.md"),

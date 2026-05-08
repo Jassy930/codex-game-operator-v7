@@ -55,10 +55,11 @@ Allows learning and harness evolution.
 
 ```text
 Select Operating Mode
+→ Select Iteration Track
 → Gather inputs allowed by that mode
 → Update runtime docs
 → Make one decision
-→ Implement one minimal change
+→ Produce the required artifact for that track
 → Run checks
 → Review with roles
 → Commit / deploy / reply only if allowed

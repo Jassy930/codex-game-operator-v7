@@ -2,39 +2,60 @@
 
 ## Selected Mode
 
-OPERATE
+META_IMPROVE
+
+## Iteration Track
+
+HARNESS_MAINTENANCE
+
+## Expected Content Advance
+
+新增 Meaningful Iteration Gate，让每轮迭代必须声明内容推进轨道、证据来源和必需产出，避免无主题地挑一个小文案或小状态改动。
+
+## Evidence Source
+
+用户明确要求每次迭代有明确内容推进，可以是游戏调研、用户反馈、下一部分规划、当前内容 review、bug 修复或图像表现优化，而不是随便找个地方改一点点。
+
+## Required Artifact
+
+更新 `prompts/goal.md`、`docs/OPERATING_MODES.md`、`docs/HARNESS.md`、`docs/GOVERNOR_STATE.md` 和 `ops/governor-check.sh`；补充脚本测试、计划文档、harness changelog、decision 和 release log。
 
 ## Reason
 
-v0.5 `星尘归航` 预算和决策锚点已经通过 meta-governance 落地。用户明确希望用 prestige 支撑长线主循环，且现有第二资源 `共鸣` 已被授权为归航奖励资源。本轮进入 v0.5 第一刀实现：只做 `returnCount` 存档迁移，为后续归航条件、奖励和本轮重置做准备。
+当前 harness 能限制复杂度和阶段漂移，但没有强制每轮说明“本轮到底推进哪类内容”。这会让 operator 在没有明确主题时倾向于选择局部小文案、小状态读回或重复 no-change。该问题属于治理机制缺口，应通过 `META_IMPROVE` 收紧。
 
 ## Allowed Actions
 
-- 按 TDD 增加 v3 存档字段 `returnCount`。
-- 迁移 v1 / v2 旧存档，缺失或无效 `returnCount` 时补 `0`。
-- 更新 `docs/DECISION.md`、`docs/RELEASE_LOG.md`、`docs/GOVERNOR_STATE.md` 和自动化记忆。
-- 运行本地验证，至少包括 `bun test src/game.test.ts`、完整测试、构建、`./ops/governor-check.sh` 和 `git diff --check`。
+- 定义 iteration track 列表和 Meaningful Iteration Gate。
+- 更新当前 governor state 结构，加入 `Iteration Track`、`Expected Content Advance`、`Evidence Source` 和 `Required Artifact`。
+- 用 TDD 扩展 `ops/governor-check.sh`，校验当前 governor state 是否包含合格迭代字段。
+- 同步 `docs/DECISION.md`、`docs/RELEASE_LOG.md`、`docs/HARNESS_CHANGELOG.md` 和计划文档。
+- 运行本地验证，至少包括 `bun test src/ops-scripts.test.ts`、完整测试、构建、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 本轮不实现归航按钮、归航奖励或本轮重置逻辑。
-- 不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点或节点等级树。
+- 本轮不实现新的游戏玩法、数值、按钮或视觉资产。
+- 不削弱 issue routing、response budget、complexity budget、review protocol、测试或部署要求。
+- 不把所有迭代都强制成可玩功能，保留调研、反馈、规划、review、bugfix 和视觉整理作为有效内容推进。
 - 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
 - 不修改或新增 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
-- 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- 新游戏状态为 v3，并包含 `returnCount: 0`。
-- v1 / v2 旧存档加载后迁移为 v3，并补 `returnCount: 0`。
+- `docs/GOVERNOR_STATE.md` 包含 meaningful iteration 字段。
+- `ops/governor-check.sh` 会阻止缺少 iteration track 或产出说明的 governor state。
 - 相关测试、完整验证和文档同步完成。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现治理漂移。本轮只新增一个持久化字段，不新增 UI、按钮、资源、面板、节点、节点等级、任务系统、多生产线、外部 analytics、telemetry 上传、反馈渠道扩张或重复 issue 回复。
+已发现轻微治理漂移风险：持续运营可能退化为“找局部小点改一点”。本轮不新增玩法，而是收紧迭代入口，要求每轮先声明内容推进类型和产出物。
 
 ## Last Updated
+
+2026-05-08: Meaningful Iteration Gate 本地验证完成：先用 TDD 看到 `bun test src/ops-scripts.test.ts -t "meaningful iteration"` 红灯，再实现 `governor-check` 字段校验并通过聚焦测试。完整验证通过：`bun test src/ops-scripts.test.ts` 9 pass，`bun test` 88 pass，`bun run test` 88 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。
+
+2026-05-08: 切换到 META_IMPROVE / HARNESS_MAINTENANCE；新增 Meaningful Iteration Gate，要求每轮声明 iteration track、expected content advance、evidence source 和 required artifact。目标是让后续迭代明确落在游戏调研、玩家反馈、内容规划、内容 review、bugfix、视觉整理、可玩内容推进或 harness 维护之一，而不是无主题小改。
 
 2026-05-08: v0.5 预算提交 `ef5fed8` 已创建，切换到 OPERATE 执行 `星尘归航` 第一刀存档准备。本轮只允许新增 v3 `returnCount` 存档迁移，不实现归航按钮、奖励或重置逻辑。
 

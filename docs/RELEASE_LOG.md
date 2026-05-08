@@ -118,3 +118,4 @@
 - 将 `星图巡航` 降级为后续辅助计划，v0.5 主线改为 `星尘归航`；第一版不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点、节点等级树或外部 telemetry。
 - `governor-check` 现在校验 v0.5 预算存在、归航 loop 明确受限、奖励资源保持为 `共鸣`、存档版本上限为 3，并显式禁止第三普通资源。
 - 存档版本升级到 v3，并新增 `returnCount` 字段；新游戏默认为 `0`，v1/v2 旧存档加载时自动补默认值。该切片只做 `星尘归航` 的持久化准备，不新增归航按钮或重置逻辑。
+- 新增 Meaningful Iteration Gate：每轮必须在 governor state 中声明 iteration track、expected content advance、evidence source 和 required artifact；`governor-check` 会阻止无主题的小改动式迭代。本地验证通过：`bun test` 88 pass，`bun run test` 88 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0。

@@ -2,10 +2,13 @@
 
 ## Current Biggest Problem
 
-v0.4 已把内容推进到约 20 小时目标，但当前循环仍主要是继续购买自动采集器和调校工具，达到第二共鸣门槛后再启动第 2 个现有节点。最大问题已经从“20 小时是否有读回”转为“20 小时后是否有可重复的长线循环”。v0.5 需要把 `共鸣` 统一成 `星尘归航` 的 prestige 奖励资源，让玩家能重启本轮工坊并保留永久成长。
+当前最大治理问题是每轮虽然都有小切片和验证，但不总是先声明“本轮推进哪类内容”。这会让持续运营退化为寻找局部小改，而不是围绕游戏调研、玩家反馈、内容规划、内容 review、bugfix、视觉表现或可玩内容推进来组织迭代。
 
 ## Evidence
 
+- 2026-05-08 用户明确要求每次迭代有明确内容推进，而不是随便找个地方“改一点点”。用户给出的有效推进类型包括游戏调研、网络调研或用户反馈、下一部分游戏规划、当前游戏内容 review 和整理、当前内容 bug 修复、当前游戏图像表现整理优化等。
+- Decision: 本轮记录 `DECISION:2026-05-08-meaningful-iteration-gate`。新增 Meaningful Iteration Gate：每轮必须在 `docs/GOVERNOR_STATE.md` 声明 `Iteration Track`、`Expected Content Advance`、`Evidence Source` 和 `Required Artifact`。允许轨道包括 `GAME_RESEARCH`、`PLAYER_FEEDBACK`、`CONTENT_PLANNING`、`CONTENT_REVIEW`、`BUGFIX`、`VISUAL_POLISH`、`PLAYABLE_CONTENT` 和 `HARNESS_MAINTENANCE`。`ops/governor-check.sh` 负责阻止缺少这些字段或使用空泛推进说明的 governor state。
+- 约束：这不是强迫每轮都加玩法，而是要求每轮有明确产出主题。调研、反馈处理、规划、review、bugfix、视觉整理和 harness 维护仍然是有效迭代；issue routing、response budget、complexity budget、review protocol 和测试要求不放宽。
 - 2026-05-08 用户明确要求前期积极扩展玩法内容，并把目标先做到 20 小时；随后明确希望 prestige 成为长线主机制，且倾向把现有第二资源 `共鸣` 作为 prestige 奖励资源。
 - v0.4 已完成第二共鸣门槛、第 2 个现有节点选择、双节点组合读回和当前版本共鸣完成读回。继续追加第三共鸣门槛或新节点会把同一系统向外拉长，但不会形成标准 idle / incremental 的 reset loop。
 - Decision: 本轮记录 `DECISION:2026-05-08-v05-stardust-return`。新增 v0.5 Stardust Return Budget，允许一个受限 prestige loop：`星尘归航` 重启本轮工坊，奖励 `1 共鸣`，保留共鸣和永久节点。第一版只允许新增 `returnCount` 存档字段，不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点、节点等级树或外部 telemetry。

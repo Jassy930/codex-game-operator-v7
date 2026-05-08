@@ -2,6 +2,8 @@
 
 Codex must choose exactly one operating mode before acting. The chosen mode must be recorded in `docs/GOVERNOR_STATE.md`.
 
+Codex must also choose exactly one iteration track before acting. The track defines what kind of content advance the cycle is expected to produce. A small implementation slice is allowed only when it serves the selected track.
+
 ## Mode Selection Priority
 
 1. If project cannot run: `BOOTSTRAP`
@@ -16,6 +18,21 @@ Codex must choose exactly one operating mode before acting. The chosen mode must
 10. If repeated drift occurs: `FEATURE_FREEZE`
 11. If tested changes are ready: `RELEASE`
 12. If harness rules repeatedly block valid progress: `META_IMPROVE`
+
+## Iteration Tracks
+
+Record one of these in `docs/GOVERNOR_STATE.md` under `Iteration Track`:
+
+- `GAME_RESEARCH`: 网络调研、竞品分析或类型研究，产出为研究记录和决策候选。
+- `PLAYER_FEEDBACK`: GitHub Issues 或反馈快照处理，产出为 ledger、cluster、decision、release 或明确延后/拒绝理由。
+- `CONTENT_PLANNING`: 下一部分游戏规划，产出为内容弧线、计划文档或 roadmap 更新。
+- `CONTENT_REVIEW`: 当前游戏内容 review 和整理，产出为 findings、整理结果、stage review 或有证据的 no-change。
+- `BUGFIX`: 当前内容 bug 修复，产出为失败测试、修复和回归验证。
+- `VISUAL_POLISH`: 图像表现和视觉整理，产出为素材决策、资产更新、布局验证或视觉一致性改进。
+- `PLAYABLE_CONTENT`: 可玩内容推进，产出为玩家能感知的新机制、目标、反馈、数值或交互。
+- `HARNESS_MAINTENANCE`: 治理系统维护，产出为更强检查、更清晰规则或流程修复。
+
+`Expected Content Advance` must describe the concrete artifact or review outcome for the cycle. It must not be a vague placeholder such as `none`, `no-change`, or `minor copy`. If a cycle records no gameplay change, it must still complete a meaningful track such as `CONTENT_REVIEW`, `GAME_RESEARCH`, `VISUAL_POLISH`, or `HARNESS_MAINTENANCE`.
 
 ## BOOTSTRAP
 
