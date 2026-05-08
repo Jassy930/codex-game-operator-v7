@@ -406,6 +406,21 @@ describe("App", () => {
     expect(html).not.toContain("选择第 2 个永久节点");
   });
 
+  it("explains afterglow when parked resonance can speed up the next loop", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 20,
+      resonance: 2,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 3,
+    });
+
+    expect(html).toContain("共鸣余辉：额外共鸣让新一轮从 20 星尘起步");
+    expect(html).toContain("归航目标：余辉已点亮新一轮，继续扩建到下一次归航");
+    expect(html).not.toContain("等待后续版本扩展用途");
+  });
+
   it("points the full-node state at repeat stardust returns", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),

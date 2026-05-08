@@ -64,6 +64,11 @@ check_complexity_budget() {
     fail=1
   fi
 
+  if ! grep -F "v0.6 Return Afterglow Budget" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget missing v0.6 return afterglow budget."
+    fail=1
+  fi
+
   if ! grep -F "Upgrade types: max 4" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
     echo "Complexity budget v0.2 must keep upgrade types max 4."
     fail=1
@@ -94,8 +99,23 @@ check_complexity_budget() {
     fail=1
   fi
 
+  if ! grep -F "Parked resonance afterglow: allowed" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.6 must explicitly allow only parked resonance afterglow."
+    fail=1
+  fi
+
+  if ! grep -F "Afterglow starting dust bonus: max 50 星尘" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.6 must cap the afterglow starting dust bonus."
+    fail=1
+  fi
+
   if ! grep -F "第三普通资源" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
     echo "Complexity budget v0.5 must explicitly forbid a third normal resource."
+    fail=1
+  fi
+
+  if ! grep -F "节点等级" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.6 must explicitly forbid node levels."
     fail=1
   fi
 }

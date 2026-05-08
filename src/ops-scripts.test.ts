@@ -101,6 +101,43 @@ describe("ops scripts", () => {
     expect(result.output).toContain("Complexity budget missing v0.5 stardust return budget");
   });
 
+  it("fails governor check when v0.6 return afterglow budget is missing", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(
+      join(workspace, "docs/COMPLEXITY_BUDGET.md"),
+      `# Complexity Budget
+
+## v0.1 First Public Version Budget
+
+- Secondary resources: 0
+
+## v0.2 3-15 Minute Version Budget
+
+- Secondary resources: 0
+- Upgrade types: max 4
+- prestige is forbidden
+
+## v0.5 Stardust Return Budget
+
+- Prestige loop: allowed as \`星尘归航\`
+- Prestige reward resource: \`共鸣\`
+- Save format versions: max 3
+- 第三普通资源
+`,
+    );
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Complexity budget missing v0.6 return afterglow budget");
+  });
+
   it("fails governor check when meaningful iteration fields are missing", () => {
     const workspace = createHarnessWorkspace({
       ledgerRow:
@@ -469,6 +506,12 @@ active
 - Prestige reward resource: \`共鸣\`
 - Save format versions: max 3
 - 第三普通资源
+
+## v0.6 Return Afterglow Budget
+
+- Parked resonance afterglow: allowed
+- Afterglow starting dust bonus: max 50 星尘
+- 节点等级
 `,
   );
 

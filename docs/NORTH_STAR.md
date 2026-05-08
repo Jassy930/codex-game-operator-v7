@@ -13,21 +13,22 @@ The player should feel:
 
 ## Current Stage
 
-v0.2 planning stage: 3-15 minute engagement.
+v0.6 long-loop stage: repeat `星尘归航` and 20-hour progression.
 
-The first 60 seconds remain a regression guardrail. The next version should make minutes 3-15 feel like a coherent content arc, not a pile of unrelated systems.
+The first 60 seconds remain a regression guardrail. The current version should make repeated returns feel useful without turning the game into a pile of unrelated systems.
 
 Do not stay in one stage indefinitely. A stage is a working focus, not a holding pen. After repeated no-change cycles, the operator must either broaden the time horizon, define the next content arc, or explicitly wait for new player signal without continuing to polish the same window.
 
 Priority:
 
-1. 3-15 minute content arc clarity
-2. Sustained upgrade pacing after the first few upgrades
+1. Repeat return clarity after two permanent nodes
+2. 20-hour progression pacing
 3. Return and offline progress comprehension
-4. Visible growth feedback
-5. First 60 seconds regression safety
-6. Sustainable feedback processing
-7. Public playable stability
+4. Sustained upgrade pacing after the first few upgrades
+5. Visible growth feedback
+6. First 60 seconds regression safety
+7. Sustainable feedback processing
+8. Public playable stability
 
 ## Core Loop
 
@@ -51,8 +52,8 @@ Player action
 - heavy real-time action
 - excessive panels
 - complex lore before core loop is fun
-- second resources before 3-15 minute pacing is proven
-- prestige before return behavior is understood
+- more ordinary resources before the return loop is proven
+- more prestige layers before `星尘归航` is understood
 
 ## Product Discipline
 

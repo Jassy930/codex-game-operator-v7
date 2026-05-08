@@ -12,23 +12,23 @@ PLAYABLE_CONTENT
 
 ## Cycle Bet
 
-目标：补齐 v0.5 `星尘归航` 满节点后的额外共鸣暂存读回。
-Appetite：1 个 UI/目标读回切片。
-包括：当玩家已经启动 2 个永久节点、继续归航并带着额外共鸣回到新一轮火花工作台时，复用现有 `共鸣矩阵` 说明共鸣会暂存到后续版本。
-不包括：不新增资源、节点、节点等级、任务系统、多生产线、额外面板、存档字段、数值曲线、视觉资产或 telemetry。
-完成定义：满节点后的新一轮开局能看到可用共鸣、永久节点上限和“额外共鸣已暂存”的目标读回。
+目标：把 v0.5 满节点后的额外共鸣暂存推进为 v0.6 `归航余辉`。
+Appetite：1 个可玩机制切片。
+包括：两个永久节点已满后，继续 `星尘归航` 获得的额外共鸣会在下一轮开局提供少量星尘起步，并在现有 `共鸣矩阵` 与阶段目标中读回。
+不包括：不新增资源、节点、节点等级、任务系统、多生产线、额外面板、存档字段、视觉资产或 telemetry。
+完成定义：满节点后的重复归航会带着由暂存共鸣产生的开局星尘进入新一轮，且 UI 清楚说明余辉效果。
 
 ## Expected Content Advance
 
-让重复 `星尘归航` 不在满节点后变成无解释的资源堆积，而是读回“额外共鸣会保留，等待后续版本扩展用途”。
+让重复 `星尘归航` 在两个永久节点已满后有实际玩法价值：额外共鸣不再只是无用途库存，而是给新一轮一个可感知的起步助推。
 
 ## Evidence Source
 
-`docs/QUALITY_SCORE.md` 的 Content Depth 下一步压力指向重复归航和满节点后额外共鸣的后续价值说明；`docs/CONTENT_ARC.md` 和 `docs/SELF_PLAYTEST.md` 都把该点列为当前 gap。
+`docs/QUALITY_SCORE.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md` 和用户 20 小时目标都指向额外共鸣需要从暂存说明升级为受预算约束的后续用途。
 
 ## Required Artifact
 
-更新 `src/App.test.tsx`、`src/App.tsx`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md` 和本文件。
+更新 `src/return.test.ts`、`src/App.test.tsx`、`src/return.ts`、`src/App.tsx`、`docs/COMPLEXITY_BUDGET.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/NORTH_STAR.md`、`docs/QUALITY_SCORE.md`、`docs/RELEASE_LOG.md` 和本文件。
 
 ## Cycle Status
 
@@ -36,13 +36,13 @@ completed
 
 ## Reason
 
-归航后第 2 轮开局已经能读回可消费共鸣，但两个永久节点都启动后，继续归航获得的额外共鸣缺少用途边界说明。这个缺口会让重复归航看起来像无效重置。
+满节点后额外共鸣已有暂存说明，但没有实际用途。继续运营到 20 小时时，重复归航需要一个低复杂度、可读回、不会引入节点等级树的长线价值。
 
 ## Allowed Actions
 
-- 用 TDD 增加满节点后额外共鸣暂存读回测试。
-- 复用现有 `共鸣矩阵`、选择上限和阶段目标。
-- 只添加文案与目标优先级，不改变奖励公式、节点数量或存档结构。
+- 用 TDD 增加归航余辉的逻辑和 UI 读回测试。
+- 复用现有 `共鸣`、`共鸣矩阵`、归航按钮和阶段目标。
+- 允许满节点后暂存共鸣为新一轮提供 capped 开局星尘。
 - 同步玩法文档、release 记录、governor state 和自动化记忆。
 
 ## Forbidden Actions
@@ -53,20 +53,20 @@ completed
 
 ## Exit Criteria
 
-- 满节点后带着额外共鸣的新一轮开局显示 `共鸣矩阵`。
-- 矩阵说明额外共鸣会保留到后续版本。
-- 阶段目标提示额外共鸣已暂存。
+- 满节点后重复归航的新一轮开局带有由暂存共鸣产生的少量星尘。
+- 现有 `共鸣矩阵` 说明归航余辉效果。
+- 阶段目标提示余辉已经点亮新一轮。
 - 新玩家首屏仍不显示 `共鸣矩阵`。
 - 完整验证通过。
 
 ## Next Candidate Mode / Track
 
-完成后优先继续 `CONTENT_REVIEW / CONTENT_PLANNING`：复核 v0.6 是否应定义额外共鸣的后续用途，还是先做 Garbage Collection。
+下一轮优先继续 `CONTENT_REVIEW`：复核归航余辉是否足够支撑重复归航节奏；若仍不足，再规划更大的 v0.7，而不是直接增加节点等级树。
 
 ## Drift Status
 
-本轮复用现有 `共鸣矩阵` 和 v0.5 `星尘归航` 预算，只补满节点后的目标读回。
+本轮复用现有 `共鸣矩阵`、`共鸣` 和归航循环；只把暂存共鸣转成 capped 开局助推，不扩大为等级树或新节点。
 
 ## Last Updated
 
-2026-05-08: 已补齐满节点后额外共鸣暂存读回。新增红灯测试 `parks extra return resonance after the permanent node cap is filled`，确认旧行为只显示选择上限、没有解释额外共鸣；实现后满节点且仍有可用共鸣的新一轮开局会在现有 `共鸣矩阵` 中显示“共鸣暂存”，阶段目标提示“额外共鸣已暂存”。验证通过：`bun test` 103 pass，`bun run test` 103 pass，`bun run build` 成功。
+2026-05-08: 本轮完成 v0.6 `归航余辉`。两个永久节点已满后，重复 `星尘归航` 会把额外共鸣转成 capped 新一轮起步星尘，并在现有 `共鸣矩阵` 与阶段目标读回。验证通过：`bun test` 106 pass，`bun run test` 106 pass，`bun run build` 成功，`./ops/governor-check.sh` 成功，`git diff --check` 成功。in-app Browser 未能连接到可用浏览器窗格，视觉冒烟以 SSR UI 测试和生产构建代替。

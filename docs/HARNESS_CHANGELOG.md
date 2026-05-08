@@ -2,6 +2,22 @@
 
 历史 harness changelog 已归档到 `docs/archive/2026-05-08-runtime-docs/HARNESS_CHANGELOG.md`。本文件只保留当前治理规则变化。
 
+## 2026-05-08 - v0.6 Return Afterglow Budget
+
+### Files Changed
+
+- `docs/COMPLEXITY_BUDGET.md`
+- `ops/governor-check.sh`
+- `src/ops-scripts.test.ts`
+
+### Change
+
+新增 v0.6 `Return Afterglow Budget`，只允许满节点后的额外共鸣提供 capped 开局星尘助推，并由 `governor-check` 校验预算存在、余辉授权和 50 星尘上限。
+
+### Why This Does Not Weaken Constraints
+
+这只把 v0.5 暂存共鸣转成受限用途，仍禁止第三普通资源、任务系统、多生产线、新共鸣节点、节点等级树、额外面板和 telemetry。
+
 ## 2026-05-08 - Harness Engineering Scorecard
 
 ### Files Changed

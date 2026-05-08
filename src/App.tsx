@@ -36,7 +36,11 @@ import {
   unlockResonanceNode,
   type ResonanceNodeId,
 } from "./resonance";
-import { canStardustReturn, performStardustReturn } from "./return";
+import {
+  calculateReturnAfterglowDust,
+  canStardustReturn,
+  performStardustReturn,
+} from "./return";
 import autoCollectorArt from "./assets/auto-collector.webp";
 import stardustCrystalArt from "./assets/stardust-crystal.webp";
 import tuningToolArt from "./assets/tuning-tool.webp";
@@ -114,6 +118,11 @@ export function App() {
   const hasParkedReturnResonance =
     state.resonance > 0 &&
     state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES;
+  const returnAfterglowDust = calculateReturnAfterglowDust(state);
+  const hasActiveReturnAfterglow =
+    hasParkedReturnResonance &&
+    returnAfterglowDust > 0 &&
+    state.dust >= returnAfterglowDust;
   const showResonanceChoiceStatus =
     canChooseResonanceNode ||
     state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES;
@@ -128,6 +137,7 @@ export function App() {
     canChooseResonanceNode,
     canReturn,
     hasParkedReturnResonance,
+    hasActiveReturnAfterglow,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -432,7 +442,12 @@ export function App() {
                 {formatResonanceChoiceHint(state.unlockedResonanceNodes.length)}
               </p>
             ) : null}
-            {hasParkedReturnResonance ? (
+            {hasActiveReturnAfterglow ? (
+              <p className="resonance-choice-hint">
+                共鸣余辉：额外共鸣让新一轮从 {formatNumber(returnAfterglowDust)}{" "}
+                星尘起步
+              </p>
+            ) : hasParkedReturnResonance ? (
               <p className="resonance-choice-hint">
                 共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本
               </p>
@@ -673,6 +688,7 @@ export function formatWorkshopStageNextRequirement(
   canChooseResonanceNode = false,
   canReturn = false,
   hasParkedReturnResonance = false,
+  hasActiveReturnAfterglow = false,
 ): string {
   if (canClaimResonance && workshopStage.name === "星尘引擎室") {
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
@@ -684,6 +700,10 @@ export function formatWorkshopStageNextRequirement(
     }
 
     return "共鸣目标：选择 1 个永久节点，本轮只能启动一个";
+  }
+
+  if (hasActiveReturnAfterglow) {
+    return "归航目标：余辉已点亮新一轮，继续扩建到下一次归航";
   }
 
   if (hasParkedReturnResonance) {

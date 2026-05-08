@@ -67,6 +67,29 @@ describe("stardust return", () => {
     expect(next.lastUpdatedAt).toBe(1000);
   });
 
+  it("starts the next loop with capped afterglow dust from parked resonance", () => {
+    const state = {
+      ...createGameState(0),
+      dust: 100000,
+      autoCollectors: 25,
+      dustPerSecond: 13.75,
+      nextAutoCollectorCost: 252512,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      nextEfficiencyUpgradeCost: 168667,
+      resonance: 4,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 5,
+    };
+
+    const next = performStardustReturn(state, 1000);
+
+    expect(next.resonance).toBe(5);
+    expect(next.dust).toBe(50);
+    expect(next.returnCount).toBe(6);
+  });
+
   it("does not return the workshop before the threshold", () => {
     const state = {
       ...createGameState(0),

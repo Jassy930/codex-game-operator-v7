@@ -14,7 +14,7 @@ Score: 4
 
 Score: 4
 
-v0.5 `星尘归航` 已形成 20 小时方向，并补齐归航后第 2 轮开局的可用共鸣读回和满节点后额外共鸣暂存说明。下一步内容深度压力转向 v0.6 是否需要定义暂存共鸣的新用途。
+v0.6 `归航余辉` 已把满节点后的额外共鸣转成 capped 新一轮起步星尘，重复归航不再只是库存增加。下一步内容深度压力转向余辉是否足够可感知，以及是否需要只调整上限或读回。
 
 ## Mechanical Checks
 
@@ -30,4 +30,4 @@ Score: 3
 
 ## Next Lowest-Score Bet
 
-优先选择 `CONTENT_PLANNING` 或 `HARNESS_MAINTENANCE`：若继续玩法，先判断 v0.6 是否值得提高复杂度预算来消费暂存共鸣；若转向治理，优先处理 `Garbage Collection` 的过期计划和文档真实性检查。
+优先选择 `CONTENT_REVIEW` 或 `HARNESS_MAINTENANCE`：若继续玩法，复核 `归航余辉` 的重复归航节奏；若转向治理，优先处理 `Garbage Collection` 的过期计划和文档真实性检查。

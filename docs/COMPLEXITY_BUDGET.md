@@ -130,6 +130,39 @@ v0.5 仍然禁止：
 - 节点等级树
 - 外部 analytics SDK 或上传 telemetry
 
+## v0.6 Return Afterglow Budget
+
+目标：让满节点后的额外共鸣在重复归航中产生轻量价值，同时避免升级为节点等级树或任务系统。
+
+- Primary resource: 1
+- Secondary resources: max 1
+- Main actions: max 2
+- Upgrade types: max 4
+- Visible panels: max 5
+- First 60 seconds mechanics: max 3
+- First 60 seconds text: under 300 Chinese characters or 180 English words
+- Prestige loop: allowed as `星尘归航`
+- Prestige reward resource: `共鸣`
+- Parked resonance afterglow: allowed
+- Afterglow starting dust bonus: max 50 星尘
+- Resonance resource: allowed
+- Resonance matrix panel: max 1
+- Save format versions: max 3
+- Feedback channels shown in UI: max 1 primary, 1 secondary
+
+v0.6 仍然禁止：
+
+- 第三普通资源
+- 任务系统
+- 复杂地图
+- 多生产线
+- 多个新面板
+- 第三共鸣门槛
+- 新共鸣节点
+- 节点等级树
+- 节点等级
+- 外部 analytics SDK 或上传 telemetry
+
 ## Rule
 
 Every new mechanic must pass:
