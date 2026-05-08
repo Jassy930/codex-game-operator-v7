@@ -99,9 +99,12 @@ export function App() {
   const hasClaimedCurrentResonanceMilestone =
     state.earnedResonanceMilestones.includes(resonanceProgress.id);
   const showResonanceMatrix = workshopStage.name === "星尘引擎室";
-  const showResonanceChoiceHint =
+  const canChooseResonanceNode =
     state.resonance > 0 &&
     state.unlockedResonanceNodes.length < MAX_UNLOCKED_RESONANCE_NODES;
+  const showResonanceChoiceStatus =
+    canChooseResonanceNode ||
+    state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES;
   const stageNextRequirement = formatWorkshopStageNextRequirement(
     workshopStage,
     showOfflineDust,
@@ -110,7 +113,7 @@ export function App() {
     state.unlockedResonanceNodes,
     nextUpgradeTarget,
     resonanceProgress.id,
-    showResonanceChoiceHint,
+    canChooseResonanceNode,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -386,7 +389,7 @@ export function App() {
                 hasClaimedCurrentResonanceMilestone,
               )}
             </p>
-            {showResonanceChoiceHint ? (
+            {showResonanceChoiceStatus ? (
               <p className="resonance-choice-hint">
                 {formatResonanceChoiceHint(state.unlockedResonanceNodes.length)}
               </p>
@@ -510,6 +513,10 @@ function formatResonanceNodeEffect(nodeId: ResonanceNodeId): string {
 }
 
 function formatResonanceChoiceHint(unlockedNodeCount: number): string {
+  if (unlockedNodeCount >= MAX_UNLOCKED_RESONANCE_NODES) {
+    return "共鸣选择：2/2 个永久节点已启动";
+  }
+
   if (unlockedNodeCount === 0) {
     return "选择 1 个永久节点，本轮只能启动一个";
   }

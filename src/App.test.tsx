@@ -377,6 +377,24 @@ describe("App", () => {
     expect(html).not.toContain("回访计划：稳定回路正在放大自动采集");
   });
 
+  it("shows the resonance choice cap after two permanent nodes are active", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 50000,
+      autoCollectors: 25,
+      autoCollectorEfficiencyLevel: 15,
+      autoCollectorEfficiencyMultiplier: 2.5,
+      dustPerSecond: 13.75,
+      nextAutoCollectorCost: 252512,
+      nextEfficiencyUpgradeCost: 168667,
+      earnedResonanceMilestones: ["first-resonance", "second-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+    });
+
+    expect(html).toContain("共鸣选择：2/2 个永久节点已启动");
+    expect(html).toContain("共鸣选择已满 · 调校倍率 +0.05");
+  });
+
   it("credits the second resonance node effect when it starts", () => {
     expect(formatResonanceNodeUnlockMessage("return-coil", 2)).toBe(
       "第 2 个共鸣节点启动：回访线圈 · 离线收益 +10%",
