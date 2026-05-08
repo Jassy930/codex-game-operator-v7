@@ -25,8 +25,9 @@ describe("return route readback", () => {
       current: "余辉起航",
       description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
       routeSummary:
-        "航线摘要：1/3 余辉起航；当前收益：起步星尘已生效；距下一段还差 1 次归航、1 点额外共鸣；按当前路线再归航 1 次即可进入下一段",
-      currentPayoff: "当前收益：额外共鸣已能转成下一轮起步星尘",
+        "航线摘要：1/3 余辉起航；当前收益：下轮起步可重建 1 台自动采集器；距下一段还差 1 次归航、1 点额外共鸣；按当前路线再归航 1 次即可进入下一段",
+      currentPayoff:
+        "当前收益：额外共鸣会转成下一轮起步星尘，可立即重建 1 台自动采集器",
       nextRequirement: "下一段：累计 3 次归航，并保留 2 点额外共鸣",
       progressSummary: "距下一段还差 1 次归航、1 点额外共鸣",
       actionHint:
@@ -52,9 +53,9 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
       routeSummary:
-        "航线摘要：2/3 稳航校准；当前收益：重建时间继续压缩；距下一段还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入下一段",
+        "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 1 台自动采集器；距下一段还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入下一段",
       currentPayoff:
-        "当前收益：余辉开局已稳定，重复归航会继续压缩重建时间",
+        "当前收益：余辉开局已稳定，下轮起步可立即重建 1 台自动采集器",
       progressSummary: "距下一段还差 3 次归航、2 点额外共鸣",
       actionHint:
         "下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
@@ -80,6 +81,23 @@ describe("return route readback", () => {
         "下一步：继续重建工坊并执行 1 次星尘归航，同时保留 2 点额外共鸣",
       cadenceForecast:
         "节奏预判：再归航 1 次后，还需保留 1 点额外共鸣",
+    });
+  });
+
+  it("caps the quantified route payoff at the first three rebuilt collectors", () => {
+    const state = {
+      ...createGameState(0),
+      resonance: 5,
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 3,
+    };
+
+    expect(getReturnRouteReadback(state)).toMatchObject({
+      current: "稳航校准",
+      routeSummary:
+        "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 3 台自动采集器；距下一段还差 3 次归航；按当前路线再归航 3 次即可进入下一段",
+      currentPayoff:
+        "当前收益：余辉开局已稳定，下轮起步可立即重建 3 台自动采集器",
     });
   });
 

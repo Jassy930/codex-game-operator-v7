@@ -1,5 +1,6 @@
-import type { GameState } from "./game";
+import { calculateAffordableAutoCollectors, type GameState } from "./game";
 import { MAX_UNLOCKED_RESONANCE_NODES } from "./resonance";
+import { calculateReturnAfterglowDust } from "./return";
 
 export type ReturnRouteReadback = {
   current: string;
@@ -53,6 +54,7 @@ export function getReturnRouteReadback(
   if (state.returnCount >= 3 && parkedResonance >= 2) {
     const progressSummary = formatRouteProgressGap(state, 6, 4);
     const cadenceForecast = formatRouteCadenceForecast(state, 6, 4);
+    const payoffSummary = formatRoutePayoffSummary(state);
 
     return {
       current: "稳航校准",
@@ -60,12 +62,14 @@ export function getReturnRouteReadback(
       routeSummary: formatRouteSummary(
         2,
         "稳航校准",
-        "重建时间继续压缩",
+        payoffSummary,
         progressSummary,
         cadenceForecast,
       ),
-      currentPayoff:
-        "当前收益：余辉开局已稳定，重复归航会继续压缩重建时间",
+      currentPayoff: `当前收益：余辉开局已稳定，${formatRoutePayoffImmediate(
+        state,
+        "下轮起步",
+      )}`,
       nextRequirement: "下一段：累计 6 次归航，并保留 4 点额外共鸣",
       progressSummary,
       actionHint: formatRouteActionHint(state, 6, 4),
@@ -79,6 +83,7 @@ export function getReturnRouteReadback(
 
   const progressSummary = formatRouteProgressGap(state, 3, 2);
   const cadenceForecast = formatRouteCadenceForecast(state, 3, 2);
+  const payoffSummary = formatRoutePayoffSummary(state);
 
   return {
     current: "余辉起航",
@@ -86,11 +91,13 @@ export function getReturnRouteReadback(
     routeSummary: formatRouteSummary(
       1,
       "余辉起航",
-      "起步星尘已生效",
+      payoffSummary,
       progressSummary,
       cadenceForecast,
     ),
-    currentPayoff: "当前收益：额外共鸣已能转成下一轮起步星尘",
+    currentPayoff: `当前收益：额外共鸣会转成下一轮起步星尘，${formatRoutePayoffImmediate(
+      state,
+    )}`,
     nextRequirement: "下一段：累计 3 次归航，并保留 2 点额外共鸣",
     progressSummary,
     actionHint: formatRouteActionHint(state, 3, 2),
@@ -100,6 +107,37 @@ export function getReturnRouteReadback(
     completedMilestones: 1,
     totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
   };
+}
+
+function formatRoutePayoffSummary(state: GameState): string {
+  const rebuildCount = calculateRoutePayoffRebuildCount(state);
+
+  if (rebuildCount <= 0) {
+    return "额外共鸣尚未形成起步星尘";
+  }
+
+  return `下轮起步可重建 ${rebuildCount} 台自动采集器`;
+}
+
+function formatRoutePayoffImmediate(
+  state: GameState,
+  prefix = "",
+): string {
+  const rebuildCount = calculateRoutePayoffRebuildCount(state);
+
+  if (rebuildCount <= 0) {
+    return "尚未形成可立即重建的起步星尘";
+  }
+
+  return `${prefix}可立即重建 ${rebuildCount} 台自动采集器`;
+}
+
+function calculateRoutePayoffRebuildCount(state: GameState): number {
+  const rebuildCount = calculateAffordableAutoCollectors(
+    calculateReturnAfterglowDust(state),
+  );
+
+  return rebuildCount;
 }
 
 function formatRouteSummary(
