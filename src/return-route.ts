@@ -60,6 +60,7 @@ export function getReturnRouteReadback(
       routeSummary: formatRouteSummary(
         2,
         "稳航校准",
+        "重建时间继续压缩",
         progressSummary,
         cadenceForecast,
       ),
@@ -85,6 +86,7 @@ export function getReturnRouteReadback(
     routeSummary: formatRouteSummary(
       1,
       "余辉起航",
+      "起步星尘已生效",
       progressSummary,
       cadenceForecast,
     ),
@@ -103,11 +105,12 @@ export function getReturnRouteReadback(
 function formatRouteSummary(
   completedMilestones: 1 | 2,
   current: "余辉起航" | "稳航校准",
+  payoffSummary: string,
   progressSummary: string,
   cadenceForecast: string,
 ): string {
   const cadence = cadenceForecast.replace(/^节奏预判：/, "");
-  return `航线摘要：${completedMilestones}/${TOTAL_RETURN_ROUTE_MILESTONES} ${current}；${progressSummary}；${cadence}`;
+  return `航线摘要：${completedMilestones}/${TOTAL_RETURN_ROUTE_MILESTONES} ${current}；当前收益：${payoffSummary}；${progressSummary}；${cadence}`;
 }
 
 function formatRouteProgressGap(

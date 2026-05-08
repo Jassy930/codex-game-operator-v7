@@ -25,7 +25,7 @@ describe("return route readback", () => {
       current: "余辉起航",
       description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
       routeSummary:
-        "航线摘要：1/3 余辉起航；距下一段还差 1 次归航、1 点额外共鸣；按当前路线再归航 1 次即可进入下一段",
+        "航线摘要：1/3 余辉起航；当前收益：起步星尘已生效；距下一段还差 1 次归航、1 点额外共鸣；按当前路线再归航 1 次即可进入下一段",
       currentPayoff: "当前收益：额外共鸣已能转成下一轮起步星尘",
       nextRequirement: "下一段：累计 3 次归航，并保留 2 点额外共鸣",
       progressSummary: "距下一段还差 1 次归航、1 点额外共鸣",
@@ -52,7 +52,7 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
       routeSummary:
-        "航线摘要：2/3 稳航校准；距下一段还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入下一段",
+        "航线摘要：2/3 稳航校准；当前收益：重建时间继续压缩；距下一段还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入下一段",
       currentPayoff:
         "当前收益：余辉开局已稳定，重复归航会继续压缩重建时间",
       progressSummary: "距下一段还差 3 次归航、2 点额外共鸣",
