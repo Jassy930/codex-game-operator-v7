@@ -217,6 +217,44 @@ stalled
     expect(result.output).toContain("Governor state has invalid cycle status: stalled");
   });
 
+  it("fails governor check when runtime docs exceed their line budget", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(
+      join(workspace, "docs/DECISION.md"),
+      `# Decision\n\nDECISION:2026-05-07-operate\n${Array.from({ length: 190 }, (_, index) => `- stale decision ${index}`).join("\n")}\n`,
+    );
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Runtime doc exceeds line budget: docs/DECISION.md");
+  });
+
+  it("fails governor check when runtime docs exceed their size budget", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(
+      join(workspace, "docs/RELEASE_LOG.md"),
+      `# Release Log\n\n## Unreleased\n\n- ${"stale release detail ".repeat(1200)}\n`,
+    );
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Runtime doc exceeds size budget: docs/RELEASE_LOG.md");
+  });
+
   it("collects issue body and comments for routing evidence", () => {
     const workspace = createCollectorWorkspace();
     const binDir = join(workspace, "bin");
@@ -335,6 +373,12 @@ exit 1
 describe("visual assets", () => {
   it("uses the generated stardust workshop background from project assets", () => {
     expect(styles).toContain("./assets/stardust-workshop-bg.webp");
+  });
+
+  it("keeps mobile action buttons compact when they stack vertically", () => {
+    expect(styles).toMatch(
+      /@media \(max-width: 560px\)[\s\S]*\.primary-action,\n  \.upgrade-action \{[\s\S]*flex-basis: auto;/,
+    );
   });
 });
 
@@ -462,6 +506,7 @@ const REQUIRED_HARNESS_FILES = [
   "docs/REVIEW_PROTOCOL.md",
   "docs/ASSET_WORKFLOW.md",
   "docs/ITERATION_POLICY.md",
+  "docs/DOCUMENTATION_POLICY.md",
   "docs/DECISION.md",
   "docs/RELEASE_LOG.md",
   "docs/ISSUE_LEDGER.md",

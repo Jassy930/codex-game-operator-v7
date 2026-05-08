@@ -25,6 +25,7 @@ Defines identity, direction, and non-negotiable priorities.
 - `docs/COMPLEXITY_BUDGET.md`
 - `docs/REVIEW_PROTOCOL.md`
 - `docs/ASSET_WORKFLOW.md`
+- `docs/DOCUMENTATION_POLICY.md`
 
 Defines what the operator may do now.
 

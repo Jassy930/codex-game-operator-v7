@@ -19,6 +19,7 @@ required=(
   "docs/REVIEW_PROTOCOL.md"
   "docs/ASSET_WORKFLOW.md"
   "docs/ITERATION_POLICY.md"
+  "docs/DOCUMENTATION_POLICY.md"
   "docs/DECISION.md"
   "docs/RELEASE_LOG.md"
   "docs/ISSUE_LEDGER.md"
@@ -290,8 +291,45 @@ check_meaningful_iteration_gate() {
   esac
 }
 
+check_runtime_doc_budgets() {
+  runtime_doc_budgets=(
+    "docs/DECISION.md:180:12000"
+    "docs/GOVERNOR_STATE.md:160:12000"
+    "docs/SELF_PLAYTEST.md:220:14000"
+    "docs/RETROSPECTIVE.md:240:14000"
+    "docs/HARNESS_CHANGELOG.md:280:16000"
+    "docs/CONTENT_ARC.md:220:14000"
+    "docs/RESEARCH.md:320:16000"
+    "docs/RELEASE_LOG.md:220:16000"
+  )
+
+  for entry in "${runtime_doc_budgets[@]}"; do
+    file="${entry%%:*}"
+    budget="${entry#*:}"
+    max_lines="${budget%%:*}"
+    max_bytes="${budget##*:}"
+
+    if [ ! -f "$file" ]; then
+      continue
+    fi
+
+    line_count="$(wc -l < "$file" | tr -d '[:space:]')"
+    if [ "$line_count" -gt "$max_lines" ]; then
+      echo "Runtime doc exceeds line budget: $file ($line_count > $max_lines). Archive old detail and keep current state concise."
+      fail=1
+    fi
+
+    byte_count="$(wc -c < "$file" | tr -d '[:space:]')"
+    if [ "$byte_count" -gt "$max_bytes" ]; then
+      echo "Runtime doc exceeds size budget: $file ($byte_count > $max_bytes bytes). Archive old detail and keep current state concise."
+      fail=1
+    fi
+  done
+}
+
 check_complexity_budget
 check_issue_ledger
 check_meaningful_iteration_gate
+check_runtime_doc_budgets
 
 exit "$fail"

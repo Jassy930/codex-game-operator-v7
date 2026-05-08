@@ -54,7 +54,8 @@ Appetite：最多 3 个小切片。
 1. 将 `Cycle Status` 更新为 `completed`。
 2. 在 `docs/GOVERNOR_STATE.md` 的 `Last Updated` 记录本轮验证结果。
 3. 写出下一轮候选 mode/track，除非用户明确暂停。
-4. 如果连续多轮没有玩家可感知变化，优先选择 `CONTENT_REVIEW`、`GAME_RESEARCH`、`PLAYER_FEEDBACK` 或 `PLAYABLE_CONTENT`，不要继续只做文档或 harness。
+4. 按 `docs/DOCUMENTATION_POLICY.md` 检查运行态文档；如果接近预算，先归档和压缩，再继续追加记录。
+5. 如果连续多轮没有玩家可感知变化，优先选择 `CONTENT_REVIEW`、`GAME_RESEARCH`、`PLAYER_FEEDBACK` 或 `PLAYABLE_CONTENT`，不要继续只做文档或 harness。
 
 ## Mix Review
 

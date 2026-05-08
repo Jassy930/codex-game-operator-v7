@@ -194,6 +194,11 @@ h1 {
   background: #d8ded9;
 }
 
+.upgrade-action:disabled .button-art {
+  opacity: 0.72;
+  filter: grayscale(0.35);
+}
+
 .progress-block {
   display: grid;
   gap: 8px;
@@ -359,6 +364,23 @@ dd {
 
   .resource-art {
     width: 72px;
+  }
+
+  .primary-action,
+  .upgrade-action {
+    width: 100%;
+    min-height: 48px;
+    flex-basis: auto;
+    padding: 12px;
+  }
+
+  .upgrade-action {
+    justify-content: flex-start;
+  }
+
+  .button-art {
+    width: 34px;
+    height: 34px;
   }
 
   .title-row,

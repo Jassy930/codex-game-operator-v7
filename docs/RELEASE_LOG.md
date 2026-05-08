@@ -1,124 +1,28 @@
 # Release Log
 
+历史发布流水已归档到 `docs/archive/2026-05-08-runtime-docs/RELEASE_LOG.md`。本文件只保留当前版本窗口和最近高信号变化。
+
 ## Unreleased
 
-- Initialized v7.2 clean-room goal harness project.
-- Bootstrapped the playable local MVP for 星尘工坊 with React, TypeScript, Vite, Vitest, Bun tests, local save/load, click resource loop, passive production, and one upgrade.
-- Added an in-game GitHub Issues feedback link and local-only `feedback_clicked` event queue.
-- Added GitHub Pages workflow for public preview builds from `main`, with pinned Bun/package versions and workflow timeouts.
-- Published the first GitHub Pages preview at `https://jassy930.github.io/codex-game-operator-v7/`.
-- Clarified the first upgrade button copy so the cost reads as required star dust.
-- Added a short first-goal line that tells players to save star dust for the first auto collector.
-- Added a UI-only early milestone line for reaching 2 auto collectors.
-- Added local-only first-session metrics for clicks, upgrades, and first upgrade time.
-- Corrected local metrics so session counters reset when a new app session starts.
-- Added local-only session end and session duration metrics.
-- Changed the auto-collector milestone from fixed `2` to dynamic targets so early progress continues after the second collector.
-- Added a return message that shows star dust earned from offline progress.
-- Added local-only metrics for offline reward messages shown on return.
-- 购买第一台自动采集器后，前 60 秒目标提示会继续指向下一台自动采集器。
-- 记录研究支撑的下一步方向：优先增强购买自动采集器后的轻量确认反馈。
-- 购买自动采集器成功后显示短暂确认反馈，不改变经济数值。
-- 有效本地存档加载时记录 local-only `saveLoadedCount` 指标。
-- 明确 `feedback_sent` 在当前 GitHub 外链反馈流下为 deferred metric，不做本地伪计数。
-- 修正 metrics policy：公开预览阶段仍保持 telemetry local-only。
-- 收口反馈入口文档与 issue ledger 说明，使其匹配当前 GitHub Issue 反馈流。
-- 记录研究结论：无真实反馈时优先降低反馈成本，不新增玩法系统。
-- GitHub Issue 反馈正文改为聚焦“前 60 秒哪里不清楚”。
-- 中文化 metrics 文档说明，保留 storage key 和 metric key 原文。
-- 中文化 self-playtest 文档说明，保留已记录事实和 gap。
-- 中文化 roadmap 文档说明，保留 M0-M5 里程碑结构。
-- 为离线收益和购买确认保留稳定事件反馈区域，减少购买瞬间布局跳动。
-- 将进度条标签从“下个目标”改为“购买进度”，减少目标/里程碑语义混淆。
-- 升级 GitHub Pages workflow actions，移除 Node24 强制兼容开关。
-- 记录研究结论：下一步反馈改进候选是单一 GitHub Issue Form，而不是新增反馈渠道或 analytics。
-- 将游戏内反馈链接迁移到单一 GitHub Issue Form，字段聚焦前 60 秒阻塞点和玩家意图。
-- 记录研究结论：下一步候选是站外 playtest 邀请素材，不在游戏首屏新增提示。
-- README 增加站外 playtest 邀请素材，继续复用公开预览和单一 GitHub Issue Form。
-- 中文化反馈聚类文档模板，保持 M3 反馈处理文档一致。
-- 中文化 signal routing 和 response budget 文档，保持 M3 反馈处理规则一致。
-- 中文化反馈入口文档剩余小节名和字段标签。
-- 增加 local-only 最近 session 汇总指标，保留最近 10 个 session，用于本机回看。
-- 根据 Issue #1 增加采集动机文案和短暂采集反馈，说明星尘会转化为自动采集器和持续生产。
-- 收紧反馈闭环自动化检查：governor check 验证 issue 聚类、decision 锚点和 release evidence，反馈采集脚本记录 issue 正文、评论和 ledger draft。
-- 修正反馈采集脚本，显式记录 issue 原始正文和评论，避免只采集回复评论。
-- 增加 `调校工具` 升级候选：玩家可用星尘提升自动采集器效率，仍保持单一资源和现有主屏。
-- 调校工具在没有自动采集器时会提示“需要先购买自动采集器”，避免禁用按钮只显示星尘成本。
-- 发布 Soft Automation 周期收口：commit `7a15e5d`，Pages workflow `25474199644` 成功，公开预览 HTTP 200。
-- 新增 Asset Workflow 文档，要求未来图片素材需求显式评估 `imagegen` 并记录决策理由。
-- 记录 Asset Workflow 应用结论：当前没有明确视觉素材缺口，本轮不生成图片或新增 `src/assets/`。
-- 更新 Roadmap 当前状态：M0-M3 已基本完成，M4/M5 持续运营中，下一步必须来自新反馈、明确 gap、research-backed decision 或可验证 harness 缺口。
-- 记录首屏文案预算审计：调校工具上线后首屏仍低于 300 中文字符预算，本轮不触发 SIMPLIFY。
-- 记录窄屏动作区布局复核：现有 CSS 已支持按钮换行和 560px 以下纵向排列，本轮不改 UI。
-- 补充 metrics 本地查看方式，说明 operator 如何读取当前 session、最近 session history 和 feedback click queue。
-- 根据 Issue #2 调整目标提示：调校工具出现后明确“下一台自动采集器或第一次调校”，已有调校后明确“扩建或调校”，不新增资源、按钮或面板；commit `d2d2f94` 已部署，Pages workflow `25475915357` 成功。
-- 修正极小离线收益提示：低于 `0.1` 星尘时不显示“离线获得 0 星尘”，也不记录为已展示的离线收益；commit `007ab8a` 已部署，Pages workflow `25476168560` 成功。
-- 进入 3-5 分钟参与度阶段：前 60 秒清晰度转为回归护栏，下一步聚焦第 3-5 分钟的目标清晰度、升级节奏和回访理解。
-- 增加阶段推进节奏：同一时间窗连续 no-change 后必须扩大时间窗、定义内容弧线或等待真实反馈，避免卡在单一阶段。
-- 使用 imagegen 生成并接入 `src/assets/stardust-workshop-bg.webp`，作为低噪音星尘工坊背景；不新增玩法、资源、按钮或面板。
-- 将主屏统计里的“点击收益”替换为“调校倍率”，让 3-5 分钟阶段能看到调校工具的效率成长；不新增资源、按钮或面板。
-- 进入 v0.2 / 3-15 分钟版本规划：复杂度预算改为 v0.1/v0.2 分层，v0.2 允许内容弧线、阶段里程碑和延后解锁文案，但仍禁止第二资源、prestige、任务系统和新多面板。
-- 增加 v0.2 工坊阶段：根据自动采集器数量和调校等级显示阶段名、说明和下一阶段条件，形成 3-15 分钟内容弧线；不新增资源、按钮、面板或存档字段。
-- 使用 imagegen 生成并接入星尘、自动采集器、调校工具三张项目内物件插图，强化核心链路视觉表现；不新增玩法、资源、按钮或面板。
-- 新增 `docs/CONTENT_ARC.md`，定义 0-60 分钟、3-15 分钟、15-60 分钟和首次回访的内容弧线。
-- 将固定自动采集器购买进度改为“下一升级进度”，在自动采集器和调校工具之间指向当前更近的升级目标；不新增资源、按钮、面板或存档字段。
-- 购买动作导致工坊阶段变化时，事件区显示“工坊升级”反馈；未跨阶段的购买仍保留原有确认文案。
-- “下一阶段”文案补充下一层阶段名称，让玩家看到开启星尘小间、进入稳定工坊或点亮星尘引擎室的延后目标；不新增 UI 区块或玩法系统。
-- `星尘引擎室` 达成后的后续目标改为首次回访文案，引导玩家查看离线星尘；不新增资源、按钮、面板、存档字段或指标字段。
-- 处理 review 发现的治理缺口：创建并回填 `feedback` label，让反馈采集验证必需 label，更新 Pages workflow 生成脚本为当前 `deploy-pages.yml` 标准，并补 Retrospective/Governor State 收口。
-- `下一阶段` 文案显示当前进度，例如自动采集器和调校次数的当前值/目标值，让 3-15 分钟阶段条件更可验证；不新增资源、按钮、面板、升级类型、存档字段或指标字段。
-- 记录 15-60 分钟和首次回访 self-playtest no-change：`星尘引擎室` 后仍有升级推进，现有离线收益目标可解释回访，本轮不新增玩法或 UI。
-- 首次回访时如果离线收益实际可见，`星尘引擎室` 阶段目标会提示花掉离线星尘继续扩建或调校；不新增资源、按钮、面板、存档字段或指标字段。
-- 首次回访后如果离线收益已消费到暂时买不起下一次升级，`星尘引擎室` 阶段目标会提示继续攒下一次升级；不新增资源、按钮、面板、存档字段或指标字段。
-- 研究下一阶段内容方向：将 `星尘共鸣节点` 作为回访后的候选里程碑内容，暂不实现第二资源、prestige、主动 boost、新面板或存档字段。
-- 进入 v0.3 共鸣系统设计：新增 v0.3 复杂度预算，允许 1 个第二资源、1 个共鸣矩阵面板、v2 存档和最多 3 个 local-only 共鸣指标字段；prestige、任务系统、多生产线和多个新面板继续禁止。
-- 实现 v0.3 共鸣系统第一版：新增第二资源 `共鸣`、v2 存档迁移、首个共鸣里程碑、`共鸣矩阵` 三选一永久节点，以及 local-only 共鸣触达指标；仍不引入 prestige、任务系统、多生产线或多个新面板。
-- 共鸣节点消耗后，已选节点显示“已启动”，其他节点显示“本轮已选择其他节点”，让三选一永久选择的结果更清楚；不改数值、资源、存档或面板数量。
-- 共鸣节点选择状态切片已推送为 commit `3ce0051`；本地验证通过，但当前环境无法连接 GitHub API 或解析 Pages 域名，暂未确认本次 Pages workflow/公开预览状态。
-- 首次共鸣已领取但尚未消费时，`共鸣矩阵` 会提示“选择 1 个永久节点，本轮只能启动一个”；不改数值、资源、存档、指标或面板数量。
-- 共鸣选择前说明切片已推送为 commit `1d097df`；本地验证通过，但当前环境无法连接 GitHub API 或解析 Pages 域名，暂未确认本次 Pages workflow/公开预览状态。
-- 首个共鸣门槛已达成但尚未领取时，阶段目标会提示领取首个共鸣并选择 1 个永久节点；不改数值、资源、存档、指标或面板数量。
-- 首个共鸣领取目标切片已推送为 commit `b3d211c`；本地验证通过，但当前环境无法连接 GitHub API 或解析 Pages 域名，暂未确认本次 Pages workflow/公开预览状态。
-- 首个共鸣节点启动后，阶段目标会根据已选节点提示下一步价值：稳定回路指向扩建自动采集器，回访线圈指向再次回访，调校刻印指向继续调校；不改数值、资源、存档、指标或面板数量。切片已推送为 commit `3f3c9f9`；本地验证通过，但当前环境无法连接 GitHub API 或解析 Pages 域名，暂未确认本次 Pages workflow/公开预览状态。
-- 已启动 `回访线圈` 后，如果回访时出现离线收益提示，阶段目标会把收益归因到回访线圈，再指向花掉收益继续扩建或调校；不改数值、资源、存档、指标或面板数量。切片已推送为 commit `36c046c`；本地验证通过，但当前环境无法连接 GitHub API 或解析 Pages 域名，暂未确认本次 Pages workflow/公开预览状态。
-- 已启动 `调校刻印` 后，购买调校工具时事件反馈会显示“调校刻印共振”和有效调校倍率；不改数值、资源、存档、指标或面板数量。切片已推送为 commit `7c11fe6`；本地验证通过，但当前环境无法连接 GitHub API 或解析 Pages 域名，暂未确认本次 Pages workflow/公开预览状态。
-- 已启动 `稳定回路` 后，购买自动采集器时事件反馈会显示“稳定回路共振”和当前每秒星尘；不改数值、资源、存档、指标或面板数量。切片已推送为 commit `a7a30a8`；本地验证通过，Pages workflow/公开预览状态仍待远端检查。
-- 首个共鸣已领取后，`共鸣矩阵` 的门槛进度行会显示“首个共鸣已领取”，避免满进度误导玩家以为还能重复领取；不改数值、资源、存档、指标或面板数量。切片已推送为 commit `14f70ca`；本地验证通过，Pages workflow/公开预览状态仍待远端检查。
-- 记录 v0.3 共鸣闭环 no-change/stage review：没有新 issue、可读 local-only 指标样本或新的 self-playtest gap 时，不新增第二个共鸣面板、更多节点、prestige、任务系统、多生产线或新资源。
-- 记录首个共鸣后 8 小时时间窗 stage review：主动模拟仍有升级推进，但没有新的可复现 UI/玩法 gap；继续等待真实反馈、可读 local-only 指标样本或 research-backed 下一版本决策。
-- 首个共鸣后 8 小时时间窗 stage review 已推送为 commit `85b7ecc`；本地验证通过，Pages workflow 状态仍待远端 API 恢复后确认。
-- 研究首个共鸣闭环后的下一阶段方向：下一步候选收敛为 `回访计划读回`，优先解释离开、回访和下一次等待目标；仍不新增第二个共鸣面板、更多节点、第二个共鸣里程碑、prestige、任务系统、多生产线或新资源。
-- 回访计划读回研究决策已推送为 commit `bb1953e`；本地验证通过，Pages workflow / 公开预览状态仍待远端 API 和 DNS 恢复后确认。
-- 回访计划读回第一版复用现有阶段目标行：首个共鸣节点已启动且当前买不起下一升级时，会说明已选节点正在产生的价值，并读回攒到哪项升级；不新增资源、按钮、面板、存档字段或指标字段。
-- 回访计划读回切片已推送为 commit `add78fd`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 新增 local-only 指标快照读回：`window.stardustWorkshopMetricsSnapshot()` 会一次性返回当前 session、最近 session history、storage key 和反馈点击计数，方便 operator 记录共鸣触达证据；不新增指标字段、上传路径、UI 面板或玩法系统。
-- 本地指标快照读回切片已推送为 commit `a13759a`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 回访计划读回现在会在可计算时显示大致等待时间，例如“约 29 分钟后可购买调校工具”；无法计算时仍回退到目标成本文案。不新增资源、按钮、面板、存档字段或指标字段。
-- 回访计划等待时间读回切片已推送为 commit `68225a7`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- Release recovery：上一轮本地文档状态提交 `7257098 docs: record wait time release status` 已推送到 `origin/main`。
-- 本地指标快照新增 `activeSessionDurationMs` 派生读回字段；页面仍打开、session 尚未结束时，operator 可直接读取当前本机 self-playtest 持续时长。不新增 localStorage key、采集事件、上传路径、UI 或玩法系统。
-- 活跃 session 时长快照读回切片已推送为 commit `f31038f`；本地验证通过，`gh run list` 仍无法连接 `api.github.com`，`curl` 仍无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 远端验证恢复：最近 5 次 `Deploy Pages` workflow 均 completed/success，最新 run `25534948014` 对应 commit `412686e`；公开预览返回 HTTP 200。
-- 真实浏览器 metrics 快照读回通过：headless Chrome 页面中 `window.stardustWorkshopMetricsSnapshot()` 可用，点击 2 次后返回 `clickCount=2`、`sessionDurationMs=null`、`activeSessionDurationMs=16870`。Issue #1/#2 无新补充，本轮不回复 issue、不新增玩法。
-- 进入 v0.4 / 20 小时共鸣延展：新增 v0.4 复杂度预算，允许最多 2 个共鸣里程碑、最多启动现有 3 个共鸣节点中的 2 个；仍禁止新资源、新面板、新节点、prestige、任务系统和多生产线。
-- 第二共鸣门槛已接入现有 `共鸣矩阵`：首个共鸣领取后会显示“下一共鸣：自动采集器 20/25，调校 12/15”，达到 25 台自动采集器和 15 次调校后可领取第 2 点共鸣。
-- 第二点共鸣可用于启动第 2 个现有永久节点，矩阵提示“选择第 2 个永久节点，最多启动 2 个”；不新增存档版本、指标字段、面板或节点。
-- v0.4 第二共鸣切片已推送为 commit `986a06d`；本地验证通过，`gh run list` 当前无法连接 `api.github.com`，`curl` 无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 第二个节点启动后，`星尘引擎室` 的同一阶段目标行会同时读回两个已启动节点价值，并继续显示下一次升级的大致等待时间；不新增第三共鸣门槛、新节点、面板、存档字段或指标字段。
-- v0.4 双节点回访计划读回切片已推送为 commit `1c390e6`；本地验证通过，`gh run list` 当前无法连接 `api.github.com`，`curl` 无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 第二共鸣已领取但尚未消费时，`星尘引擎室` 的同一阶段目标行会优先提示“选择第 2 个永久节点，最多启动 2 个”，避免提前回到等待升级的回访计划；不新增第三共鸣门槛、新节点、面板、存档字段或指标字段。
-- v0.4 第二共鸣未消费目标切片已推送为 commit `714a096`；本地验证通过，`gh run list` 当前无法连接 `api.github.com`，`curl` 无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 第二个共鸣节点启动时，现有事件反馈区会显示“第 2 个共鸣节点启动：节点名 · 节点效果”，让 16-20 小时窗口的第二次永久选择立即读回价值；不新增第三共鸣门槛、新节点、面板、存档字段或指标字段。
-- v0.4 第二共鸣节点启动反馈切片已推送为 commit `77d55c2`，release 状态已记录为 commit `2102da9`；本地验证通过，`gh run list` 当前无法连接 `api.github.com`，`curl` 无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 第二点共鸣消耗完、2 个现有永久节点都已启动后，`共鸣矩阵` 会显示“共鸣选择：2/2 个永久节点已启动”；不新增第三共鸣门槛、新节点、面板、存档字段或指标字段。切片已推送为 commit `1c36f9b`；本地验证通过，`gh run list` 当前无法连接 `api.github.com`，`curl` 无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 接近 20 小时时，若 2 个现有永久节点都已启动且下一升级进度达到 90% 以上，`星尘引擎室` 阶段目标会显示“20 小时巡航”，读回两个节点价值和下一次升级等待时间；不新增第三共鸣门槛、新节点、面板、存档字段或指标字段。切片已推送为 commit `83e34ea`；本地验证通过，`gh run list` 当前无法连接 `api.github.com`，`curl` 无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 2 个现有永久节点都已启动后，`星尘引擎室` 的回访计划和 20 小时巡航目标会显示双节点组合名，例如“采集回访组合”“采集调校组合”“回访调校组合”，再读回两个节点价值和下一次升级等待时间；不新增第三共鸣门槛、新节点、面板、存档字段或指标字段。切片已推送为 commit `47c5fab`，release 状态已记录；本地验证通过，`gh issue list` 和 `gh run list` 当前无法连接 `api.github.com`，`curl` 无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 2 个现有永久节点都已启动后，`共鸣矩阵` 进度行会显示“当前版本共鸣目标已完成”，保留自动采集器 25/25 和调校 15/15 进度；不新增第三共鸣门槛、新节点、面板、存档字段或指标字段。切片已推送为 commit `5dbfd88`；本地验证通过，`gh issue list` 和 `gh run list` 当前无法连接 `api.github.com`，`curl` 无法解析 Pages 域名，Pages workflow / 公开预览状态待远端网络恢复后确认。
-- 进入 v0.5 / 星尘归航规划：新增 v0.5 Stardust Return Budget，允许一个受限 prestige loop，归航奖励资源固定为现有 `共鸣`，第一版只允许新增 `returnCount` 存档字段。
-- 将 `星图巡航` 降级为后续辅助计划，v0.5 主线改为 `星尘归航`；第一版不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点、节点等级树或外部 telemetry。
-- `governor-check` 现在校验 v0.5 预算存在、归航 loop 明确受限、奖励资源保持为 `共鸣`、存档版本上限为 3，并显式禁止第三普通资源。
-- 存档版本升级到 v3，并新增 `returnCount` 字段；新游戏默认为 `0`，v1/v2 旧存档加载时自动补默认值。该切片只做 `星尘归航` 的持久化准备，不新增归航按钮或重置逻辑。
-- 新增 Meaningful Iteration Gate：每轮必须在 governor state 中声明 iteration track、expected content advance、evidence source 和 required artifact；`governor-check` 会阻止无主题的小改动式迭代。本地验证通过：`bun test` 88 pass，`bun run test` 88 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0。
-- 新增 Iteration Policy：每轮必须记录 `Cycle Bet` 和 `Cycle Status`，完成后总结机制/学习更新并写出下一候选 mode/track；`governor-check` 会阻止缺少 cycle bet、空 evidence/artifact 或非法 cycle status 的迭代状态。
-- 实现 v0.5 `星尘归航` 第一版：达到 25 台自动采集器和 15 次调校后，现有 `共鸣矩阵` 会显示 `星尘归航 +1 共鸣`；归航重启本轮工坊，奖励固定 `1 共鸣`，保留共鸣里程碑、已启动永久节点和归航次数，并停止为新状态暴露 `second-resonance` 可领取入口。
-- 优化移动端操作按钮视觉：窄屏纵向堆叠时不再被 `flex-basis: 180px` 拉高，升级按钮图标和禁用态更紧凑清晰；不新增图片、玩法、资源、按钮或面板。
+- 新增 runtime 文档预算政策并压缩当前运行态文档；历史细节归档到 `docs/archive/2026-05-08-runtime-docs/`，保留 Issue #1/#2 decision anchors 和当前 v0.5 归航方向。
+- `governor-check` 对运行态文档同时检查行数和文件大小，避免超长单行继续制造文档膨胀。
+
+## Current Playable State
+
+- v0.5 `星尘归航` 第一版已实现：达到 25 台自动采集器和 15 次调校后，现有 `共鸣矩阵` 显示 `星尘归航 +1 共鸣`。
+- 归航重启本轮工坊，奖励固定 `1 共鸣`，保留共鸣、已启动永久节点、已领取共鸣里程碑和归航次数。
+- 归航后有可用共鸣时，阶段目标优先提示用共鸣启动永久节点；两个永久节点已满后，目标提示继续归航积累共鸣。
+- `共鸣矩阵` 仍保持最多 2 个永久节点，不新增第三共鸣门槛、新节点、节点等级树、任务系统、多生产线或额外面板。
+
+## Recent Released Anchors
+
+- `80c2e24 chore: harden iteration policy`: 新增 `Cycle Bet`、`Cycle Status` 和每轮收口规则。
+- `59ef884 feat: add stardust return loop`: 完成 v0.5 `星尘归航` 第一版。
+- `986a06d feat: add second resonance milestone`: 将 v0.4 目标拉向 20 小时，复用现有 `共鸣矩阵` 增加第二共鸣门槛和第二个现有节点选择。
+- `d2d2f94`: Issue #2 post-60s engagement 目标提示修复已发布。
+- `861ba0b`: Issue #1 first-60s collect motivation 修复已发布。
+
+## Verification Notes
+
+- 本地标准验证链路：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh`、`git diff --check`。
+- 远端 `gh run list` / Pages DNS 曾多次受网络影响；不能把远端不可达当成本地完成的前置条件，但需要在最终结果中说明。
