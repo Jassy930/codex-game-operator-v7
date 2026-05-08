@@ -98,6 +98,7 @@ export function App() {
     canBuyAutoCollector || canBuyEfficiencyUpgrade,
     resonanceProgress.canClaim,
     state.unlockedResonanceNodes,
+    nextUpgradeTarget,
   );
   const goalHint = formatGoalHint(
     state.autoCollectors,
@@ -541,6 +542,7 @@ export function formatWorkshopStageNextRequirement(
   canSpendVisibleOfflineReward: boolean,
   canClaimResonance = false,
   unlockedResonanceNodes: string[] = [],
+  nextUpgradeTarget?: { label: string; cost: number },
 ): string {
   if (canClaimResonance && workshopStage.name === "星尘引擎室") {
     return "共鸣目标：领取首个共鸣，再选择 1 个永久节点";
@@ -562,6 +564,15 @@ export function formatWorkshopStageNextRequirement(
     return "回访目标：花掉离线星尘，继续扩建或调校引擎室";
   }
 
+  const returnPlanningReadback = formatReturnPlanningReadback(
+    unlockedResonanceNodes,
+    canSpendVisibleOfflineReward,
+    nextUpgradeTarget,
+  );
+  if (returnPlanningReadback && workshopStage.name === "星尘引擎室") {
+    return returnPlanningReadback;
+  }
+
   const selectedResonanceGoal = formatSelectedResonanceGoal(
     unlockedResonanceNodes,
   );
@@ -570,6 +581,33 @@ export function formatWorkshopStageNextRequirement(
   }
 
   return workshopStage.nextRequirement;
+}
+
+function formatReturnPlanningReadback(
+  unlockedResonanceNodes: string[],
+  canSpendNextUpgrade: boolean,
+  nextUpgradeTarget?: { label: string; cost: number },
+): string {
+  if (canSpendNextUpgrade || !nextUpgradeTarget) {
+    return "";
+  }
+
+  const selectedNode = unlockedResonanceNodes[0];
+  const nextUpgradeCopy = `攒到 ${formatNumber(nextUpgradeTarget.cost)} 星尘再购买${nextUpgradeTarget.label}`;
+
+  if (selectedNode === "stable-circuit") {
+    return `回访计划：稳定回路正在放大自动采集，${nextUpgradeCopy}`;
+  }
+
+  if (selectedNode === "return-coil") {
+    return `回访计划：回访线圈会放大离线收益，${nextUpgradeCopy}`;
+  }
+
+  if (selectedNode === "tuning-engraving") {
+    return `回访计划：调校刻印已提高调校价值，${nextUpgradeCopy}`;
+  }
+
+  return "";
 }
 
 function formatSelectedResonanceGoal(unlockedResonanceNodes: string[]): string {

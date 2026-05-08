@@ -301,6 +301,7 @@ describe("App", () => {
   it("points the stage goal at the selected resonance node value", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
+      dust: 30000,
       autoCollectors: 20,
       autoCollectorEfficiencyLevel: 12,
       autoCollectorEfficiencyMultiplier: 2.2,
@@ -315,6 +316,28 @@ describe("App", () => {
       "共鸣目标：稳定回路已启动，继续扩建自动采集器放大产出",
     );
     expect(html).not.toContain("长期目标：离开一会儿再回来");
+  });
+
+  it("reads back the next return plan when a resonance node is active and the next upgrade is not affordable", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 12000,
+      autoCollectors: 20,
+      autoCollectorEfficiencyLevel: 12,
+      autoCollectorEfficiencyMultiplier: 2.2,
+      dustPerSecond: 9.68,
+      nextAutoCollectorCost: 33253,
+      nextEfficiencyUpgradeCost: 28922,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit"],
+    });
+
+    expect(html).toContain(
+      "回访计划：稳定回路正在放大自动采集，攒到 28,922 星尘再购买调校工具",
+    );
+    expect(html).not.toContain(
+      "共鸣目标：稳定回路已启动，继续扩建自动采集器放大产出",
+    );
   });
 
   it("credits return coil when offline resonance rewards are visible", () => {

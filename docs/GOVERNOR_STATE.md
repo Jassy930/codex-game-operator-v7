@@ -2,23 +2,23 @@
 
 ## Selected Mode
 
-RESEARCH
+SELF_PLAYTEST
 
 ## Reason
 
-v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束、选择后节点状态、节点启动后的目标文案、三个节点基础价值反馈、首个共鸣已领取进度和首个共鸣后 8 小时时间窗 stage review 都已收敛。继续在同一 v0.3 闭环里记录 no-change 会违反阶段推进节奏；本轮切换到 RESEARCH，用 idle / incremental game 研究资料定义下一步允许的低复杂度方向。
+上一轮 RESEARCH 已把下一道低复杂度方向收敛为 `回访计划读回`。当前 `gh issue list` 仍无法连接 `api.github.com`，本地反馈快照只有旧 Issue #1/#2，`data/metrics/events.jsonl` 为空，没有新真实反馈或可读指标样本。因此本轮切换到 SELF_PLAYTEST，从“首个共鸣节点已启动且当前暂时买不起下一升级”的状态切入，验证现有阶段目标是否能解释下一次离开/回访等待目标。
 
 ## Allowed Actions
 
-- 调研 idle / incremental game 在长期计划、离线回访和低交互参与度上的设计原则。
-- 将研究结论收敛为一个可追溯 decision anchor。
-- 更新 `docs/RESEARCH.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md`。
-- 明确下一步允许的小切片边界，但不在本轮实现玩法代码。
+- 复用现有阶段目标或事件反馈区，实现一个 `回访计划读回` 小切片。
+- 只使用当前星尘、每秒星尘、下一次自动采集器成本、下一次调校成本和已选共鸣节点。
+- 用 TDD 覆盖一个具体 self-playtest 状态。
+- 更新 `docs/SELF_PLAYTEST.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md`。
 - 运行完整本地验证：`bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 不实现玩法代码、存档迁移、指标字段或 UI 面板。
+- 不新增 UI 面板、按钮、资源、存档字段、指标字段或数值系统。
 - 不新增 prestige、任务系统、复杂地图、多生产线、第二个共鸣面板或更多共鸣节点。
 - 不新增反馈渠道、analytics SDK、上传 telemetry 或个人数据收集。
 - 不修改 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
@@ -26,17 +26,19 @@ v0.3 共鸣系统第一版已经发布，首个共鸣可领取、选择前约束
 
 ## Exit Criteria
 
-- 研究资料已记录到 `docs/RESEARCH.md`。
-- `docs/DECISION.md` 已记录下一步产品方向和禁止项。
-- `docs/CONTENT_ARC.md` 和 `docs/ROADMAP.md` 已把下一道闸门从重复 v0.3 no-change 调整到回访计划读回或真实反馈。
+- 一个具体 `回访计划读回` gap 已记录到 `docs/SELF_PLAYTEST.md` 和 `docs/DECISION.md`。
+- 实现仅复用现有阶段目标/进度信息，不增加复杂度预算项。
+- `docs/CONTENT_ARC.md`、`docs/ROADMAP.md` 和 `docs/RELEASE_LOG.md` 已同步当前状态。
 - 完整本地验证通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现治理漂移。v0.3 已按预算新增 1 个第二资源和 1 个面板，但没有引入 prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。本轮仅做 research-backed 决策，不新增玩法复杂度。
+未发现治理漂移。v0.3 已按预算新增 1 个第二资源和 1 个面板，但没有引入 prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。本轮只允许提示层读回，不新增玩法复杂度。
 
 ## Last Updated
+
+2026-05-08: 切换到 SELF_PLAYTEST；上一轮 research-backed 方向 `回访计划读回` 已进入实现切片。本轮只允许复用现有阶段目标读回已选共鸣节点和下一升级等待目标，不新增资源、按钮、面板、存档字段或指标字段。
 
 2026-05-06: RELEASE_INFRA 收尾完成；workflow run `25430225912` 成功，公开预览 HTTP 200，工作区检查无未提交变更。切换到 SELF_PLAYTEST。
 
