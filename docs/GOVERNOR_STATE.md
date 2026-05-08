@@ -12,23 +12,23 @@ CONTENT_REVIEW
 
 ## Cycle Bet
 
-目标：复核 v0.7 `归航航线` 的余辉收益读回，避免起步星尘被花掉后退回“共鸣暂存”。
+目标：复核 v0.7 `归航航线` 的行动提示，把“再归航会自然补足额外共鸣”的节奏读出来。
 Appetite：1 个派生 UI 读回切片。
-包括：余辉已投入文案、现有 `共鸣矩阵` 展示条件、SSR 测试和运行态文档同步。
+包括：节奏预判文案、现有 `共鸣矩阵` 展示、SSR/单元测试和运行态文档同步。
 不包括：新增第三资源、节点、节点等级树、任务系统、多生产线、额外面板、存档字段、视觉资产、余辉公式、归航奖励或 telemetry。
-完成定义：玩家在花掉余辉起步星尘后，仍能在 `共鸣矩阵` 读懂余辉已经投入本轮重建节奏。
+完成定义：玩家在看见下一段门槛时，能读懂还需要几次归航，以及这些归航是否已经足以带来所需额外共鸣。
 
 ## Expected Content Advance
 
-把 v0.7 `归航航线` 的当前收益读回补到余辉实际使用后：复用现有 `共鸣矩阵`，持续显示余辉起步星尘和可支撑的自动采集器数量。
+把 v0.7 `归航航线` 的行动提示补成节奏预判：复用现有 `共鸣矩阵`，说明按当前路线再归航几次是否可直接进入下一段，或归航次数达标后还差几点额外共鸣。
 
 ## Evidence Source
 
-`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md` 和上一轮自动化记忆都指向：v0.7 已补齐当前收益读回，下一步应复核航线可读性，并只做航线文案、门槛或读回优先级微调。手动 SSR 状态显示：起步星尘被花掉后，矩阵仍退回“共鸣暂存”。
+`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md` 和上一轮自动化记忆都指向：v0.7 已补齐余辉已投入读回，下一步应复核航线行动提示是否减少迷失感，并只做航线文案、门槛或读回优先级微调。代码阅读显示：当前 `actionHint` 会同时列出归航次数与额外共鸣，但没有说明归航本身会继续产出共鸣。
 
 ## Required Artifact
 
-更新 `src/App.tsx`、`src/App.test.tsx`、`docs/plans/2026-05-09-v07-afterglow-spent-readback-design.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/QUALITY_SCORE.md`、`docs/RELEASE_LOG.md` 和本文件。
+更新 `src/return-route.ts`、`src/return-route.test.ts`、`src/App.tsx`、`src/App.test.tsx`、`docs/plans/2026-05-09-v07-route-cadence-forecast-design.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/SELF_PLAYTEST.md`、`docs/ROADMAP.md`、`docs/QUALITY_SCORE.md`、`docs/RELEASE_LOG.md` 和本文件。
 
 ## Cycle Status
 
@@ -36,12 +36,12 @@ completed
 
 ## Reason
 
-`归航余辉` 已经提供可感知的起步星尘，但旧 UI 只在当前星尘仍未花掉时显示余辉读回。玩家按目标花掉星尘后，界面会把额外共鸣描述成等待后续版本，和实际“已投入本轮重建”的体验不一致。
+`归航航线` 已经给出下一段门槛和下一步行动，但重复归航同时会增加 `returnCount` 和额外共鸣。若只列出两项差距，玩家可能误读成“先做 N 次归航，再另外补 M 点共鸣”。这轮只补预判文案，让长期目标更可执行。
 
 ## Allowed Actions
 
-- 用 TDD 增加余辉已投入 SSR 读回测试。
-- 复用现有 `共鸣矩阵` 显示余辉起步星尘和已投入文案。
+- 用 TDD 增加航线节奏预判的单元测试和 SSR 读回测试。
+- 复用现有 `共鸣矩阵` 显示节奏预判。
 - 更新内容弧线、roadmap、decision、release、自测记录和 governor 状态。
 
 ## Forbidden Actions
@@ -53,15 +53,15 @@ completed
 
 ## Exit Criteria
 
-- 余辉已投入读回只从现有额外共鸣、永久节点和当前星尘派生。
-- `共鸣矩阵` 在起步星尘已花掉时仍显示 `归航余辉`，并不退回“等待后续版本扩展用途”。
+- 节奏预判只从现有 `returnCount`、额外共鸣和目标门槛派生。
+- `共鸣矩阵` 在未贯通航线时说明再归航几次能否直接进入下一段。
 - `归航航线` 仍最多 3 段，并只从现有状态派生。
 - 相关运行态文档同步当前方向。
 - 完整验证通过或明确记录验证缺口。
 
 ## Next Candidate Mode / Track
 
-下一轮优先 `CONTENT_REVIEW`：复核余辉已投入读回和航线行动提示是否让重复归航后的长期价值更清楚；若继续扩展，只做航线文案或节奏微调，不新增系统。
+下一轮优先 `CONTENT_REVIEW`：复核节奏预判是否让重复归航后的长期目标更清楚；若继续扩展，只做航线文案或节奏微调，不新增系统。
 
 ## Drift Status
 
@@ -69,4 +69,4 @@ completed
 
 ## Last Updated
 
-2026-05-09: 本轮完成 v0.7 `归航余辉` 已投入读回复核。`共鸣矩阵` 现在只要两个永久节点已满且存在额外共鸣，就持续显示余辉起步星尘和可支撑的自动采集器数量；当前星尘已低于余辉起步值时，文案说明余辉已投入本轮重建节奏，不再退回“等待后续版本扩展用途”。不改变存档、资源、节点、归航奖励或余辉公式。红灯测试先失败于旧 UI 缺少余辉已投入文案，补实现后转绿。验证通过：`bun test` 116 pass，`bun run test` 116 pass，`bun run build` 成功，`./ops/governor-check.sh` 成功，`git diff --check` 成功。验证缺口：`gh issue list` 因 `error connecting to api.github.com` 失败；本轮提交后仍需尝试推送。
+2026-05-09: 本轮完成 v0.7 `归航航线` 节奏预判复核。`ReturnRouteReadback` 新增 `cadenceForecast`，现有 `共鸣矩阵` 会显示按当前路线再归航几次是否即可进入下一段，或归航次数达标后还差几点额外共鸣；三段贯通后转为长期储备预判。阶段目标仍保持短行动提示。不改变存档、资源、节点、归航奖励或余辉公式。红灯测试先失败于缺少 `cadenceForecast` 字段和 UI 读回，补实现后转绿。验证通过：`bun test` 117 pass，`bun run test` 117 pass，`bun run build` 成功。浏览器冒烟缺口：本地 Vite 可启动在 `http://127.0.0.1:5174/`，但 in-app Browser 返回无可用窗格。
