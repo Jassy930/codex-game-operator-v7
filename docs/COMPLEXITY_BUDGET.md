@@ -98,6 +98,38 @@ v0.4 仍然禁止：
 - 新共鸣节点
 - 外部 analytics SDK 或上传 telemetry
 
+## v0.5 Stardust Return Budget
+
+目标：把 v0.4 的 20 小时目标骨架升级为可重复的 prestige 长线循环，让共鸣成为归航奖励资源。
+
+- Primary resource: 1
+- Secondary resources: max 1
+- Main actions: max 2
+- Upgrade types: max 4
+- Visible panels: max 5
+- First 60 seconds mechanics: max 3
+- First 60 seconds text: under 300 Chinese characters or 180 English words
+- Prestige loop: allowed as `星尘归航`
+- Prestige reward resource: `共鸣`
+- Resonance resource: allowed
+- Resonance matrix panel: max 1
+- Return count field: allowed
+- Save format versions: max 3
+- Local-only return metric fields: max 2
+- Feedback channels shown in UI: max 1 primary, 1 secondary
+
+v0.5 仍然禁止：
+
+- 第三普通资源
+- 任务系统
+- 复杂地图
+- 多生产线
+- 多个新面板
+- 第三共鸣门槛
+- 新共鸣节点
+- 节点等级树
+- 外部 analytics SDK 或上传 telemetry
+
 ## Rule
 
 Every new mechanic must pass:
@@ -107,7 +139,7 @@ Every new mechanic must pass:
 3. Complexity budget
 4. Decision authorization
 
-进入 v0.2 或 v0.3 不自动授权任何具体功能。每个新机制仍必须在 `docs/DECISION.md` 中说明它使用哪个版本预算，以及为什么没有破坏 v0.1 的前 60 秒回归护栏。
+进入 v0.2、v0.3、v0.4 或 v0.5 不自动授权任何具体功能。每个新机制仍必须在 `docs/DECISION.md` 中说明它使用哪个版本预算，以及为什么没有破坏 v0.1 的前 60 秒回归护栏。
 
 ## If Over Budget
 

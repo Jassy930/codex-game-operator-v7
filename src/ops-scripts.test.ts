@@ -63,6 +63,44 @@ describe("ops scripts", () => {
     expect(result.output).toContain("Complexity budget missing v0.2 3-15 minute budget");
   });
 
+  it("fails governor check when v0.5 stardust return budget is missing", () => {
+    const workspace = createHarnessWorkspace({
+      ledgerRow:
+        "| #1 | unclear-first-minute | first-60s | ACTIONABLE | accepted | none | DECISION:2026-05-07-operate | none | route |",
+      clusters: "# Feedback Clusters\n\n## first-60s\n",
+      decision: "# Decision\n\nDECISION:2026-05-07-operate\n",
+      releaseLog: "# Release Log\n\n## Unreleased\n",
+    });
+    writeFileSync(
+      join(workspace, "docs/COMPLEXITY_BUDGET.md"),
+      `# Complexity Budget
+
+## v0.1 First Public Version Budget
+
+- Secondary resources: 0
+
+## v0.2 3-15 Minute Version Budget
+
+- Secondary resources: 0
+- Upgrade types: max 4
+- prestige is forbidden
+
+## v0.3 Resonance Version Budget
+
+- Secondary resources: max 1
+
+## v0.4 20-Hour Resonance Budget
+
+- Secondary resources: max 1
+`,
+    );
+
+    const result = runGovernorCheck(workspace);
+
+    expect(result.status).not.toBe(0);
+    expect(result.output).toContain("Complexity budget missing v0.5 stardust return budget");
+  });
+
   it("collects issue body and comments for routing evidence", () => {
     const workspace = createCollectorWorkspace();
     const binDir = join(workspace, "bin");
@@ -199,6 +237,29 @@ function createHarnessWorkspace(files: {
   for (const file of REQUIRED_HARNESS_FILES) {
     writeFileSync(join(workspace, file), `# ${file}\n`);
   }
+
+  writeFileSync(
+    join(workspace, "docs/COMPLEXITY_BUDGET.md"),
+    `# Complexity Budget
+
+## v0.1 First Public Version Budget
+
+- Secondary resources: 0
+
+## v0.2 3-15 Minute Version Budget
+
+- Secondary resources: 0
+- Upgrade types: max 4
+- prestige is forbidden
+
+## v0.5 Stardust Return Budget
+
+- Prestige loop: allowed as \`星尘归航\`
+- Prestige reward resource: \`共鸣\`
+- Save format versions: max 3
+- 第三普通资源
+`,
+  );
 
   writeFileSync(
     join(workspace, "docs/ISSUE_LEDGER.md"),

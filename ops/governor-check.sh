@@ -56,6 +56,11 @@ check_complexity_budget() {
     fail=1
   fi
 
+  if ! grep -F "v0.5 Stardust Return Budget" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget missing v0.5 stardust return budget."
+    fail=1
+  fi
+
   if ! grep -F "Upgrade types: max 4" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
     echo "Complexity budget v0.2 must keep upgrade types max 4."
     fail=1
@@ -68,6 +73,26 @@ check_complexity_budget() {
 
   if ! grep -F "prestige" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
     echo "Complexity budget v0.2 must explicitly forbid prestige."
+    fail=1
+  fi
+
+  if ! grep -F 'Prestige loop: allowed as `星尘归航`' docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.5 must explicitly bound the stardust return prestige loop."
+    fail=1
+  fi
+
+  if ! grep -F "Prestige reward resource: \`共鸣\`" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.5 must keep resonance as the prestige reward resource."
+    fail=1
+  fi
+
+  if ! grep -F "Save format versions: max 3" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.5 must keep save format versions max 3."
+    fail=1
+  fi
+
+  if ! grep -F "第三普通资源" docs/COMPLEXITY_BUDGET.md >/dev/null 2>&1; then
+    echo "Complexity budget v0.5 must explicitly forbid a third normal resource."
     fail=1
   fi
 }

@@ -2,41 +2,43 @@
 
 ## Selected Mode
 
-SELF_PLAYTEST
+META_IMPROVE
 
 ## Reason
 
-v0.4 第二共鸣门槛、第二个现有节点选择、双节点回访计划、第二节点启动反馈、`2/2` 选择上限、20 小时巡航读回和双节点组合读回都已经发布。下一步复核 2 个永久节点都已启动后，`共鸣矩阵` 是否明确告诉玩家当前版本的共鸣目标已经收口，而不是继续暗示还有第三门槛。本轮只允许在现有共鸣进度行补 v0.4 完成读回，不新增第三共鸣门槛、新节点、资源、面板、存档字段或指标字段。
+v0.4 已把第二共鸣门槛、第 2 个现有节点选择、双节点组合读回和当前版本完成读回收口，但 20 小时后仍缺少可重复长线循环。用户明确希望 prestige 成为主机制，并倾向复用现有第二资源 `共鸣` 作为奖励资源。当前复杂度预算仍禁止 prestige，因此本轮必须先通过 META_IMPROVE 定义 v0.5 `星尘归航` 预算和决策锚点，再进入玩法实现。
 
 ## Allowed Actions
 
-- 构造已领取第二共鸣、已启动 2 个现有节点、可用共鸣为 0 的 self-playtest 状态。
-- 复核现有共鸣进度行是否清楚说明 v0.4 目标已经完成。
-- 在现有 `共鸣矩阵` 进度行中补最小完成读回。
-- 更新 `docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/SELF_PLAYTEST.md`、`docs/RELEASE_LOG.md`、`docs/GOVERNOR_STATE.md` 和必要的 retrospective。
-- 运行本地验证，至少包括 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
+- 更新 `docs/COMPLEXITY_BUDGET.md`，新增 v0.5 `星尘归航` 预算。
+- 更新 `docs/HARNESS_CHANGELOG.md`、`docs/DECISION.md`、`docs/CONTENT_ARC.md`、`docs/ROADMAP.md`、`docs/RELEASE_LOG.md`、`docs/GOVERNOR_STATE.md` 和 v0.5 计划文档。
+- 更新 `ops/governor-check.sh` 和脚本测试，让 v0.5 预算可机器校验。
+- 只在预算和治理锚点验证通过后，进入下一轮 TDD 玩法实现。
+- 运行本地验证，至少包括 `bun test src/ops-scripts.test.ts`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 ## Forbidden Actions
 
-- 不新增 UI 面板、按钮、资源、存档字段、采集字段或独立数值系统。
+- 在 v0.5 预算提交前，不实现归航按钮、归航奖励、存档迁移或重置逻辑。
+- 不新增第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点或节点等级树。
 - 不上传 telemetry，不接入外部 analytics SDK，不记录个人数据，不做跨设备追踪。
-- 不新增 prestige、任务系统、复杂地图、多生产线、第二个共鸣面板、更多共鸣节点或第三个共鸣里程碑。
 - 不修改或新增 Issue #1/#2 回复，除非玩家在 issue 中提供新实质信息。
 - 不放宽 issue routing、response budget、review protocol、测试或部署要求。
 
 ## Exit Criteria
 
-- 第二共鸣节点全部消耗后的 v0.4 完成读回有单元测试覆盖。
-- 启动 2 个现有永久节点后，`共鸣矩阵` 进度行明确显示当前版本共鸣目标已完成，并保留较早双节点组合、20 小时巡航、节点效果、选择已满状态与 2/2 矩阵读回。
-- 相关治理文档和 release log 已同步。
-- 完整本地验证通过。
+- v0.5 复杂度预算明确允许一个受限 `星尘归航` prestige loop，并保留全部禁止项。
+- `governor-check` 能校验 v0.5 预算存在和关键约束。
+- 决策、roadmap、内容弧线、release log、计划文档和 harness changelog 已同步。
+- 本轮治理验证通过。
 - 周期结束后工作区状态已记录。
 
 ## Drift Status
 
-未发现治理漂移。本轮只复核 v0.4 已允许的 2 个现有共鸣节点全部启动后，`共鸣矩阵` 是否读回当前版本目标完成。仍保持 1 个第二资源、1 个共鸣矩阵面板、最多 2 个共鸣里程碑、最多 2 个已启动节点、v2 存档和最多 3 个 local-only 共鸣指标字段。不引入第三共鸣门槛、新节点、prestige、任务系统、多生产线、多个新面板、外部 analytics、telemetry 上传、反馈渠道或重复 issue 回复。
+未发现治理漂移，但 v0.4 预算已不足以承接用户明确要求的 prestige 长线循环。本轮只允许通过 meta-governance 提升到 v0.5：仍保持 1 个主资源、最多 1 个第二资源、1 个共鸣矩阵面板、最多 5 个可见面板，并禁止第三普通资源、任务系统、复杂地图、多生产线、多个新面板、第三共鸣门槛、新共鸣节点、节点等级树、外部 analytics、telemetry 上传、反馈渠道扩张或重复 issue 回复。
 
 ## Last Updated
+
+2026-05-08: 切换到 META_IMPROVE；定义 v0.5 `星尘归航` 预算和决策锚点。目标是把 v0.4 的 20 小时骨架升级为受限 prestige loop：归航重启本轮工坊并奖励 `共鸣`。本轮只允许预算、治理和计划文档，以及 `governor-check` 预算校验；玩法实现必须等预算验证通过后按 TDD 进入下一切片。
 
 2026-05-08: v0.4 当前版本共鸣完成读回切片已由 commit `5dbfd88` 推送到 `origin/main`。新增测试先按预期失败，随后本地验证通过：`bun test src/App.test.tsx -t "full v0.4 resonance goal"` 1 pass，完整 `bun test` 84 pass，`bun run test` 84 pass，`bun run build` 成功，`./ops/governor-check.sh` 退出 0，`git diff --check` 退出 0。远端验证缺口：`gh issue list` 和 `gh run list` 无法连接 `api.github.com`，`curl -I --max-time 20 https://jassy930.github.io/codex-game-operator-v7/` 无法解析 Pages 域名。
 

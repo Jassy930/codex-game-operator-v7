@@ -29,6 +29,8 @@
 - Modify: `docs/CONTENT_ARC.md`
 - Modify: `docs/ROADMAP.md`
 - Modify: `docs/RELEASE_LOG.md`
+- Modify: `ops/governor-check.sh`
+- Modify: `src/ops-scripts.test.ts`
 
 **Step 1: Update v0.5 budget**
 
@@ -97,6 +99,7 @@ Update `docs/GOVERNOR_STATE.md`:
 Run:
 
 ```bash
+bun test src/ops-scripts.test.ts -t "v0.5 stardust return"
 ./ops/governor-check.sh
 git diff --check
 ```
