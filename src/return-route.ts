@@ -4,6 +4,7 @@ import { MAX_UNLOCKED_RESONANCE_NODES } from "./resonance";
 export type ReturnRouteReadback = {
   current: string;
   description: string;
+  routeSummary: string;
   currentPayoff: string;
   nextRequirement: string;
   progressSummary: string;
@@ -33,6 +34,8 @@ export function getReturnRouteReadback(
     return {
       current: "深空归航",
       description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
+      routeSummary:
+        "航线摘要：3/3 深空归航；航线已贯通，后续归航都会成为长期储备",
       currentPayoff:
         "当前收益：三段航线已贯通，额外共鸣会作为后续版本储备",
       nextRequirement: "航线已贯通：继续归航，为后续版本储备共鸣",
@@ -48,15 +51,24 @@ export function getReturnRouteReadback(
   }
 
   if (state.returnCount >= 3 && parkedResonance >= 2) {
+    const progressSummary = formatRouteProgressGap(state, 6, 4);
+    const cadenceForecast = formatRouteCadenceForecast(state, 6, 4);
+
     return {
       current: "稳航校准",
       description: "余辉已经能重建开局采集器，继续归航会把路线推向深空段。",
+      routeSummary: formatRouteSummary(
+        2,
+        "稳航校准",
+        progressSummary,
+        cadenceForecast,
+      ),
       currentPayoff:
         "当前收益：余辉开局已稳定，重复归航会继续压缩重建时间",
       nextRequirement: "下一段：累计 6 次归航，并保留 4 点额外共鸣",
-      progressSummary: formatRouteProgressGap(state, 6, 4),
+      progressSummary,
       actionHint: formatRouteActionHint(state, 6, 4),
-      cadenceForecast: formatRouteCadenceForecast(state, 6, 4),
+      cadenceForecast,
       routeMap: formatRouteMap("稳航校准"),
       nextPreview: "达成后进入深空归航：后续归航会转为长期储备",
       completedMilestones: 2,
@@ -64,19 +76,38 @@ export function getReturnRouteReadback(
     };
   }
 
+  const progressSummary = formatRouteProgressGap(state, 3, 2);
+  const cadenceForecast = formatRouteCadenceForecast(state, 3, 2);
+
   return {
     current: "余辉起航",
     description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
+    routeSummary: formatRouteSummary(
+      1,
+      "余辉起航",
+      progressSummary,
+      cadenceForecast,
+    ),
     currentPayoff: "当前收益：额外共鸣已能转成下一轮起步星尘",
     nextRequirement: "下一段：累计 3 次归航，并保留 2 点额外共鸣",
-    progressSummary: formatRouteProgressGap(state, 3, 2),
+    progressSummary,
     actionHint: formatRouteActionHint(state, 3, 2),
-    cadenceForecast: formatRouteCadenceForecast(state, 3, 2),
+    cadenceForecast,
     routeMap: formatRouteMap("余辉起航"),
     nextPreview: "达成后进入稳航校准：余辉重建节奏会稳定成长期航标",
     completedMilestones: 1,
     totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
   };
+}
+
+function formatRouteSummary(
+  completedMilestones: 1 | 2,
+  current: "余辉起航" | "稳航校准",
+  progressSummary: string,
+  cadenceForecast: string,
+): string {
+  const cadence = cadenceForecast.replace(/^节奏预判：/, "");
+  return `航线摘要：${completedMilestones}/${TOTAL_RETURN_ROUTE_MILESTONES} ${current}；${progressSummary}；${cadence}`;
 }
 
 function formatRouteProgressGap(
