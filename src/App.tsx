@@ -65,7 +65,7 @@ export function App() {
   const showOfflineDust = shouldShowOfflineDust(offlineDust);
   const [collectMessage, setCollectMessage] = useState("");
   const [purchaseMessage, setPurchaseMessage] = useState("");
-  const [openPanel, setOpenPanel] = useState<"stats" | null>(null);
+  const [openPanel, setOpenPanel] = useState<"stats" | "menu" | null>(null);
   const [sessionEvents, setSessionEvents] = useState<string[]>([]);
   const collectMessageTimer = useRef<number | null>(null);
   const purchaseMessageTimer = useRef<number | null>(null);
@@ -395,7 +395,15 @@ export function App() {
           <button type="button" className="icon-button">
             设置
           </button>
-          <button type="button" className="icon-button">
+          <button
+            aria-expanded={openPanel === "menu"}
+            aria-controls="menu-panel"
+            type="button"
+            className="icon-button"
+            onClick={() =>
+              setOpenPanel((current) => (current === "menu" ? null : "menu"))
+            }
+          >
             菜单
           </button>
         </div>
@@ -419,6 +427,39 @@ export function App() {
             </dl>
           </section>
         ) : null}
+        <section
+          className="hud-panel save-menu-panel"
+          id="menu-panel"
+          aria-label="保存管理菜单"
+          hidden={openPanel !== "menu"}
+        >
+          <div className="section-heading">
+            <h2>保存管理</h2>
+            <span>本地存档</span>
+          </div>
+          <div className="save-menu-grid">
+            <section>
+              <h3>导出存档</h3>
+              <p>只读展示当前本地存档内容，不自动复制剪贴板。</p>
+              <textarea
+                className="save-export-box"
+                readOnly
+                value={serializeGameState(state)}
+                aria-label="导出存档内容"
+              />
+            </section>
+            <section>
+              <h3>导入存档</h3>
+              <p>暂不实装导入，避免未经验证的文本破坏本地存档。</p>
+            </section>
+            <section>
+              <h3>重置本地存档</h3>
+              <p className="danger-hint">
+                危险操作暂不执行。真正重置需要单独实现二次确认。
+              </p>
+            </section>
+          </div>
+        </section>
       </header>
 
       <main className="game-layout" aria-labelledby="game-title">

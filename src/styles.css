@@ -107,6 +107,54 @@ button {
   font-size: 1.25rem;
 }
 
+.save-menu-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 0.9fr));
+  gap: 12px;
+}
+
+.save-menu-grid section {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid rgba(255, 200, 90, 0.12);
+  border-radius: 8px;
+  background: rgba(4, 13, 25, 0.48);
+}
+
+.save-menu-grid h3 {
+  margin: 0;
+  color: var(--text-main);
+  font-size: 0.96rem;
+  line-height: 1.2;
+}
+
+.save-menu-grid p,
+.danger-hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.42;
+}
+
+.save-export-box {
+  width: 100%;
+  min-height: 96px;
+  resize: vertical;
+  border: 1px solid rgba(255, 200, 90, 0.16);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--text-muted);
+  background: rgba(3, 8, 15, 0.72);
+  font: 0.78rem ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.danger-hint {
+  color: #ffd0a1;
+}
+
 .brand-lockup,
 .hud-status,
 .hud-actions,
@@ -813,6 +861,10 @@ dd {
 
   .hud-panel-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .save-menu-grid {
+    grid-template-columns: 1fr;
   }
 
   .game-layout {

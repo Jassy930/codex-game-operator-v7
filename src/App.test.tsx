@@ -66,6 +66,14 @@ describe("App", () => {
     expect(appendSessionEvent(["a", "b"], "c", 2)).toEqual(["c", "a"]);
   });
 
+  it("renders save management menu affordances", () => {
+    const html = renderToStaticMarkup(<App />);
+
+    expect(html).toContain("导出存档");
+    expect(html).toContain("导入存档");
+    expect(html).toContain("重置本地存档");
+  });
+
   it("renders the first playable screen with action and upgrade controls", () => {
     const html = renderToStaticMarkup(<App />);
 
