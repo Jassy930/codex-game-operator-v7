@@ -24,6 +24,8 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toEqual({
       current: "余辉起航",
       description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
+      stageGoal:
+        "归航目标：余辉起航 1/3，补 1 次归航 / 1 点额外共鸣进入稳航校准",
       routeProgress: "本段进度：归航 2/3 · 额外共鸣 1/2",
       routeSummary:
         "航线摘要：1/3 余辉起航；当前收益：下轮起步可重建 1 台自动采集器；距稳航校准还差 1 次归航、1 点额外共鸣；按当前路线再归航 1 次即可进入稳航校准",
@@ -53,6 +55,8 @@ describe("return route readback", () => {
 
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
+      stageGoal:
+        "归航目标：稳航校准 2/3，补 3 次归航 / 2 点额外共鸣进入深空归航",
       routeProgress: "本段进度：归航 3/6 · 额外共鸣 2/4",
       routeSummary:
         "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 1 台自动采集器；距深空归航还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入深空归航",
@@ -78,6 +82,8 @@ describe("return route readback", () => {
 
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
+      stageGoal:
+        "归航目标：稳航校准 2/3，补 1 次归航 / 2 点额外共鸣进入深空归航",
       progressSummary: "距深空归航还差 1 次归航、2 点额外共鸣",
       actionHint:
         "下一步：继续重建工坊并执行 1 次星尘归航，同时保留 2 点额外共鸣",
@@ -113,6 +119,7 @@ describe("return route readback", () => {
 
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
+      stageGoal: "归航目标：稳航校准 2/3，补 2 次归航进入深空归航",
       progressSummary: "距深空归航还差 2 次归航",
       actionHint: "下一步：额外共鸣已够，继续执行 2 次星尘归航",
       cadenceForecast: "节奏预判：按当前路线再归航 2 次即可进入深空归航",
@@ -129,6 +136,8 @@ describe("return route readback", () => {
 
     expect(getReturnRouteReadback(state)).toMatchObject({
       current: "稳航校准",
+      stageGoal:
+        "归航目标：稳航校准 2/3，补 1 点额外共鸣进入深空归航",
       progressSummary: "距深空归航还差 1 点额外共鸣",
       actionHint: "下一步：归航次数已够，继续归航补足 1 点额外共鸣",
       cadenceForecast: "节奏预判：归航次数已达标，只差 1 点额外共鸣即可进入深空归航",
@@ -146,6 +155,8 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toEqual({
       current: "深空归航",
       description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
+      stageGoal:
+        "归航目标：深空归航 3/3，长期储备 6 次归航 / 5 点额外共鸣",
       routeProgress:
         "本段进度：航线 3/3 已贯通 · 长期储备：6 次归航 / 5 点额外共鸣",
       routeSummary:

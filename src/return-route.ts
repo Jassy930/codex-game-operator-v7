@@ -5,6 +5,7 @@ import { calculateReturnAfterglowDust } from "./return";
 export type ReturnRouteReadback = {
   current: string;
   description: string;
+  stageGoal: string;
   routeProgress: string;
   routeSummary: string;
   currentPayoff: string;
@@ -38,6 +39,7 @@ export function getReturnRouteReadback(
     return {
       current: "深空归航",
       description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
+      stageGoal: formatCompletedRouteStageGoal(state),
       routeProgress: `本段进度：航线 ${TOTAL_RETURN_ROUTE_MILESTONES}/${TOTAL_RETURN_ROUTE_MILESTONES} 已贯通 · ${reserveSummary}`,
       routeSummary: `航线摘要：3/3 深空归航；${reserveSummary}，后续归航继续累积`,
       currentPayoff:
@@ -67,6 +69,14 @@ export function getReturnRouteReadback(
     return {
       current: "稳航校准",
       description: "余辉已经能重建开局采集器，继续归航会把路线推向深空段。",
+      stageGoal: formatRouteStageGoal(
+        2,
+        "稳航校准",
+        state,
+        6,
+        4,
+        "深空归航",
+      ),
       routeProgress: formatRouteProgress(state, 6, 4),
       routeSummary: formatRouteSummary(
         2,
@@ -102,6 +112,14 @@ export function getReturnRouteReadback(
   return {
     current: "余辉起航",
     description: "重复归航已能带回起步星尘，下一步把余辉稳定成长期航标。",
+    stageGoal: formatRouteStageGoal(
+      1,
+      "余辉起航",
+      state,
+      3,
+      2,
+      "稳航校准",
+    ),
     routeProgress: formatRouteProgress(state, 3, 2),
     routeSummary: formatRouteSummary(
       1,
@@ -129,6 +147,41 @@ function formatCompletedRouteReserve(state: GameState): string {
     0,
     state.resonance,
   )} 点额外共鸣`;
+}
+
+function formatCompletedRouteStageGoal(state: GameState): string {
+  const reserveSummary = formatCompletedRouteReserve(state).replace("：", " ");
+
+  return `归航目标：深空归航 ${TOTAL_RETURN_ROUTE_MILESTONES}/${TOTAL_RETURN_ROUTE_MILESTONES}，${reserveSummary}`;
+}
+
+function formatRouteStageGoal(
+  completedMilestones: 1 | 2,
+  current: "余辉起航" | "稳航校准",
+  state: GameState,
+  targetReturnCount: number,
+  targetParkedResonance: number,
+  targetRouteName: "稳航校准" | "深空归航",
+): string {
+  const remainingReturns = Math.max(0, targetReturnCount - state.returnCount);
+  const remainingResonance = Math.max(0, targetParkedResonance - state.resonance);
+  const parts = [];
+
+  if (remainingReturns > 0) {
+    parts.push(`${remainingReturns} 次归航`);
+  }
+
+  if (remainingResonance > 0) {
+    parts.push(`${remainingResonance} 点额外共鸣`);
+  }
+
+  if (parts.length === 0) {
+    return `归航目标：${current} ${completedMilestones}/${TOTAL_RETURN_ROUTE_MILESTONES}，条件已满足，执行归航进入${targetRouteName}`;
+  }
+
+  return `归航目标：${current} ${completedMilestones}/${TOTAL_RETURN_ROUTE_MILESTONES}，补 ${parts.join(
+    " / ",
+  )}进入${targetRouteName}`;
 }
 
 function formatRoutePayoffSummary(state: GameState): string {

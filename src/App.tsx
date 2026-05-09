@@ -812,15 +812,7 @@ export function formatWorkshopStageNextRequirement(
 }
 
 function formatReturnRouteStageGoal(readback: ReturnRouteReadback): string {
-  if (readback.completedMilestones < readback.totalMilestones) {
-    return `归航目标：航线 ${readback.completedMilestones}/${readback.totalMilestones} ${readback.current}，${readback.actionHint}`;
-  }
-
-  const nextRequirement = readback.nextRequirement.replace(
-    /^(下一段|航线已贯通)：/,
-    "",
-  );
-  return `归航目标：航线 ${readback.completedMilestones}/${readback.totalMilestones} ${readback.current}，${nextRequirement}`;
+  return readback.stageGoal;
 }
 
 function formatReturnPlanningReadback(
