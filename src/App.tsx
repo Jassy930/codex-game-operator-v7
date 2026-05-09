@@ -154,6 +154,17 @@ export function App() {
     state.autoCollectorEfficiencyLevel,
   );
   const feedbackUrl = useMemo(() => createFeedbackIssueUrl(), []);
+  const effectiveEfficiencyMultiplier =
+    getEffectiveAutoCollectorEfficiencyMultiplier(state);
+  const nextEfficiencyMultiplier = getNextEfficiencyMultiplier(state);
+  const nextUpgradeShortfall = Math.max(0, nextUpgradeTarget.cost - state.dust);
+  const milestoneProgressPercent = Math.min(
+    100,
+    Math.floor((milestone.current / milestone.target) * 100),
+  );
+  const resonanceMilestoneReady = state.earnedResonanceMilestones.includes(
+    "first-resonance",
+  );
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -332,225 +343,451 @@ export function App() {
   }
 
   return (
-    <main className="app-shell">
-      <section className="game-panel" aria-labelledby="game-title">
-        <div className="title-row">
+    <div className="app-shell">
+      <header className="top-hud" aria-label="星尘工坊 HUD">
+        <div className="brand-lockup">
+          <span className="brand-mark" aria-hidden="true">
+            ◆
+          </span>
           <div>
-            <p className="eyebrow">第一版原型</p>
+            <p className="eyebrow">Idle 控制台</p>
             <h1 id="game-title">星尘工坊</h1>
           </div>
-          <p className="save-state">自动保存</p>
         </div>
-
-        <div className="resource-readout" aria-live="polite">
-          <img className="resource-art" src={stardustCrystalArt} alt="星尘晶体" />
-          <div className="resource-copy">
-            <span>星尘</span>
-            <strong>{formatNumber(state.dust)}</strong>
-            <small>每秒 +{formatNumber(state.dustPerSecond)}</small>
-            <p className="motivation-copy">星尘会变成自动采集器，让工坊持续产出</p>
-          </div>
+        <div className="hud-status">
+          <span className="save-state">
+            <span className="save-dot" aria-hidden="true" />
+            自动保存中
+          </span>
+          <span className="hud-pill">阶段：{workshopStage.name}</span>
+          <span className="hud-pill">共鸣 {state.resonance}</span>
+          <span className="hud-pill">第 {state.returnCount} 次归航</span>
         </div>
-
-        <div className="event-stack" aria-live="polite">
-          {showOfflineDust ? (
-            <p className="offline-gain">离线获得 {formatNumber(offlineDust)} 星尘</p>
-          ) : null}
-
-          {collectMessage ? <p className="collect-feedback">{collectMessage}</p> : null}
-
-          {purchaseMessage ? <p className="purchase-feedback">{purchaseMessage}</p> : null}
-        </div>
-
-        <div className="action-row">
-          <button className="primary-action" onClick={handleCollectClick}>
-            采集 +{formatNumber(state.dustPerClick)}
+        <div className="hud-actions" aria-label="功能入口">
+          <button type="button" className="icon-button">
+            统计
           </button>
-          <button
-            className="upgrade-action"
-            disabled={!canBuyAutoCollector}
-            onClick={handleUpgradeClick}
+          <a
+            className="icon-button feedback-link"
+            href={feedbackUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={handleFeedbackClick}
           >
-            <img className="button-art" src={autoCollectorArt} alt="自动采集器" />
-            <span>购买自动采集器 · 需要 {formatNumber(state.nextAutoCollectorCost)} 星尘</span>
+            反馈
+          </a>
+          <button type="button" className="icon-button">
+            设置
           </button>
-          <button
-            className="upgrade-action"
-            disabled={!canBuyEfficiencyUpgrade}
-            onClick={handleEfficiencyUpgradeClick}
-          >
-            <img className="button-art" src={tuningToolArt} alt="调校工具" />
-            <span>{efficiencyUpgradeLabel}</span>
+          <button type="button" className="icon-button">
+            菜单
           </button>
         </div>
+      </header>
 
-        <div className="progress-block">
-          <div className="progress-label">
-            <span>下一升级进度</span>
-            <span>{nextUpgradeTarget.progressPercent}%</span>
+      <main className="game-layout" aria-labelledby="game-title">
+        <aside className="sidebar" aria-label="工坊导航">
+          <nav className="nav-stack">
+            <a className="nav-item is-active" href="#engine-room">
+              <span>引擎室</span>
+            </a>
+            <a className="nav-item" href="#resonance-room">
+              <span>共鸣室</span>
+            </a>
+            <a className="nav-item" href="#return-dock">
+              <span>归航台</span>
+            </a>
+            <button className="nav-item is-locked" type="button" disabled>
+              <span>研究所</span>
+              <small>锁定</small>
+            </button>
+            <button className="nav-item is-locked" type="button" disabled>
+              <span>日志</span>
+              <small>锁定</small>
+            </button>
+          </nav>
+          <div className="guide-chip">
+            <span>新手引导</span>
+            <strong>{Math.min(state.autoCollectors + 1, 5)} / 7</strong>
           </div>
-          <p className="upgrade-target">
-            下一升级：{nextUpgradeTarget.label} · 需要{" "}
-            {formatNumber(nextUpgradeTarget.cost)} 星尘
-          </p>
-          <p className="goal-hint">{goalHint}</p>
-          <p className="milestone-hint">
-            里程碑：{milestone.current} / {milestone.target} 台自动采集器
-          </p>
-          <p className="stage-hint">
-            工坊阶段：{workshopStage.name} · {workshopStage.description}
-          </p>
-          <p className="stage-next">{stageNextRequirement}</p>
-          <div className="progress-track" aria-hidden="true">
-            <div style={{ width: `${nextUpgradeTarget.progressPercent}%` }} />
-          </div>
-        </div>
+        </aside>
 
-        <dl className="stats-grid">
-          <div>
-            <dt>自动采集器</dt>
-            <dd>{state.autoCollectors}</dd>
-          </div>
-          <div>
-            <dt>调校倍率</dt>
-            <dd>{formatNumber(getEffectiveAutoCollectorEfficiencyMultiplier(state))}x</dd>
-          </div>
-        </dl>
-
-        {showResonanceMatrix ? (
-          <section className="resonance-panel" aria-labelledby="resonance-title">
-            <div className="resonance-header">
-              <div>
-                <h2 id="resonance-title">共鸣矩阵</h2>
-                <p>可用共鸣：{state.resonance}</p>
+        <section className="main-column" id="engine-room">
+          <section className="resource-core-card" aria-live="polite">
+            <div className="resource-copy">
+              <div className="section-heading">
+                <p className="eyebrow">星尘核心</p>
+                <span className="info-chip">倍率 x{formatNumber(effectiveEfficiencyMultiplier)}</span>
               </div>
-              {canReturn && !canChooseResonanceNode ? (
-                <button className="resonance-claim" onClick={handleStardustReturnClick}>
-                  星尘归航 +1 共鸣
+              <strong className="resource-number">{formatNumber(state.dust)}</strong>
+              <span className="resource-unit">星尘</span>
+              <p className="motivation-copy">
+                星尘会变成自动采集器，让工坊持续产出
+              </p>
+              <dl className="core-metrics">
+                <div>
+                  <dt>每秒产出</dt>
+                  <dd>+{formatNumber(state.dustPerSecond)}</dd>
+                </div>
+                <div>
+                  <dt>每次点击</dt>
+                  <dd>+{formatNumber(state.dustPerClick)}</dd>
+                </div>
+              </dl>
+            </div>
+            <img className="resource-art" src={stardustCrystalArt} alt="星尘晶体" />
+          </section>
+
+          <button className="collect-button" onClick={handleCollectClick}>
+            采集星尘 +{formatNumber(state.dustPerClick)}
+          </button>
+
+          <section className="upgrade-grid" aria-label="工坊升级">
+            <article className="upgrade-card auto-card">
+              <img className="upgrade-art" src={autoCollectorArt} alt="自动采集器" />
+              <div className="upgrade-copy">
+                <div className="section-heading">
+                  <h2>建造自动采集器</h2>
+                  <span>Lv.{state.autoCollectors}</span>
+                </div>
+                <p>自动采集星尘，持续为工坊提供资源。</p>
+                <dl>
+                  <div>
+                    <dt>当前拥有</dt>
+                    <dd>{state.autoCollectors} 台</dd>
+                  </div>
+                  <div>
+                    <dt>每秒产出</dt>
+                    <dd>+{formatNumber(state.dustPerSecond)}</dd>
+                  </div>
+                </dl>
+                <button
+                  className="upgrade-action cyan-action"
+                  disabled={!canBuyAutoCollector}
+                  onClick={handleUpgradeClick}
+                >
+                  {formatNumber(state.nextAutoCollectorCost)} 星尘
                 </button>
-              ) : resonanceProgress.canClaim ? (
+                {!canBuyAutoCollector ? (
+                  <small>{formatShortfall(state.dust, state.nextAutoCollectorCost)}</small>
+                ) : null}
+              </div>
+            </article>
+
+            <article className="upgrade-card tuning-card">
+              <img className="upgrade-art" src={tuningToolArt} alt="调校工具" />
+              <div className="upgrade-copy">
+                <div className="section-heading">
+                  <h2>调校工坊频率</h2>
+                  <span>Lv.{state.autoCollectorEfficiencyLevel}</span>
+                </div>
+                <p>提升工坊整体效率，放大所有产出。</p>
+                <dl>
+                  <div>
+                    <dt>当前倍率</dt>
+                    <dd>{formatNumber(effectiveEfficiencyMultiplier)}x</dd>
+                  </div>
+                  <div>
+                    <dt>下一等级</dt>
+                    <dd>{formatNumber(nextEfficiencyMultiplier)}x</dd>
+                  </div>
+                </dl>
+                <button
+                  className="upgrade-action violet-action"
+                  disabled={!canBuyEfficiencyUpgrade}
+                  onClick={handleEfficiencyUpgradeClick}
+                >
+                  {state.autoCollectors === 0
+                    ? "需要先建造自动采集器"
+                    : `${formatNumber(state.nextEfficiencyUpgradeCost)} 星尘`}
+                </button>
+                {!canBuyEfficiencyUpgrade ? <small>{efficiencyUpgradeLabel}</small> : null}
+              </div>
+            </article>
+          </section>
+
+          {showResonanceMatrix ? (
+            <section
+              className="resonance-panel"
+              id="resonance-room"
+              aria-labelledby="resonance-title"
+            >
+              <div className="resonance-header">
+                <div>
+                  <p className="eyebrow">中后期系统</p>
+                  <h2 id="resonance-title">共鸣矩阵</h2>
+                </div>
+                <span className="hud-pill">可用共鸣：{state.resonance}</span>
+              </div>
+              {resonanceProgress.canClaim ? (
                 <button className="resonance-claim" onClick={handleClaimResonanceClick}>
                   领取共鸣 +{resonanceProgress.resonanceReward}
                 </button>
               ) : null}
-            </div>
-            <p className="resonance-progress">
-              {showStardustReturnProgress
-                ? formatStardustReturnProgressMessage(state, canReturn)
-                : formatResonanceProgressMessage(
-                    resonanceProgress,
-                    hasClaimedCurrentResonanceMilestone,
+              <p className="resonance-progress">
+                {showStardustReturnProgress
+                  ? formatStardustReturnProgressMessage(state, canReturn)
+                  : formatResonanceProgressMessage(
+                      resonanceProgress,
+                      hasClaimedCurrentResonanceMilestone,
+                    )}
+              </p>
+              {showStardustReturnProgress ? (
+                <p className="return-description">
+                  重启本轮工坊，保留共鸣和永久节点
+                </p>
+              ) : null}
+              {showResonanceChoiceStatus ? (
+                <p className="resonance-choice-hint">
+                  {formatResonanceChoiceHint(state.unlockedResonanceNodes.length)}
+                </p>
+              ) : null}
+              {hasReturnAfterglowReadout ? (
+                <div className="return-afterglow-readout" aria-label="归航余辉读回">
+                  <div className="return-afterglow-stats">
+                    <div>
+                      <span>起步星尘</span>
+                      <strong>{formatNumber(returnAfterglowDust)}</strong>
+                    </div>
+                    <div>
+                      <span>可重建</span>
+                      <strong>{returnAfterglowRebuildCount} 台</strong>
+                    </div>
+                  </div>
+                  {hasActiveReturnAfterglow ? (
+                    <p>
+                      共鸣余辉：额外共鸣让新一轮从 {formatNumber(returnAfterglowDust)}{" "}
+                      星尘起步，可立即重建 {returnAfterglowRebuildCount} 台自动采集器
+                    </p>
+                  ) : (
+                    <p>
+                      共鸣余辉：本轮起步获得 {formatNumber(returnAfterglowDust)}{" "}
+                      星尘；若已花掉，表示余辉已投入重建节奏，可支撑前{" "}
+                      {returnAfterglowRebuildCount} 台自动采集器
+                    </p>
                   )}
-            </p>
-            {showStardustReturnProgress ? (
-              <p className="return-description">
-                重启本轮工坊，保留共鸣和永久节点
-              </p>
-            ) : null}
-            {showResonanceChoiceStatus ? (
-              <p className="resonance-choice-hint">
-                {formatResonanceChoiceHint(state.unlockedResonanceNodes.length)}
-              </p>
-            ) : null}
-            {hasReturnAfterglowReadout ? (
-              <div className="return-afterglow-readout" aria-label="归航余辉读回">
-                <div className="return-afterglow-stats">
-                  <div>
-                    <span>起步星尘</span>
-                    <strong>{formatNumber(returnAfterglowDust)}</strong>
-                  </div>
-                  <div>
-                    <span>可重建</span>
-                    <strong>{returnAfterglowRebuildCount} 台</strong>
-                  </div>
                 </div>
-                {hasActiveReturnAfterglow ? (
-                  <p>
-                    共鸣余辉：额外共鸣让新一轮从 {formatNumber(returnAfterglowDust)}{" "}
-                    星尘起步，可立即重建 {returnAfterglowRebuildCount} 台自动采集器
-                  </p>
-                ) : (
-                  <p>
-                    共鸣余辉：本轮起步获得 {formatNumber(returnAfterglowDust)}{" "}
-                    星尘；若已花掉，表示余辉已投入重建节奏，可支撑前{" "}
-                    {returnAfterglowRebuildCount} 台自动采集器
-                  </p>
+              ) : hasParkedReturnResonance ? (
+                <p className="resonance-choice-hint">
+                  共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本
+                </p>
+              ) : null}
+              {returnRouteReadback ? (
+                <div className="return-route-readout" aria-label="归航航线读回">
+                  <div className="return-route-heading">
+                    <span>归航航线</span>
+                    <strong>
+                      航线 {returnRouteReadback.completedMilestones}/
+                      {returnRouteReadback.totalMilestones} ·{" "}
+                      {returnRouteReadback.current}
+                    </strong>
+                  </div>
+                  <p>{returnRouteReadback.description}</p>
+                  <p>{returnRouteReadback.routeProgress}</p>
+                  <p>{returnRouteReadback.routeSummary}</p>
+                  <p>{returnRouteReadback.currentPayoff}</p>
+                  <p>{returnRouteReadback.nextRequirement}</p>
+                  <p>{returnRouteReadback.progressSummary}</p>
+                  <p>{returnRouteReadback.actionHint}</p>
+                  <p>{returnRouteReadback.cadenceForecast}</p>
+                  <p>{returnRouteReadback.routeMap}</p>
+                  <p>{returnRouteReadback.nextPreview}</p>
+                </div>
+              ) : null}
+              <div className="resonance-nodes">
+                {RESONANCE_NODES.map((node) => {
+                  const isUnlocked = state.unlockedResonanceNodes.includes(node.id);
+                  const hasUsedResonanceChoice =
+                    state.unlockedResonanceNodes.length >= 1;
+                  const hasFilledResonanceChoices =
+                    state.unlockedResonanceNodes.length >=
+                    MAX_UNLOCKED_RESONANCE_NODES;
+                  return (
+                    <button
+                      className={`resonance-node${isUnlocked ? " is-unlocked" : ""}`}
+                      disabled={
+                        isUnlocked ||
+                        state.resonance < 1 ||
+                        hasFilledResonanceChoices
+                      }
+                      key={node.id}
+                      onClick={() => handleUnlockResonanceNodeClick(node.id)}
+                    >
+                      <span>{node.name}</span>
+                      <small>
+                        {formatResonanceNodeDescription(
+                          node.description,
+                          isUnlocked,
+                          hasUsedResonanceChoice,
+                          state.resonance > 0,
+                          hasFilledResonanceChoices,
+                        )}
+                      </small>
+                    </button>
+                  );
+                })}
+              </div>
+            </section>
+          ) : (
+            <section className="resonance-panel is-locked-panel" id="resonance-room">
+              <div className="resonance-header">
+                <div>
+                  <p className="eyebrow">中后期系统</p>
+                  <h2>共鸣矩阵</h2>
+                </div>
+                <span className="hud-pill">未解锁</span>
+              </div>
+              <p className="resonance-progress">
+                {formatResonanceProgressMessage(
+                  resonanceProgress,
+                  hasClaimedCurrentResonanceMilestone,
                 )}
-              </div>
-            ) : hasParkedReturnResonance ? (
-              <p className="resonance-choice-hint">
-                共鸣暂存：当前版本永久节点已满，额外共鸣会保留到后续版本
               </p>
-            ) : null}
-            {returnRouteReadback ? (
-              <div className="return-route-readout" aria-label="归航航线读回">
-                <div className="return-route-heading">
-                  <span>归航航线</span>
-                  <strong>
-                    航线 {returnRouteReadback.completedMilestones}/
-                    {returnRouteReadback.totalMilestones} ·{" "}
-                    {returnRouteReadback.current}
-                  </strong>
-                </div>
-                <p>{returnRouteReadback.description}</p>
-                <p>{returnRouteReadback.routeProgress}</p>
-                <p>{returnRouteReadback.routeSummary}</p>
-                <p>{returnRouteReadback.currentPayoff}</p>
-                <p>{returnRouteReadback.nextRequirement}</p>
-                <p>{returnRouteReadback.progressSummary}</p>
-                <p>{returnRouteReadback.actionHint}</p>
-                <p>{returnRouteReadback.cadenceForecast}</p>
-                <p>{returnRouteReadback.routeMap}</p>
-                <p>{returnRouteReadback.nextPreview}</p>
+            </section>
+          )}
+        </section>
+
+        <aside className="side-column">
+          <section className="goal-card panel-card">
+            <div className="section-heading">
+              <h2>下一项工程</h2>
+              <strong>{nextUpgradeTarget.progressPercent}%</strong>
+            </div>
+            <p className="upgrade-target">
+              下一升级：{nextUpgradeTarget.label} · 需要{" "}
+              {formatNumber(nextUpgradeTarget.cost)} 星尘
+            </p>
+            <div className="progress-track" aria-hidden="true">
+              <div style={{ width: `${nextUpgradeTarget.progressPercent}%` }} />
+            </div>
+            <div className="goal-meta">
+              <span>
+                {nextUpgradeShortfall > 0
+                  ? `还差 ${formatNumber(nextUpgradeShortfall)} 星尘`
+                  : "资源已就绪"}
+              </span>
+              <span>目标价格 {formatNumber(nextUpgradeTarget.cost)} 星尘</span>
+            </div>
+            <p className="goal-hint">{goalHint}</p>
+            <p className="stage-next">{stageNextRequirement}</p>
+          </section>
+
+          <section className="workshop-status-card panel-card">
+            <div className="section-heading">
+              <h2>工坊状态</h2>
+              <span>{workshopStage.name}</span>
+            </div>
+            <dl className="stats-grid">
+              <div>
+                <dt>自动采集器</dt>
+                <dd>{state.autoCollectors} 台</dd>
               </div>
-            ) : null}
-            <div className="resonance-nodes">
-              {RESONANCE_NODES.map((node) => {
-                const isUnlocked = state.unlockedResonanceNodes.includes(node.id);
-                const hasUsedResonanceChoice =
-                  state.unlockedResonanceNodes.length >= 1;
-                const hasFilledResonanceChoices =
-                  state.unlockedResonanceNodes.length >=
-                  MAX_UNLOCKED_RESONANCE_NODES;
-                return (
-                  <button
-                    className="resonance-node"
-                    disabled={
-                      isUnlocked ||
-                      state.resonance < 1 ||
-                      hasFilledResonanceChoices
-                    }
-                    key={node.id}
-                    onClick={() => handleUnlockResonanceNodeClick(node.id)}
-                  >
-                    <span>{node.name}</span>
-                    <small>
-                      {formatResonanceNodeDescription(
-                        node.description,
-                        isUnlocked,
-                        hasUsedResonanceChoice,
-                        state.resonance > 0,
-                        hasFilledResonanceChoices,
-                      )}
-                    </small>
-                  </button>
-                );
-              })}
+              <div>
+                <dt>调校倍率</dt>
+                <dd>{formatNumber(effectiveEfficiencyMultiplier)}x</dd>
+              </div>
+              <div>
+                <dt>工坊等级</dt>
+                <dd>
+                  {milestone.current} / {milestone.target}
+                </dd>
+              </div>
+            </dl>
+            <p className="stage-hint">
+              工坊阶段：{workshopStage.name} · {workshopStage.description}
+            </p>
+            <div className="progress-track compact-track" aria-hidden="true">
+              <div style={{ width: `${milestoneProgressPercent}%` }} />
             </div>
           </section>
-        ) : null}
 
-        <a
-          className="feedback-link"
-          href={feedbackUrl}
-          target="_blank"
-          rel="noreferrer"
-          onClick={handleFeedbackClick}
-        >
-          反馈
+          <section className="milestone-card panel-card">
+            <div className="section-heading">
+              <h2>里程碑</h2>
+              <span>
+                {milestone.current} / {milestone.target} 台
+              </span>
+            </div>
+            <ul className="milestone-list">
+              <li className={showResonanceMatrix ? "is-complete" : ""}>
+                解锁「共鸣矩阵」
+              </li>
+              <li className={state.autoCollectorEfficiencyLevel > 0 ? "is-complete" : ""}>
+                已提升自动采集器基础效率
+              </li>
+              <li className={state.returnCount > 0 ? "is-complete" : ""}>
+                已完成星尘归航 {state.returnCount} 次
+              </li>
+              <li className={resonanceMilestoneReady ? "is-complete" : ""}>
+                调校倍率达到 {formatNumber(resonanceProgress.tuning.current)} /{" "}
+                {resonanceProgress.tuning.target}
+              </li>
+            </ul>
+            <p className="milestone-hint">
+              里程碑：{milestone.current} / {milestone.target} 台自动采集器
+            </p>
+          </section>
+
+          <section className="event-log-card panel-card" aria-live="polite">
+            <div className="section-heading">
+              <h2>事件记录</h2>
+              <span>即时反馈</span>
+            </div>
+            <div className="event-stack">
+              {showOfflineDust ? (
+                <p className="offline-gain">
+                  离线获得 {formatNumber(offlineDust)} 星尘
+                </p>
+              ) : null}
+              {collectMessage ? (
+                <p className="collect-feedback">{collectMessage}</p>
+              ) : null}
+              {purchaseMessage ? (
+                <p className="purchase-feedback">{purchaseMessage}</p>
+              ) : null}
+              {!showOfflineDust && !collectMessage && !purchaseMessage ? (
+                <p className="idle-event">工坊运行稳定，等待下一次操作</p>
+              ) : null}
+            </div>
+          </section>
+
+          <section className="return-card panel-card" id="return-dock">
+            <div>
+              <p className="eyebrow">长期循环</p>
+              <h2>启动星尘归航</h2>
+              <p className="return-description">
+                重启本轮工坊，保留共鸣和永久节点。
+              </p>
+            </div>
+            <p className="resonance-progress">
+              {formatStardustReturnProgressMessage(state, canReturn)}
+            </p>
+            {hasReturnAfterglowReadout ? (
+              <p className="return-description">
+                共鸣余辉：新一轮从 {formatNumber(returnAfterglowDust)} 星尘起步
+              </p>
+            ) : null}
+            <button
+              className="return-action"
+              disabled={!canReturn || canChooseResonanceNode}
+              onClick={handleStardustReturnClick}
+            >
+              {canReturn && !canChooseResonanceNode
+                ? "星尘归航 +1 共鸣"
+                : "归航条件未完成"}
+            </button>
+          </section>
+        </aside>
+      </main>
+
+      <nav className="bottom-nav" aria-label="移动端导航">
+        <a className="is-active" href="#engine-room">
+          引擎室
         </a>
-      </section>
-    </main>
+        <a href="#resonance-room">共鸣室</a>
+        <a href="#return-dock">归航台</a>
+      </nav>
+    </div>
   );
 }
 
@@ -676,6 +913,33 @@ function formatNumber(value: number): string {
   return value.toLocaleString("zh-CN", {
     maximumFractionDigits: 1,
   });
+}
+
+function formatShortfall(current: number, cost: number): string {
+  const shortfall = Math.max(0, cost - current);
+
+  if (shortfall <= 0) {
+    return "资源已就绪";
+  }
+
+  return `还差 ${formatNumber(shortfall)} 星尘`;
+}
+
+function getNextEfficiencyMultiplier(state: GameState): number {
+  if (state.autoCollectors === 0) {
+    return getEffectiveAutoCollectorEfficiencyMultiplier(state);
+  }
+
+  const tuningEngravingBonus = state.unlockedResonanceNodes.includes(
+    "tuning-engraving",
+  )
+    ? 0.05
+    : 0;
+
+  return Math.round(
+    (state.autoCollectorEfficiencyMultiplier + 0.1 + tuningEngravingBonus) *
+      10,
+  ) / 10;
 }
 
 export function formatAutoCollectorPurchaseMessage(

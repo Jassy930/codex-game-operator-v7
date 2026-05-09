@@ -15,6 +15,25 @@ import { createGameState, serializeGameState } from "./game";
 import { getWorkshopStage } from "./milestones";
 
 describe("App", () => {
+  it("renders the dashboard shell from the UI redesign spec", () => {
+    const html = renderToStaticMarkup(<App />);
+
+    expect(html).toContain('class="top-hud"');
+    expect(html).toContain('class="sidebar"');
+    expect(html).toContain('class="main-column"');
+    expect(html).toContain('class="side-column"');
+    expect(html).toContain('class="bottom-nav"');
+    expect(html).toContain("星尘核心");
+    expect(html).toContain("下一项工程");
+    expect(html).toContain("建造自动采集器");
+    expect(html).toContain("调校工坊频率");
+    expect(html).toContain("工坊状态");
+    expect(html).toContain("事件记录");
+    expect(html).toContain("归航台");
+    expect(html).toContain("研究所");
+    expect(html).toContain("日志");
+  });
+
   it("renders the first playable screen with action and upgrade controls", () => {
     const html = renderToStaticMarkup(<App />);
 
@@ -28,7 +47,7 @@ describe("App", () => {
     expect(html).toContain("调校工具");
     expect(html).toContain('alt="调校工具"');
     expect(html).toContain("需要先购买自动采集器");
-    expect(html).toContain("下一升级进度");
+    expect(html).toContain("下一项工程");
     expect(html).toContain("下一升级：自动采集器 · 需要 10 星尘");
     expect(html).toContain("目标：攒够星尘，购买第一个自动采集器");
     expect(html).toContain("工坊阶段：火花工作台");
@@ -36,7 +55,8 @@ describe("App", () => {
     expect(html).toContain("里程碑：0 / 2 台自动采集器");
     expect(html).toContain("event-stack");
     expect(html).toContain("反馈");
-    expect(html).not.toContain("共鸣矩阵");
+    expect(html).toContain("共鸣矩阵");
+    expect(html).toContain("未解锁");
   });
 
   it("updates the goal hint after the first auto collector is purchased", () => {

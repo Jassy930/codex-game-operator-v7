@@ -474,7 +474,10 @@ describe("visual assets", () => {
 
   it("keeps mobile action buttons compact when they stack vertically", () => {
     expect(styles).toMatch(
-      /@media \(max-width: 560px\)[\s\S]*\.primary-action,\n  \.upgrade-action \{[\s\S]*flex-basis: auto;/,
+      /@media \(max-width: 560px\)[\s\S]*\.collect-button \{[\s\S]*min-height: 70px;/,
+    );
+    expect(styles).toMatch(
+      /@media \(max-width: 560px\)[\s\S]*\.upgrade-card \{[\s\S]*grid-template-columns: 1fr;/,
     );
   });
 });
