@@ -388,7 +388,11 @@ export function App() {
       <main className="game-layout" aria-labelledby="game-title">
         <aside className="sidebar" aria-label="工坊导航">
           <nav className="nav-stack">
-            <a className="nav-item is-active" href="#engine-room">
+            <a
+              aria-current="page"
+              className="nav-item is-active"
+              href="#engine-room"
+            >
               <span>引擎室</span>
             </a>
             <a className="nav-item" href="#resonance-room">
@@ -397,13 +401,23 @@ export function App() {
             <a className="nav-item" href="#return-dock">
               <span>归航台</span>
             </a>
-            <button className="nav-item is-locked" type="button" disabled>
+            <button
+              aria-disabled="true"
+              className="nav-item is-locked"
+              type="button"
+              disabled
+            >
               <span>研究所</span>
-              <small>锁定</small>
+              <small>研究所锁定</small>
             </button>
-            <button className="nav-item is-locked" type="button" disabled>
+            <button
+              aria-disabled="true"
+              className="nav-item is-locked"
+              type="button"
+              disabled
+            >
               <span>日志</span>
-              <small>锁定</small>
+              <small>日志锁定</small>
             </button>
           </nav>
           <div className="guide-chip">

@@ -266,9 +266,17 @@ h2 {
   box-shadow: inset 0 0 26px rgba(255, 200, 90, 0.12);
 }
 
+.nav-item[aria-current="page"] {
+  border-color: rgba(255, 200, 90, 0.7);
+}
+
 .nav-item.is-locked {
   opacity: 0.55;
   cursor: not-allowed;
+}
+
+.nav-item[aria-disabled="true"] {
+  color: rgba(255, 241, 199, 0.62);
 }
 
 .guide-chip,

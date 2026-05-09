@@ -34,6 +34,15 @@ describe("App", () => {
     expect(html).toContain("日志");
   });
 
+  it("marks dashboard navigation states", () => {
+    const html = renderToStaticMarkup(<App />);
+
+    expect(html).toContain('aria-current="page"');
+    expect(html).toContain('aria-disabled="true"');
+    expect(html).toContain("研究所锁定");
+    expect(html).toContain("日志锁定");
+  });
+
   it("renders the first playable screen with action and upgrade controls", () => {
     const html = renderToStaticMarkup(<App />);
 
