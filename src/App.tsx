@@ -66,6 +66,7 @@ export function App() {
   const [collectMessage, setCollectMessage] = useState("");
   const [purchaseMessage, setPurchaseMessage] = useState("");
   const [openPanel, setOpenPanel] = useState<"stats" | null>(null);
+  const [sessionEvents, setSessionEvents] = useState<string[]>([]);
   const collectMessageTimer = useRef<number | null>(null);
   const purchaseMessageTimer = useRef<number | null>(null);
 
@@ -215,6 +216,7 @@ export function App() {
 
   function showCollectMessage(message: string) {
     setCollectMessage(message);
+    addSessionEvent(message);
     if (collectMessageTimer.current !== null) {
       window.clearTimeout(collectMessageTimer.current);
     }
@@ -271,6 +273,7 @@ export function App() {
 
   function showPurchaseMessage(message: string) {
     setPurchaseMessage(message);
+    addSessionEvent(message);
     if (purchaseMessageTimer.current !== null) {
       window.clearTimeout(purchaseMessageTimer.current);
     }
@@ -341,6 +344,10 @@ export function App() {
 
       return current;
     });
+  }
+
+  function addSessionEvent(message: string) {
+    setSessionEvents((current) => appendSessionEvent(current, message));
   }
 
   return (
@@ -788,7 +795,17 @@ export function App() {
               {purchaseMessage ? (
                 <p className="purchase-feedback">{purchaseMessage}</p>
               ) : null}
-              {!showOfflineDust && !collectMessage && !purchaseMessage ? (
+              {sessionEvents.length > 0 ? (
+                <ul className="event-list" aria-label="本次操作记录">
+                  {sessionEvents.map((event, index) => (
+                    <li key={`${event}-${index}`}>{event}</li>
+                  ))}
+                </ul>
+              ) : null}
+              {!showOfflineDust &&
+              !collectMessage &&
+              !purchaseMessage &&
+              sessionEvents.length === 0 ? (
                 <p className="idle-event">工坊运行稳定，等待下一次操作</p>
               ) : null}
             </div>
@@ -965,6 +982,14 @@ export function formatStatsPanelRows(state: GameState): Array<[string, string]> 
     ["共鸣", formatNumber(state.resonance)],
     ["归航次数", formatNumber(state.returnCount)],
   ];
+}
+
+export function appendSessionEvent(
+  events: string[],
+  message: string,
+  limit = 5,
+): string[] {
+  return [message, ...events].slice(0, Math.max(0, limit));
 }
 
 function formatShortfall(current: number, cost: number): string {

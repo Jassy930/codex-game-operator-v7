@@ -618,6 +618,24 @@ dd {
   gap: 8px;
 }
 
+.event-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.event-list li {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 200, 90, 0.12);
+  border-radius: 8px;
+  color: var(--text-muted);
+  background: rgba(4, 13, 25, 0.34);
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
 .offline-gain,
 .collect-feedback,
 .purchase-feedback,

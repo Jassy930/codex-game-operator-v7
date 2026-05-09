@@ -6,6 +6,7 @@ import {
   formatEfficiencyUpgradeMessage,
   formatResonanceNodeUnlockMessage,
   formatWorkshopStageNextRequirement,
+  appendSessionEvent,
   formatPurchaseFeedbackMessage,
   formatGoalHint,
   formatStatsPanelRows,
@@ -59,6 +60,10 @@ describe("App", () => {
       ["共鸣", "2"],
       ["归航次数", "1"],
     ]);
+  });
+
+  it("keeps a capped non-persistent session event feed", () => {
+    expect(appendSessionEvent(["a", "b"], "c", 2)).toEqual(["c", "a"]);
   });
 
   it("renders the first playable screen with action and upgrade controls", () => {
