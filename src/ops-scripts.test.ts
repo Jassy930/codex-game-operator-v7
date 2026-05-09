@@ -496,6 +496,15 @@ describe("visual assets", () => {
     );
   });
 
+  it("keeps the stardust multiplier chip anchored while the number changes", () => {
+    expect(styles).toMatch(
+      /\.resource-heading \{[\s\S]*display: grid;[\s\S]*grid-template-columns: minmax\(0, 1fr\) auto;[\s\S]*min-height: 36px;/,
+    );
+    expect(styles).toMatch(
+      /\.resource-heading \.info-chip \{[\s\S]*inline-size: 96px;[\s\S]*justify-content: center;[\s\S]*font-variant-numeric: tabular-nums;/,
+    );
+  });
+
   it("keeps collapsed HUD panels hidden when component display styles apply", () => {
     expect(styles).toContain(".hud-panel[hidden]");
     expect(styles).toMatch(/\.hud-panel\[hidden\]\s*\{[\s\S]*display: none;/);

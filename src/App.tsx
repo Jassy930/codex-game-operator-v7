@@ -504,7 +504,7 @@ export function App() {
         <section className="main-column" id="engine-room">
           <section className="resource-core-card" aria-live="polite">
             <div className="resource-copy">
-              <div className="section-heading">
+              <div className="resource-heading">
                 <p className="eyebrow">星尘核心</p>
                 <span className="info-chip">倍率 x{formatNumber(effectiveEfficiencyMultiplier)}</span>
               </div>

@@ -423,6 +423,20 @@ h2 {
   gap: 12px;
 }
 
+.resource-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+  min-height: 36px;
+}
+
+.resource-heading .info-chip {
+  inline-size: 96px;
+  justify-content: center;
+  font-variant-numeric: tabular-nums;
+}
+
 .section-heading {
   justify-content: space-between;
 }
