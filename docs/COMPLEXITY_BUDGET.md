@@ -198,6 +198,40 @@ v0.7 仍然禁止：
 - 节点等级
 - 外部 analytics SDK 或上传 telemetry
 
+## v0.8 Completed Route Reward Budget
+
+目标：让三段 `归航航线` 贯通后产生一个真实长期收益，同时继续复用现有 `共鸣` 和 `星尘归航` 循环。
+
+- Primary resource: 1
+- Secondary resources: max 1
+- Main actions: max 2
+- Upgrade types: max 4
+- Visible panels: max 5
+- First 60 seconds mechanics: max 3
+- First 60 seconds text: under 300 Chinese characters or 180 English words
+- Prestige loop: allowed as `星尘归航`
+- Prestige reward resource: `共鸣`
+- Completed return route reward boost: max +1 共鸣 per `星尘归航`
+- Completed return route reward boost source: only after `归航航线` 3/3
+- Return route milestones: max 3
+- Return route preparation reduction: max -2 auto collectors / max -1 tuning, derived only from existing route milestones
+- Save format versions: max 3
+- Feedback channels shown in UI: max 1 primary, 1 secondary
+
+v0.8 仍然禁止：
+
+- 第三普通资源
+- 任务系统
+- 复杂地图
+- 多生产线
+- 多个新面板
+- 第三共鸣门槛
+- 新共鸣节点
+- 节点等级树
+- 节点等级
+- 额外归航奖励层级
+- 外部 analytics SDK 或上传 telemetry
+
 ## Rule
 
 Every new mechanic must pass:

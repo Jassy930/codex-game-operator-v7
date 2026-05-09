@@ -415,6 +415,26 @@ describe("App", () => {
     expect(html).not.toContain("领取第 2 点共鸣");
   });
 
+  it("offers the boosted stardust return reward after the completed route", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      autoCollectors: 23,
+      autoCollectorEfficiencyLevel: 14,
+      autoCollectorEfficiencyMultiplier: 2.4,
+      dustPerSecond: 13.2,
+      resonance: 4,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 6,
+    });
+
+    expect(html).toContain("星尘归航 +2 共鸣");
+    expect(html).toContain(
+      "当前收益：三段航线已贯通，后续星尘归航奖励提升至 2 共鸣",
+    );
+    expect(html).toContain("归航准备完成：自动采集器 23/23，调校 14/14");
+  });
+
   it("shows the stardust return goal before returning", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
@@ -641,6 +661,25 @@ describe("App", () => {
 
     expect(formatStardustReturnCompletionMessage(nextState, previousState)).toBe(
       "星尘归航完成：获得 1 共鸣；归航航线推进：进入稳航校准 2/3 · 当前收益：余辉开局已稳定，下轮起步可立即重建 1 台自动采集器；归航准备降至 24 台自动采集器 / 14 次调校",
+    );
+  });
+
+  it("shows the boosted route reward in the completion event after the route is complete", () => {
+    const previousState = {
+      ...createGameState(0),
+      resonance: 4,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 6,
+    };
+    const nextState = {
+      ...previousState,
+      resonance: 6,
+      returnCount: 7,
+    };
+
+    expect(formatStardustReturnCompletionMessage(nextState, previousState)).toBe(
+      "星尘归航完成：获得 2 共鸣；归航航线更新：深空归航 3/3 · 本段进度：航线 3/3 已贯通 · 深空信标储备：7 次归航 / 6 点额外共鸣 · 下一步：继续归航，把额外共鸣沉淀为深空信标储备",
     );
   });
 

@@ -3,6 +3,7 @@ import { MAX_UNLOCKED_RESONANCE_NODES } from "./resonance";
 import {
   calculateReturnAfterglowDust,
   getStardustReturnRequirement,
+  getStardustReturnReward,
 } from "./return";
 
 export type ReturnRouteReadback = {
@@ -45,10 +46,11 @@ export function getReturnRouteReadback(
       stageGoal: formatCompletedRouteStageGoal(state),
       routeProgress: `本段进度：航线 ${TOTAL_RETURN_ROUTE_MILESTONES}/${TOTAL_RETURN_ROUTE_MILESTONES} 已贯通 · ${reserveSummary}`,
       routeSummary: `航线摘要：3/3 深空归航；${reserveSummary}，继续归航会点亮信标`,
-      currentPayoff:
-        `当前收益：三段航线已贯通，当前 ${parkedResonance} 点额外共鸣会沉淀为深空信标储备；${formatReturnRequirementEffect(
-          state,
-        )}`,
+      currentPayoff: `当前收益：三段航线已贯通，后续星尘归航奖励提升至 ${getStardustReturnReward(
+        state,
+      )} 共鸣；当前 ${parkedResonance} 点额外共鸣会沉淀为深空信标储备；${formatReturnRequirementEffect(
+        state,
+      )}`,
       nextRequirement: "航线已贯通：继续归航，点亮更多深空信标储备",
       progressSummary: "航线已贯通：后续归航都会沉淀为深空信标储备",
       actionHint: "下一步：继续归航，把额外共鸣沉淀为深空信标储备",

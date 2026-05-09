@@ -1,5 +1,9 @@
 import { createGameState } from "./game";
-import { canStardustReturn, performStardustReturn } from "./return";
+import {
+  canStardustReturn,
+  getStardustReturnReward,
+  performStardustReturn,
+} from "./return";
 
 describe("stardust return", () => {
   it("unlocks at the long horizon threshold after first resonance", () => {
@@ -104,7 +108,33 @@ describe("stardust return", () => {
     expect(canStardustReturn(state)).toBe(true);
   });
 
-  it("lowers the completed route preparation a second time without changing the reward", () => {
+  it("lowers the completed route preparation a second time", () => {
+    const state = {
+      ...createGameState(0),
+      autoCollectors: 23,
+      autoCollectorEfficiencyLevel: 14,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      resonance: 4,
+      returnCount: 6,
+    };
+
+    expect(canStardustReturn(state)).toBe(true);
+  });
+
+  it("keeps the base return reward before the completed route", () => {
+    const state = {
+      ...createGameState(0),
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      resonance: 2,
+      returnCount: 3,
+    };
+
+    expect(getStardustReturnReward(state)).toBe(1);
+  });
+
+  it("raises the return reward after the completed route", () => {
     const state = {
       ...createGameState(0),
       autoCollectors: 23,
@@ -117,7 +147,8 @@ describe("stardust return", () => {
 
     const next = performStardustReturn(state, 1000);
 
-    expect(next.resonance).toBe(5);
+    expect(getStardustReturnReward(state)).toBe(2);
+    expect(next.resonance).toBe(6);
     expect(next.returnCount).toBe(7);
   });
 

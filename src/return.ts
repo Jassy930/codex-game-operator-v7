@@ -9,6 +9,7 @@ const REQUIRED_FIRST_RESONANCE_MILESTONE = "first-resonance";
 const RETURN_AUTO_COLLECTORS = 25;
 const RETURN_TUNING_LEVEL = 15;
 const RETURN_RESONANCE_REWARD = 1;
+const COMPLETED_ROUTE_RESONANCE_REWARD = 2;
 const AFTERGLOW_DUST_PER_PARKED_RESONANCE = 10;
 const MAX_AFTERGLOW_DUST = 50;
 
@@ -41,6 +42,14 @@ export function getStardustReturnRequirement(
   };
 }
 
+export function getStardustReturnReward(state: GameState): number {
+  if (getCompletedReturnRouteMilestones(state) >= 3) {
+    return COMPLETED_ROUTE_RESONANCE_REWARD;
+  }
+
+  return RETURN_RESONANCE_REWARD;
+}
+
 export function performStardustReturn(
   state: GameState,
   now = Date.now(),
@@ -49,7 +58,7 @@ export function performStardustReturn(
     return state;
   }
 
-  const nextResonance = state.resonance + RETURN_RESONANCE_REWARD;
+  const nextResonance = state.resonance + getStardustReturnReward(state);
 
   return recalculateProduction({
     ...createGameState(now),

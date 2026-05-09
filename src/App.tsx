@@ -41,6 +41,7 @@ import {
   calculateReturnAfterglowDust,
   canStardustReturn,
   getStardustReturnRequirement,
+  getStardustReturnReward,
   performStardustReturn,
 } from "./return";
 import {
@@ -134,6 +135,7 @@ export function App() {
   const hasActiveReturnAfterglow =
     hasReturnAfterglowReadout && state.dust >= returnAfterglowDust;
   const returnRouteReadback = getReturnRouteReadback(state);
+  const stardustReturnReward = getStardustReturnReward(state);
   const showResonanceChoiceStatus =
     canChooseResonanceNode ||
     state.unlockedResonanceNodes.length >= MAX_UNLOCKED_RESONANCE_NODES;
@@ -888,7 +890,7 @@ export function App() {
               onClick={handleStardustReturnClick}
             >
               {canReturn && !canChooseResonanceNode
-                ? "星尘归航 +1 共鸣"
+                ? `星尘归航 +${stardustReturnReward} 共鸣`
                 : "归航条件未完成"}
             </button>
           </section>
@@ -1025,6 +1027,7 @@ export function formatStardustReturnCompletionMessage(
   previousState: GameState | null = null,
 ): string {
   const returnRouteReadback = getReturnRouteReadback(state);
+  const resonanceReward = getStardustReturnReward(previousState ?? state);
 
   if (returnRouteReadback) {
     const previousRouteReadback = previousState
@@ -1036,13 +1039,13 @@ export function formatStardustReturnCompletionMessage(
       returnRouteReadback.completedMilestones >
         previousRouteReadback.completedMilestones
     ) {
-      return `星尘归航完成：获得 1 共鸣；归航航线推进：进入${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.currentPayoff}`;
+      return `星尘归航完成：获得 ${resonanceReward} 共鸣；归航航线推进：进入${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.currentPayoff}`;
     }
 
-    return `星尘归航完成：获得 1 共鸣；归航航线更新：${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.routeProgress} · ${returnRouteReadback.actionHint}`;
+    return `星尘归航完成：获得 ${resonanceReward} 共鸣；归航航线更新：${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.routeProgress} · ${returnRouteReadback.actionHint}`;
   }
 
-  return "星尘归航完成：获得 1 共鸣，工坊回到新一轮火花工作台";
+  return `星尘归航完成：获得 ${resonanceReward} 共鸣，工坊回到新一轮火花工作台`;
 }
 
 function loadGame(): HydratedGameState {
