@@ -1010,7 +1010,7 @@ export function formatStardustReturnCompletionMessage(state: GameState): string 
   const returnRouteReadback = getReturnRouteReadback(state);
 
   if (returnRouteReadback) {
-    return `星尘归航完成：获得 1 共鸣；归航航线更新：${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.routeProgress}`;
+    return `星尘归航完成：获得 1 共鸣；归航航线更新：${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.routeProgress} · ${returnRouteReadback.actionHint}`;
   }
 
   return "星尘归航完成：获得 1 共鸣，工坊回到新一轮火花工作台";

@@ -566,7 +566,7 @@ describe("App", () => {
     );
   });
 
-  it("adds the current route segment to the stardust return completion event", () => {
+  it("adds the current route segment and action hint to the stardust return completion event", () => {
     expect(
       formatStardustReturnCompletionMessage({
         ...createGameState(0),
@@ -576,7 +576,7 @@ describe("App", () => {
         returnCount: 3,
       }),
     ).toBe(
-      "星尘归航完成：获得 1 共鸣；归航航线更新：稳航校准 2/3 · 本段进度：归航 3/6 · 额外共鸣 2/4",
+      "星尘归航完成：获得 1 共鸣；归航航线更新：稳航校准 2/3 · 本段进度：归航 3/6 · 额外共鸣 2/4 · 下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
     );
   });
 
