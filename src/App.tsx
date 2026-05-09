@@ -316,9 +316,7 @@ export function App() {
     setState((current) => {
       const next = performStardustReturn(current);
       if (next !== current) {
-        showPurchaseMessage(
-          "星尘归航完成：获得 1 共鸣，工坊回到新一轮火花工作台",
-        );
+        showPurchaseMessage(formatStardustReturnCompletionMessage(next));
       }
 
       return next;
@@ -1006,6 +1004,16 @@ function formatStardustReturnProgressMessage(
   const prefix = canReturn ? "归航准备完成" : "归航准备";
 
   return `${prefix}：自动采集器 ${autoCollectors}/25，调校 ${tuning}/15`;
+}
+
+export function formatStardustReturnCompletionMessage(state: GameState): string {
+  const returnRouteReadback = getReturnRouteReadback(state);
+
+  if (returnRouteReadback) {
+    return `星尘归航完成：获得 1 共鸣；归航航线更新：${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.routeProgress}`;
+  }
+
+  return "星尘归航完成：获得 1 共鸣，工坊回到新一轮火花工作台";
 }
 
 function loadGame(): HydratedGameState {

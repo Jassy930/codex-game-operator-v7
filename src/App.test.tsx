@@ -7,6 +7,7 @@ import {
   formatResonanceNodeUnlockMessage,
   formatWorkshopStageNextRequirement,
   appendSessionEvent,
+  formatStardustReturnCompletionMessage,
   formatPurchaseFeedbackMessage,
   formatGoalHint,
   formatStatsPanelRows,
@@ -562,6 +563,20 @@ describe("App", () => {
     );
     expect(html).toContain(
       "归航目标：稳航校准 2/3，补 3 次归航 / 2 点额外共鸣进入深空归航",
+    );
+  });
+
+  it("adds the current route segment to the stardust return completion event", () => {
+    expect(
+      formatStardustReturnCompletionMessage({
+        ...createGameState(0),
+        resonance: 2,
+        earnedResonanceMilestones: ["first-resonance"],
+        unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+        returnCount: 3,
+      }),
+    ).toBe(
+      "星尘归航完成：获得 1 共鸣；归航航线更新：稳航校准 2/3 · 本段进度：归航 3/6 · 额外共鸣 2/4",
     );
   });
 

@@ -8,27 +8,27 @@ CONTENT_REVIEW
 
 ## Iteration Track
 
-VISUAL_POLISH
+PLAYABLE_CONTENT
 
 ## Cycle Bet
 
-目标：完成 UI dashboard follow-up 剩余任务：本次 session 事件流、保存管理菜单壳、锁定系统说明和真实浏览器复核。
-Appetite：3 个展示层小切片 + 1 个复核修复。
-包括：非持久事件列表、导出只读 / 导入禁用 / 重置禁用的保存管理壳、研究所 / 日志锁定说明、折叠菜单隐藏样式护栏和运行态文档同步。
-不包括：新增依赖、玩法系统、资源、共鸣节点、任务系统、多生产线、真实研究、持久日志、telemetry、存档字段、导入执行、重置执行或核心函数语义变更。
-完成定义：dashboard 的装饰入口都有可读反馈，事件记录像控制台反馈，保存管理入口不会默认展开或执行危险操作。
+目标：把 `星尘归航` 完成事件接入 v0.7 `归航航线` 读回，让玩家执行归航后立刻看到当前航线段和本段进度。
+Appetite：1 个反馈层小切片。
+包括：归航完成事件文案、事件记录复用、窄测试和运行态文档同步。
+不包括：新增资源、节点、任务、面板、存档字段、telemetry、归航奖励变化、余辉公式变化或新 UI 布局。
+完成定义：归航完成反馈不再只说“获得 1 共鸣”，而是在航线存在时短读 `当前段 completed/3 + 本段进度`。
 
 ## Expected Content Advance
 
-让当前 dashboard 从“入口状态可读”推进到“控制台反馈可读”：玩家能看到本次操作记录、理解保存入口边界，并知道研究所 / 日志目前只是锁定方向。
+重复归航从“点完按钮再去矩阵里找变化”推进到“事件记录立即告诉玩家航线更新到哪里”，降低 20 小时后循环的迷失感。
 
 ## Evidence Source
 
-`docs/plans/2026-05-09-ui-dashboard-followup-plan.md`、`docs/SELF_PLAYTEST.md` 和第一批 follow-up 显示：导航和统计已补齐，剩余缺口是事件流、保存管理壳、锁定系统说明和浏览器复核。
+`docs/SELF_PLAYTEST.md` 和 `docs/ROADMAP.md` 都把下一步指向 v0.7 `归航航线` 可读性复核；dashboard 事件流已上线，但归航完成事件仍是泛化文案。
 
 ## Required Artifact
 
-更新 `docs/SELF_PLAYTEST.md`、`docs/DECISION.md`、`docs/RELEASE_LOG.md`、本文件、`src/App.tsx`、`src/styles.css`、`src/App.test.tsx` 和 `src/ops-scripts.test.ts`。
+更新 `src/App.tsx`、`src/App.test.tsx`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md`、`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/RELEASE_LOG.md` 和本文件。
 
 ## Cycle Status
 
@@ -36,14 +36,14 @@ completed
 
 ## Reason
 
-当前 dashboard 入口状态已上线，但事件记录、菜单保存管理和锁定系统说明仍需要补齐；浏览器复核还发现折叠菜单隐藏需要 CSS 护栏。此轮补反馈与边界，不扩玩法。
+当前航线详情已经足够丰富，但点击 `星尘归航` 后的即时反馈没有读回航线进度；这会让玩家在重复归航这一关键动作后仍需要自行扫描矩阵。
 
 ## Allowed Actions
 
-- 用 TDD 增加事件流、保存管理壳、锁定系统说明和 CSS 隐藏护栏断言。
-- 增加非持久 UI state 保存本次 session 事件列表。
-- 使用 in-app Browser 做 DOM / locator 复核；截图超时时记录验证缺口。
-- 更新 decision、release、自测记录和 governor 状态。
+- 用 TDD 增加归航完成事件的航线段位和本段进度断言。
+- 复用 `getReturnRouteReadback(state)` 生成纯派生文案。
+- 继续把事件写入本次 session 事件流，不持久化。
+- 更新 decision、release、自测记录、内容弧线和 governor 状态。
 
 ## Forbidden Actions
 
@@ -54,30 +54,25 @@ completed
 
 ## Exit Criteria
 
-- 本次 session 事件流只保存在 React state，不写入存档。
-- 保存管理菜单默认隐藏；导出只读，导入和重置不执行。
-- 研究所 / 日志锁定说明只解释展示边界，不新增系统。
-- 浏览器复核发现的问题已修复或记录为验证缺口。
+- 航线存在时，归航完成事件包含当前航线段、`completed/3` 和本段进度。
+- 航线不存在时，旧的归航完成反馈保持可读。
+- 事件仍只保存在 React state，不写入存档。
 - 不新增依赖、存档字段、玩法系统或核心函数语义变更。
 - 相关运行态文档同步当前方向。
 - 完整验证通过或明确记录验证缺口。
 
 ## Next Candidate Mode / Track
 
-下一轮优先回到 `CONTENT_REVIEW`：复核 v0.7 `归航航线` 可读性；若继续 UI，只做人工截图级视口复核和展示密度微调。
+下一轮优先回到 `CONTENT_REVIEW`：复核真实视口下 dashboard 是否无横向滚动，以及 v0.7 `归航航线` 在事件流和矩阵详情之间是否重复过密。
 
 ## Drift Status
 
-本轮只调整 UI 状态、样式和展示文案，不改变存档、资源、节点、归航奖励、余辉公式、采集、升级、共鸣、离线收益、导入或重置语义。
+本轮只调整归航完成反馈文案和事件记录内容，不改变存档、资源、节点、归航奖励、余辉公式、采集、升级、共鸣、离线收益、导入或重置语义。
 
 ## Last Updated
 
-2026-05-09: 完成 UI dashboard follow-up 第二批任务：事件记录改为本次 session 非持久事件流；顶部菜单增加保存管理壳，导出只读、导入和重置禁用；右侧状态区增加研究所 / 日志锁定说明。in-app Browser 复核发现折叠菜单可见问题，已补 `.hud-panel[hidden]` 样式和 CSS 测试；截图捕获超时，人工视觉截图复核仍作为缺口记录。最终验证随后复跑。
+2026-05-09: 完成 v0.7 `归航航线` 事件反馈小切片。红灯测试先要求归航完成事件短读当前航线段和本段进度；实现复用现有 `getReturnRouteReadback`。已验证 `bun test`、`bun run test` 和 `bun run build`，治理检查和 whitespace 检查随后复跑。
 
-2026-05-09: 完成 UI dashboard follow-up 第一批任务：写入 1440px / 1024px / 375px 视口复核清单；导航补 `aria-current`、`aria-disabled` 和锁定短文案；顶部 `统计` 按钮接入只读当前 `GameState` 的本地统计面板。验证通过 `bun run test`、`bun run build`、`git diff --check`；`governor-check` 在状态收口后复跑。
+2026-05-09: 完成 UI dashboard follow-up 第二批任务：事件记录改为本次 session 非持久事件流；顶部菜单增加保存管理壳，导出只读、导入和重置禁用；右侧状态区增加研究所 / 日志锁定说明。in-app Browser 复核发现折叠菜单可见问题，已补 `.hud-panel[hidden]` 样式和 CSS 测试；截图捕获超时，人工视觉截图复核仍作为缺口记录。
 
-2026-05-09: 开始执行 UI dashboard follow-up 第一批任务：先补视口复核清单，再用 TDD 增加导航状态和顶部统计面板。仍不改变 `GameState`、存档、核心玩法函数、资源、节点或 telemetry。
-
-2026-05-09: 本轮完成 UI dashboard 重设计。`src/App.tsx` 改为 HUD / 导航 / 主操作 / 状态区结构，`src/styles.css` 改为暖科幻游戏控制台视觉，移动端改为单列和底部导航；`src/App.test.tsx` 增加 UI 架构断言，治理测试更新为新移动端按钮约束。验证通过 `bun run test` 和 `bun run build`，后续仍需浏览器尺寸复核。
-
-2026-05-09: 本轮完成 v0.7 `归航航线` 贯通态信标储备读回。三段贯通后，阶段目标、航线摘要、当前收益、下一步、航线图和预览统一读回 `深空信标储备`，不再把完成态写成“后续版本”占位语。不改变存档、资源、节点、归航奖励或余辉公式。红灯测试先失败于旧完成态文案，补实现后转绿；最终验证通过 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
+2026-05-09: 完成 v0.7 `归航航线` 贯通态信标储备读回。三段贯通后，阶段目标、航线摘要、当前收益、下一步、航线图和预览统一读回 `深空信标储备`，不再把完成态写成“后续版本”占位语。不改变存档、资源、节点、归航奖励或余辉公式。
