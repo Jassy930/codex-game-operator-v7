@@ -841,6 +841,26 @@ dd {
   gap: 4px;
 }
 
+.return-route-primary {
+  color: var(--text-main);
+  font-weight: 800;
+}
+
+.return-route-secondary {
+  color: var(--text-muted);
+}
+
+.return-route-details {
+  display: grid;
+  gap: 8px;
+}
+
+.return-route-details summary {
+  color: var(--text-main);
+  cursor: pointer;
+  font-weight: 800;
+}
+
 .return-card {
   border-color: rgba(49, 230, 208, 0.34);
   background: linear-gradient(135deg, rgba(14, 72, 70, 0.82), rgba(9, 24, 42, 0.88));

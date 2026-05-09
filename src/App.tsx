@@ -670,16 +670,25 @@ export function App() {
                       {returnRouteReadback.current}
                     </strong>
                   </div>
-                  <p>{returnRouteReadback.description}</p>
-                  <p>{returnRouteReadback.routeProgress}</p>
-                  <p>{returnRouteReadback.routeSummary}</p>
-                  <p>{returnRouteReadback.currentPayoff}</p>
-                  <p>{returnRouteReadback.nextRequirement}</p>
-                  <p>{returnRouteReadback.progressSummary}</p>
-                  <p>{returnRouteReadback.actionHint}</p>
-                  <p>{returnRouteReadback.cadenceForecast}</p>
-                  <p>{returnRouteReadback.routeMap}</p>
-                  <p>{returnRouteReadback.nextPreview}</p>
+                  <p className="return-route-primary">
+                    {returnRouteReadback.routeSummary}
+                  </p>
+                  <p className="return-route-secondary">
+                    {returnRouteReadback.currentPayoff}
+                  </p>
+                  <p className="return-route-secondary">
+                    {returnRouteReadback.actionHint}
+                  </p>
+                  <details className="return-route-details">
+                    <summary>航线细节</summary>
+                    <p>{returnRouteReadback.description}</p>
+                    <p>{returnRouteReadback.routeProgress}</p>
+                    <p>{returnRouteReadback.nextRequirement}</p>
+                    <p>{returnRouteReadback.progressSummary}</p>
+                    <p>{returnRouteReadback.cadenceForecast}</p>
+                    <p>{returnRouteReadback.routeMap}</p>
+                    <p>{returnRouteReadback.nextPreview}</p>
+                  </details>
                 </div>
               ) : null}
               <div className="resonance-nodes">

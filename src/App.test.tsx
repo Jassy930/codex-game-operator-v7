@@ -551,6 +551,10 @@ describe("App", () => {
 
     expect(html).toContain("归航航线");
     expect(html).toContain("航线 2/3 · 稳航校准");
+    expect(html).toContain('class="return-route-primary"');
+    expect(html).toContain('class="return-route-secondary"');
+    expect(html).toContain('class="return-route-details"');
+    expect(html).toContain("<summary>航线细节</summary>");
     expect(html).toContain("本段进度：归航 3/6 · 额外共鸣 2/4");
     expect(html).toContain(
       "航线摘要：2/3 稳航校准；当前收益：下轮起步可重建 1 台自动采集器；距深空归航还差 3 次归航、2 点额外共鸣；按当前路线再归航 3 次即可进入深空归航",

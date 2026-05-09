@@ -8,27 +8,27 @@ SELF_PLAYTEST
 
 ## Iteration Track
 
-VISUAL_POLISH
+CONTENT_REVIEW
 
 ## Cycle Bet
 
-目标：压缩首页文字密度，并把首屏主目标从“多处说明”收敛为一个清楚的 `当前目标`。
-Appetite：1 个首页可读性小切片。
-包括：右侧目标卡改为当前目标读回，压缩重复目标文案；升级卡去掉解释段只保留数值和动作；移除首页未来系统说明卡；同步窄测试和运行态文档。
+目标：复核 v0.7 `归航航线` 是否因为信息太完整而变得过密，并把矩阵内读回收敛成摘要优先、细节渐进展开。
+Appetite：1 个归航航线可读性小切片。
+包括：保留现有航线信息，但在 UI 中优先显示摘要、当前收益和下一步，把进度、门槛、差距、节奏、航线图和预览收进同一个航线块的细节层；同步窄测试和运行态文档。
 不包括：新增资源、节点、任务、面板、存档字段、telemetry、归航奖励、余辉公式、航线门槛或新视觉资产。
-完成定义：首页首屏能直接看到当前目标和差额，低价值说明文字减少，不改变任何核心玩法。
+完成定义：重复归航玩家先扫到“当前价值 + 下一步”，完整航线信息仍可查看，但不再在矩阵内连续铺开十行正文。
 
 ## Expected Content Advance
 
-玩家进入首页后先看到一个明确的当前目标，例如“购买第一个自动采集器”，并能直接看到差多少星尘；升级和未来系统说明不再挤占首屏注意力。
+玩家进入 `归航航线` 后先看到摘要、当前收益和下一步行动；完整差距、节奏、航线图和下一段预览仍保留在原航线块内，降低 20 小时后目标读回的密度。
 
 ## Evidence Source
 
-用户反馈“现在首页的文字有点多，游戏目标也不够明确”。`docs/NORTH_STAR.md` 要求玩家感到“我知道下一步做什么”，`docs/COMPLEXITY_BUDGET.md` 也要求首 60 秒文字保持克制。
+`docs/SELF_PLAYTEST.md` 和 `docs/ROADMAP.md` 都要求复核 v0.7 `归航航线` 是否真正减少重复归航后的迷失感。当前实现已补齐本段进度、量化收益、差距、节奏、航线图和预览，但矩阵内连续正文过多，可能违背 `docs/NORTH_STAR.md` 的“游戏在变深，但不是变吵”。
 
 ## Required Artifact
 
-更新 `src/App.tsx`、`src/App.test.tsx`、`src/styles.css`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md`、`docs/RELEASE_LOG.md`、`docs/FEEDBACK_CLUSTERS.md` 和本文件。
+更新 `src/App.tsx`、`src/App.test.tsx`、`src/styles.css`、`docs/SELF_PLAYTEST.md`、`docs/DECISION.md`、`docs/ROADMAP.md`、`docs/CONTENT_ARC.md`、`docs/RELEASE_LOG.md` 和本文件。
 
 ## Cycle Status
 
@@ -36,13 +36,13 @@ completed
 
 ## Reason
 
-当前首页在 dashboard 化后保留了太多说明文本，包括升级卡解释、未来系统说明和多处目标读回。最小修复是让 `当前目标` 成为唯一主目标入口，并删掉首屏低价值说明，而不是新增教程或新面板。
+当前 `归航航线` 内容链路已经足够完整，继续追加字段会增加噪音。最小修复是调整现有读回优先级，让摘要、收益和下一步处于首层，细节通过原航线块里的渐进展开承接。
 
 ## Allowed Actions
 
-- 用 TDD 增加首页目标聚焦和文字删减断言。
-- 调整现有 dashboard 文案结构和目标卡展示。
-- 更新 decision、release、自测记录和 governor 状态。
+- 用 TDD 增加 `归航航线` 摘要优先和细节层断言。
+- 调整现有 `共鸣矩阵` 内 `归航航线` 块的展示结构和样式。
+- 更新 decision、roadmap、content arc、release、自测记录和 governor 状态。
 
 ## Forbidden Actions
 
@@ -54,22 +54,24 @@ completed
 
 ## Exit Criteria
 
-- 首页目标卡显示 `当前目标`、主要动作和差额。
-- 首页不再展示未来系统说明卡。
-- 升级卡不再展示重复解释段。
+- `归航航线` 首层只显示摘要、当前收益和下一步等高优先级读回。
+- 进度、下一段门槛、差距、节奏、航线图和预览仍保留在同一个航线块的细节层。
+- 不改变任何 `ReturnRouteReadback` 数值语义、归航奖励或航线门槛。
 - 不新增依赖、存档字段、玩法系统或核心函数语义变更。
 - 相关运行态文档同步当前方向。
 - 完整验证通过或明确记录验证缺口。
 
 ## Next Candidate Mode / Track
 
-下一轮优先在 `CONTENT_REVIEW` 中用真实浏览器复核 1440px / 1024px / 375px 首页首屏截图；若继续处理目标不清楚，只调整现有读回优先级，不新增教程、任务系统或新面板。
+下一轮优先在 `CONTENT_REVIEW` 中复核 dashboard 真实截图缺口；若继续处理长期目标，只调整现有读回优先级，不新增任务系统、节点等级树或新面板。
 
 ## Drift Status
 
-本轮只调整首页文案结构和目标卡样式，不改变存档、资源、节点、归航奖励、余辉公式、采集、升级、共鸣、离线收益、导入或重置语义。
+本轮只调整 `归航航线` 展示密度和读回优先级，不改变存档、资源、节点、归航奖励、余辉公式、航线门槛、采集、升级、共鸣、离线收益、导入或重置语义。
 
 ## Last Updated
+
+2026-05-09: 完成 v0.7 `归航航线` 细节渐进展开切片。`共鸣矩阵` 内航线块首层优先显示航线摘要、当前收益和下一步行动，本段进度、下一段门槛、差距、节奏预判、航线图和下一段预览保留在同块内的 `航线细节`。不改 `ReturnRouteReadback` 数值语义、存档、资源、节点、归航奖励、余辉公式、航线门槛或 telemetry。验证通过 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。
 
 2026-05-09: 完成首页目标聚焦切片。右侧目标卡从 `下一项工程` 改为 `当前目标`，主文案直接显示下一步动作和差额；升级卡移除重复解释段，首页移除 `未来系统` 说明卡，研究所 / 日志只保留为锁定导航入口。不改玩法、存档、资源、共鸣、归航、余辉、航线门槛或 telemetry。验证通过 `bun test`、`bun run test`、`bun run build`、`./ops/governor-check.sh` 和 `git diff --check`。本地 Vite 可启动并返回页面；Node REPL 无 `playwright` 模块，真实截图复核仍是验证缺口。
 
