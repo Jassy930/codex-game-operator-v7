@@ -12,12 +12,33 @@ const RETURN_RESONANCE_REWARD = 1;
 const AFTERGLOW_DUST_PER_PARKED_RESONANCE = 10;
 const MAX_AFTERGLOW_DUST = 50;
 
+export type StardustReturnRequirement = {
+  autoCollectors: number;
+  tuning: number;
+  completedRouteMilestones: number;
+};
+
 export function canStardustReturn(state: GameState): boolean {
+  const requirement = getStardustReturnRequirement(state);
+
   return (
     state.earnedResonanceMilestones.includes(REQUIRED_FIRST_RESONANCE_MILESTONE) &&
-    state.autoCollectors >= RETURN_AUTO_COLLECTORS &&
-    state.autoCollectorEfficiencyLevel >= RETURN_TUNING_LEVEL
+    state.autoCollectors >= requirement.autoCollectors &&
+    state.autoCollectorEfficiencyLevel >= requirement.tuning
   );
+}
+
+export function getStardustReturnRequirement(
+  state: GameState,
+): StardustReturnRequirement {
+  const completedRouteMilestones = getCompletedReturnRouteMilestones(state);
+  const routeReduction = Math.max(0, completedRouteMilestones - 1);
+
+  return {
+    autoCollectors: RETURN_AUTO_COLLECTORS - routeReduction,
+    tuning: RETURN_TUNING_LEVEL - Math.min(1, routeReduction),
+    completedRouteMilestones,
+  };
 }
 
 export function performStardustReturn(
@@ -55,4 +76,25 @@ export function calculateReturnAfterglowDust(state: GameState): number {
     MAX_AFTERGLOW_DUST,
     state.resonance * AFTERGLOW_DUST_PER_PARKED_RESONANCE,
   );
+}
+
+function getCompletedReturnRouteMilestones(state: GameState): number {
+  if (
+    state.returnCount <= 0 ||
+    state.unlockedResonanceNodes.length < MAX_UNLOCKED_RESONANCE_NODES
+  ) {
+    return 0;
+  }
+
+  const parkedResonance = Math.max(0, state.resonance);
+
+  if (state.returnCount >= 6 && parkedResonance >= 4) {
+    return 3;
+  }
+
+  if (state.returnCount >= 3 && parkedResonance >= 2) {
+    return 2;
+  }
+
+  return 1;
 }

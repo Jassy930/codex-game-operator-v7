@@ -40,6 +40,7 @@ import {
 import {
   calculateReturnAfterglowDust,
   canStardustReturn,
+  getStardustReturnRequirement,
   performStardustReturn,
 } from "./return";
 import {
@@ -1005,11 +1006,18 @@ function formatStardustReturnProgressMessage(
   state: GameState,
   canReturn: boolean,
 ): string {
-  const autoCollectors = Math.min(Math.max(0, state.autoCollectors), 25);
-  const tuning = Math.min(Math.max(0, state.autoCollectorEfficiencyLevel), 15);
+  const requirement = getStardustReturnRequirement(state);
+  const autoCollectors = Math.min(
+    Math.max(0, state.autoCollectors),
+    requirement.autoCollectors,
+  );
+  const tuning = Math.min(
+    Math.max(0, state.autoCollectorEfficiencyLevel),
+    requirement.tuning,
+  );
   const prefix = canReturn ? "归航准备完成" : "归航准备";
 
-  return `${prefix}：自动采集器 ${autoCollectors}/25，调校 ${tuning}/15`;
+  return `${prefix}：自动采集器 ${autoCollectors}/${requirement.autoCollectors}，调校 ${tuning}/${requirement.tuning}`;
 }
 
 export function formatStardustReturnCompletionMessage(

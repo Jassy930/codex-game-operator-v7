@@ -90,6 +90,37 @@ describe("stardust return", () => {
     expect(next.returnCount).toBe(6);
   });
 
+  it("lowers the next return preparation after the stable route milestone", () => {
+    const state = {
+      ...createGameState(0),
+      autoCollectors: 24,
+      autoCollectorEfficiencyLevel: 14,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      resonance: 2,
+      returnCount: 3,
+    };
+
+    expect(canStardustReturn(state)).toBe(true);
+  });
+
+  it("lowers the completed route preparation a second time without changing the reward", () => {
+    const state = {
+      ...createGameState(0),
+      autoCollectors: 23,
+      autoCollectorEfficiencyLevel: 14,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      resonance: 4,
+      returnCount: 6,
+    };
+
+    const next = performStardustReturn(state, 1000);
+
+    expect(next.resonance).toBe(5);
+    expect(next.returnCount).toBe(7);
+  });
+
   it("does not return the workshop before the threshold", () => {
     const state = {
       ...createGameState(0),

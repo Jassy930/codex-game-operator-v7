@@ -181,6 +181,7 @@ v0.6 仍然禁止：
 - Return route plan: allowed
 - Return route milestones: max 3
 - Return route readback: reuse existing `共鸣矩阵` and stage target
+- Return route preparation reduction: max -2 auto collectors / max -1 tuning, derived only from existing route milestones
 - Save format versions: max 3
 - Feedback channels shown in UI: max 1 primary, 1 secondary
 

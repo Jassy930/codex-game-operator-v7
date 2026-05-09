@@ -495,6 +495,8 @@ describe("App", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       dust: 20,
+      autoCollectors: 23,
+      autoCollectorEfficiencyLevel: 13,
       resonance: 2,
       earnedResonanceMilestones: ["first-resonance"],
       unlockedResonanceNodes: ["stable-circuit", "return-coil"],
@@ -543,6 +545,8 @@ describe("App", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       dust: 20,
+      autoCollectors: 23,
+      autoCollectorEfficiencyLevel: 13,
       resonance: 2,
       earnedResonanceMilestones: ["first-resonance"],
       unlockedResonanceNodes: ["stable-circuit", "return-coil"],
@@ -587,6 +591,8 @@ describe("App", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
       dust: 20,
+      autoCollectors: 23,
+      autoCollectorEfficiencyLevel: 13,
       resonance: 2,
       earnedResonanceMilestones: ["first-resonance"],
       unlockedResonanceNodes: ["stable-circuit", "return-coil"],
@@ -595,9 +601,13 @@ describe("App", () => {
 
     expect(html).toContain('class="return-dock-route"');
     expect(html).toContain("归航航线：稳航校准 2/3");
+    expect(html).toContain("归航准备：自动采集器 23/24，调校 13/14");
     expect(html).toContain("本段进度：归航 3/6 · 额外共鸣 2/4");
     expect(html).toContain(
       "下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
+    );
+    expect(html).toContain(
+      "当前收益：余辉开局已稳定，下轮起步可立即重建 1 台自动采集器；归航准备降至 24 台自动采集器 / 14 次调校",
     );
   });
 
@@ -630,7 +640,7 @@ describe("App", () => {
     };
 
     expect(formatStardustReturnCompletionMessage(nextState, previousState)).toBe(
-      "星尘归航完成：获得 1 共鸣；归航航线推进：进入稳航校准 2/3 · 当前收益：余辉开局已稳定，下轮起步可立即重建 1 台自动采集器",
+      "星尘归航完成：获得 1 共鸣；归航航线推进：进入稳航校准 2/3 · 当前收益：余辉开局已稳定，下轮起步可立即重建 1 台自动采集器；归航准备降至 24 台自动采集器 / 14 次调校",
     );
   });
 
