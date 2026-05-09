@@ -481,6 +481,21 @@ describe("visual assets", () => {
     );
   });
 
+  it("sizes the stardust core number against its card instead of the viewport", () => {
+    expect(styles).toMatch(
+      /\.resource-core-card \{[\s\S]*container-type: inline-size;/,
+    );
+    expect(styles).toMatch(
+      /\.resource-copy \{[\s\S]*z-index: 2;/,
+    );
+    expect(styles).toMatch(
+      /\.resource-number \{[\s\S]*font-size: clamp\(3\.2rem, 13cqi, 6\.6rem\);[\s\S]*max-width: 100%;[\s\S]*overflow-wrap: anywhere;/,
+    );
+    expect(styles).toMatch(
+      /\.resource-art \{[\s\S]*z-index: 1;/,
+    );
+  });
+
   it("keeps collapsed HUD panels hidden when component display styles apply", () => {
     expect(styles).toContain(".hud-panel[hidden]");
     expect(styles).toMatch(/\.hud-panel\[hidden\]\s*\{[\s\S]*display: none;/);

@@ -391,11 +391,12 @@ h2 {
 }
 
 .resource-core-card {
+  container-type: inline-size;
   min-height: 410px;
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(210px, 0.75fr);
+  grid-template-columns: minmax(0, 1fr) minmax(170px, 0.42fr);
   gap: 18px;
   align-items: center;
   padding: clamp(18px, 3vw, 30px);
@@ -416,6 +417,7 @@ h2 {
 }
 
 .resource-copy {
+  z-index: 2;
   min-width: 0;
   display: grid;
   gap: 12px;
@@ -427,9 +429,11 @@ h2 {
 
 .resource-number {
   color: var(--text-main);
-  font-size: clamp(4rem, 8vw, 6.6rem);
+  font-size: clamp(3.2rem, 13cqi, 6.6rem);
+  max-width: 100%;
   line-height: 0.92;
   letter-spacing: 0;
+  overflow-wrap: anywhere;
   text-shadow: 0 0 24px rgba(255, 200, 90, 0.22);
 }
 
@@ -440,6 +444,7 @@ h2 {
 }
 
 .resource-art {
+  z-index: 1;
   width: min(100%, 320px);
   aspect-ratio: 1;
   justify-self: center;
@@ -1000,7 +1005,7 @@ dd {
   }
 
   .resource-number {
-    font-size: clamp(3.35rem, 18vw, 4.8rem);
+    font-size: clamp(3.2rem, 15cqi, 4.8rem);
   }
 
   .core-metrics,
