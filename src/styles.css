@@ -862,7 +862,7 @@ dd {
 
 @media (max-width: 900px) {
   .app-shell {
-    padding-bottom: 90px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
     background-attachment: scroll;
   }
 
@@ -935,11 +935,17 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  #engine-room,
+  #resonance-room,
+  #return-dock {
+    scroll-margin-bottom: calc(110px + env(safe-area-inset-bottom));
+  }
+
   .bottom-nav {
     position: fixed;
     left: 12px;
     right: 12px;
-    bottom: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
     z-index: 25;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

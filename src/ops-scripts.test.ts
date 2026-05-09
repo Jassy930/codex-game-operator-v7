@@ -485,6 +485,18 @@ describe("visual assets", () => {
     expect(styles).toContain(".hud-panel[hidden]");
     expect(styles).toMatch(/\.hud-panel\[hidden\]\s*\{[\s\S]*display: none;/);
   });
+
+  it("keeps the mobile bottom navigation from covering anchored content", () => {
+    expect(styles).toMatch(
+      /@media \(max-width: 900px\)[\s\S]*\.app-shell \{[\s\S]*padding-bottom: calc\(96px \+ env\(safe-area-inset-bottom\)\);/,
+    );
+    expect(styles).toMatch(
+      /@media \(max-width: 900px\)[\s\S]*\.bottom-nav \{[\s\S]*bottom: calc\(12px \+ env\(safe-area-inset-bottom\)\);/,
+    );
+    expect(styles).toMatch(
+      /@media \(max-width: 900px\)[\s\S]*#engine-room,[\s\S]*#resonance-room,[\s\S]*#return-dock \{[\s\S]*scroll-margin-bottom: calc\(110px \+ env\(safe-area-inset-bottom\)\);/,
+    );
+  });
 });
 
 function createHarnessWorkspace(files: {
