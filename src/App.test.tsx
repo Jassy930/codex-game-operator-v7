@@ -445,15 +445,16 @@ describe("App", () => {
       "共鸣余辉：额外共鸣让新一轮从 50 星尘起步，可立即重建 3 台自动采集器",
     );
     expect(html).toContain(
-      "归航目标：深空归航 3/3，长期储备 6 次归航 / 5 点额外共鸣",
+      "归航目标：深空归航 3/3，深空信标储备 6 次归航 / 5 点额外共鸣",
     );
     expect(html).toContain(
-      "本段进度：航线 3/3 已贯通 · 长期储备：6 次归航 / 5 点额外共鸣",
+      "本段进度：航线 3/3 已贯通 · 深空信标储备：6 次归航 / 5 点额外共鸣",
     );
     expect(html).toContain(
-      "航线摘要：3/3 深空归航；长期储备：6 次归航 / 5 点额外共鸣，后续归航继续累积",
+      "航线摘要：3/3 深空归航；深空信标储备：6 次归航 / 5 点额外共鸣，继续归航会点亮信标",
     );
-    expect(html).toContain("下一步：继续归航，把额外共鸣留作后续版本储备");
+    expect(html).toContain("下一步：继续归航，把额外共鸣沉淀为深空信标储备");
+    expect(html).not.toContain("后续版本");
   });
 
   it("shows the active return route inside the resonance matrix", () => {

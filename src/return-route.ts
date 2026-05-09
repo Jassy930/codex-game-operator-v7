@@ -38,19 +38,19 @@ export function getReturnRouteReadback(
 
     return {
       current: "深空归航",
-      description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
+      description: "三段航线已贯通；后续归航会继续点亮深空信标储备。",
       stageGoal: formatCompletedRouteStageGoal(state),
       routeProgress: `本段进度：航线 ${TOTAL_RETURN_ROUTE_MILESTONES}/${TOTAL_RETURN_ROUTE_MILESTONES} 已贯通 · ${reserveSummary}`,
-      routeSummary: `航线摘要：3/3 深空归航；${reserveSummary}，后续归航继续累积`,
+      routeSummary: `航线摘要：3/3 深空归航；${reserveSummary}，继续归航会点亮信标`,
       currentPayoff:
-        `当前收益：三段航线已贯通，当前 ${parkedResonance} 点额外共鸣会作为后续版本储备`,
-      nextRequirement: "航线已贯通：继续归航，为后续版本储备共鸣",
-      progressSummary: "航线已贯通：后续归航都会成为长期储备",
-      actionHint: "下一步：继续归航，把额外共鸣留作后续版本储备",
-      cadenceForecast: "节奏预判：航线已贯通，后续归航进入长期储备",
+        `当前收益：三段航线已贯通，当前 ${parkedResonance} 点额外共鸣会沉淀为深空信标储备`,
+      nextRequirement: "航线已贯通：继续归航，点亮更多深空信标储备",
+      progressSummary: "航线已贯通：后续归航都会沉淀为深空信标储备",
+      actionHint: "下一步：继续归航，把额外共鸣沉淀为深空信标储备",
+      cadenceForecast: "节奏预判：航线已贯通，后续归航会继续点亮信标储备",
       routeMap:
-        "航线图：余辉起航 -> 稳航校准 -> 深空归航已贯通；后续归航进入长期储备",
-      nextPreview: "航线已贯通：没有下一段，继续储备后续版本",
+        "航线图：余辉起航 -> 稳航校准 -> 深空归航已贯通；后续归航点亮深空信标储备",
+      nextPreview: "航线已贯通：继续积累深空信标储备，等待下一条航线",
       completedMilestones: 3,
       totalMilestones: TOTAL_RETURN_ROUTE_MILESTONES,
     };
@@ -143,7 +143,7 @@ export function getReturnRouteReadback(
 }
 
 function formatCompletedRouteReserve(state: GameState): string {
-  return `长期储备：${state.returnCount} 次归航 / ${Math.max(
+  return `深空信标储备：${state.returnCount} 次归航 / ${Math.max(
     0,
     state.resonance,
   )} 点额外共鸣`;
