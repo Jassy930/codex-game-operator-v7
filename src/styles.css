@@ -89,6 +89,10 @@ button {
   background: rgba(9, 24, 42, 0.84);
 }
 
+.hud-panel[hidden] {
+  display: none;
+}
+
 .hud-panel-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

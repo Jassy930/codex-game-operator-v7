@@ -480,6 +480,11 @@ describe("visual assets", () => {
       /@media \(max-width: 560px\)[\s\S]*\.upgrade-card \{[\s\S]*grid-template-columns: 1fr;/,
     );
   });
+
+  it("keeps collapsed HUD panels hidden when component display styles apply", () => {
+    expect(styles).toContain(".hud-panel[hidden]");
+    expect(styles).toMatch(/\.hud-panel\[hidden\]\s*\{[\s\S]*display: none;/);
+  });
 });
 
 function createHarnessWorkspace(files: {
