@@ -821,6 +821,18 @@ dd {
   background: linear-gradient(180deg, #73fff0, #19b3a4);
 }
 
+.future-systems-card {
+  border-color: rgba(174, 187, 208, 0.2);
+  background: rgba(9, 24, 42, 0.62);
+}
+
+.future-systems-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
 .bottom-nav {
   display: none;
 }

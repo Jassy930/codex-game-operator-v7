@@ -74,6 +74,14 @@ describe("App", () => {
     expect(html).toContain("重置本地存档");
   });
 
+  it("explains locked future systems without adding gameplay", () => {
+    const html = renderToStaticMarkup(<App />);
+
+    expect(html).toContain("研究所仍在锁定");
+    expect(html).toContain("日志仍在锁定");
+    expect(html).toContain("不改变当前玩法");
+  });
+
   it("renders the first playable screen with action and upgrade controls", () => {
     const html = renderToStaticMarkup(<App />);
 

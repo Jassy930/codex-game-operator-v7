@@ -878,6 +878,16 @@ export function App() {
                 : "归航条件未完成"}
             </button>
           </section>
+
+          <section className="future-systems-card panel-card">
+            <div className="section-heading">
+              <h2>未来系统</h2>
+              <span>锁定</span>
+            </div>
+            <p>研究所仍在锁定：当前版本先保证采集、调校、共鸣和归航主循环清楚。</p>
+            <p>日志仍在锁定：事件记录只保留本次 session 的轻量反馈。</p>
+            <p>这些入口只说明后续方向，不改变当前玩法。</p>
+          </section>
         </aside>
       </main>
 
