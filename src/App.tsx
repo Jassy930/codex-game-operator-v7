@@ -65,6 +65,7 @@ export function App() {
   const showOfflineDust = shouldShowOfflineDust(offlineDust);
   const [collectMessage, setCollectMessage] = useState("");
   const [purchaseMessage, setPurchaseMessage] = useState("");
+  const [openPanel, setOpenPanel] = useState<"stats" | null>(null);
   const collectMessageTimer = useRef<number | null>(null);
   const purchaseMessageTimer = useRef<number | null>(null);
 
@@ -364,7 +365,15 @@ export function App() {
           <span className="hud-pill">第 {state.returnCount} 次归航</span>
         </div>
         <div className="hud-actions" aria-label="功能入口">
-          <button type="button" className="icon-button">
+          <button
+            aria-expanded={openPanel === "stats"}
+            aria-controls="stats-panel"
+            type="button"
+            className="icon-button"
+            onClick={() =>
+              setOpenPanel((current) => (current === "stats" ? null : "stats"))
+            }
+          >
             统计
           </button>
           <a
@@ -383,6 +392,26 @@ export function App() {
             菜单
           </button>
         </div>
+        {openPanel === "stats" ? (
+          <section
+            className="hud-panel"
+            id="stats-panel"
+            aria-label="统计面板"
+          >
+            <div className="section-heading">
+              <h2>统计面板</h2>
+              <span>本地状态</span>
+            </div>
+            <dl className="hud-panel-grid">
+              {formatStatsPanelRows(state).map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : null}
       </header>
 
       <main className="game-layout" aria-labelledby="game-title">
@@ -927,6 +956,15 @@ function formatNumber(value: number): string {
   return value.toLocaleString("zh-CN", {
     maximumFractionDigits: 1,
   });
+}
+
+export function formatStatsPanelRows(state: GameState): Array<[string, string]> {
+  return [
+    ["每秒产出", `+${formatNumber(state.dustPerSecond)}`],
+    ["自动采集器", `${state.autoCollectors} 台`],
+    ["共鸣", formatNumber(state.resonance)],
+    ["归航次数", formatNumber(state.returnCount)],
+  ];
 }
 
 function formatShortfall(current: number, cost: number): string {

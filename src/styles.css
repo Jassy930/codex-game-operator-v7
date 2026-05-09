@@ -79,6 +79,34 @@ button {
   backdrop-filter: blur(16px);
 }
 
+.hud-panel {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255, 200, 90, 0.22);
+  border-radius: 8px;
+  background: rgba(9, 24, 42, 0.84);
+}
+
+.hud-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hud-panel-grid div {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 200, 90, 0.12);
+  border-radius: 8px;
+  background: rgba(4, 13, 25, 0.48);
+}
+
+.hud-panel-grid dd {
+  font-size: 1.25rem;
+}
+
 .brand-lockup,
 .hud-status,
 .hud-actions,
@@ -765,6 +793,10 @@ dd {
     display: none;
   }
 
+  .hud-panel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .game-layout {
     display: block;
     padding: 12px;
@@ -869,6 +901,10 @@ dd {
 
   .hud-actions {
     display: none;
+  }
+
+  .hud-panel-grid {
+    grid-template-columns: 1fr;
   }
 
   .resource-number {

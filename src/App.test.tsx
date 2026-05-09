@@ -8,6 +8,7 @@ import {
   formatWorkshopStageNextRequirement,
   formatPurchaseFeedbackMessage,
   formatGoalHint,
+  formatStatsPanelRows,
   getNextUpgradeTarget,
   shouldShowOfflineDust,
 } from "./App";
@@ -41,6 +42,23 @@ describe("App", () => {
     expect(html).toContain('aria-disabled="true"');
     expect(html).toContain("研究所锁定");
     expect(html).toContain("日志锁定");
+  });
+
+  it("formats dashboard stats rows from current game state", () => {
+    expect(
+      formatStatsPanelRows({
+        ...createGameState(0),
+        autoCollectors: 3,
+        dustPerSecond: 0.6,
+        returnCount: 1,
+        resonance: 2,
+      }),
+    ).toEqual([
+      ["每秒产出", "+0.6"],
+      ["自动采集器", "3 台"],
+      ["共鸣", "2"],
+      ["归航次数", "1"],
+    ]);
   });
 
   it("renders the first playable screen with action and upgrade controls", () => {
