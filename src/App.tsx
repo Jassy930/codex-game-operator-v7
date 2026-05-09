@@ -316,7 +316,7 @@ export function App() {
     setState((current) => {
       const next = performStardustReturn(current);
       if (next !== current) {
-        showPurchaseMessage(formatStardustReturnCompletionMessage(next));
+        showPurchaseMessage(formatStardustReturnCompletionMessage(next, current));
       }
 
       return next;
@@ -1006,10 +1006,25 @@ function formatStardustReturnProgressMessage(
   return `${prefix}：自动采集器 ${autoCollectors}/25，调校 ${tuning}/15`;
 }
 
-export function formatStardustReturnCompletionMessage(state: GameState): string {
+export function formatStardustReturnCompletionMessage(
+  state: GameState,
+  previousState: GameState | null = null,
+): string {
   const returnRouteReadback = getReturnRouteReadback(state);
 
   if (returnRouteReadback) {
+    const previousRouteReadback = previousState
+      ? getReturnRouteReadback(previousState)
+      : null;
+
+    if (
+      previousRouteReadback &&
+      returnRouteReadback.completedMilestones >
+        previousRouteReadback.completedMilestones
+    ) {
+      return `星尘归航完成：获得 1 共鸣；归航航线推进：进入${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.currentPayoff}`;
+    }
+
     return `星尘归航完成：获得 1 共鸣；归航航线更新：${returnRouteReadback.current} ${returnRouteReadback.completedMilestones}/${returnRouteReadback.totalMilestones} · ${returnRouteReadback.routeProgress} · ${returnRouteReadback.actionHint}`;
   }
 

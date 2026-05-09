@@ -580,6 +580,25 @@ describe("App", () => {
     );
   });
 
+  it("highlights a new route segment when a stardust return crosses the route threshold", () => {
+    const previousState = {
+      ...createGameState(0),
+      resonance: 1,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 2,
+    };
+    const nextState = {
+      ...previousState,
+      resonance: 2,
+      returnCount: 3,
+    };
+
+    expect(formatStardustReturnCompletionMessage(nextState, previousState)).toBe(
+      "星尘归航完成：获得 1 共鸣；归航航线推进：进入稳航校准 2/3 · 当前收益：余辉开局已稳定，下轮起步可立即重建 1 台自动采集器",
+    );
+  });
+
   it("points the full-node state at repeat stardust returns", () => {
     const html = renderAppWithSave({
       ...createGameState(Date.now()),
