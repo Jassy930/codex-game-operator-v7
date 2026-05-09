@@ -32,7 +32,7 @@ Appetite：3 个展示层小切片。
 
 ## Cycle Status
 
-in_progress
+completed
 
 ## Reason
 
@@ -69,6 +69,8 @@ in_progress
 本轮只调整 UI 状态、样式和展示文案，不改变存档、资源、节点、归航奖励、余辉公式、采集、升级、共鸣或离线收益语义。
 
 ## Last Updated
+
+2026-05-09: 完成 UI dashboard follow-up 第一批任务：写入 1440px / 1024px / 375px 视口复核清单；导航补 `aria-current`、`aria-disabled` 和锁定短文案；顶部 `统计` 按钮接入只读当前 `GameState` 的本地统计面板。验证通过 `bun run test`、`bun run build`、`git diff --check`；`governor-check` 在状态收口后复跑。
 
 2026-05-09: 开始执行 UI dashboard follow-up 第一批任务：先补视口复核清单，再用 TDD 增加导航状态和顶部统计面板。仍不改变 `GameState`、存档、核心玩法函数、资源、节点或 telemetry。
 
