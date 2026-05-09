@@ -155,6 +155,7 @@ export function App() {
     state.autoCollectors,
     state.autoCollectorEfficiencyLevel,
   );
+  const currentGoal = formatCurrentGoal(goalHint);
   const feedbackUrl = useMemo(() => createFeedbackIssueUrl(), []);
   const effectiveEfficiencyMultiplier =
     getEffectiveAutoCollectorEfficiencyMultiplier(state);
@@ -539,7 +540,6 @@ export function App() {
                   <h2>建造自动采集器</h2>
                   <span>Lv.{state.autoCollectors}</span>
                 </div>
-                <p>自动采集星尘，持续为工坊提供资源。</p>
                 <dl>
                   <div>
                     <dt>当前拥有</dt>
@@ -570,7 +570,6 @@ export function App() {
                   <h2>调校工坊频率</h2>
                   <span>Lv.{state.autoCollectorEfficiencyLevel}</span>
                 </div>
-                <p>提升工坊整体效率，放大所有产出。</p>
                 <dl>
                   <div>
                     <dt>当前倍率</dt>
@@ -739,13 +738,10 @@ export function App() {
         <aside className="side-column">
           <section className="goal-card panel-card">
             <div className="section-heading">
-              <h2>下一项工程</h2>
+              <h2>当前目标</h2>
               <strong>{nextUpgradeTarget.progressPercent}%</strong>
             </div>
-            <p className="upgrade-target">
-              下一升级：{nextUpgradeTarget.label} · 需要{" "}
-              {formatNumber(nextUpgradeTarget.cost)} 星尘
-            </p>
+            <p className="goal-hint primary-goal">{currentGoal}</p>
             <div className="progress-track" aria-hidden="true">
               <div style={{ width: `${nextUpgradeTarget.progressPercent}%` }} />
             </div>
@@ -755,10 +751,11 @@ export function App() {
                   ? `还差 ${formatNumber(nextUpgradeShortfall)} 星尘`
                   : "资源已就绪"}
               </span>
-              <span>目标价格 {formatNumber(nextUpgradeTarget.cost)} 星尘</span>
             </div>
-            <p className="goal-hint">{goalHint}</p>
-            <p className="stage-next">{stageNextRequirement}</p>
+            <p className="upgrade-target">
+              下一升级：{nextUpgradeTarget.label} · 需要{" "}
+              {formatNumber(nextUpgradeTarget.cost)} 星尘
+            </p>
           </section>
 
           <section className="workshop-status-card panel-card">
@@ -782,9 +779,7 @@ export function App() {
                 </dd>
               </div>
             </dl>
-            <p className="stage-hint">
-              工坊阶段：{workshopStage.name} · {workshopStage.description}
-            </p>
+            <p className="stage-next">{stageNextRequirement}</p>
             <div className="progress-track compact-track" aria-hidden="true">
               <div style={{ width: `${milestoneProgressPercent}%` }} />
             </div>
@@ -877,15 +872,6 @@ export function App() {
             </button>
           </section>
 
-          <section className="future-systems-card panel-card">
-            <div className="section-heading">
-              <h2>未来系统</h2>
-              <span>锁定</span>
-            </div>
-            <p>研究所仍在锁定：当前版本先保证采集、调校、共鸣和归航主循环清楚。</p>
-            <p>日志仍在锁定：事件记录只保留本次 session 的轻量反馈。</p>
-            <p>这些入口只说明后续方向，不改变当前玩法。</p>
-          </section>
         </aside>
       </main>
 
@@ -1138,6 +1124,10 @@ export function formatGoalHint(
   }
 
   return "目标：扩建或调校，让每秒星尘继续提高";
+}
+
+function formatCurrentGoal(goalHint: string): string {
+  return goalHint.replace(/^目标：/, "");
 }
 
 export function shouldShowOfflineDust(offlineDust: number): boolean {

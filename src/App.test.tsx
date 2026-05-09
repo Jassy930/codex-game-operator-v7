@@ -27,7 +27,7 @@ describe("App", () => {
     expect(html).toContain('class="side-column"');
     expect(html).toContain('class="bottom-nav"');
     expect(html).toContain("星尘核心");
-    expect(html).toContain("下一项工程");
+    expect(html).toContain("当前目标");
     expect(html).toContain("建造自动采集器");
     expect(html).toContain("调校工坊频率");
     expect(html).toContain("工坊状态");
@@ -75,12 +75,13 @@ describe("App", () => {
     expect(html).toContain("重置本地存档");
   });
 
-  it("explains locked future systems without adding gameplay", () => {
+  it("keeps future systems locked without adding home-page exposition", () => {
     const html = renderToStaticMarkup(<App />);
 
-    expect(html).toContain("研究所仍在锁定");
-    expect(html).toContain("日志仍在锁定");
-    expect(html).toContain("不改变当前玩法");
+    expect(html).toContain("研究所锁定");
+    expect(html).toContain("日志锁定");
+    expect(html).not.toContain("未来系统");
+    expect(html).not.toContain("这些入口只说明后续方向");
   });
 
   it("renders the first playable screen with action and upgrade controls", () => {
@@ -96,16 +97,28 @@ describe("App", () => {
     expect(html).toContain("调校工具");
     expect(html).toContain('alt="调校工具"');
     expect(html).toContain("需要先购买自动采集器");
-    expect(html).toContain("下一项工程");
+    expect(html).toContain("当前目标");
     expect(html).toContain("下一升级：自动采集器 · 需要 10 星尘");
-    expect(html).toContain("目标：攒够星尘，购买第一个自动采集器");
-    expect(html).toContain("工坊阶段：火花工作台");
+    expect(html).toContain("攒够星尘，购买第一个自动采集器");
+    expect(html).toContain("阶段：火花工作台");
     expect(html).toContain("下一阶段：自动采集器 0/3，开启星尘小间");
     expect(html).toContain("里程碑：0 / 2 台自动采集器");
     expect(html).toContain("event-stack");
     expect(html).toContain("反馈");
     expect(html).toContain("共鸣矩阵");
     expect(html).toContain("未解锁");
+  });
+
+  it("keeps the home screen focused on one clear current goal", () => {
+    const html = renderToStaticMarkup(<App />);
+
+    expect(html).toContain("当前目标");
+    expect(html).toContain("购买第一个自动采集器");
+    expect(html).toContain("还差 10 星尘");
+    expect(html).not.toContain("未来系统");
+    expect(html).not.toContain("研究所仍在锁定");
+    expect(html).not.toContain("自动采集星尘，持续为工坊提供资源。");
+    expect(html).not.toContain("提升工坊整体效率，放大所有产出。");
   });
 
   it("updates the goal hint after the first auto collector is purchased", () => {
@@ -130,10 +143,10 @@ describe("App", () => {
     try {
       const html = renderToStaticMarkup(<App />);
 
-      expect(html).toContain("目标：继续攒星尘，购买下一台自动采集器");
+      expect(html).toContain("继续攒星尘，购买下一台自动采集器");
       expect(html).toContain("自动采集效率 +10%");
       expect(html).toContain("需要 25 星尘");
-      expect(html).not.toContain("目标：攒够星尘，购买第一个自动采集器");
+      expect(html).not.toContain("攒够星尘，购买第一个自动采集器");
     } finally {
       Object.defineProperty(globalThis, "window", {
         configurable: true,
@@ -167,13 +180,13 @@ describe("App", () => {
     try {
       const html = renderToStaticMarkup(<App />);
 
-      expect(html).toContain("目标：扩建或调校，让每秒星尘继续提高");
-      expect(html).toContain("工坊阶段：星尘小间");
+      expect(html).toContain("扩建或调校，让每秒星尘继续提高");
+      expect(html).toContain("阶段：星尘小间");
       expect(html).toContain("下一阶段：调校 1/2，进入稳定工坊");
       expect(html).toContain("下一升级：自动采集器 · 需要 34 星尘");
       expect(html).toContain("调校倍率");
       expect(html).toContain("1.1x");
-      expect(html).not.toContain("目标：继续攒星尘，购买下一台自动采集器");
+      expect(html).not.toContain("继续攒星尘，购买下一台自动采集器");
       expect(html).not.toContain("点击收益");
     } finally {
       Object.defineProperty(globalThis, "window", {
@@ -449,7 +462,7 @@ describe("App", () => {
       returnCount: 1,
     });
 
-    expect(html).toContain("工坊阶段：火花工作台");
+    expect(html).toContain("阶段：火花工作台");
     expect(html).toContain("共鸣矩阵");
     expect(html).toContain("可用共鸣：1");
     expect(html).toContain("选择第 2 个永久节点，最多启动 2 个");
@@ -465,7 +478,7 @@ describe("App", () => {
       returnCount: 2,
     });
 
-    expect(html).toContain("工坊阶段：火花工作台");
+    expect(html).toContain("阶段：火花工作台");
     expect(html).toContain("共鸣矩阵");
     expect(html).toContain("可用共鸣：1");
     expect(html).toContain(
