@@ -146,10 +146,12 @@ describe("return route readback", () => {
     expect(getReturnRouteReadback(state)).toEqual({
       current: "深空归航",
       description: "三段航线已贯通；后续归航继续沉淀为未来版本的长期方向。",
-      routeProgress: "本段进度：航线 3/3 已贯通",
-      routeSummary: "航线摘要：3/3 深空归航；航线已贯通，后续归航都会成为长期储备",
+      routeProgress:
+        "本段进度：航线 3/3 已贯通 · 长期储备：6 次归航 / 5 点额外共鸣",
+      routeSummary:
+        "航线摘要：3/3 深空归航；长期储备：6 次归航 / 5 点额外共鸣，后续归航继续累积",
       currentPayoff:
-        "当前收益：三段航线已贯通，额外共鸣会作为后续版本储备",
+        "当前收益：三段航线已贯通，当前 5 点额外共鸣会作为后续版本储备",
       nextRequirement: "航线已贯通：继续归航，为后续版本储备共鸣",
       progressSummary: "航线已贯通：后续归航都会成为长期储备",
       actionHint: "下一步：继续归航，把额外共鸣留作后续版本储备",

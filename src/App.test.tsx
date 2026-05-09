@@ -447,6 +447,12 @@ describe("App", () => {
     expect(html).toContain(
       "归航目标：航线 3/3 深空归航，继续归航，为后续版本储备共鸣",
     );
+    expect(html).toContain(
+      "本段进度：航线 3/3 已贯通 · 长期储备：6 次归航 / 5 点额外共鸣",
+    );
+    expect(html).toContain(
+      "航线摘要：3/3 深空归航；长期储备：6 次归航 / 5 点额外共鸣，后续归航继续累积",
+    );
     expect(html).toContain("下一步：继续归航，把额外共鸣留作后续版本储备");
   });
 
