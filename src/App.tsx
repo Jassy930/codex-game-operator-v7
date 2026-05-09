@@ -870,6 +870,17 @@ export function App() {
                 共鸣余辉：新一轮从 {formatNumber(returnAfterglowDust)} 星尘起步
               </p>
             ) : null}
+            {returnRouteReadback ? (
+              <div className="return-dock-route" aria-label="归航台航线提示">
+                <strong>
+                  归航航线：{returnRouteReadback.current}{" "}
+                  {returnRouteReadback.completedMilestones}/
+                  {returnRouteReadback.totalMilestones}
+                </strong>
+                <p>{returnRouteReadback.routeProgress}</p>
+                <p>{returnRouteReadback.actionHint}</p>
+              </div>
+            ) : null}
             <button
               className="return-action"
               disabled={!canReturn || canChooseResonanceNode}

@@ -866,6 +866,28 @@ dd {
   background: linear-gradient(135deg, rgba(14, 72, 70, 0.82), rgba(9, 24, 42, 0.88));
 }
 
+.return-dock-route {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid rgba(63, 214, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(63, 214, 255, 0.1);
+}
+
+.return-dock-route strong {
+  color: var(--text-main);
+  font-size: 0.98rem;
+  line-height: 1.25;
+}
+
+.return-dock-route p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.38;
+}
+
 .return-action {
   color: #06211e;
   background: linear-gradient(180deg, #73fff0, #19b3a4);

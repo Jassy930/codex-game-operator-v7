@@ -583,6 +583,24 @@ describe("App", () => {
     );
   });
 
+  it("keeps the active return route visible at the return dock", () => {
+    const html = renderAppWithSave({
+      ...createGameState(Date.now()),
+      dust: 20,
+      resonance: 2,
+      earnedResonanceMilestones: ["first-resonance"],
+      unlockedResonanceNodes: ["stable-circuit", "return-coil"],
+      returnCount: 3,
+    });
+
+    expect(html).toContain('class="return-dock-route"');
+    expect(html).toContain("归航航线：稳航校准 2/3");
+    expect(html).toContain("本段进度：归航 3/6 · 额外共鸣 2/4");
+    expect(html).toContain(
+      "下一步：继续重建工坊并执行 3 次星尘归航，同时保留 2 点额外共鸣",
+    );
+  });
+
   it("adds the current route segment and action hint to the stardust return completion event", () => {
     expect(
       formatStardustReturnCompletionMessage({
